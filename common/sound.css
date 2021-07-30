@@ -1,0 +1,78 @@
+page{
+		background-color: rgba(0,0,0,0.8);
+	}
+	.sound-border{
+		width: 80%;
+		height: 1040rpx;
+		margin: 80rpx auto;
+		position: relative;
+	}
+	.sound-bg{
+		width: 100%;
+		height: 1040rpx;
+		margin: auto;
+		border-radius: 10px;
+	}
+	.sound-head{
+		width: 100rpx;
+		height: 100rpx;
+		border-radius: 50%;
+		position: absolute;
+		top: 20rpx;
+		left: 20rpx;
+	}
+	.sound-name{
+		color: #D3A97A;
+		position: absolute;
+		top: 60rpx;
+		left: 150rpx;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	.sound-cd{
+		width: 300rpx;
+		height: 300rpx;
+		position: absolute;
+		top: 260rpx;
+		left: 150rpx;
+	}
+	.sound-san{
+		width: 100rpx;
+		height: 100rpx;
+		position: absolute;
+		top: 410rpx;
+		left: 251rpx;
+	}
+	.sound-on{
+		width: 150rpx;
+		height:120rpx;
+		position: absolute;
+		top: 150rpx;
+		left: 280rpx;
+	}
+	.slider{
+		width: 500rpx;
+		position: absolute;
+		top: 580rpx;
+		left: 60rpx;
+	}
+	.line{
+		width: 380rpx; 
+		height: 50rpx;
+		line-height: 50rpx;
+		background-color: #1D1D1D;
+		font-size: 12px;
+		position: absolute;
+		top: 660rpx;
+		left: 5rpx;
+		color: #BD9365;
+		padding-left: 30rpx;
+		border-radius: 0 15px 15px 0;
+	}
+	.chai{
+		font-size: 41px;
+		color: #fff;
+		position: absolute;
+		top: 800rpx;
+		left: 258rpx;
+	}
