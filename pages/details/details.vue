@@ -9,23 +9,24 @@
 					<view class="details-hidden-img">
 						<!-- 选规格里的图片 -->
 						<img class="img" :src="$utils.imageUrl(head_img)">
-						<view class="guige-name">{{alt.goodsname.substr(0,10)}}...
+					</view>
+					<view class="guige-top-right">
+						<view class="flex" style="align-items: center;">
+							<view class="guige-name">{{alt.goodsname.substr(0,10)}}...</view>
+							<view class="guige-price-right">
+								<view class="details-hidden-price" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
+								<view class="details-hidden-price" v-else-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
+								<view class="details-hidden-number"></view>
+							</view>
 						</view>
-						<view class="details-hidden-number">已选择:
-							<text v-for="(item,index) of guige" :key="index">
-								{{item}}
-							</text>
-							
-						</view>
-						<view class="details-hidden-right">
-							<view class="details-hidden-price" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
-							<view class="details-hidden-price" v-else-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
-							<view class="details-hidden-number"></view>
+						
+						<view class="details-hidden-number">已选择：
+							<text v-for="(item,index) of guige" :key="index">{{item}}</text>
 						</view>
 					</view>
 				</view>
 				<view class="details-hidden-content">
-					<scroll-view scroll-y="true" style="height: 240px;width:690rpx;white-space: normal;">
+					<scroll-view scroll-y="true" style="max-height: 240px;white-space: normal;">
 						<view v-for="(item,index) in choose" :key="index"  v-if="text>1">
 							<view class="details-hidden-title">{{item.spec_name}}</view>
 							
@@ -48,43 +49,42 @@
 					</scroll-view>
 					
 					<!-- 规格里购买数量 -->
-					<view class="buy">
-						<text class="buy-num">购买数量:</text>
-						<view class="reduce" @click="reduce(checknum,-1,index)">
-							-
-						</view>
-						<view class="cart-count">
-							{{checknum}}
-						</view>
-						<view class="add" @click="reduce(checknum,1,index)">
-							+
+					<view class="buy flex">
+						<text class="buy-num">购买数量：</text>
+						<view class="flex-1">
+							<view class="reduce" @click="reduce(checknum,-1,index)"><text class="icon icon-desc-circle"></text></view>
+							<view class="cart-count">{{checknum}}</view>
+							<view class="add" @click="reduce(checknum,1,index)"><text class="icon icon-add-circle"></text></view>
 						</view>
 					</view>
-				</view>
+				</view>				
 				<!-- <view style="text-align: center;color: #c3c3c3;position: absolute;width: 100%;bottom: 100rpx;">
 					(确定立即添加至购物车)
 				</view> -->
 				<!-- 直接购买规格确定 -->
-				<view class="" v-if="btns==1">
-					<view class="details-hidden-determine"  @click="determine1">确定</view>
+				<view class="details-hidden-determine" v-if="btns==1">
+					<view @click="determine1">确定</view>
 				</view>
 				<!-- 直接赠送规格确定 -->
-				<view class="" v-if="btns==2">
-					<view class="details-hidden-determine"  @click="determine2">确定</view>
+				<view class="details-hidden-determine" v-if="btns==2">
+					<view  @click="determine2">确定</view>
 				</view>
 				<!-- 礼篮规格确定 -->
-				<view class="" v-if="btns==3">
-					<view class="details-hidden-determine"  @click="determine3">确定</view>
+				
+				<view class="details-hidden-determine" v-if="btns==3">
+					<view  @click="determine3">确定</view>
 				</view>
+				
 				<!-- 关闭 -->
-				<image src="../../static/details-close.png" class="details-hidden-close" mode="" @click="close"></image>
+				<!-- <image src="../../static/details-close.png" class="details-hidden-close" mode="" @click="close"></image> -->
 			</view>
+			<view class="shade" @click="close"></view>
 		</view>
 
 		<!-- 轮播图 -->
 
 		<swiper v-if="details.length>0" class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true"
-			:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#FF9999">
+			:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#EC1815">
 			<swiper-item v-for="(item,index) in details" :key="index">
 				<view class="details-swiper-img">
 					<image :src="$utils.imageUrl(item)" class="img" mode=""></image>
@@ -106,43 +106,23 @@
 				<!-- 商品介绍 -->
 				<view class="details-alt-text">{{alt.goodsname}}</view>
 				<text class="details-alt-xq">{{alt.goodstitle}}</text>
-				<!-- 礼篮 -->
-				<button class="details-alt-logo lilan" style="margin: 0;padding: 0;" @click="lilan">
-					<image class="img" :src="$utils.osspath_url('/xcx-static/details/add.png')" mode=""></image>
-				</button>
-				<!-- 求礼物 -->
-				<view class="details-alt-logo gifts" style="margin: 0;padding: 0;" open-type="share">
-					<image @click="gotoShare" class="img" :src="$utils.osspath_url('/xcx-static/details/qiugift.png')"
-						mode=""></image>
-					<uni-popup ref="popup" backgroundColor="#fff" type="bottom">
-						<view class="qiu">
-							<text class="wx">发送给微信好友</text>
-							<text class="wx">保存图片发朋友圈</text>
-							<text class="wx close1" @click="close1">取消</text>
-						</view>
-					</uni-popup>
-				</view>
-
-
 			</view>
 
 			<!-- 价格 -->
 			<view class="details-alt-left">
 				<view class="details-alt-btm flex">
 					<view class="details-alt-btm-price" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
-
 					<view class="details-alt-btm-price" v-else-if="level_name=='企业会员'">
-						¥{{alt.price_level3}}
-					<image class="details-alt-xq biao" :src="$utils.osspath_url('/xcx-static/details/biao.png')" mode="">
-					</image>
-					<view class="details-alt-btm-discount  details-alt-line" >¥{{alt.price}}</view>
+						<text>¥{{alt.price_level3}}</text>
+						<image class="qi" src="../../static/qi.png" mode="widthFix"></image>
+						<text class="details-alt-btm-discount  details-alt-line" >¥{{alt.price}}</text>
 					</view>
                    
 				</view>
 			</view>
 		</view>
 		<!-- 优惠券 -->
-		<view class="details-tips flex-vertically" v-if="couponList.length>0">
+		<view class="details-tips" v-if="couponList.length>0">
 			<view class="details-blessing-alt">领劵送礼更优惠<view class="details-blessing-circular"></view>
 			</view>
 			<view class="coupon-button" style="position: absolute;right: 0;">
@@ -150,7 +130,7 @@
 			</view>
 		</view>
 		<!-- 祝福语 -->
-		<view class="details-blessing flex-between flex-vertically">
+		<view class="details-blessing">
 			<text class="details-ch">已选</text>
 			<view class="details-ch-xq chec" v-for="(item,index) of guige" :key="index">
 				{{item}}
@@ -172,7 +152,34 @@
 		<!-- 商品详情 -->
 		<u-parse :content="btmdetails" v-if="btm"></u-parse>
 		<!-- 赠礼须知 -->
-		<u-parse :content="btmnotice" v-else></u-parse>
+		<view v-else style="background: #fff; padding-top: 30rpx">
+			<!-- <u-parse :content="btmnotice" style="background: #fff;"></u-parse> -->
+			<view class="z-zlxz">
+				<view class='z-zlxz-title'>
+					<text class="icon-hg"></text>
+					<text class='text'>退换以及售后</text>
+				</view>
+				<view style="padding: 0 24rpx 0 44rpx; margin-bottom: 50rpx;">
+					<view class="z-zlxz-second">购买人</view>
+					<view class="z-zlxz-p">1.购买完成后24小时未赠送，或赠送后24小时未被领取的礼物，将发起自动退款，订单支付金额原路退回；</view>
+					<view class="z-zlxz-p">2.已被领取的礼物不支持退款。</view>
+				</view>
+				<view style="padding: 0 24rpx 0 44rpx; margin-bottom: 50rpx;">
+					<view class="z-zlxz-second">领取人</view>
+					<view class="z-zlxz-p">领取人兑换的实物商品订单，无法直接操作退款，如遇商品质量问题可以进行售后/退换。</view>
+				</view>
+				
+				<view class='z-zlxz-title'>
+					<text class="icon-hg"></text>
+					<text class='text'>服务承诺</text>
+				</view>
+				<view style="padding: 0 24rpx 0 44rpx; margin-bottom: 50rpx;">
+					<view class="z-zlxz-p">1.商品因质量/漏发/错发等原因需要售后的，需要在到货时间起48小时内（生鲜易腐产品应在到货12小时内）与客服联系，进行售后处理。</view>
+					<view class="z-zlxz-p">2.指间礼物承诺：凡在指间礼物平台购买的商品均按照《中华人民共和国产品质量法》、《中华人民共和国消费者权益保护法》等法律法规执行相应的售后政策。</view>
+				</view>
+			</view>
+		</view>
+		
 
 		<view class="details-bottom-kong"></view>
 
@@ -184,32 +191,50 @@
 			<view class="details-icon flex-vertically">
 				<view class="details-icon-content flex-between ">
 					<!-- 底部客服礼篮内容 -->
-					<view class="details-icon-flex" >
-						<view class="" @click="bottom_btn">
+					<view >
+						<view class="online_service">
+							<image src="../../static/online_service.png" class="tab1" mode=""></image>
+							<view class="flex-between-text online">在线客服</view>
+						</view>
+						
+						<view class="bottom-lilan" @click="bottom_btn">
 							<view class="flex-between-img">
-								<image src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/hamper_icon.png" class="tab" mode="widthFix"></image>
+								<image src="../../static/hamper_icon.png" class="tab" mode="widthFix"></image>
 							</view>
 							<view class="flex-between-text">礼篮</view>
 							<text class="num_all">{{num_all}}</text>
-						</view>
-						
-						<view class="online_service">
-							<image src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/online_service.png" class="tab1" mode=""></image>
-							<view class="flex-between-text online">在线客服</view>
 						</view>
 						<button open-type="contact"></button>
 					</view>
 				</view>
 			</view>
 
-			<view class="details-join" open-type="buy" @click="list_speci">直接购买</view>
-			<view class="details-give" open-type="song" @click="goshop">立即赠送</view>
+			<view style="text-align: right;width: 50%;flex: 1;">
+				<view class="details-join" open-type="buy" @click="list_speci">直接购买</view>
+				<view class="details-give" open-type="song" @click="goshop">立即赠送</view>
+			</view>
+		</view>
+		
+		<view class="slider">
+			<!-- 礼篮 -->
+			<view class="details-alt-logo lilan" style="margin: 0;padding: 0;" @click="lilan">
+				<!-- <image class="img" :src="$utils.osspath_url('/xcx-static/details/add.png')" mode=""></image> -->
+				<image class="img" src="../../static/lilan.png" mode="widthFix"></image>
+			</view>
+			<!-- 求礼物 -->
+			<view class="details-alt-logo gifts" style="margin: 0;padding: 0;" open-type="share">
+				<!-- <image @click="gotoShare" class="img" :src="$utils.osspath_url('/xcx-static/details/qiugift.png')" -->
+				<image @click="gotoShare" class="img" src="../../static/liwu.png" mode="widthFix"></image>
+				<uni-popup ref="popup" backgroundColor="#fff" type="bottom">
+					<view class="qiu">
+						<text class="wx">发送给微信好友</text>
+						<text class="wx">保存图片发朋友圈</text>
+						<text class="wx close1" @click="close1">取消</text>
+					</view>
+				</uni-popup>
+			</view>
 		</view>
 	</view>
-
-
-
-
 </template>
 
 <script>
@@ -1038,19 +1063,63 @@
 </script>
 
 <style>
+	.details-alt-logo{
+		width: 120rpx;
+		height: auto;
+	}
+	.z-zlxz{
+		background-color: #fff;
+		padding: 26rpx;
+	}
+	.z-zlxz .z-zlxz-title{
+		margin-bottom: 40rpx;
+		margin-top: 60rpx;
+	}
+	.z-zlxz .z-zlxz-title .icon-hg{
+		color: #CDAD6C;
+		font-size: 34rpx;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.z-zlxz .z-zlxz-title .text{
+		color: #333;
+		font-size: 30rpx;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 10rpx;
+		font-weight: bold;
+	}
+	.z-zlxz-second{
+		color: #333;
+		font-size: 28rpx;
+		margin-bottom: 20rpx;
+		font-weight: 600;
+		font-size: 28rpx;
+	}
+	.z-zlxz-p{
+		font-size: 28rpx;
+		font-weight: 500;
+		color: #999999;
+		line-height: 1.5em;
+		margin-bottom: 30rpx;
+	}
+	
+	
 	.details-hidden-inline {
-		    width: 150rpx;
-		    height: 53rpx;
-		    text-align: center;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		overflow: hidden;
-		line-height: 53rpx;
-		padding: 5rpx 18rpx !important;
+		padding: 10rpx 30rpx !important;
 		border-radius: 50rpx;
 		background-color: #f5f5f5;
 		color: #696969;
+		border: none;
+		margin: 0 20rpx 20rpx 0;
+	}
+	.details-hidden-alt{
+		border: none;
+		padding-bottom: 0;
 	}
 
 	.details-hidden-alt .active {
@@ -1118,49 +1187,60 @@
 	}
 
 	.details-join {
-		width: 260rpx;
+		display: inline-block;
+		text-align: center;
+		width: 200rpx;
 		line-height: 40px;
 		border-radius: 50px;
 		background-color: #EFA13C;
 		margin-right: 20rpx;
-		margin-bottom: 10rpx;
+		/* margin-bottom: 10rpx; */
 	}
 
 	.details-give {
-		width: 260rpx;
+		display: inline-block;
+		text-align: center;
+		width: 200rpx;
 		line-height: 40px;
 		border-radius: 50px;
 		background-color: #EC1815;
-		margin-right: 25rpx;
-		margin-bottom: 10rpx;
+		/* margin-right: 25rpx; */
+		/* margin-bottom: 10rpx; */
 	}
 
 	.details-alt-title {
 		position: relative;
 	}
-
+	.slider{
+		position: fixed;
+		right: 20rpx;
+		top: 50%;
+	}
 	.lilan {
-		position: absolute;
+		/* position: absolute;
 		right: -20rpx;
-		top: -10rpx;
+		top: -10rpx; */
 	}
 
 	.gifts {
-		position: absolute;
+		/* position: absolute;
 		top: 141rpx;
-		right: -20rpx;
+		right: -20rpx; */
 	}
 
 	.details-alt-xq {
-		position: absolute;
-		top: 86rpx;
-		left: -5rpx;
+		/* position: absolute; */
+		/* top: 86rpx; */
+		/* left: -5rpx; */
 		color: #999999;
-		font-size: 13px;
+		font-size: 26rpx;
+		margin-top: 10rpx;
+		margin-bottom: 10rpx;
+		line-height: 1.5em;
 	}
 
 	.details-icon {
-		width: 140rpx;
+		/* width: 140rpx; */
 	}
 
 	.details-ch {
@@ -1173,17 +1253,25 @@
 	.details-ch-xq {
 		color: #666666;
 		margin-left: 30rpx;
-		font-size: 13px;
+		font-size: 26rpx;
 		font-family: "苹方 中等";
 	}
 
 	.details-alt-line {
-		position: absolute;
-		left: 255rpx;
-		top: 910rpx;
+		/* position: absolute; */
+		/* left: 255rpx; */
+		/* top: 910rpx; */
 		color: #999999;
-		font-size: 12px;
+		font-size: 24rpx;
+		vertical-align: middle; margin-left: 24rpx;
 		text-decoration: line-through;
+		display: inline-block;
+	}
+	.qi{
+		width: 40rpx;
+		margin-left: 6rpx;
+		display: inline-block;
+		vertical-align: middle;
 	}
 
 	.biao {
@@ -1204,8 +1292,8 @@
 		margin-top: -2rpx;
     }
 	.flex-between-text {
-		width: 100rpx;
-		margin-left: -28rpx;
+		/* width: 100rpx; */
+		/* margin-left: -28rpx; */
 		font-family: "苹方 中等";
 		font-size: 12px;
 		color: #333333;
@@ -1251,33 +1339,41 @@
 	}
 
 	.details-hidden-number {
-		width: 340rpx;
-		margin-top: -90rpx;
-		margin-left: 220rpx;
-		font-size: 13px;
+		/* width: 340rpx; */
+		/* margin-top: -90rpx; */
+		/* margin-left: 220rpx; */
+		font-size: 28rpx;
+		color: #999;
 	}
 
 	.buy {
-		width: 100%;
+		/* width: 100%; */
 		height: 90rpx;
 		line-height: 90rpx;
-		position: absolute;
-		top: 655rpx;
-		left: 40rpx;
+		/* position: absolute; */
+		/* top: 655rpx; */
+		/* left: 40rpx; */
+		align-items: center;
+	}
+	.buy-num{
+		font-size: 28rpx;
+		color: #333;
+		font-weight: normal;
+	}
+	.buy .flex-1{ 
+		width: 60%;
+		flex: 1;
+		text-align: right;
+	}
+	.buy .flex-1>view{
+		display: inline-block;
+		vertical-align: middle;
 	}
 
 	/* 底部商品规格的减号 */
 	.reduce {
-		width: 40rpx;
-		height: 40rpx;
-		line-height: 40rpx;
-		text-align: center;
-		border: 1px solid #8C8C8C;
-		border-radius: 50rpx;
 		color: #979797;
-		position: absolute;
-		top: 22rpx;
-		left: 426rpx;
+		font-size: 32rpx;
 	}
 
 	.cart-count {
@@ -1286,22 +1382,12 @@
 		line-height: 40rpx;
 		text-align: center;
 		background-color: #f5f5f5;
-		position: absolute;
-		top: 22rpx;
-		left: 480rpx;
+		margin: 0 10rpx;
 	}
 
 	.add {
-		width: 40rpx;
-		height: 40rpx;
-		line-height: 40rpx;
-		text-align: center;
-		border: 1px solid #8C8C8C;
-		border-radius: 50rpx;
 		color: #979797;
-		position: absolute;
-		top: 22rpx;
-		left: 550rpx;
+		font-size: 32rpx;
 	}
 
 	.qiu {
@@ -1323,17 +1409,24 @@
 	}
 
 	.guige-name {
-		width: 305rpx;
-		position: absolute;
-		top: 50rpx;
-		left: 250rpx;
-		font-size: 15px;
+		/* width: 305rpx; */
+		/* position: absolute; */
+		/* top: 50rpx; */
+		/* left: 250rpx; */
+		font-size: 32rpx;
+		font-weight: bold;
+		margin-bottom: 40rpx;
+		flex: 1;
+		width: 60%;
+		margin-top: 30rpx;
 	}
     .details-hidden-price{
-		position: absolute;
-		left: 570rpx;
-		top: -24rpx;
+		/* position: absolute; */
+		/* left: 570rpx; */
+		/* top: -24rpx; */
 		font-size: 15px;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 	.chec {
 		float: right;
@@ -1341,9 +1434,6 @@
 	.flex-between{
 		display: flex;
 		justify-content: unset;
-	}
-	.zengli{
-		margin-left:240rpx;
 	}
 	.num_all{
 		    position: absolute;
@@ -1356,27 +1446,46 @@
 		    border-radius: 50%;
 		    background-color: red;
 			font-size: 10px;
+			color: #fff;
+	}
+	.bottom-lilan{
+		display: inline-block;
+		text-align: center;
+		position: relative;
 	}
 	.online_service{
-		margin-left: 85rpx;
-		margin-top: -68rpx;
+		text-align: center;
+		margin-right: 38rpx;
+		display: inline-block;
+		/* margin-left: 85rpx; */
+		/* margin-top: -68rpx; */
 	}
 	.online{
 		margin-top: -12rpx;
-	}
-	.buy-num{
-		font-size: 24rpx;
-		    font-weight: bold;
 	}
 	.details-hidden-close{
 		position: absolute;
 		top: 0;
 		right: 0;
 	}
+	.shade{
+		position: absolute;
+		width: 100%;
+		height: 100vh;
+		background-color: transparent;
+	}
 	.details-hidden-determine{
-		    border-radius: 50rpx;
-		    margin-left: 37rpx;
-			margin-bottom: 10rpx;
-			width: 90%;
+		padding: 10rpx 30rpx;
+		background-color: #fff;
+		position: fixed;
+		bottom: 20rpx;
+		box-sizing: border-box;
+	}
+	.details-hidden-determine>view{
+		width: 100%;
+		height: 90rpx;
+		line-height: 90rpx;
+		color: #fff; background-color: #EC1815;
+		border-radius: 50rpx;
 	}
 </style>

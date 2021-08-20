@@ -1,0 +1,65 @@
+
+page{
+	background-color: #F4F5F7;
+}
+.collection{
+	width: 708rpx;
+	margin: 0 auto;
+	padding-top: 22rpx;
+}
+.fication-content-right-li{
+	  width: 708rpx;
+	  height: 255rpx;
+	  padding-top: 0;
+	  margin-bottom: 10rpx;
+	  border:none;
+	  background-color: #FFF;
+	  border-radius: 6rpx;
+}
+.fication-img {
+	margin-top: 19rpx;
+	margin-left: 21rpx;
+	margin-right: 15rpx;
+    width: 216rpx;
+    height: 216rpx;
+}
+.fication-introduce{
+	  width: 418rpx;
+	  height: 210rpx;
+}
+.fication-introduce-title{
+	  margin:14rpx 0 15rpx 0;
+}
+.fication-introduce-alt{
+	  width: 409rpx;
+	  font-size: 28rpx;
+	  color: #8A8A8A;
+	  line-height: 28rpx;
+	  margin-bottom: 30rpx;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+}
+.fication-introduce-activity{
+	   width: 409rpx;
+	   height: 33rpx;
+	   margin-bottom: 21rpx;
+}
+.fication-introduce-bottom {
+     width: 409rpx;
+     height: 44rpx;
+}
+.fication-introduce-bottom-price {
+  font-size: 30rpx;
+  line-height: 44rpx;
+  color: #FF0137;
+  font-weight: bold;
+}
+.fication-introduce-bottom-img {
+  width: 132rpx;
+  height: 42rpx;
+}
+.fication-activity-grad{
+	line-height: 17rpx;
+}
+

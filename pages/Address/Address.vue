@@ -304,4 +304,7 @@
 		position: absolute;
 		right: 30rpx;
 	}
+	.apply-bottom{
+		border-radius: 0;
+	}
 </style>

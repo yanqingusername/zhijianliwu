@@ -1,0 +1,1 @@
+.poster{width:100%;min-height:1400rpx;background-color:#242424}.content{width:100%;min-height:877rpx;border-radius:9rpx!important;background:#242424;padding-top:30rpx;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center}canvas{width:254px;height:439px;border-radius:9rpx!important;overflow:hidden}

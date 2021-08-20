@@ -1,0 +1,1 @@
+page{background-color:#f5f5f5}.my-number-right{position:absolute;left:50%;top:50%;font-size:24rpx;color:#585657;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.index-commodity-price{line-height:2em;color:#e7143b;font-size:1.5em;margin-left:8rpx;height:2em;overflow:hidden}

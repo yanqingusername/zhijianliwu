@@ -112,15 +112,15 @@
 <style lang="scss" scoped>
 	.uni-card {
 		/* #ifndef APP-NVUE */
-		display: flex;
-		flex: 1;
-		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+		// display: flex;
+		// flex: 1;
+		// box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 		/* #endif */
 		margin: $uni-spacing-col-lg $uni-spacing-row-lg;
 		background-color: $uni-bg-color;
 		position: relative;
 		flex-direction: column;
-		border-radius: 5px;
+		// border-radius: 5px;
 		overflow: hidden;
 		/* #ifdef H5 */
 		cursor: pointer;
@@ -130,13 +130,13 @@
 
 
 	.uni-border {
-		position: relative;
+		// position: relative;
 		/* #ifdef APP-NVUE */
-		border-color: $uni-border-color;
-		border-style: solid;
-		border-width: 0.5px;
+		// border-color: $uni-border-color;
+		// border-style: solid;
+		// border-width: 0.5px;
 		/* #endif */
-		z-index: 1;
+		// z-index: 1;
 	}
 
 	/* #ifndef APP-NVUE */

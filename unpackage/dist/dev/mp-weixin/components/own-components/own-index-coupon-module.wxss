@@ -1,0 +1,120 @@
+
+.own-index-coupon-module{
+	padding: 0 16rpx;
+	/* width: 720rpx; */
+	/* height: 400rpx; */
+	/* border-radius: 16rpx; */
+	/* padding-top: 11rpx; */
+	/* margin: 0 auto; */
+	/* background: -webkit-linear-gradient(#FF647F,#FF879A,#FFB0BC,#FFE3E5);
+	background: linear-gradient(#FF647F,#FF879A,#FFB0BC,#FFE3E5); */
+}
+.own-index-coupon-activity-top{
+	width: 519rpx;
+	height: 26rpx;
+	margin: 0 auto;
+	padding: 30rpx 0 18rpx 0;
+	font-size: 26rpx;
+	color: #FEE5E7;
+}
+.own-index-coupon-activity-top image{
+	width: 100%;
+	height: 100%;
+}
+.own-index-coupon-activity{
+	font-size: 0;
+}
+.z-list{
+	display: inline-block;
+	width: 50%;
+	padding: 0 10rpx;
+	box-sizing: border-box;
+}
+.own-index-coupon-image-box{
+	background: #FFF6F7;
+	position: relative;
+	font-size: 0;
+	/* border: 1px dashed #ccc; */
+	/* border-radius: 16rpx; */
+	/* position: relative; */
+}
+.own-index-coupon-image-box image{
+	position: absolute;
+	bottom: 0;
+}
+.ones{
+	width: 100%;
+	height: 330rpx;
+}
+.right-item{
+	height: 155rpx;
+	display: block;
+}
+.z-top-infor{
+	position: relative;
+	z-index: 1;
+	padding: 30rpx 26rpx;
+}
+.z-top-infor text{
+	display: block;
+}
+.z-top-infor text:first-child{
+	margin-bottom: 14rpx;
+}
+.ones .z-top-infor text{
+	text-align: center;
+}
+.baopin{
+	color: #333333;
+	font-weight: bold;
+	/* position: relative;
+	top: 30rpx;
+	left: 70rpx; */
+	font-size: 18px;
+	font-family: "苹方 粗体";
+}
+.l_title{
+	/* position: absolute; */
+	/* left: 70rpx; */
+	/* margin-top: 100rpx; */
+	color: #FF6464;
+	font-size: 11px;
+	font-family: "苹方 中等";
+}
+.carddui{
+	/* position: relative; */
+	/* top: 30rpx; */
+	/* left: 20rpx; */
+	font-weight: bold;
+	font-size: 16px;
+	font-family: "苹方 粗体";
+}
+.card{
+	color: #FF962C;
+	font-size: 10px;
+	/* position: relative; */
+	/* top: 85rpx; */
+	/* left: -110rpx; */
+	font-family: "苹方 中等";
+}
+.member{
+	/* position: relative; */
+	/* top: 20rpx; */
+	/* left: 30rpx; */
+	font-weight: bold;
+	font-size: 16px;
+	font-family: "苹方 粗体";
+	color: #333333;
+}
+.mine{
+	/* position: relative; */
+	/* top: 70rpx; */
+	/* left: -165rpx; */
+	font-size: 10px;
+	color: #6BAEFF;
+	font-family: "苹方 中等";
+}
+.own-index-coupon-activity-left-img{
+	/* margin-top: -32rpx; */
+}
+

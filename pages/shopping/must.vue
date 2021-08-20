@@ -2,11 +2,17 @@
 	<view class="must">
 		<!-- 订单地址 -->
 		<view class="must-address" @click="choiceAddress">
-			<text class="must-address-name">{{address.name}} {{address.phone}}</text>
-			<text class="must-address-add">{{address.address}}</text>
-			<image class="must-address-jiantou" :src="$utils.osspath_url('/xcx-static/must/return_arrow_r_g(1).png')"
-				mode=""></image>
+			<block v-if="address.id != ''">
+				<view class="must-address-name">{{address.name}} {{address.phone}}</view>
+				<view class="must-address-add">{{address.address}}</view>
+				<text class="icon icon-z-right"></text>
+			</block>
+			<block v-else>
+				<view class="text">选择地址</view>
+				<text class="icon icon-z-right"></text>
+			</block>
 		</view>
+		
 		<!-- 订单详情 -->
 		<view class="must-list">
 			<view class="must-list-xq" v-for="item in list" :key="item.id">
@@ -14,17 +20,18 @@
 					<image class="must-list-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
 				</view>
 				<view class="must-guige">
-					<text class="must-guige-title">{{$utils.cut_str(item.goodsname,15)}}</text>
-					<text class="must-guige-price">{{item.price}}</text>
-					<text class="must-guige-box">规格：{{item.shopping_cart_goods_item}}</text>
-					<view class="must-guige-add">
-						<view class="must-add-input">
-							x{{item.num}}
-						</view>
-
+					<view class="guige-1">
+						<text class="must-guige-title">{{$utils.cut_str(item.goodsname,15)}}</text>
+						<text class="must-guige-price">{{item.price}}</text>
+					</view>
+					<view class="guige-2">
+						<text class="must-guige-box">规格：{{item.shopping_cart_goods_item}}</text>
+						<view class="must-guige-right">x{{item.num}}</view>
 					</view>
 				</view>
 			</view>
+		<!-- 	<view class="fenshus fens">共1份</view> -->
+			
 			<!-- 订单价格信息 -->
 			<view class="message">
 				<view class="">
@@ -32,17 +39,20 @@
 					<text class="message-price">￥{{sum}}</text>
 				</view>
 				<view class="">
-					<text class="message-title  fare">运费：</text>
-					<text class="message-price fare">￥0.00</text>
+					<text class="message-title">运费：</text>
+					<text class="message-price">￥0.00</text>
 				</view>
 				<view class="">
-					<text class="message-title  coupon">优惠券：</text>
-					<view class="message-price coupon" v-if="coupon_name">无</view>
-					<text class="message-price coupon" v-else>{{money1}}</text>
+					<text class="message-title">优惠券：</text>
+					<view class="message-price" v-if="coupon_name">无</view>
+					<view class="message-price yhj" v-else @click="open">
+						<text style="color: #EC1815;">{{money1}}</text>
+						<text class="iconfont icon-youjiantou message-jiantou1"></text>
+					</view>
 				</view>
 				<view class="">
-					<text class="message-title  money">余额：</text>
-					<text class="message-price money">¥{{balance}}</text>
+					<text class="message-title">余额：</text>
+					<text class="message-price">¥{{balance}}</text>
 					<!-- <view class="" > -->
 					<text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
 					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text>
@@ -50,11 +60,10 @@
 				</view>
 			</view>
 
-			<text @click="open" class="iconfont icon-youjiantou message-jiantou"></text>
 			<uni-popup ref="popup" backgroundColor="#FAFAFA" type="bottom">
 				<view class="youhuijuan">
 					<text class="you-title">可用优惠券</text>
-					<view v-for="item in couponList" :key="item.id">
+					<!-- <view v-for="item in couponList" :key="item.id">
 						<view class="you-left" v-if="item.status==0">
 							<text class="l-price">{{item.coupon_type_info.money}}</text>
 							<text class="l-man">满{{item.coupon_type_info.full_money}}元可用</text>
@@ -68,23 +77,53 @@
 								<text v-show="item.gou" class="iconfont icon-gouxuancopy checked"></text>
 							</view>
 						</view>	
+					</view> -->
+					
+					<view class="juan-wrap" v-for="item in couponList" :key="item.id">
+						<view class="juan-list" v-if="item.status==0">
+							<view class="juan-list-left">
+								<text class='z-circle z-circle-top'></text>
+								<text class='z-circle z-circle-bottom'></text>
+								<view class="z-box">
+									<view class="juan-list-left-top">
+										<text class="z-price-logo">￥</text>
+										<text class="z-price">{{item.coupon_type_info.money}}</text>
+										<view class="z-man">满{{item.coupon_type_info.full_money}}元可用</view>
+									</view>
+									<view class="juan-list-left-center">
+										<view class="z-moth">{{item.coupon_type_info.coupon_name}}</view>
+										<view class="z-quan">(全场通用劵)</view>
+									</view>
+								</view>
+								<view class="juan-list-left-bottom">有效期：{{$utils.date_time(item.coupon_type_info.begin_time)}}~{{$utils.date_time(item.coupon_type_info.end_time)}}</view>
+							</view>
+							<view class="juan-list-right" @click="check" :data-id="item.id">
+								<text v-show="!item.gou" class="iconfont icon-gouxuan checks"></text>
+								<text v-show="item.gou" class="iconfont icon-gouxuancopy checked"></text>
+							</view>
+						</view>
 					</view>
-					<view class="">
-						<text class="wucou">暂无优惠券</text>
+					
+					<view class="wucou" style="text-align: center;">
+						<!-- <text class="wucou">暂无优惠券</text> -->
+						<image src="../../static/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
 					</view>
-					<button class="sure" type="warn" @click="coupon1">确定</button>
+					<button class="sure-btn" type="warn" @click="coupon1">确定</button>
 				</view>
 			</uni-popup>
 			<!-- 合计 -->
-			<view class="sum zonghe">
+			<view class="hj">
 				<text class="jiage">合计：</text>
 				<text class="jiage sum-price">￥{{price_zhe}}</text>
 			</view>
 		</view>
 		<!-- 底部合计 -->
 		<view class="must-bottom heji">
-			<text class="must-bottom-price">￥{{price_zhe}}</text>
-			<button class="shop-payment shop-payment-active pay" @click="forsubmit" v-if="com==false">立即付款</button>
+			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
+			<text class="must-bottom-price">{{price_zhe}}</text>
+			<view class="pay clearfix">
+				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -619,13 +658,102 @@
 <style>
 	@import url('../../static/font/iconfont.css');
 	@import '@/common/must.css';
-
-	.pay {
-		position: absolute;
-		left: 408rpx;
-		top: -22rpx;
-		border-radius: 50rpx;
+	.must{
+		padding-bottom: 120rpx;
 	}
+	.must-address {
+		height: auto;
+		padding: 40rpx 100rpx 30rpx 56rpx;
+		background-color: #fff;
+		margin-top: 20rpx;
+		position: relative;
+	}
+	
+	.must-address .icon {
+		font-size: 32rpx;
+		color: #333;
+		position: absolute;
+		right: 32rpx;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	
+	.must-address-name {
+		position: static;
+		font-size: 32rpx;
+		color: #333;
+		font-weight: bold;
+		line-height: 1.8em;
+		margin-bottom: 10rpx;
+	}
+	
+	.must-address-add {
+		position: static;
+		font-size: 26rpx;
+		color: #666;
+		line-height: 1.8em;
+	}
+	.fenshus{
+		width: 100%;
+		background-color: #fff;
+		height: 100rpx;
+		line-height: 100rpx;
+		text-align: right;
+		padding: 0 38rpx;
+		margin-bottom: 20rpx;
+	}
+	
+	.circle{
+		position: static;
+		margin-left: 10rpx;
+	}
+	.icon-ico2{
+		color: #999
+	}
+	.message-jiantou1{
+		display: inline-block;
+		color: #999;
+		margin: 0 0 0 6rx;
+		font-size: 28rpx;
+	}
+	.hj{
+		padding: 32rpx 64rpx;
+		text-align: right;
+	}
+	.hj .sum-price{
+		margin-right: 0;
+	}
+	
+	.heji{
+		display: flex;
+		padding: 12rpx 35rpx;
+		bottom: 0!important;
+		align-items: center;
+		height: auto!important;
+	}
+	.pay {
+	/* 	position: absolute;
+		left: 408rpx;
+		top: -22rpx; */
+		text-align: right;
+		flex: 1;
+		width: 60%;
+		display: inline-block;
+	}
+	.pay button{
+		height: 80rpx;
+		float: right;
+		line-height: 80rpx;
+		border-radius: 40rpx;
+		width: 278rpx;
+		text-align: center;
+		margin: 0;
+	}
+	.must-bottom-price{
+		font-size: 44rpx;
+		position: static;
+	}
+	
 
 	.delivery {
 		margin-top: 200rpx;
@@ -636,10 +764,10 @@
 	}
 
 	.wucou {
-		display: flex;
-		justify-content: center;
-		margin-top: 200rpx;
-		color: #999999;
+		/* display: flex; */
+		/* justify-content: center; */
+		margin: 60rpx 0;
+		/* color: #999999; */
 	}
 	.heji{
 		position: fixed;
@@ -654,9 +782,111 @@
 		position: absolute;
 		margin-top: 320rpx;
 	}
+	.youhuijuan{
+		text-align: center;
+		height: auto;
+		padding-bottom: 20rpx;
+	}
 	.jiage{
 		font-size: 15px;
 		font-family: "苹方 中等";
 		color: #333333;
+	}
+	.sure-btn{
+		width: 500rpx;
+		border-radius: 50px;
+		/* position: absolute; */
+		/* bottom: 20rpx; */
+		/* left: 130rpx; */
+	}
+	
+	.juan-wrap{
+		padding: 26rpx;
+		box-sizing: border-box;
+	}
+	.juan-list{
+		box-shadow: 0px 0px 4px 0px rgba(231, 231, 231, 0.5);
+		margin-bottom: 20rpx;
+		display: flex;
+		align-items: center;
+		border-radius: 20rpx;
+		background-color: #fff;
+	}
+	.juan-list-left{
+		text-align: left;
+		border-right: 1rpx dotted #FFCAC3;
+		position: relative;
+		flex:1;
+		padding: 26rpx 20rpx 26rpx 32rpx;
+	}
+	.juan-list-left .z-circle{
+		position: absolute;
+		display: inline-block;
+		border-radius: 50%;
+		width: 40rpx;
+		background-color: #FAFAFA;
+		height: 40rpx;
+	}
+	.z-box{
+		display: flex;
+		align-items: center;
+		margin-bottom: 30rpx;
+	}
+	.juan-list-left .z-circle-top{
+		top: -20rpx;
+		right: -20rpx;
+	}
+	.juan-list-left .z-circle-bottom{
+		bottom: -20rpx;
+		right: -20rpx;
+	}
+	.juan-list-left .juan-list-left-top{
+		padding-right: 40rpx;
+	}
+	.juan-list-left .juan-list-left-top .z-price-logo{
+		color: #FB503D;
+		font-size: 28rpx;
+		vertical-align: bottom;
+		display: inline-block;
+	}
+	.juan-list-left .juan-list-left-top .z-price{
+		color: #FB503D;
+		font-size: 50rpx;
+		vertical-align: bottom;
+		display: inline-block;
+		font-weight: bold;
+	}
+	.juan-list-left .juan-list-left-top .z-man,.juan-list-left .juan-list-left-center .z-quan{
+		color: #666;
+		font-size: 28rpx;
+		margin-top: 20rpx;
+	}
+	.juan-list-left .juan-list-left-center .z-moth{
+		color: #333;
+		font-size: 36rpx;
+		font-weight: bold;
+	}
+	.juan-list-left .juan-list-left-center{
+		color: #666;
+		font-size: 28rpx;
+		vertical-align: bottom;
+		text-align: left;
+		flex: 1;
+	}
+	.juan-list-left .juan-list-left-bottom{
+		font-size: 24rpx;
+		color: #999;
+		text-align: left;
+	}
+	.juan-list-right{
+		text-align: center;
+		height: 100%;
+		width: 212rpx;
+		box-sizing: border-box;
+		padding-right: 20rpx;
+	}
+	.juan-list-right .checks, .juan-list-right .checked{
+		position: static;
+		margin: 0;
 	}
 </style>

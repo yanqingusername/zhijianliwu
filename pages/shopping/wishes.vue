@@ -5,46 +5,57 @@
 		</view>
 		<view class="">
 			<view>
-					
 				<view class="inv-h-w">
-					<radio-group @change="radio" class="template-btm-choose-input flex-between ">
-					<view :class="['inv-h',Inv==0?'inv-h-se':'']"  @click="Inv=0">
-						<radio value="语音" :checked="textt"></radio>
-						<!-- <text @click="radios" v-if="img==0" class="iconfont icon-ico2"></text>
-						<text v-else="img==1" @click="radios" class="iconfont icon-ico1 font"></text> -->
-						<text>福语</text>
+					<view>
+						<radio-group @change="radiofun" class="template-btm-choose-input">
+							<view :class="['inv-h',Inv==0?'inv-h-se':'']"  @click="changeInv(0)">
+								<view class="a-circle"><text></text></view>
+								<radio style="display: none" value="语音" :checked="textt"></radio>
+								<!-- <text @click="radios" v-if="img==0" class="iconfont icon-ico2"></text>
+								<text v-else="img==1" @click="radios" class="iconfont icon-ico1 font"></text> -->
+								<text>福语</text>
+							</view>
+							<view :class="['inv-h',Inv==1?'inv-h-se':'']" @click="changeInv(1)">
+								<view class="a-circle"><text></text></view>
+								<radio style="display: none" value="语音" :checked="auto"></radio>
+								<!-- <text @click="radio1" class="iconfont icon-ico2"></text>
+								<text v-show="!imgs" @click="radio1" class="iconfont icon-ico1  say"></text> -->
+								<text>语音</text>
+							</view>
+							<view :class="['inv-h',Inv==2?'inv-h-se':'']" @click="changeInv(2)">
+								<view class="a-circle"><text></text></view>
+								<radio style="display: none" value="视频" :checked="videoo"></radio>
+								<!-- <text @click="radio2" class="iconfont icon-ico2"></text>
+								<text v-show="!imgs2" @click="radio2" class="iconfont icon-ico1 video"></text> -->
+								<text>视频</text>
+							</view>
+						</radio-group>
 					</view>
-					<view :class="['inv-h',Inv==1?'inv-h-se':'']" @click="Inv=1">
-						<radio value="语音" :checked="auto"></radio>
-						<!-- <text @click="radio1" class="iconfont icon-ico2"></text>
-						<text v-show="!imgs" @click="radio1" class="iconfont icon-ico1  say"></text> -->
-						<text>语音</text>
-					</view>
-					<view :class="['inv-h',Inv==2?'inv-h-se':'']" @click="Inv=2">
-						<radio value="视频" :checked="videoo"></radio>
-						<!-- <text @click="radio2" class="iconfont icon-ico2"></text>
-						<text v-show="!imgs2" @click="radio2" class="iconfont icon-ico1 video"></text> -->
-						<text>视频</text>
-					</view>
-					</radio-group>
+					
 					<view class="wishes-card1"  v-show="Inv == 0">
 						<view class="wishes-font">
 							<input type="text" @input="alt" maxlength="20" :value="zhufu_msg">
-							<image class="wishes-font-edit"
-								src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/wishes/write_icon.png"
-								mode=""></image>
+							<view class="bottom-icon">
+								<text class="icon icon-refresh"></text>
+								<text>换一换</text>
+								<text class="icon icon-edit wishes-font-edit"></text>
+							</view>
 						</view>
-						<view class="">
-							<image class="wishes-fu"
-								src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/wishes/mb_fuyu.png" mode="">
-							</image>
-						</view>
-						<view class="">
-							<image class="wishes-fu-head" :src="sign.head_img" mode=""></image>
-							<text class="wishes-fu-head-title">{{sign.name}}</text>
-							<text class="wishes-name zhufu">{{zhufu_msg}}</text>
-							<view class="wishes-name wish">
-								{{send_talk_msg}}
+						
+						<view style="position: relative;">
+							<view class="">
+								<image class="wishes-fu"
+									src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/wishes/mb_fuyu.png" mode="widthFix">
+								</image>
+							</view>
+							<view class="infor">
+								<view class="img-infor">
+									<image class="wishes-fu-head" :src="sign.head_img" mode=""></image>
+									<text class="wishes-fu-head-title">{{sign.name}}</text>
+								</view>
+								
+								<view class="wishes-name zhufu">{{zhufu_msg}}</view>
+								<view class="wishes-name wish">{{send_talk_msg}}</view>
 							</view>
 							<view class="wishes-line">
 								<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
@@ -52,19 +63,13 @@
 						</view>
 					</view>
 					<view class="wishes-card1" v-show="Inv == 1">
-
-
-
 						<view class="" v-if="begin==3" @longpress="start" @touchend="stopp">
 							<text class="iconfont icon-luyin yin"></text>
 							<view class="wishes-chongxin" type="warn">重新录音</view>
 						</view>
 
-
-
 						<view class="" v-else-if="begin==1" @longpress="start" @touchend="stopp">
-							<view class="wishes-say-btn" type="warn">按住录音</view>
-							<text class="iconfont icon-luyin yin"></text>
+							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>按住录音</view>
 						</view>
 
 						<view class="" v-else @tap="stopp">
@@ -73,66 +78,91 @@
 						</view>
 
 						<view class="say-img">
-							<image class="say-img-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_recording.png')"
-								mode=""></image>
-							<image class="wishes-fu-head says" :src="sign.head_img" mode=""></image>
-							<text class="wishes-fu-head-title">{{sign.name}}</text>
-							<image class="say-img-open" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode="">
-							</image>
-							
-							<image class="sound-on" @click="audioPlay" :class="stop==0?'sound-on':'rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')" mode=""></image>
-							
-							<image class="say-img-off" @click="audioPlay" v-show="!radio"
-								:src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
-							<image class="say-img-off" @click="audioPlay" v-show="radio" 
-								:src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
-							
-								<view class="uni-padding-wrap" @click="audioPlay">
-									<movable-area class="progress" :style="'width:'+w+'px'">
-										<!-- 按钮 -->
-										<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star" @touchend="to" class="progress-one"
-										 :x="movable_x">
-											<view class="progress-view">
-												<view class="progress-circular"></view>
-											</view>
-										</movable-view>
-									</movable-area>
-									<!-- 进度条 -->
-									<progress :percent="schedule" class="b"  duration data-index="index" activeColor='#D8D8D8' backgroundColor='#767676'
-									 border-radius="50" stroke-width="8" />
-									 <view class="duration">
-									 	<!-- {{duration}} -->
-									 </view> 
+							<image class="say-img-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_recording.png')" mode="widthFix"></image>
+							<view class="infor">
+								<view class="img-infor">
+									<image class="wishes-fu-head says" :src="sign.head_img" mode=""></image>
+									<text class="wishes-fu-head-title">{{sign.name}}</text>
 								</view>
+								<view class="audio-box">
+									<view class="audio-img">
+										<image class="say-img-open" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode="widthFix"></image>
+										
+										<image class="sound-on" @click="audioPlay" :class="radio ?'sound-on':'rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')" mode="widthFix"></image>
+										
+										<image class="say-img-off" @click="audioPlay" v-if="radio" :src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
+										<image class="say-img-off" @click="audioPlay" v-else :src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
+									</view>
+									
+									<view class="uni-padding-wrap" @click="audioPlay">
+										<!-- <movable-area class="progress" :style="'width:'+w+'px'"> -->
+										<movable-area class="progress" style="width:100%">
+											<!-- 按钮 -->
+											<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star" @touchend="to" class="progress-one"
+											 :x="movable_x">
+												<view class="progress-view">
+													<view class="progress-circular"></view>
+												</view>
+											</movable-view>
+										</movable-area>
+										<!-- 进度条 -->
+										<progress :percent="schedule" class="b"  duration data-index="index" activeColor='#D8D8D8' backgroundColor='#767676'
+										 border-radius="50" stroke-width="8" />
+										<view class="duration">
+											<!-- {{duration}} -->
+										</view> 
+										
+									</view>
+								</view>
+							</view>
 							
-							<view class="wishes-line tan">
+							<view class="wishes-line">
 								<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
 							</view>
 						</view>
 					</view>
+					
+					<!-- 视频 -->
 					<view class="wishes-card1" v-show="Inv == 2">
 						<view class="video-btn">
-							<button class="video-btn-top" @click="vide">上传视频</button>
-							<button class="video-btn-top" type="warn" @click="vide">录制视频</button>
-							<text class="iconfont icon-M_shipinzhuanyinpin68 videos"></text>
-							<text class="iconfont icon-luzhi videos luzhi"></text>
-						</view>
-						<view class="wishes-video">
-							<text class="proposal">建议上传/录制竖版视频展示效果更佳!</text>
-							<image class="wishes-video-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')"
-								mode=""></image>
-							<view class="template-btm-information-video"><video :src="zhufu_mp4" controls></video>
-							<!-- zhufu_mp4 -->
+							<view>
+								<button class="video-btn-top" @click="vide"><text style="font-size: 44rpx;" class="iconfont icon-M_shipinzhuanyinpin68 videos"></text><text>上传视频</text></button>
 							</view>
-							<image class="wishes-fu-head says videoimg" :src="sign.head_img" mode=""></image>
-							<text class="wishes-fu-head-title videoimg">{{sign.name}}</text>
-							<view class="wishes-line tan">
+							<view>
+								
+								<button class="video-btn-top" type="warn" @click="vide"><text class="iconfont icon-luzhi videos luzhi"></text><text>录制视频</text></button>
+							</view>
+							
+						</view>							
+						<view class="proposal">建议上传/录制竖版视频展示效果更佳!</view>
+						<view class="wishes-video">
+							<!-- <image class="wishes-video-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode="widthFix"></image> -->
+							<image class="wishes-video-bg-bottom" src="../../static/mb_movie_b.png" mode="widthFix"></image>
+							<image class="wishes-video-bg" src="../../static/mb_movie-2.png" mode="widthFix"></image>
+							<view class="z-template-btm-information-video">
+								<!-- 有视频才能点击播放按钮 -->
+								<image v-if="showvideoPlayBtn" class="say-img-off" @click="videoPlay" :src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
+								<video @play="videoPlay1" @timeupdate="videoTimeUpdateEvent" @click="videoClick" id="video1" :src="zhufu_mp4" controls=false v-if="videoShow"></video>
+								<!-- 假视频 -->
+								<!-- <video v-else src="https://vd4.bdstatic.com/mda-mh111pqinqwbcaim/fhd/cae_h264_nowatermark/1627865408525244257/mda-mh111pqinqwbcaim.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627905918-0-0-cee74aed351f3977de54a964e4102ffe&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=" controls></video> -->
+								
+								<!-- zhufu_mp4 -->
+							</view>
+							<view class="infor">
+								<view class="img-infor">
+									<image class="wishes-fu-head says videoimg" :src="sign.head_img" mode=""></image>
+									<text class="wishes-fu-head-title videoimg">{{sign.name}}</text>
+								</view>
+							</view>
+							<view class="wishes-line">
 								<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
 							</view>
 						</view>
 					</view>
 				</view>
-				<button class="wishes-btn" type="warn" @click="wish">使用该祝福方式</button>
+				<view style="text-align: center; padding: 54rpx 0 50rpx;">
+					<button class="wishes-btn" type="warn" @click="wish">使用该祝福方式</button>
+				</view>
 			</view>
 		</view>
 
@@ -141,9 +171,9 @@
 
 <script>
 	import config from '../../common/config.js';
-	const recorderManager = uni.getRecorderManager();
-	const innerAudioContext = uni.createInnerAudioContext();
-
+	const recorderManager = uni.getRecorderManager()
+	const innerAudioContext = uni.createInnerAudioContext()
+	
 	innerAudioContext.autoplay = true;
 	export default {
 		data() {
@@ -158,6 +188,8 @@
 				sign: '',
 				begin: 1,
 				radio: true,
+				videoShow: false,
+				voicePath: null,
 				w: '',
 				// 进度条位置
 				schedule: '0',
@@ -171,7 +203,11 @@
 				stop: '0',
 				// 页面宽度
 				width: '',
-				zhufu_mp4:''
+				statusVideo: false,   // 视频博凡状态
+				zhufu_mp4:'',   // 视频url
+				showvideoPlayBtn: true,   // 视频播放按钮
+				videoTime: 0,   // 视频总时长
+				innerVideoContext: null   // 视频
 			}
 		},
 		onLoad: function(e) {
@@ -191,7 +227,9 @@
          
 			// 录音管理
 			let self = this;
+			console.log(recorderManager)
 			recorderManager.onStop(function(res) {
+				console.log(3333)
 				uni.showLoading({
 					title: '上传中'
 				})
@@ -241,35 +279,30 @@
 
 		},
 		methods: {
-			// 福语文字编辑
-			// 发送模板文字编辑
-			alt: function(e) {
-				this.zhufu_msg = e.detail.value;
-			},
-			onClickItem(e) {
-				if (this.current !== e.currentIndex) {
-					this.current = e.currentIndex
+			changeInv: function(v){
+				this.Inv = v;
+				if(this.innerVideoContext){
+					this.showvideoPlayBtn = true;
+					this.innerVideoContext.pause();
+					this.statusVideo = false;
 				}
+				
 			},
-			radioChange(e) {
-				console.log('type:' + e.detail.value);
-				this.sex = e.detail.value;
-			},
-
 			//开始录音
 			start: function() {
+				this.radio = true
 				// this.begin = 0;
 				console.log('开始录音');
 				recorderManager.start();
 				uni.showLoading({
 					title: '正在录音中'
 				});
-			},
+			},		
 			//结束录音  
 			stopp: function() {
 				// this.begin = 1;
-
 				uni.hideLoading();
+				this.radio = true
 				console.log('结束录音')
 				recorderManager.stop();
 			},
@@ -283,6 +316,7 @@
 
 				let that = this;
 				console.log('播放')
+				console.log(this.voicePath)
 
 				// 播放路径
 				innerAudioContext.src = this.voicePath
@@ -366,7 +400,61 @@
 				this.movable_x = s;
                 this.stop=0
 			},
-
+			
+			// 自定义播放视频按钮
+			videoPlay: function(){
+				// 判断是否有视频
+				if(this.zhufu_mp4){
+					// let innerVideoContext = uni.createVideoContext("video1", this);
+					this.innerVideoContext.play();
+					this.showvideoPlayBtn = false;
+					this.statusVideo = true;
+				}
+			},
+			//点击视频任意位置暂停
+			videoClick: function(){
+				// 判断当前视频播放状态
+				if(this.statusVideo){
+					this.showvideoPlayBtn = true;
+					this.innerVideoContext.pause();
+					this.statusVideo = false;
+				}else{
+					this.innerVideoContext.play();
+					this.showvideoPlayBtn = false;
+					this.statusVideo = true;
+				}
+			},
+			videoPlay1: function(){
+				this.isfirstClickVideo = false;
+			},
+			videoTimeUpdateEvent(e) { // 播放进度改变
+				// e.detail.currentTime为每次触发时,视频的当前播放时间
+				let currentTime = Number(e.detail.currentTime);
+				console.log('播放进度条改变', currentTime)
+				if (currentTime >= this.videoTime) {
+					// 试看结束,在这做一些想做的操作,例如停止视频播放
+					this.innerVideoContext.exitFullScreen();
+					this.innerVideoContext.pause();
+					this.innerVideoContext.seek(0);
+					this.showvideoPlayBtn = true;
+					this.statusVideo = false;
+				}
+			},
+			// 福语文字编辑
+			// 发送模板文字编辑
+			alt: function(e) {
+				this.zhufu_msg = e.detail.value;
+			},
+			onClickItem(e) {
+				if (this.current !== e.currentIndex) {
+					this.current = e.currentIndex
+				}
+			},
+			radioChange(e) {
+				console.log('type:' + e.detail.value);
+				this.sex = e.detail.value;
+			},
+			
 			vide: function(e) {
 				console.log(e)
 				var that = this;
@@ -375,7 +463,7 @@
 					sourceType: ['camera', 'album'],
 					success: function(res) {
 						console.log('视频', res)
-
+						that.videoTime = Math.floor(res.duration);
 						const tempFilePaths = res.tempFilePath;
 
 						uni.showLoading({
@@ -396,6 +484,15 @@
 									uni.hideLoading();
 									that.zhufu_mp4 = that.$utils.imageUrl(file.filename);
 									console.log(file)
+									uni.showToast({
+										title: "上传成功",
+										icon: 'none',
+										mask: 'true',
+									})
+									that.innerVideoContext = uni.createVideoContext("video1", that);
+									that.videoShow = true;
+									that.showvideoPlayBtn = false;
+									that.statusVideo = false;
 								} else if (uploadFileRes.statusCode == 413) {
 									uni.hideLoading();
 									uni.showToast({
@@ -424,10 +521,15 @@
 					}
 				})
 			},
-			radio: function(e) {
+			radiofun: function(e) {
+				console.log(545435454)
 				// 显示对应文字和判断
 				this.value = e.detail.value;
 				this.val = e.detail.value;
+				
+				this.showvideoPlayBtn = true;
+				this.innerVideoContext.pause();
+				this.statusVideo = false;
 			},
 			// sliderChange(e) {
 			// 	console.log('value 发生变化：' + e.detail.value)
@@ -503,29 +605,30 @@
 	/* 打开礼包模板三选一 */
 	.wishes-gift {
 		width: 100%;
-		height: 80rpx;
-		line-height: 40px;
-		display: flex;
-		justify-content: center;
+		padding: 30rpx 0 40rpx;
 		color: #333333;
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: bold;
+		text-align: center;
 	}
 
 	/* 文字 语音 视频 导航样式 */
 	.inv-h-w {
-		height: 100rpx;
-		display: flex;
-		position: relative;
+		/* height: 100rpx; */
 	}
-
+	.template-btm-choose-input{
+		text-align: center;
+		height: auto!important;
+		width: 100%!important;
+		margin-bottom: 50rpx;
+	}
 	.inv-h {
+		display: inline-block;
 		font-size: 30rpx;
 		flex: 1;
 		text-align: center;
 		color: #333333;
-		height: 100rpx;
-		line-height: 100rpx;
+		padding: 0 20rpx;
 	}
 
 	page {
@@ -533,20 +636,22 @@
 	}
 
 	.wishes-card1 {
-		position: absolute;
-		top: 100rpx;
-		left: 10rpx;
+		padding: 0 70rpx;
+		/* position: absolute; */
+		/* top: 100rpx; */
+		/* left: 10rpx; */
+		box-sizing: border-box;
 	}
 
 	/* 财源滚滚 */
 	.wishes-font {
-		width: 490rpx;
-		height: 130rpx;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 24rpx;
 		background-color: #fff;
 		border-radius: 5px;
-		position: relative;
-		top: 10rpx;
-		left: 120rpx;
+		/* position: relative; */
+		margin-bottom: 40rpx;
 	}
 
 	.wishes-font-con {
@@ -557,13 +662,22 @@
 		font-size: 12px;
 		color: #999999;
 	}
-
-	.wishes-font-edit {
-		width: 30rpx;
-		height: 30rpx;
-		position: absolute;
-		top: 90rpx;
-		left: 420rpx;
+	.bottom-icon{
+		margin-top: 26rpx;
+		font-size: 28rpx;
+	}
+	.bottom-icon text{
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 28rpx;
+		color: #EC1815;
+	}
+	.icon-refresh {
+		margin-right: 8rpx;
+	}
+	.bottom-icon .wishes-font-edit {
+		color: #ccc;
+		float: right;
 	}
 
 	.wan {
@@ -593,42 +707,62 @@
 
 	/* 红包部分 */
 	.wishes-fu {
-		width: 490rpx;
-		height: 700rpx;
+		width: 100%;
 		position: relative;
-		top: 50rpx;
-		left: 120rpx;
 	}
-
+	.infor{
+		position: absolute;
+		padding: 40rpx;
+		box-sizing: border-box;
+		width: 100%;
+		top: 0;
+	}
+	.img-infor{
+		margin-bottom: 77rpx;
+	}
+	.say-img .img-infor{
+		margin-bottom: 33rpx;
+	}
+	.img-infor image{
+		vertical-align: middle;
+		display: inline-block;
+	}
+	.img-infor text{
+		vertical-align: middle;
+		display: inline-block;
+		margin-left: 18rpx;
+	}
 	.wishes-fu-head {
 		width: 100rpx;
 		height: 100rpx;
-		position: relative;
-		top: -620rpx;
-		left: 150rpx;
 		border-radius: 50%;
 	}
 
 	.wishes-fu-head-title {
-		position: relative;
-		top: -660rpx;
-		left: 160rpx;
 		color: #D3A97A;
 		font-size: 16px;
+		display: inline-block;
+		vertical-align: middle;
 	}
 
 	.wishes-name {
-		position: relative;
-		top: -580rpx;
-		left: 140rpx;
+		box-sizing: border-box;
 		color: #F6DBA5;
+	}
+	.zhufu{
+		text-align: center;
+		color: #F6DBA5;
+		font-size: 36rpx;
 	}
 
 	.wish {
-		width: 380rpx;
-		position: relative;
+		/* width: 380rpx;/ */
+		/* position: relative;
 		top: -545rpx;
-		left: 180rpx;
+		left: 180rpx; */
+		text-align: center;
+		margin-top: 20rpx;
+		line-height: 1.5em;
 	}
 
 	.win {
@@ -638,32 +772,31 @@
 	}
 
 	.wishes-line {
-		width: 180px;
-		height: 40rpx;
-		line-height: 17px;
+		/* width: 180px; */
+		line-height: 54rpx;
 		background-color: #000;
 		position: absolute;
-		top: 650rpx;
-		left: 120rpx;
-		opacity: 0.8;
-		border-radius: 0 5px 5px 0;
+		bottom: 311rpx;
+		left: 0;
+		opacity: 0.7;
+		padding: 0 20rpx;
+		border-radius: 0 26rpx 26rpx 0;
 	}
 
 	.wishes-line-font {
 		color: #BD9365;
-		font-size: 12px;
-		padding-left: 10rpx;
+		font-size: 24rpx;
 	}
 
 	/* 语音 */
 	.wishes-say-btn {
-		width: 400rpx;
+		width: 422rpx;
 		height: 70rpx;
+		border-radius: 5rpx;
 		line-height: 70rpx;
 		text-align: center;
 		color: #fff;
-		margin-top: 40rpx;
-		margin-left: 180rpx;
+		margin: 40rpx auto 59rpx;
 		background-color: #F55856;
 	}
 
@@ -677,45 +810,49 @@
 	}
 
 	.say-img {
-		width: 490rpx;
-		height: 720rpx;
+		width: 100%;
 		position: relative;
-		top: 40rpx;
-		left: 132rpx;
 	}
 
 	.say-img-bg {
-		width: 490rpx;
-		height: 720rpx;
+		width: 100%;
 	}
 
 	.says {
-		position: absolute;
-		top: 30rpx;
-		left: 30rpx;
+		
 	}
-
+	.audio-box{
+		text-align: center;
+	}
+	.audio-box .audio-img{
+		position: relative;
+	}
 	.say-img-open {
-		width: 200rpx;
-		height: 200rpx;
-		position: absolute;
+		width: 389rpx;
+		/* height: 389rpx; */
+		/* position: absolute;
 		top: 160rpx;
-		left: 146rpx;
+		left: 146rpx; */
 	}
 
 	.say-img-off {
 		width: 89rpx;
 		height: 89rpx;
 		position: absolute;
-		top: 252rpx;
-		left: 204rpx;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+	}
+	.wishes-video .say-img-off{
+		z-index: 2;
 	}
 
 	.uni-padding-wrap {
-		width: 500rpx;
-		position: absolute;
+		width: 100%;
+		position: relative;
+		/* position: absolute;
 		top: 360rpx;
-		left: 5rpx;
+		left: 5rpx; */
 	}
 
 	.tan {
@@ -735,97 +872,121 @@
 		background-color: #F55856;
 	}
     .progress-one {
-		width: 35rpx;
-		height: 35rpx;
+		width: 36rpx;
+		height: 36rpx;
 		border-radius: 50%;
 		background-color: #fff;
 		position: absolute;
-		top: 116rpx;
+		top: 0;
 		left: 0rpx;
 	}
 	.b {
-		width: 360rpx;
-		height: 50rpx; 
+		width: 100%;
+		height: 20rpx; 
 		border-radius: 10rpx !important;
-		margin-top: -26rpx;
-		margin-left: 10rpx;
+		margin-top: -10rpx;
 	
 	}
 	.sound-on{
-		width: 90rpx;
-		height:90rpx;
+		width: 169rpx;
+		height: 90rpx;
 		position: absolute;
-		top: 90rpx;
-		left: 260rpx;
+		top: -70rpx;
+		right: 40rpx;
 	}
 	.rotate{
-		transform: translate(-40rpx,20rpx);
+		transform: rotate(-45deg);
+		top: 0;
 		animation: 2s;
 	}
 	/* 视频 */
 	.video-btn {
-		width: 650rpx;
-		height: 100rpx;
+		/* width: 650rpx;
+		height: 100rpx; */
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-left: 50rpx;
+	}
+	.video-btn>view{
+		padding: 0 15rpx;
 	}
 
-	.template-btm-information-video {
+	.z-template-btm-information-video {
 		position: absolute;
-		top: 108rpx;
+		width: 100%!important;
+		height: 100%!important;
+		margin: 0;
+		top: 0;
+		border-radius: 20rpx;
+		overflow: hidden;
+		border: 4rpx solid #ea5e4c;
 	}
 
-	.template-btm-information-video video {
-		width: 430rpx;
-		height: 260rpx;
-		margin-left: 24rpx;
+	.z-template-btm-information-video video {
+		width: 100%;
+		height: 100%;
 	}
 
 	.video-btn-top {
-		width: 280rpx;
+		font-size: 0;
+		width: 230rpx;
+		height: 70rpx;
+		line-height: 70rpx;
+		padding: 0!important;
 		background-color: #F55856;
 		color: #fff;
-		padding-left: 70rpx;
+		text-align: center;
+	}
+	.video-btn-top text{
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 32rpx;
+	}
+	.video-btn-top text:first-child{
+		margin-right: 10rpx;
 	}
 
 	.videos {
-		position: absolute;
-		left: 100rpx;
+		/* position: absolute; */
+		/* left: 100rpx; */
 		font-size: 35px;
 		color: #fff;
 	}
 
 	.luzhi {
-		position: absolute;
-		left: 430rpx;
+		/* position: absolute; */
+		/* left: 430rpx; */
 		font-size: 25px;
 	}
 
 	.wishes-video {
-		width: 480rpx;
-		height: 700rpx;
+		width: 100%;
+		/* height: 700rpx; */
 		position: relative;
-		top: 80rpx;
-		left: 145rpx;
+		/* top: 80rpx; */
+		/* left: 145rpx; */
 	}
 
 	.wishes-video-bg {
-		width: 480rpx;
-		height: 700rpx;
+		width: 100%;
+	}
+	.wishes-video-bg-bottom{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		z-index: 2;
 	}
 
-	.videoimg {
+	/* .videoimg {
 		margin-left: -10rpx;
 		margin-top: -10rpx;
-	}
+	} */
 
 	/* 使用该祝福方式按钮 */
 	.wishes-btn {
-		width: 400rpx;
-		margin-top: 907rpx;
-		margin-left: 175rpx;
+		width: 384rpx;
+		margin-top: rpx;
+		background: #F55856;
 	}
 
 	.wishes-font input {
@@ -834,14 +995,13 @@
 		font-size: 12px;
 		color: #9D9D9D;
 	}
-
-	.zhufu {
-		margin-left: -60rpx;
-	}
 	.proposal{
-		position: absolute;
-		top: -55rpx;
+		/* position: absolute;
+		top: -55rpx; */
 		color: #999999;
+		display: block;
+		text-align: center;
+		margin: 20rpx 0 30rpx;
 	}
 	.duration{
 		color: #fff;
@@ -849,6 +1009,29 @@
 		top: 2rpx;
 		right: 90rpx;
 		font-size: 10px;
+	}
+	
+	.a-circle{
+		display: inline-block;
+		border: 1rpx solid #999;
+		border-radius: 50%;
+		background-color: #fff;
+		font-size: 0;
+		padding: 6rpx;
+		margin-right: 10rpx;
+	}
+	.a-circle text{
+		display: inline-block;
+		width: 20rpx;
+		height: 20rpx;
+		border-radius: 50%;
+		background-color: #fff;
+	}
+	.inv-h-se .a-circle{
+		border: 1rpx solid #EC1815;
+	}
+	.inv-h-se .a-circle text{
+		background-color: #EC1815;
 	}
 	radio .wx-radio-input {
 		width: 35rpx;

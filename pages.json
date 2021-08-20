@@ -1,11 +1,19 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
 		{
+		    "path" : "pages/personal/personal",
+		    "style" : {
+		    	"navigationBarTitleText":"我的",
+				"enablePullDownRefresh":true
+		    }
+		},{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "指间礼物",
 				"navigationStyle":"custom",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTextStyle": "white"
 			}
 		}
         ,{
@@ -51,14 +59,7 @@
 			},
 			"enablePullDownRefresh":true
         }
-        ,{
-            "path" : "pages/personal/personal",
-            "style" : {
-            	"navigationBarTitleText":"个人中心",
-				"navigationStyle":"custom",
-				"enablePullDownRefresh":true
-            }
-        }
+        
         ,{
             "path" : "pages/success/success",
             "style" : {
@@ -283,12 +284,16 @@
         },{
             "path" : "pages/shopping/gifts",
             "style" : {
-				"navigationBarTitleText":""
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#EB1515",
+				"navigationBarTextStyle": "white"
 			}
         },{
             "path" : "pages/shopping/wishes",
             "style" : {
-				"navigationBarTitleText":""
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#EB1515",
+				"navigationBarTextStyle": "white"
 			}
         }
 		,{
@@ -307,7 +312,9 @@
 		,{
 		    "path" : "pages/shopping/payment",
 		    "style" : {
-				"navigationBarTitleText":""
+				"navigationBarTitleText":"",
+				// "navigationBarBackgroundColor":"#FF473E"
+				"navigationStyle":"custom"
 			}
 		}
 		,{
@@ -319,8 +326,10 @@
 		,{
 		    "path" : "pages/shopping/succes",
 		    "style" : {
-				"navigationBarTitleText":"指间礼物",
-				"navigationStyle":"custom"
+				"navigationBarTextStyle":"white",
+				"navigationBarTitleText":"",
+				// "navigationStyle":"custom"
+				"navigationBarBackgroundColor":"#EB1515"
 			}
 		}
         ,{
@@ -452,6 +461,10 @@
 	    "list": [{
 	            "name": "首页", //模式名称
 	            "path": "pages/index/index", //启动页面，必选
+	            // "path": "pages/shopping/succes", //启动页面，必选
+				// "path": "pages/ordeDetails/ordeDetails",
+				// "path": "pages/shopping/share",
+				// "path": "pages/shopping/wishes",
 	            "query":"" //启动参数，在页面的onLoad函数里面得到。    
 	        }  
 	    ]        
@@ -461,8 +474,8 @@
 	
 	
 	"tabBar": {  
-	    "color": "#3E3A39",   
-	    "selectedColor": "#E7143B",
+	    "color": "#999",   
+	    "selectedColor": "#FA3935",
 	    "borderStyle": "black",  	
 	    "backgroundColor": "#ffffff",
 	    "list": [{ 

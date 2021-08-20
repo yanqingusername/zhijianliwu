@@ -1,0 +1,16 @@
+
+page {
+	background-color: #F8F7F5;
+}
+.order-commodity-name {
+	width: 75%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.no-btm {
+	line-height: 64rpx;
+	color: #B4B4B4;
+	text-align: center;
+}
+

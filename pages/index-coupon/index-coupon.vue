@@ -1,18 +1,26 @@
 <template>
 	<div class="index-coupon">
-		<img class="index-img" :src="$utils.osspath_url('/xcx-static/index-coupons.png')">
+		<img class="index-img" :src="$utils.osspath_url('/xcx-static/index-coupons.png')" mode="widthFix">
 		<form @submit="submit">
 			<view class="card">
 				<h3>卡密兑换</h3>
 				<uni-forms :value="formData" ref="form">
 					<uni-forms-item name="pass">
-						<input type="text" name="cardpass" v-model="formData.pass" placeholder="请输入卡册上的密码" @input="binddata('pass',$event.detail.value)" />
+						<input type="text" name="cardpass" v-if="showInput" v-model="formData.pass" placeholder="请输入卡册上的密码" @input="binddata('pass',$event.detail.value)" />
 					</uni-forms-item>
 					<button form-type="submit" class="sub">立即绑定</button>
 				</uni-forms>
 			</view>
 		</form>
-
+		
+		<!-- 绑定成功提示 -->
+		<view class="success-pop" v-if="showPop">
+			<view class="pop-center clearfix">
+				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
+				<view class="p">恭喜您，绑定成功！</view>
+				<navigator class="n" hover-class="none" url="./change">立即查看</navigator>
+			</view>
+		</view>
 	</div>
 </template>
 
@@ -22,7 +30,9 @@
 			return {
 				formData: {
 					pass: ''
-				}
+				},
+				showInput: true,
+				showPop: false
 			}
 		},
 		methods: {
@@ -31,6 +41,10 @@
 				this.$refs.form.submit().then((res) => {
 					console.log('表单返回得值：', res)
 				})
+			},
+			close: function(){
+				this.showInput = true;
+				this.showPop = false;
 			},
 			submit: function(e) {
                console.log(e)
@@ -57,19 +71,22 @@
 				this.$utils.post(action, data).then(res => {
 					console.log(res)
 					if (res.sta == 1) {
-						uni.showModal({
-							title: '',
-							content: '恭喜您，绑定成功！',
-							success: function(res1) {
-								if (res1.confirm) {
-									uni.navigateTo({ //跳转页面
-										url: "./change"
-									})
-								} else if (res1.cancel) {
-									console.log('用户点击取消');
-								}
-							}
-						});
+						this.showInput = false;
+						this.showPop = true;
+						
+						// uni.showModal({
+						// 	title: '',
+						// 	content: '恭喜您，绑定成功！',
+						// 	success: function(res1) {
+						// 		if (res1.confirm) {
+						// 			uni.navigateTo({ //跳转页面
+						// 				url: "./change"
+						// 			})
+						// 		} else if (res1.cancel) {
+						// 			console.log('用户点击取消');
+						// 		}
+						// 	}
+						// });
 					} else {
 						uni.showToast({
 							title: res.msg,
@@ -101,23 +118,33 @@
 		width: 100%;
 		height: 350rpx;
 	}
+	
+	._h3{
+		font-size: 32rpx;
+		color: #333;
+	}
 
 	.card {
-		margin-top: 50rpx;
-		margin-left: 100rpx;
+		/* margin-top: 50rpx; */
+		/* margin-left: 100rpx; */
+		padding: 50rpx 94rpx;
+		box-sizing: border-box;
 	}
 
 	.card input {
-		width: 260px;
-		border-bottom: 1px solid #000;
-		margin-top: 40rpx;
+		width: 100%;
+		border-bottom: 4rpx solid #D5D5D5;
+		margin-top: 58rpx;
+		padding-bottom: 20rpx;
+		font-size: 26rpx;
+		color: #999999;
 	}
 
 	.sub {
-		width: 300rpx;
+		display: block;
+		width: 380rpx;
 		background-color: #EC1815;
 		color: #fff;
-		margin-left: 100rpx;
-		margin-top: 100rpx;
+		margin: 96rpx auto 0;
 	}
 </style>

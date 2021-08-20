@@ -1,8 +1,9 @@
 <template>
 	<view>
-		<view class="my-header"> 
+		<view class="my-header">
+			<!-- <view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view> -->
 			<image class="my-background" src="http://zhijianlw.com//static/web/img/20200904161911.png" mode=""></image>
-			<view class="my-nav" :style="'height:'+nav+'px'"></view>
+			<!-- <view class="my-nav" :style="'height:'+nav+'px'"></view> -->
 			<!-- 登录状态 -->
 			<view class="my-header-interstall-sign flex margin-auto" v-if="sign.id">
 				<image class="my-heade-sign-img" :src="sign.head_img" mode=""></image>
@@ -40,101 +41,108 @@
 			</view>
 			<!-- 背景图 -->
 		</view>
-		<!-- 第一层 -->
-		<view class="my-content flex-center margin-auto">
-			<view class="my-content-ul flex-between">
-				<view class="my-content-li" @click="$buttonClick(balance)">
-					<view class="my-content-li-img"><image class="img" src="../../static/my-chongzhi.png"  mode=""></image></view>
-					<view class="my-content-li-text">充值中心</view>
-				</view>
-				<view class="my-content-li"  @click="$buttonClick(wallet)">
-					<view class="my-content-li-img"><image class="img" src="../../static/my-qianbao.png"  mode=""></image></view>
-					<view class="my-content-li-text">我的钱包</view>
-				</view>
-				<view class="my-content-li" >
-					<view class="my-content-li-img"><image class="img" src="../../static/my-kefu.png"  mode=""></image></view>
-					<view class="my-content-li-text">在线客服</view>
-				</view>
-				<view class="my-content-li" @click="$buttonClick(colloection)">
-					<view class="my-content-li-img"><image class="img" src="../../static/my-shoucang.png"  mode=""></image></view>
-					<view class="my-content-li-text">礼物收藏</view>
-				</view>
-				<button open-type="contact"></button>
-				<view class="my-number-right" @click="$buttonClick(colloection)">{{coll}}</view>
-			</view>
-		</view>
-		<!-- 下三层 -->
 		
+		<view style="margin-top:-76rpx;">
 		
-		<view class="my-comtent-bottom" style="margin-bottom: 28rpx;">
+			<!-- 第一层 -->
+			<view class="my-content flex-center margin-auto">
+				<!-- <view class="my-content-ul flex-between"> -->
+					<view class="my-content-li" @click="$buttonClick(balance)">
+						<view class="my-content-li-img"><image class="img" src="../../static/my-chongzhi.png"  mode=""></image></view>
+						<view class="my-content-li-text">充值中心</view>
+					</view>
+					<view class="my-content-li"  @click="$buttonClick(wallet)">
+						<view class="my-content-li-img"><image class="img" src="../../static/my-qianbao.png"  mode=""></image></view>
+						<view class="my-content-li-text">我的钱包</view>
+					</view>
+					<view class="my-content-li" >
+						<view class="my-content-li-img"><image class="img" src="../../static/my-kefu.png"  mode=""></image></view>
+						<view class="my-content-li-text">在线客服</view>
+					</view>
+					<view class="my-content-li" @click="$buttonClick(colloection)">
+						<view class="my-content-li-img" style="position: relative">
+							<image class="img" src="../../static/my-shoucang.png"  mode=""></image>
+						<view class="my-number-right" @click="$buttonClick(colloection)">{{coll}}</view>
+						</view>
+						<view class="my-content-li-text">礼物收藏</view>
+						
+					</view>
+					<button open-type="contact"></button>
+				<!-- </view> -->
+			</view>
+			<!-- 下三层 -->
 			
-			<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-				<view class="my-comtent-bottom-li" @click="$buttonClick(giftList)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">礼包</view>
-				</view>
-				
-				<view class="my-comtent-bottom-li" @click="$buttonClick(shopList)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shopping-cart.png" mode=""
-																style="width: 130%;height: 130%;margin: -10%;"></image></view>
-					<view class="my-comtent-bottom-text">购物车</view>
-				</view>
-				
-				<view class="my-comtent-bottom-li"@click="$buttonClick(order)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">我的订单</view>
-				</view>
-				
-				<view class="my-comtent-bottom-li"@click="$buttonClick(card)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/icon_recharge.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">我的卡号</view>
-				</view>		
-			</view>
-		</view>	
-		<view class="my-comtent-bottom">
-			<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-				<view class="my-comtent-bottom-li" @click="$buttonClick(exchange)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-duihuan.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">兑换中心</view>
-				</view>
-				
-				<view class="my-comtent-bottom-li"@click="$buttonClick(opening)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-huiyuan.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">会员中心</view>
-				</view>
-				
-				<view class="my-comtent-bottom-li" @click="$buttonClick(friend)">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-my.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">我的好友</view>
-				</view>
-				<view class="my-comtent-bottom-li" @click="share">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-fenxiang.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">分享推荐</view>
-				</view>
-				
-			</view>
 			
-			<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-				<view class="my-comtent-bottom-li" @click="text" :data-index="0">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">求个礼物</view>
+			<view class="my-comtent-bottom" style="margin-bottom: 28rpx;">
+				
+				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
+					<view class="my-comtent-bottom-li" @click="$buttonClick(giftList)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">礼包</view>
+					</view>
+					
+					<view class="my-comtent-bottom-li" @click="$buttonClick(shopList)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shopping-cart.png" mode=""
+																	style="width: 130%;height: 130%;margin: -10%;"></image></view>
+						<view class="my-comtent-bottom-text">购物车</view>
+					</view>
+					
+					<view class="my-comtent-bottom-li"@click="$buttonClick(order)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">我的订单</view>
+					</view>
+					
+					<view class="my-comtent-bottom-li"@click="$buttonClick(card)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/icon_recharge.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">我的卡号</view>
+					</view>		
 				</view>
-				<view class="my-comtent-bottom-li" @click="text" :data-index="1">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">操作指南</view>
+			</view>	
+			<view class="my-comtent-bottom">
+				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
+					<view class="my-comtent-bottom-li" @click="$buttonClick(exchange)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-duihuan.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">兑换中心</view>
+					</view>
+					
+					<view class="my-comtent-bottom-li"@click="$buttonClick(opening)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-huiyuan.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">会员中心</view>
+					</view>
+					
+					<view class="my-comtent-bottom-li" @click="$buttonClick(friend)">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-my.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">我的好友</view>
+					</view>
+					<view class="my-comtent-bottom-li" @click="share">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-fenxiang.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">分享推荐</view>
+					</view>
+					
 				</view>
-				<view class="my-comtent-bottom-li" @click="text" :data-index="2">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shangwu.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">商务合作</view>
-				</view>
-				<view class="my-comtent-bottom-li" @click="text" :data-index="3">
-					<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-qiye.png" mode=""></image></view>
-					<view class="my-comtent-bottom-text">企业服务</view>
+				
+				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
+					<view class="my-comtent-bottom-li" @click="text" :data-index="0">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">求个礼物</view>
+					</view>
+					<view class="my-comtent-bottom-li" @click="text" :data-index="1">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">操作指南</view>
+					</view>
+					<view class="my-comtent-bottom-li" @click="text" :data-index="2">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shangwu.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">商务合作</view>
+					</view>
+					<view class="my-comtent-bottom-li" @click="text" :data-index="3">
+						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-qiye.png" mode=""></image></view>
+						<view class="my-comtent-bottom-text">企业服务</view>
+					</view>
 				</view>
 			</view>
+			<view style="line-height:42px;font-size:18px;width:696.52rpx;height:42px;margin:0 auto;margin-top: 20rpx;padding-left: 16rpx;" v-if="commody.length>0">专属推荐</view>
+			<own-product-list :commody="commody" :state="none"></own-product-list>
 		</view>
-		<view style="line-height:42px;font-size:18px;width:696.52rpx;height:42px;margin:0 auto;margin-top: 20rpx;padding-left: 16rpx;" v-if="commody.length>0">专属推荐</view>
-		<own-product-list :commody="commody" :state="none"></own-product-list>
 	</view>
 </template>
 
@@ -590,15 +598,11 @@
  }
  .my-number-right{
 	 position: absolute;
-	 right: 21rpx;
-	 top: 5rpx;
+	 left: 50%;
+	 top: 50%;
 	 font-size: 24rpx;
-	 width: 50rpx;
-	 height: 46rpx;
-	 border-radius: 50%;
-	 line-height: 48rpx;
-	 text-align: center;
 	 color: #585657;
+	 transform: translateX(-50%) translateY(-50%);
 
  }
  .index-commodity-price{

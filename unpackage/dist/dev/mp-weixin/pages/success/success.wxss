@@ -1,0 +1,12 @@
+
+page{
+	background-color: #F5F5F5;
+}
+.success-payment-img{
+	height: auto;
+}
+.success-payment{
+	height: auto;
+	padding-bottom: 50rpx;
+}
+

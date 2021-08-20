@@ -1,37 +1,39 @@
 <template>
-	<view class="">
-         <image class="home_icon" @click="shouye"  src="/static/icon_home_page_m.png" mode=""></image>
-		<view class="font">
+	<view class="" style="background-color: #EB1515; padding: 0 26rpx">
+         <!-- <image class="home_icon" @click="shouye"  src="/static/icon_home_page_m.png" mode=""></image> -->
+		<view class="z-font">
 			<text class="packages-font-title">支付成功，赶快去送礼吧</text>
 			<text class="packages-font-ltitle">记得提醒对方填写地址哦</text>
 		</view>
-		<view class="box">
+		<view class="z-box">
 			<view class="jie">
-			<view class="gift1" v-if="com==1" v-for="item in gift" :key="item.id">
-				<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
-				<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-				<view class="gift-xq1">
-					<text class="gift-xq-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
+				<view class="gift1" v-if="com==1" v-for="item in gift" :key="item.id">
+					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
+					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+					<view class="gift-xq1">
+						<text class="gift-xq-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
+					</view>
 				</view>
-			</view>
-
-			<view v-else="com==2" v-for="item in gift" :key="item.id">
-				<view class="gift">
-					<image class="gift-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-					<view class="gift-xq">
-						<text class="gift-xq-title">{{$utils.cut_str(item.goodsname,11)}}</text>
-						<text class="gift-xq-num">共{{item.goodsnum}}件</text>
+				
+				<view class="gift2" v-else="com==2" v-for="item in gift" :key="item.id">
+					<view class='gift2-list'>
+						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+						<view class="gift-xq2">
+							<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,11)}}</view>
+							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
+			
 			<view class="bot" v-if="com==2">
 				<image @click="hidden" class="jiequ" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/expand_button.png"
-					mode=""></image>
+					mode="widthFix"></image>
 				<text class="zong">共{{length}}份</text>
 			</view>
 			
-			<text class="font-hours"   @click="test_tz">24小时内无人领取将自动退款</text>
+			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
+			
 			<view class="btn">
 				<button type="warn" class="firend-btn" @click="firend">保存图片发朋友圈</button>
 				<!-- 文字 -->
@@ -210,52 +212,80 @@
 		}
 	}
 </script>
-
 <style>
 	@import '@/common/succes.css';
-     .home_icon{
+</style>
+<style>
+	.btn{
+		padding: 0 40rpx;
+	}
+	.firend-btn{
+		margin: 0 20rpx;;
+	}
+	.z-font{
+		text-align: center;
+		padding: 40rpx 0;
+	}
+	.z-font .packages-font-title{
+		font-size: 40rpx;
+		color: #F5F5F5;
+		margin-bottom: 20rpx;
+	}
+	.z-font .packages-font-ltitle{
+		font-size: 28rpx;
+		color: #F5F5F5;
+	}
+	.z-box{
+		padding-top: 80rpx;
+		padding-bottom: 20rpx;
+		width: 100%!important;
+		top: 0!important;
+		text-align: center;
+		background-color: #fff;
+		border-radius: 10rpx;
+	}
+	
+	 .home_icon{
 		 width: 50rpx;
 		 height: 50rpx;
 		 margin-top: 40px;
 		 margin-left: 20px;
 	 }
 	.gift1 {
-		width: 300rpx;
-		height: 385rpx;
+		width: 360rpx;
 		border: 1px solid #CCB586;
 		border-radius: 10rpx;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-top: 50rpx;
-		margin-bottom: 50rpx;
 		margin-left: 3rpx;
+		position: relative;
+		padding: 72rpx 40rpx 40rpx;
+		box-sizing: border-box;
+		display: inline-block;
 	}
-
-	.gift-img1 {
-		width: 85%;
-		height: 70%;
-		margin-top: 50rpx;
-	}
-
-	.gift-xq1 {
-		width: 50%;
-		height: 200rpx;
-		display: flex;
-		justify-content: center;
+	.flowers{
+		width: 40rpx;
+		height: 40rpx;
 		position: absolute;
-		top: 260rpx;
+		top: -22rpx;
+		left: 50%;
+		transform: translateX(-50%);
 	}
-
+	
+	.gift-img1 {
+		width: 100%;
+	}
+	
+	.gift-xq1 {
+		text-align: center;
+		margin-top: 55rpx;
+	}
+	
 	.gift-xq-title1 {
 		font-weight: bold;
 		font-size: 14px;
-		display: flex;
-		padding-top: 129rpx;
 		font-family: "苹方 中等";
 		color: #333333;
 	}
-
+	
 	.duo {
 		width: 580rpx;
 		height: 500rpx;
@@ -265,43 +295,60 @@
 		overflow: hidden;
 		flex-wrap: wrap;
 	}
-
+	
 	.bot {
 		width: 100%;
-		height: 150rpx;
-		line-height: 200rpx;
-		/* border: 1px solid #000; */
 		margin-top: 25rpx;
-		display: flex;
-		flex-wrap: wrap;
-		position: relative;
+		text-align: center;
 	}
-
+	
 	.jiequ {
 		width: 50rpx;
 		height: 50rpx;
-		position: absolute;
-		top: -10rpx;
-		left: 313rpx;
+		margin-bottom: 10rpx;
 	}
-
+	
 	.zong {
-		position: absolute;
-		top: -10rpx;
-		left: 300rpx;
+		text-align: center;
 	}
 	.jie{
 		width: 100%;
-		height: 500rpx;
-		overflow: hidden;
+		text-align: center;
+	}
+	.z-font-hours{
+		margin-top: 44rpx;
+		font-size: 24rpx;
+		color: #999;
+	}
+	
+	.gift2{
+		padding: 0 70rpx;
+	}
+	.gift2-list{
+		margin-bottom: 20rpx;
+		border: 1rpx solid #CCB586;
+		border-radius: 10rpx;
+		padding: 30rpx 50rpx;
 		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
+		align-items: center;
 	}
-	.flowers{
-		width: 40rpx;
-		height: 40rpx;
-		position: absolute;
-		top: 30rpx;
+	.gift2-list .gift-img2{
+		width: 100rpx;
 	}
+	.gift2-list .gift-xq2{
+		text-align: left;
+		flex: 1;
+		padding-left: 30rpx;
+	}
+	.gift2-list .gift-xq2{
+		margin-bottom: 20rpx;
+		font-size: 28rpx;
+		color: #333;
+	}
+	.gift2-list .gift-xq2{
+		font-size: 28rpx;
+		color: #666;
+	}
+	
 </style>
+

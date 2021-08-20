@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "r-canvas": "/components/r-canvas/r-canvas"
+  }
+}

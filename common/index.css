@@ -476,18 +476,18 @@ page{
 
    /* 详情-商品描述 */
      .details-alt{
-		 width: 90%;
-		 padding: 34.72rpx 5% 25.69rpx 5%;
+		 /* width: 90%; */
+		 padding: 24rpx 38rpx;
 		 background: #FFF;
-		 margin-bottom: 15.97rpx;
+		 margin-bottom: 10rpx;
 	 }
 	   .details-alt-title{
-		   margin-bottom: 40.27rpx;
+		   margin-bottom: 10rpx;
 		   width: 100%;
-		   height: 90.97rpx;
+		   /* height: 90.97rpx; */
 	   }
 	     .details-alt-left{
-			 width: 319.44rpx;
+			 /* width: 319.44rpx; */
 		 }
 		  .details-left-top{
 			  margin-top: 18.75rpx;
@@ -503,7 +503,7 @@ page{
 				border-radius: 3.47rpx;
 			}
 		  .details-alt-btm{
-			height: 25rpx;
+			/* height: 25rpx; */
 			 }
 			  .details-alt-btm-discountprice{
 				  color:#FE5648;
@@ -511,10 +511,8 @@ page{
 				    line-height:35.41rpx;
 			  } 
 			  .details-alt-btm-price{
-				  font-size: 28rpx;
-				  margin: 0 9.02rpx;
-				  line-height: 28rpx;
-				  color:#FF0137;
+				  font-size: 36rpx;
+				  color:#EB1615;
 			  }
 			  .details-alt-btm-discount{
 				  color:#595757;
@@ -527,17 +525,17 @@ page{
 			height: 90.97rpx;
 		}
 	   .details-alt-text{
-		   line-height: 40.27rpx;
-		   color:#232323;
-		   width: 600rpx;
-		   margin-left: -8.33rpx;
-		   font-size: 27.77rpx;
+		   line-height: 50rpx;
+		   color:#333;
+		   /* width: 600rpx; */
+		   /* margin-left: -8.33rpx; */
+		   font-size: 36rpx;
 		   display: -webkit-box;
 		   -webkit-box-orient:vertical;
 		   -webkit-line-clamp:2;
 		   overflow: hidden;
 		   font-weight: 500;
-		   color:#050505;
+		   font-weight: bold;
 	   }
 	   
    /* 详情-规格 */
@@ -606,10 +604,11 @@ page{
 			   }
    /* 详情-祝福语 */
      .details-blessing{
-		 height: 95.83rpx;
-		 width: 82%;
-		 padding: 0 9% ;
-		 margin-bottom: 7.63rpx;
+		 /* height: 95.83rpx; */
+		 /* width: 82%; */
+		 /* padding: 0 9% ; */
+		 padding: 30rpx 38rpx;
+		 margin-bottom: 10rpx;
 		 background-color: #FFF;
 	 }
 	   .details-blessing-alt{
@@ -629,11 +628,14 @@ page{
 		 }
    /* 详情-退款提示 */
    .details-tips{
-	   height: 95.83rpx;
-	   width: 82%;
-	   padding: 0 9% ;
-	   margin-bottom: 15.27rpx;
-	   font-size: 21.52rpx;
+	   /* height: 95.83rpx; */
+	   /* width: 82%; */
+	   /* padding: 0 9% ; */
+	   /* margin-bottom: 15.27rpx; */
+	   /* font-size: 21.52rpx; */
+	   font-size: 26rpx;
+	   margin-bottom: 10rpx;
+	   padding: 30rpx 38rpx;
 	   background-color: #FFF;
    }
    
@@ -649,19 +651,31 @@ page{
 		  height:93.05rpx ;
 	  }
 	  .details-choose-content{
-		  width:479.16rpx;
+		  /* width:479.16rpx; */
 	  }
 	    .details-choose-left{
-			height:56.86rpx;
-			border-bottom: 4rpx solid #FFF;
-			font-size: 24.3rpx;
+			height: 50rpx;
+			display: inline-block;
+			width: 50%;
+			font-size: 28rpx;
 			text-align: center;
-			margin-top: 26.38rpx;
+			margin-top: 20rpx;
 			font-weight: 400;
 			transition: 0.3s;
 			border-color: #FFF;
+			position: relative;
 		}
-		.details-choose-active{
+		.details-choose-left:after{
+			content: "";
+			display: block;
+			width: 100rpx;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			border-bottom: 4rpx solid #FFF;
+		}
+		.details-choose-active:after{
 			border-color: #DD1730;
 		}
 		.details-img{
@@ -670,20 +684,19 @@ page{
 		}
 	/* 详情-底部 */
 	  .details-btm{
-		  height: 93.05rpx;
+		  padding: 14rpx 35rpx;
 		  background: #FFF;
 		  position: fixed;
 		  bottom: 0;
 		  width: 100%;
-		  
 	  }
 	  .details-bottom{
 		  height: 93.05rpx;
 	  }
 	    .details-icon{
-			font-size: 20.13rpx;
+			font-size: 24rpx;
 			width: 215.27rpx;
-			padding:0  25.69rpx 0 38.19rpx;
+			/* padding:0  25.69rpx 0 38.19rpx; */
 		}
 		  .details-icon-content{
 			  width: 100%;
@@ -742,9 +755,11 @@ page{
 		  z-index: 2;
 	  }
 		.details-hidden{
+			z-index: 2;
 			position: absolute;
 			width: 100%;
 			height: 965rpx;
+			padding-bottom: 130rpx;
 			bottom:0;
 			left:0;
 			background-color: #FFF;
@@ -752,17 +767,22 @@ page{
 			border-top-right-radius: 17rpx;
 		}
 		  .details-hidden-introduce{
-			  width: 690rpx;
-			  margin:32rpx auto 36rpx auto;
+			  /* width: 690rpx; */
+			  /* margin:32rpx auto 36rpx auto; */
+			  padding: 30rpx;
+		  }
+		  .guige-top-right{
+			  width: 60%;
+			  flex:1;
 		  }
 		    .details-hidden-img{
 				width: 195rpx;
 				height: 195rpx;
-				border: 2rpx solid #E2E2E2;
+				/* border: 2rpx solid #E2E2E2; */
 				margin-right: 24rpx;
 			}
 			.details-hidden-right{
-				width: 400rpx;
+				/* width: 400rpx; */
 			}
 			  .details-hidden-price{
 				  margin-top: 74rpx;
@@ -785,13 +805,15 @@ page{
 				}
 			/* 口味 */
 			.details-hidden-content{
-				width: 690rpx;
-				margin: 0 auto ;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 30rpx;
 			}
 			  .details-hidden-title{
-				  font-size: 24rpx;
-				  font-weight: bold;
-				  margin-bottom: 31rpx;
+				  font-size: 28rpx;
+				  /* font-weight: bold; */
+				  margin-bottom: 30rpx;
+				  color: #333;
 			  }
 			/* 规格 */
 			.details-hidden-alt{
@@ -1312,28 +1334,29 @@ page{
 		}
 	/* 登录状态 */
 	  .my-header-interstall-sign{
-		  margin-top:15.97rpx;
-		  width: 696.52rpx;
-		  height: 60.41rpx;
-		  padding-bottom: 67.36rpx;
+		  /* margin-top:15.97rpx; */
+		  /* width: 696.52rpx; */
+		  /* height: 60.41rpx; */
+		  padding: 40rpx 26rpx;
 		  position: relative;
+		  align-items: center;
 	  }
 	   .my-heade-sign-img{
-		  width: 59.72rpx;
-		  height: 60.41rpx;
-		   margin-right:6.25rpx;
+			width: 100rpx;
+			height: 100rpx;
+		   margin-right: 30rpx;
 		   border-radius: 50%;
 	   }
 	   .my-header-introduce{
-		   height: 29.16rpx;
-		   margin-top: 2.77rpx;
-		   margin-bottom: 10.41rpx;
+		   margin-bottom: 10rpx;
+		   font-size: 32rpx;
 	   }
 	     .my-hedaer-name{
-			 font-size: 22.22rpx;
+			 font-size: 32rpx;
 			 color:#FFF;
 			 line-height: 29.16rpx;
 			 margin-right: 13.88rpx;
+			 margin-bottom: 20rpx;
 		 }
 		 .my-crown{
 			 width: 19.44rpx;
@@ -1352,7 +1375,7 @@ page{
 			 background: linear-gradient(to right,#DDC6A6, #DCC5A3,#D8C79C,#D1B286);
 		 }
 		.my-header-interstall-sign-alt{
-			font-size: 18.05rpx;
+			font-size: 24rpx;
 			color:#FFF;
 		}
 		.my-header-sign1{
@@ -1360,16 +1383,19 @@ page{
 		}
     /* 个人中心-钱包 */
 	    .my-header-wallet{
-			width: 696.52rpx;
-			height: 73.61rpx;
+			/* width: 696.52rpx; */
+			/* height: 73.61rpx; */
 			color:#FFF;
 			position: relative;
 			padding-bottom: 98rpx;
 		}
 		  .my-header-wallet-li{
-			  width: 230.55rpx;
-			  height: 73.61rpx;
-			  width: 238.19rpx;
+			  display: inline-block;
+			  width: 33.33%;
+			  text-align: center;
+			  /* width: 230.55rpx; */
+			  /* height: 73.61rpx; */
+			  /* width: 238.19rpx; */
 		  } 
 		    .my-header-wallet-price{
 				font-size: 27.08rpx;
@@ -1379,7 +1405,7 @@ page{
 			}
 			.my-header-wallet-type{
 				text-align: center;
-				font-size: 18.05rpx;
+				font-size: 24rpx;
 				color:rgb(255,255,255,.9);
 			}
 			  .my-line{
@@ -1399,17 +1425,18 @@ page{
 			}
 	/* 个人中心-内容第一层 */
 	  .my-content{
-		  width: 696.52rpx;
-		  height: 189.58rpx;
+		  /* width: 696.52rpx; */
+		  /* height: 189.58rpx; */
+		  margin: 0 26rpx 30rpx;
+		  padding: 30rpx 0;
 		  background: #FFF;
 		  border-radius: 19.44rpx;
-		  margin-top:-75.69rpx;
+		  /* margin-top:-75.69rpx; */
 		  position: relative;
-		  margin-bottom: 30.55rpx;
 	  }
 	     .my-content-ul{
-			 width: 579.16rpx;
-			 height: 91.66rpx;
+			 /* width: 579.16rpx; */
+			 /* height: 91.66rpx; */
 			 position: relative;
 		 }
 		  .my-content-ul button{
@@ -1424,8 +1451,10 @@ page{
 				border: none;
 			}
 		   .my-content-li{
-			   width: 92.36rpx;
-			   height: 91.66rpx;
+			   /* width: 92.36rpx; */
+			   /* height: 91.66rpx; */
+			   display: inline-block;
+			   width: 25%;
 		   }
 		     .my-content-li-img{
 				 width: 58.33rpx;
@@ -1434,29 +1463,28 @@ page{
 				 margin-bottom: 11.11rpx;
 			 }
 			 .my-content-li-text{
-				 font-size: 22.91rpx;
+				 font-size: 24rpx;
 				 text-align: center;
 			 }
 			 
      /* 个人中心-内容下面三层 */
 	  .my-comtent-bottom{
-		  width: 696.52rpx;
-		  margin: 0 auto;
+		  /* width: 696.52rpx; */
+		  margin: 0 26rpx;
 		  background-color: #FFF; 
 		  overflow: hidden;
-		   border-radius: 19.44rpx;
+		   border-radius: 20rpx;
 	  }
 	    .my-comtent-bottom-ul{
-			width: 579.86rpx;
-			height: 90.27rpx;
+			/* width: 579.86rpx; */
+			/* height: 90.27rpx; */
 			border-bottom: 1.38rpx solid #F5F5F5;
-		    padding: 47.91rpx 6.25rpx 51.38rpx 6.25rpx;
+		    padding: 30rpx 0;
 			margin: 0 auto;
 		}
 		  .my-comtent-bottom-li{
-			  
-			  width: 94.44rpx;
-			  height: 90.27rpx;
+			  width: 25%;
+			  display: inline-block;
 		  }
 		    .my-comtent-bottom-img{
 				margin: 0 auto 12.5rpx auto;
@@ -1464,7 +1492,7 @@ page{
 				height: 55.55rpx;
 			}
 			.my-comtent-bottom-text{
-				font-size: 22.91rpx;
+				font-size: 24rpx;
 				text-align: center;
 			}
 			.border{
@@ -4658,7 +4686,7 @@ page{
 	  height:245rpx;
 	  padding-top: 277rpx ;
 	  padding-bottom: 277rpx ;
-	  background-color: #F7F7F7;
+	  /* background-color: #F7F7F7; */
   }
 .index-bottom-price{
 	font-size: 34rpx;

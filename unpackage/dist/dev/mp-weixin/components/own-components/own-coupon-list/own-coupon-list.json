@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "own-coupon": "/components/own-components/own-coupon/own-coupon"
+  }
+}

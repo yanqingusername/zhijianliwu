@@ -1,4 +1,4 @@
-page{
+	page{
 		background-color: #FAFAFA;
 	}
 	.must{
@@ -6,7 +6,7 @@ page{
 		/* height: 925rpx; */
 		/* background-color: #fff; */
 		position: relative;
-		top: 20rpx;
+		/* top: 20rpx; */
 	}
 	.must-address{
 		width: 100%;
@@ -41,20 +41,22 @@ page{
 		width: 100%;
 		/* border-bottom: 1px solid #EEEEEE; */
 		/* height: 765rpx; */
-		background-color: #fff;
+		/* background-color: #fff; */
 	}
 	.must-list-xq{
 		width: 100%;
 		height: 200rpx;
 		border-bottom: 1px solid #EEEEEE;
 		/* border: 1px solid #000; */
+		background-color: #fff;
 		display: flex;
 		align-items: center;
 		padding-left: 40rpx;
 	}
 	.must-list-bg{
-		width: 150rpx;
-		height: 150rpx;
+		margin-right: 20rpx;
+		width: 140rpx;
+		height: 140rpx;
 		background-color: #F3F3F3;
 		display: flex;
 		justify-content: center;
@@ -119,11 +121,9 @@ page{
 	}
 	.message{
 		width: 100%;
-		height: 295rpx;
 		background-color: #fff;
 		border-bottom: 1px solid #EEEEEE;
-		    position: absolute;
-			margin-top: 20rpx;
+		margin-top: 20rpx;
 	}
 	.message-title{
 		position: absolute;
@@ -293,4 +293,85 @@ page{
 		position: absolute;
 		bottom: 20rpx;
 		left: 130rpx;
+	}
+	
+	
+	
+	.must-list{
+		margin-top: 20rpx;
+	}
+	.must-guige{
+		flex: 1;
+		height: auto;
+		position: static;
+	}
+	.must-list-xq{
+		padding: 20rpx 38rpx;
+		height: auto;
+		box-sizing: border-box;
+	}
+	.must-list-bg{
+		width: 140rpx;
+		height:140rpx;
+	}
+	.guige-1{
+		display: flex;
+		align-items: center;
+		margin-bottom: 20rpx;
+	}
+	.guige-1 .must-guige-title{
+		flex: 1;
+		margin: 0;
+		font-size: 30rpx;
+		color: #333;
+		padding-right: 20rpx;
+		line-height: 1.5em;
+	}
+	.must-guige-price{
+		font-size: 30rpx;
+		color: #333;
+		float: none;
+		margin: 0;
+	}
+	.guige-2{
+		display: flex;
+		align-items: center;
+	}
+	.guige-2 .must-guige-box{
+		font-weight: 500;
+		color: #999999;
+		position: static;
+		font-size: 24rpx;
+	}
+	.guige-2 .must-guige-right{
+		position: static;
+		text-align: right;
+		display: inline-block!important;
+		flex: 1;
+		color: #333;
+		font-size: 28rpx;
+	}
+	.message{
+		position: static;
+		background-color: #fff;
+		box-sizing: border-box;
+		padding: 20rpx 38rpx;
+		
+	}
+	.message>view{
+		display: flex;
+		padding: 20rpx 0;
+		align-items: center;
+	}
+	.message .message-title{
+		position: static;
+		font-size: 30rpx;
+		color: #333;
+	}
+	.message .message-price{
+		position: static;
+		font-size: 30rpx;
+		color: #333;
+		flex: 1; 
+		text-align: right;
 	}

@@ -4,10 +4,10 @@
 		<!-- 有商品 -->
 		<view class="own-product-row" v-if="commody.length>0">
 			<view class="own-product-column" id="own-product-column-1">
-				<own-product v-for="item in commody1" :data="item" boxHeight="300rpx"></own-product>
+				<own-product v-for="item in commody1" :data="item" :key="index" boxHeight="300rpx"></own-product>
 			</view>
 			<view class="own-product-column"id="own-product-column-2">
-				<own-product v-for="item in commody2" :data="item" boxHeight="300rpx"></own-product>
+				<own-product v-for="item in commody2" :data="item" :key="index" boxHeight="300rpx"></own-product>
 			</view>
 		</view>
 		<!-- 无商品是状态 -->
@@ -71,18 +71,22 @@
 
 <style scope>
 .own-product-row{
-	display: flex;
-	justify-content: space-around;
-	margin-top: 30rpx;
+	font-size: 0!important;
+	margin-top: 22rpx;
+	padding: 0 16rpx;
+	box-sizing: border-box;
 }
 .own-product-column{
-	width: 46%;
-	display: flex;
-	flex-direction: column;
+	width: 50%;
+	display: inline-block;
+	padding: 0 10rpx;
+	box-sizing: border-box;
+	vertical-align: top;
 }
 .own-product-bottom{
-	height: 32rpx;
+	/* height: 32rpx; */
 	color: #666666;
 	text-align: center;
+	padding: 20rpx 0;
 }
 </style>

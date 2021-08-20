@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control"],{"0afa":function(t,n,e){"use strict";var r;e.d(n,"b",(function(){return u})),e.d(n,"c",(function(){return c})),e.d(n,"a",(function(){return r}));var u=function(){var t=this,n=t.$createElement;t._self._c},c=[]},"6ce5":function(t,n,e){"use strict";e.r(n);var r=e("0afa"),u=e("fc05");for(var c in u)"default"!==c&&function(t){e.d(n,t,(function(){return u[t]}))}(c);e("eb91");var i,o=e("f0c5"),a=Object(o["a"])(u["default"],r["b"],r["c"],!1,null,"c4604e86",null,!1,r["a"],i);n["default"]=a.exports},c1d6:function(t,n,e){},d4f6:function(t,n,e){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.default=void 0;var r={name:"UniSegmentedControl",props:{current:{type:Number,default:0},values:{type:Array,default:function(){return[]}},activeColor:{type:String,default:"#007aff"},styleType:{type:String,default:"button"}},data:function(){return{currentIndex:0}},watch:{current:function(t){t!==this.currentIndex&&(this.currentIndex=t)}},created:function(){this.currentIndex=this.current},methods:{_onClick:function(t){this.currentIndex!==t&&(this.currentIndex=t,this.$emit("clickItem",{currentIndex:t}))}}};n.default=r},eb91:function(t,n,e){"use strict";var r=e("c1d6"),u=e.n(r);u.a},fc05:function(t,n,e){"use strict";e.r(n);var r=e("d4f6"),u=e.n(r);for(var c in r)"default"!==c&&function(t){e.d(n,t,(function(){return r[t]}))}(c);n["default"]=u.a}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component',
+    {
+        'uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("6ce5"))
+        })
+    },
+    [['uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component']]
+]);

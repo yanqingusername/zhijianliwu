@@ -1,29 +1,40 @@
 <template>
 	<view class="own-product product" @click="details" :data-keynum="data.keynum">
-		<view class="own-image-box" :style="'height:'+boxHeight">
+		<view class="own-image-box">
 			<image lazy-load="true" :src="$utils.imageUrl(data.head_img)" mode="widthFix" class="own-image" v-if="data.head_img"></image>
 			<!-- 无图时的状态 -->
 			<image src="../../static/nono.jpg" mode="widthFix" class="own-image" v-else></image>
 		</view>
-		<!-- 商品名称 -->
-		<text class="own-name">{{data.goodsname}}</text>
-		<!-- 会员状态 -->
-		<view class="own-other-info-box" v-if="level>1">
-			<text class="own-discount-price">￥{{data.price}}</text>
-			<view class="own-tag-box">
-				<view class="own-tag">
+		
+		<view class="z-good-bottom">
+			<!-- 商品名称 -->
+			<view class="own-name">{{data.goodsname}}</view>
+			<view class="own-introduce">这是介绍这是介绍这是介绍这是介绍</view>
+			<!-- 会员状态 -->
+			<view class="own-other-info-box" v-if="level>1">
+				<text class="price-i">￥</text><text class="own-price">{{price_level}}</text>
+				<image class="qi" src="../../static/qi.png" mode="widthFix"></image>
+				<!-- <view class="own-tag">
 					{{level_name}}
 				</view>
-				<view class="own-tag">
-					{{discount_name}}
-				</view>
+				<view class="own-tag-box">
+					<text class="own-price">￥{{price_level}}</text>
+					<text class="own-tag">
+						{{discount_name}}
+					</text>
+				</view> -->
+			</view>
+			<!-- 价格 -->
+			<view class="own-price-box clearfix">
+				<text class="own-discount-price" v-if="level>1">￥{{data.price}}</text>
+				<block v-else>
+					<text class="price-i">￥</text><text class="own-price" style="font-size: 34rpx">{{price_level}}</text>
+				</block>
+				<text class="number" style="margin-top: 6rpx;">34人已购</text>
+				<!-- <image class="own-give" src="../../static/fica-give.jpg" mode="heightFix"></image> -->
 			</view>
 		</view>
-		<!-- 价格 -->
-		<view class="own-price-box">
-			<text class="own-price">￥{{price_level}}</text>
-			<image class="own-give" src="../../static/fica-give.jpg" mode="heightFix"></image>
-		</view>
+		
 	</view>
 </template>
 <script>
@@ -77,53 +88,78 @@
 	}
 	.own-product{
 		/* width: 49%; */
-		margin: 12rpx auto;
+		margin: 0 0 20rpx;
 		height: max-content;
-		border-radius: 12.5rpx;
+		/* border-radius: 12.5rpx; */
 		background: #FFFFFF;
-		box-shadow: 0px 2rpx 6rpx #33333330;
-		padding: 16rpx 16rpx 24rpx 16rpx;
+		/* box-shadow: 0px 2rpx 6rpx #33333330; */
+		/* padding: 16rpx 16rpx 24rpx 16rpx; */
 	}
 	.own-image-box{
+		height: 338rpx;
+		background-color: #fff;
+		text-align: center;
 		width: 100%;
-		margin: 0 auto;
 		overflow: hidden;
-		display: flex;
+		/* display: flex;
 		justify-content: center;
-		align-items: center;
+		align-items: center; */
 		/* border: 1px dashed #ccc; */
 		/* background: #333; */
 	}
 	.own-image{
 		width: 100%;
+		height: 100%;
 	}
 	.own-name{
-		height: 2em;
-		text-align: justify;
+		display: block;
 		overflow : hidden;
 		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		margin: 24rpx 0;
-		font-size: 0.8em;
+		white-space: nowrap;
+		color: #333;
+		font-size: 28rpx;
+		margin: 0 0 16rpx ;
 	}
 	.own-name::after{
 		width: 100%;
 		display: inline-block;
 		content: '';  //这三个都不可以少
 	}
+	.own-introduce{
+		color: #999;
+		font-size: 24rpx;
+		margin-bottom: 24rpx;
+		overflow : hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.own-price-box{
-		display: flex;
+		margin-top: 14rpx;
+		/* display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: center; */
+	}
+	.z-good-bottom{
+		padding: 16rpx 20rpx 22rpx;
 	}
 	.own-price{
-		color: #FF0137;
-		font-size: 18px;
+		color: #FB4133;
+		font-size: 24rpx;
+		font-weight: bold;
 		text-align: left;
 		white-space: nowrap;
-		margin-left: -5rpx;
+		/* margin-top: 8rpx; */
+		display: inline-block;
+	}
+	.price-i{
+		font-size: 20rpx;
+		color: #FB4133;
+	}
+	.own-price-box .number{
+		float: right;
+		font-size: 26rpx;
+		font-weight: bold;
+		color: #999;
 	}
 	.own-discount-price{
 		font-size: 12px;
@@ -131,13 +167,19 @@
 		color: #898989;
 	}
 	.own-give{
+		float: right;
 		height:38.19rpx;
 		width: 60.7273px;
 	}
 	.own-other-info-box{
 		margin: 20rpx 0rpx 16rpx 0rpx;
-		display: flex;
-		justify-content: space-between;
+	}
+	.own-other-info-box .own-price{
+		font-size: 28rpx;
+	}
+	.qi{
+		width: 40rpx;
+		margin-left: 6rpx;
 	}
 	.own-tag{
 		display: inline-block;

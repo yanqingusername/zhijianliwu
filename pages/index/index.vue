@@ -1,11 +1,11 @@
 <template>
-	<view class="page">
+	<view class="page" @scroll="getViewTop">
 		<!-- 顶部栏 -->
 		<own-index-header @change="change" :List="List" :index="tabBarIndex" :loginUrl="logoUrl"></own-index-header>
-			
+		<!-- 轮播图 -->
+		<own-swiper v-if="tabBarIndex==0" :swiper="swiper"></own-swiper>
+		
 		<view class="index-home index-page" v-if="tabBarIndex==0">
-			<!-- 轮播图 -->
-			<own-swiper :swiper="swiper"></own-swiper>
 			<!-- 模块宫格 -->
 			<own-grid :list="gridList"></own-grid>
 			<view class="index-module-box">
@@ -13,8 +13,23 @@
 				<own-index-coupon-module :coupon_left="coupon_left" :coupon_right="coupon_right"></own-index-coupon-module>
 				
 			</view>
-			<own-product-list :commody="indexCommodyList" :state="state"></own-product-list>
+			
+			<!-- <view id="z-good-wrap"> -->
+				<view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (41 + statusBarHeight)+'px' : ''" id="scrollId">
+					<scroll-view scroll-x="true" class="owm-index-tab-bar-box"  show-scrollbar="false" upper-threshold="20" @scrolltolower="scrolltolower">
+						<view class="owm-index-tab-bar" style="height: 44rpx;">
+							<view class="owm-index-tab-bar-item" :class="[index==item.id?'owm-index-tab-bar-item-active':'']" v-for="item, index in List"
+							 @click="change(item.id)">{{item.name}}</view> 
+						</view>
+					</scroll-view>
+					<navigator url="" class="right-op"><text>分类</text><image src="../../static/op.png" mode="widthFix"></image></navigator>
+				</view>
+				
+				<own-product-list :commody="indexCommodyList" :state="state"></own-product-list>
+			<!-- </view> -->
 		</view>
+		
+		
 		<view class="index index-page" v-else>
 			<own-product-list :commody="commody" :state="state"></own-product-list>
 		</view>
@@ -47,7 +62,7 @@
 				List: [
 					{
 						id: 0,
-						name: "首页"
+						name: "全部"
 					}
 				],
 				gridList: [],
@@ -60,9 +75,13 @@
 				pageSize: 50,// 分页
 				pageIndex_Index: 1,
 				pageIndex: 1,
+				nameTop: 400,
+				rect: 0,
+				statusBarHeight: 20
 			}
 		},
 		onLoad() {
+			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 			var sign = uni.getStorageSync('sign');
 			if (sign) {
 				this.sta = '200';
@@ -120,12 +139,28 @@
 				pageIndex: this.pageIndex_Index
 			});
 			var action = 'get_index_tuijian_goods';
-			console.log(data);
 			this.$utils.post(action, data).then(res => {
 				console.log("首页推荐商品：",res);
 				this.indexCommodyList = res.rs;
 				uni.hideLoading();
 			});
+			
+			var zthat = this;
+			var query = wx.createSelectorQuery();
+			query.select('#scrollId').boundingClientRect();
+			query.exec(function(res){
+				console.log(33333)
+				console.log(res)
+				console.log(44444)
+				if(res && res[0]){
+					zthat.nameTop = res[0].top
+					console.log(zthat.nameTop)
+				}
+			})
+		},
+		onPageScroll(e){
+			this.rect = e.scrollTop;
+			console.log(e.scrollTop)
 		},
 		onShareAppMessage: function(e) {
 		
@@ -151,6 +186,7 @@
 				pageSize: this.pageSize,
 				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex
 			});
+			
 			this.$utils.post(action, data).then(res => {
 				setTimeout(()=>{
 					uni.stopPullDownRefresh();
@@ -179,7 +215,7 @@
 				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex
 			});
 			this.$utils.post(action, data).then(res => {
-				console.log("首页推荐商品：",res);
+				// console.log("首页推荐商品：",res);
 				if(tabBarIndex == 0){
 					this.pageIndex_Index++;
 					this.indexCommodyList = this.indexCommodyList.concat(res.rs);
@@ -191,7 +227,6 @@
 		},
 		methods: {
 			change: function(e){
-				console.log("切换Tab");
 				this.tabBarIndex = e;
 				if(e != 0){
 					this.pageIndex = 1;
@@ -202,6 +237,7 @@
 						pageIndex: this.pageIndex
 					});
 					var action = 'get_gift_person_goods';
+					
 					uni.pageScrollTo({
 						scrollTop: 0,
 						duration: 500,
@@ -226,11 +262,100 @@
 </script>
 
 <style>
-	.page{
-		padding-top: 200rpx;
+	
+	.is-fixed{
+		position: fixed!important;
+		left: 0;
+		right: 0;
+		width: 100%;
+		background-color: #F9FAFE;
+		padding: 24rpx 0 24rpx;
+		z-index: 2;
 	}
+	.page{
+		/* padding-top: 80rpx; */
+		background: #F5F5F5;
+	}
+	.z-tabar{
+		position: relative;
+		padding-right: 150rpx;
+		padding-left: 26rpx;
+		box-sizing: border-box;
+	}
+	.owm-index-tab-bar-box{
+		width: 100%;
+		/* position: absolute; */
+		/* top: 1080rpx; */
+	}
+	.right-op{
+		position: absolute;
+		right: 26rpx;
+		top: 50%;
+		transform: translateY(-50%);
+		background-color: #f5f5f5;
+	}
+	.right-op text{
+		vertical-align: middle;
+		display: inline-block;
+		color: #333;
+		font-size: 28rpx;
+		font-weight: bold;
+	}
+	.right-op image{
+		width: 40rpx;
+		height: 40rpx;
+		margin-left: 10rpx;
+		vertical-align: middle;
+		display: inline-block;
+	}
+/* 	.sticky-box {
+	    display: flex;
+	    position: -webkit-sticky;
+	    position: sticky;
+	    top: var(--window-top);
+	    z-index: 9999;
+	    flex-direction: row;
+	    margin: 0px;
+	    padding: 1px 0 1px 0;
+	    background-color: #F4F5F6;
+	} */
+	.owm-index-tab-bar-item {
+		text-align: center;
+		/* line-height: 64rpx; */
+		/* height: 64rpx; */
+		/* width: 120rpx; */
+		line-height: 40rpx;
+		margin: 0 14rpx;
+		font-size: 28rpx;
+		color: #777777;
+		display: inline-block;
+		font-weight: bold;
+		position: relative;
+	}
+	
+	.owm-index-tab-bar-item:first-child{
+		margin-left: 0rpx;
+	}
+	/* .owm-index-tab-bar-item:last-child{
+		margin-right: 40rpx;
+	} */
+	
+	.owm-index-tab-bar-item-active {
+		color: #333333;
+	}
+	.owm-index-tab-bar-item-active:after{
+		position: absolute;
+		left: 0;
+		bottom: -4rpx;
+		content: "";
+		display: block;
+		width: 100%;
+		border-bottom: 4rpx solid #EC1815;
+	}
+	
 	.index-page{
-		padding-top: 87rpx;
+		/* margin-top: -190rpx; */
+		
 	}
 	.index-banner{
 		display: block;
@@ -239,10 +364,10 @@
 	}
 	.index-module-box{
 		width: 100%;
+		margin-bottom: 40rpx;
 	}
 	.owm-index-search{
-		margin-top: 140rpx;
-		width: 600rpx;
+		/* margin-top: 140rpx; */
+		/* width: 600rpx; */
 	}
-	
 </style>

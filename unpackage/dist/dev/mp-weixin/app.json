@@ -1,0 +1,115 @@
+{
+  "pages": [
+    "pages/personal/personal",
+    "pages/index/index",
+    "wxcomponents/navgation/navgation",
+    "pages/details/details",
+    "pages/classification/classification",
+    "pages/shopping/shopping",
+    "pages/shopping/share",
+    "pages/order/order",
+    "pages/success/success",
+    "pages/signin/signin",
+    "pages/redEnvelopes/redEnvelopes",
+    "pages/orderDetails/orderDetails",
+    "pages/logistics/logistics",
+    "pages/balance/balance",
+    "pages/balance/Query",
+    "pages/balance/Recharge",
+    "pages/AccountBook/AccountBook",
+    "pages/RewardRecord/RewardRecord",
+    "RewardRecord/RewardRecord",
+    "pages/Friends/Friends",
+    "pages/wallet/wallet",
+    "pages/Apply/Apply",
+    "pages/Address/Address",
+    "pages/Coupon/Coupon",
+    "pages/Member/Member",
+    "pages/index-coupon/index-coupon",
+    "pages/index-coupon/redemption_center",
+    "pages/index-coupon/index-address",
+    "pages/index-coupon/change",
+    "pages/search/search",
+    "pages/ordeDetails/ordeDetails",
+    "pages/Add/Add",
+    "pages/Operation/Operation",
+    "pages/Poster/Poster",
+    "pages/Collection/Collection",
+    "pages/personal/gift",
+    "pages/personal/guide",
+    "pages/personal/cooperation",
+    "pages/personal/service",
+    "pages/payment/payment",
+    "pages/Recommend/Recommend",
+    "pages/shopping/gifts",
+    "pages/shopping/wishes",
+    "pages/shopping/receive",
+    "pages/shopping/must",
+    "pages/shopping/payment",
+    "pages/shopping/packages",
+    "pages/shopping/succes",
+    "pages/shopping/text",
+    "pages/shopping/text1",
+    "pages/shopping/text2",
+    "pages/theme/theme",
+    "pages/shopping/shop",
+    "pages/settlement/settlement",
+    "pages/shopList/shopList",
+    "pages/orderList/orderList",
+    "pages/Post/Post",
+    "pages/Post/PostList",
+    "pages/orderList/orderDetails",
+    "pages/orderList/logistics/logistics",
+    "pages/Poster/Poster2",
+    "pages/product-list/product-list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "指间礼物",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#FA3935",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icon_home_page_m.png",
+        "selectedIconPath": "static/icon_home_page_d.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/shopping/shopping",
+        "iconPath": "static/icon_gift_basket_m.png",
+        "selectedIconPath": "static/icon_gift_basket_d.png",
+        "text": "礼篮"
+      },
+      {
+        "pagePath": "pages/Post/PostList",
+        "iconPath": "static/icon_give_m.png",
+        "selectedIconPath": "static/icon_give_d.png",
+        "text": "送什么"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "iconPath": "static/icon_my_m.png",
+        "selectedIconPath": "static/icon_my_d.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "我也不知道就是想要定位"
+    }
+  },
+  "usingComponents": {
+    "navgation": "/wxcomponents/navgation/navgation",
+    "address": "/components/simple-address/simple-address"
+  },
+  "sitemapLocation": "sitemap.json"
+}

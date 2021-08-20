@@ -1,0 +1,1 @@
+<view><view class="recharge-exchange flex-center"><input type="text" placeholder="请输入礼品卡兑换码" data-event-opts="{{[['input',[['input',['$event']]]]]}}" bindinput="__e"/></view><view class="recharge-explain">输入礼品卡背面的兑换码后点击充值,兑换码不区分大小写</view><button data-event-opts="{{[['tap',[['$buttonClick',['$0'],['button']]]]]}}" class="recharge-button" bindtap="__e">立即充值</button></view>

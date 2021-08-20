@@ -1,0 +1,8 @@
+
+page{
+	background-color: #F4F5F7;
+}
+.right{
+	margin-right: 0;
+}
+

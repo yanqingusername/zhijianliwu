@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收货地址",
+  "usingComponents": {
+    "del-slide-left": "/components/ay-operate/del_slideLeft"
+  }
+}

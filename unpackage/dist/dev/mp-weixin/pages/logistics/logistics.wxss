@@ -1,0 +1,13 @@
+
+page{
+	background-color: #F2F6F9;
+}
+.index-commodity{
+	background-color: #F5F5F5;
+	margin: 0;
+	padding: 0 4% 0 4%;
+}
+.active{
+	border-bottom:5rpx solid #DB2528;
+}
+

@@ -1,46 +1,55 @@
 <template>
 	<view class="address">
-
-
-
 		<view class="addre" v-if="address.id != ''" @click="choiceAddress">
-			<h3 class="phone">{{address.name}}{{address.phone}}</h3>
-			<text class="text">{{address.address}}</text>
-			<img class="icon" :src="addre.img">
+			<h3 class="phone">{{address.name}} {{address.phone}}</h3>
+			<view class="text">{{address.address}}</view>
+			<text class="icon icon-z-right"></text>
 		</view>
 
 		<view class="addre" v-else @click="choiceAddress">
-			<h3 class="phone"></h3>
-			<text class="text">选择地址</text>
-			<img class="icon" src="../../static/core-right.png">
+			<view class="text">选择地址</view>
+			<text class="icon icon-z-right"></text>
 		</view>
-
-
 
 		<view class="a-tea">
 			<view class="top">
 				<view class="a-img">
-					<img :src="$utils.imageUrl(goodsinfo.head_img)" style="width:80px;height:80px;">
+					<img :src="$utils.imageUrl(goodsinfo.head_img)" style="width:100%;height:100%;" mode="widthFix">
 				</view>
 				<view class="tree">
-					<text class="title">{{goodsinfo.goodsname}}</text>
-					<text class="price"></text>
-					<text class="title1"></text>
-					<text class="num">×1</text>
+					<view>
+						<text class="title">{{goodsinfo.goodsname}}</text>
+						<text class="price">￥1080</text>
+					</view>
+					<view>
+						<text class="title1">规格：礼盒装</text>
+						<text class="num">×1</text>
+					</view>
 				</view>
 			</view>
 			<view class="bottom">
-				<view>
+				<view class="z-time-wrap">
 					<text class="day">配送</text>
 					<text class="date">{{tea.day}}</text>
 				</view>
-				<view>
+				<view class="liuyan">
 					<text class="say">给商家留言</text>
-					<input class="message" type="text"  v-model="remark" placeholder="选填,可备注联系人,备用电话,说明等" />
+					<textarea class="message" type="text" v-if="showInput" v-model="remark" placeholder="选填，可备注联系人，备用电话，订单说明等" ></textarea>
 				</view>
 			</view>
 		</view>
 		<button class="button" @click="sub">立即兑换</button>
+		
+		
+		
+		<!-- 绑定成功提示 -->
+		<view class="success-pop" v-if="showPop">
+			<view class="pop-center clearfix">
+				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
+				<view class="p">恭喜您，成功兑换礼品！</view>
+				<navigator class="n" hover-class="none" url="./change">立即查看</navigator>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -52,7 +61,9 @@
 				goodsinfo: [],
 				address: {},
 				good_keynum: "",
-				remark: ""
+				remark: "",
+				showInput: true,
+				showPop: false
 			}
 		},
 		onLoad: function(e) {
@@ -84,6 +95,11 @@
 
 		},
 		methods: {
+			close: function(){
+				this.showInput = true;
+				this.showPop = false;
+			},
+			
 			sub: function(e) {
 				//获取需要的数据
 
@@ -105,19 +121,21 @@
 				this.$utils.post(action, data).then(res => {
 					console.log(res);
 					if (res.sta == 1) {
-						uni.showModal({
-							title: '',
-							content: '恭喜您，兑换成功！',
-							success: function(res1) {
-								if (res1.confirm) {
-									uni.navigateTo({ //跳转页面
-										url: "./change"
-									})
-								} else if (res1.cancel) {
-									console.log('用户点击取消');
-								}
-							}
-						});
+						this.showInput = false;
+						this.showPop = true;
+						// uni.showModal({
+						// 	title: '',
+						// 	content: '恭喜您，兑换成功！',
+						// 	success: function(res1) {
+						// 		if (res1.confirm) {
+						// 			uni.navigateTo({ //跳转页面
+						// 				url: "./change"
+						// 			})
+						// 		} else if (res1.cancel) {
+						// 			console.log('用户点击取消');
+						// 		}
+						// 	}
+						// });
 					} else {
 						uni.showToast({
 							title: res.msg,
@@ -138,32 +156,42 @@
 </script>
 
 <style>
+	.address{
+		padding-bottom: 110rpx;
+	}
+	
 	.addre {
-		width: 100%;
-		height: 150rpx;
-		line-height: 60rpx;
+		padding: 40rpx 100rpx 30rpx 56rpx;
 		background-color: #fff;
 		margin-top: 20rpx;
+		position: relative;
 	}
 
-	.icon {
-		width: 20rpx;
-		height: 33rpx;
-		float: right;
-		margin-top: -7rpx;
-		margin-right: 20rpx;
+	.addre .icon {
+		font-size: 32rpx;
+		color: #333;
+		position: absolute;
+		right: 32rpx;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 
 	.phone {
-		margin-left: 60rpx;
-		padding-top: 39rpx;
+		font-size: 32rpx;
+		color: #333;
+		font-weight: bold;
+		line-height: 1.8em;
+		margin-bottom: 10rpx;
 	}
 
 	.text {
-		margin-left: 60rpx;
+		font-size: 26rpx;
+		color: #666;
+		line-height: 1.8em;
 	}
 
 	.a-tea {
+		box-sizing: border-box;
 		width: 100%;
 		height: 360rpx;
 		background-color: #fff;
@@ -172,19 +200,16 @@
 	}
 
 	.top {
-		width: 600rpx;
+		box-sizing: border-box;
+		width: 100%;
+		display: flex;
+		padding: 40rpx 38rpx;
 	}
 
 	.a-img {
-		width: 150rpx;
-		height: 150rpx;
+		width: 140rpx;
+		height: 140rpx;
 		background-color: #F3F3F3;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 30rpx;
-		left: 30rpx;
 	}
 
 	.a-tea img {
@@ -192,80 +217,92 @@
 	}
 
 	.tree {
-		width: 500rpx;
-		height: 200rpx;
-		margin-left: 209rpx;
-		position: relative;
+		margin-left: 20rpx;
+		flex: 1;
+		width: 80%;
+		padding-top: 10rpx;
 	}
+	.tree > view{
+		display: flex;
+	}
+	.tree > view:first-child{  margin-bottom: 17rpx;}
 
 	.title {
-		width: 459rpx;
-		height: 30rpx;
-		position: absolute;
-		top: 40rpx;
+		width: 80%;
+		flex: 1;
+		color: #333;
+		font-size: 30rpx;
+		margin-right: 30rpx;
+		line-height: 1.8em;
+		font-weight: 500;
 	}
 
 	.title1 {
-		width: 490rpx;
-		position: absolute;
-		top: 100rpx;
+		width: 80%;
+		flex: 1;
 		color: #999;
+		font-size: 24rpx;
+		margin-right: 30rpx;
 	}
 
 	.price {
-		position: absolute;
-		top: 40rpx;
-		right: 0;
+		font-size: 30rpx;
 	}
 
 	.num {
-		position: absolute;
-		top: 98rpx;
-		right: 0;
+		
 		color: #999;
+		font-size: 24rpx;
 	}
 
 	.bottom {
-		width: 700rpx;
-		height: 150rpx;
-		margin-left: 25rpx;
-		position: relative;
+		padding: 26rpx 38rpx;
+		background-color: #fff;
 	}
-
+	.z-time-wrap{
+		margin-bottom: 60rpx;
+	}
 	.day {
 		font-weight: bold;
-		position: absolute;
-		top: 40rpx;
+		color: #333;
+		font-weight: bold;
+		font-size: 30rpx;
 	}
 
 	.date {
-		width: 200rpx;
-		height: 30rpx;
-		position: absolute;
-		top: 50rpx;
-		left: 500rpx;
 		color: #ccc;
 		font-weight: normal;
+		float: right;
+		font-size: 30rpx;
 	}
-
+	.liuyan{
+		 display: flex;
+	}
 	.say {
-		font-size: 12px;
-		position: absolute;
-		top: 90rpx;
+		font-size: 24rpx;
+		color: #666;
 	}
 
 	.message {
-		width: 520rpx;
-		position: absolute;
-		top: 80rpx;
-		left: 310rpx;
-		font-size: 12px;
+		font-size: 24rpx;
+		color: #999;
+		width: 80%;
+		flex: 1;
+		text-align: right;
+		display: inline-block;
+		align-items: baseline;
+		margin-left: 40rpx;
 	}
 
 	.button {
-		margin-top: 564rpx;
-		background-color: red;
+		position: fixed;
+		bottom: 0;
+		background-color: #EC1815;
 		color: #fff;
-		border-radius: unset;
+		width: 100%;
+		height: 105rpx;
+		line-height: 105rpx;
+		border-radius: 0!important;
+		
 	}
 </style>

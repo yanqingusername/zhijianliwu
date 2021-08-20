@@ -1,0 +1,146 @@
+
+page {
+	background-color: #F4F5F7;
+}
+.gift-partake {
+	border-radius: 20rpx;
+	margin: 49rpx auto 53rpx auto;
+}
+.gift-button {
+	height: 164rpx;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.gift-button-give-top {
+	height: 41rpx;
+}
+.order-rdetails-information-li-button {
+	margin: 0 auto;
+}
+.order-rdetails-commodity-alt{
+	padding: 0rpx;
+	margin: 18rpx 0 20rpx 0;
+}
+.gift-partake-li-portrait image {
+	border-radius: 50%;
+}
+.template-btm-information-voice {
+	width: 491rpx;
+	height: 47rpx;
+	margin: 117rpx auto 185rpx auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+}
+.template-btm-information-voice .img {
+	width: 51rpx;
+	height: 47rpx;
+	margin-right: 10rpx;
+}
+.progress {
+	height: 47rpx;
+	position: absolute;
+	right: 5rpx;
+}
+.progress-one {
+	width: 34rpx;
+	height: 47rpx;
+}
+.progress-view {
+	margin-top: 7rpx;
+	width: 34rpx;
+	height: 34rpx;
+	background: #CAD1D2;
+	border-radius: 50%;
+	z-index: 99;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.progress-circular {
+	width: 24rpx;
+	height: 24rpx;
+	border: 2rpx solid #BDBDBD;
+	border-radius: 50%;
+	background-image: -webkit-linear-gradient(#EFEFEF, #E6E6E6, #C6C6C6, #A1A1A1);
+	background-image: linear-gradient(#EFEFEF, #E6E6E6, #C6C6C6, #A1A1A1);
+}
+.activee {
+	border-bottom: 5rpx solid #DB2528;
+}
+.box {
+	width: 100rpx;
+	height: 100rpx;
+	position: absolute;
+	left: -48rpx;
+	top: -23rpx;
+}
+.first {
+
+	-webkit-animation: fadeInOut 1s infinite 0.2s;
+
+	        animation: fadeInOut 1s infinite 0.2s;
+}
+.second {
+
+	-webkit-animation: fadeInOut 1s infinite 0.4s;
+
+	        animation: fadeInOut 1s infinite 0.4s;
+}
+.third {
+
+	-webkit-animation: fadeInOut 1s infinite 0.6s;
+
+	        animation: fadeInOut 1s infinite 0.6s;
+}
+.order-add-item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	height: 56rpx;
+}
+.order-add-item-button {
+	width: 143rpx;
+	height: 56rpx;
+	line-height: 56rpx;
+	text-align: center;
+	border-radius: 26rpx;
+	border: #FF0137 1rpx solid;
+	color: #FF0137;
+	margin: 0rpx 28rpx;
+}
+.order-name {
+	line-height: 1.5em;
+}
+@-webkit-keyframes fadeInOut {
+0% {
+		opacity: 0;
+		/*初始状态 透明度为0*/
+}
+100% {
+		opacity: 1;
+		/*结尾状态 透明度为1*/
+}
+}
+@keyframes fadeInOut {
+0% {
+		opacity: 0;
+		/*初始状态 透明度为0*/
+}
+100% {
+		opacity: 1;
+		/*结尾状态 透明度为1*/
+}
+}
+

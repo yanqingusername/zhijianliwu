@@ -1,7 +1,7 @@
 <template>
 	<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]" :style="{ borderColor: styleType === 'text' ? '' : activeColor }"
 	 class="segmented-control">
-		<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' ]"
+		<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' , index === currentIndex&&styleType === 'text'||styleType === 'button' ? 'segmented-control__item--texted' : '']"
 		 :key="index" :style="{
         backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&styleType === 'text'||styleType === 'button'?activeColor:'transparent'
       }"
@@ -129,8 +129,23 @@
 	}
 
 	.segmented-control__item--text {
-		border-bottom-style: solid;
-		border-bottom-width: 3px;
+		position: relative;
+		// border-bottom-style: solid;
+		// border-bottom-width: 3px;
+	}
+	.segmented-control__item--text:after {
+		// border-bottom-style: solid;
+		// border-bottom-width: 3px;
+		position: absolute;
+		bottom: 0;
+		content: "";
+		display: black;
+		width: 100rpx; 
+		height: 4rpx;
+		background-color: transparent;
+	}
+	.segmented-control__item--texted:after{
+		background-color: #EC1815;
 	}
 
 	.segmented-control__text {

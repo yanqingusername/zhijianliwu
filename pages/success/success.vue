@@ -3,7 +3,7 @@
 	<view class="success-body margin-auto">
 		<!-- 支付成功 -->
 		<view class="success-payment">
-			<view class="success-payment-img"><image class="img" src="../../static/success.jpg" mode=""></image></view>
+			<view class="success-payment-img"><image class="img" src="../../static/success.jpg" mode="widthFix"></image></view>
 			<view class="success-payment-tips">恭喜您支付成功</view>
 			<view class="success-payment-alt">快去分享您订购的礼物吧,可在礼记中查看领取状态。</view>
 			<view class="success-payment-price">订单金额:<span>¥{{price}}</span></view>
@@ -138,6 +138,14 @@
 
 page{
 	background-color: #F5F5F5;
+}
+
+.success-payment-img{
+	height: auto;
+}
+.success-payment{
+	height: auto;
+	padding-bottom: 50rpx;
 }
 </style>
 

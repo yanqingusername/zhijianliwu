@@ -7,20 +7,27 @@
 		<view class="gift-small">
 			 <view class="gift-small-con">
 			 	<view class="gift-small-head">
-			 		<image class="gift-small-head-img" :src="sign.head_img" mode=""></image>
+			 		<image class="gift-small-head-img" :src="sign.head_img" mode="widthFix"></image>
 			 	</view>
 				<view class="gift-small-content">
 					<view class="gift-small-content-card">
 					    <view class="gift-small-content-card-top">
-					    	<image class="gift-card-img" :src="$utils.osspath_url('/xcx-static/gift/ICON-xm.png')" mode=""></image>
-							<text class="gift-card-title">指间礼物|送礼有温度</text>
-							<view class="gift-card-con"><textarea  @input='txt' :placeholder="text" maxlength="35" :value="send_talk_msg"></textarea></view>
-							<image class="gift-card-edit" :src="$utils.osspath_url('/xcx-static/gift/edit_icon.png')" mode=""></image>
-							<image class="gift-card" :src="theme_background!=null?theme_background:background" mode=""></image>
-							 <button class="gift-card-btn" type="warn" size="mini" @click="getgift" plain="true">立即领取</button>
+					    	<view style="margin-bottom: 14rpx;">
+								<image class="gift-card-img" :src="$utils.osspath_url('/xcx-static/gift/ICON-xm.png')" mode=""></image>
+								<text class="gift-card-title">指间礼物|送礼有温度</text>
+							</view>
+							<view class="gift-card-con">
+								<view>{{text}}</view>
+								<text class="icon icon-edit gift-card-edit" @click="showTxt"></text>
+								<!-- <image class="gift-card-edit" :src="$utils.osspath_url('/xcx-static/gift/edit_icon.png')" mode=""></image> -->
+							</view>
+							<view class="gift-card-btn">
+								<image class="gift-card" :src="theme_background!=null?theme_background:background" mode="widthFix"></image>
+								<button type="warn" size="mini" @click="getgift" plain="true">立即领取</button>
+							</view>
 					    </view>
 						<view class="gift-small-bottom">
-							<image class="gift-small-bottom-img" :src="$utils.osspath_url('/xcx-static/gift/xcx_icon.png')" mode=""></image>
+							<text class="gift-small-bottom-img icon icon-xcx"></text>
 							<text class="gift-small-bottom-font">小程序</text>
 						</view>
 					</view>
@@ -34,10 +41,20 @@
 					   <image class="reg-img" :src="$utils.imageUrl(item.background)" mode=""></image>
 					 </view>
 			 	</view>
-				<text class="gift-img">全部封面</text>
+				<view class="gift-img"><text>全部封面</text></view>
 			 </view>
 		</view>
 		<button class="gift-btn" type="warn" @click="gift">使用该封面</button>
+		
+		
+		<!-- 修改文字 -->
+		<view class="success-pop" v-if="showPop">
+			<view class="pop-center clearfix">
+				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
+				<view class="p"><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text"></textarea></view>
+				<view class="n" @click="close">完成</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -58,6 +75,7 @@
 				content:'',
 				send_talk_msg:'',
 				sign: '',
+				showPop: false
 			}
 		},
 		onLoad: function(e) {
@@ -144,6 +162,12 @@
 			}
 		},
 		methods:{
+			close: function(){
+				this.showPop = false;
+			},
+			showTxt: function(){
+				this.showPop = true;
+			},
 			txt: function(e) {
 				if (e.detail.cursor == 0) {
 					// 接口用到的
@@ -258,11 +282,8 @@
 	/* 发送页 */
 	.gift-header{
 		width: 100%;
-		height: 80rpx;
-		background-color: #FAFAFA;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		padding: 30rpx 0;
+		text-align: center;
 	}
 	.gift-header-title{
 		font-weight: bold;
@@ -275,114 +296,132 @@
 	/* 信息 */
 	.gift-small{
 		width: 100%;
-		height: 600rpx;
+		/* height: 600rpx; */
 	}
 	.gift-small-con{
 		width: 80%;
-		height: 600rpx;
-		margin-left: 40rpx;
+		/* margin-left: 32rpx; */
 		display: flex;
 		justify-content: space-around;
 	}
 	.gift-small-head{
-		width: 100rpx;
-		height: 100rpx;
-		margin-top: 10rpx;
+		width: 76rpx;
+		height: 76rpx;
+	}
+	.gift-small-head image{
+		width: 100%;
 	}
 	.gift-small-content{
-		width: 75%;
-		height: 590rpx;
+		position: relative;
+		width: 66.7%;
 		background-color: #fff;
-		margin-top: 10rpx;
 		border-radius: 10rpx;
+	}
+	.gift-small-content::before{
+		content: "";
+		width: 0;
+		height: 0;
+		border-top: 20rpx solid transparent;
+		border-right: 30rpx solid #fff;
+		border-bottom: 20rpx solid transparent;
+		position: absolute;
+		left: -30rpx;
+		top: 20rpx;
 	}
 	.gift-small-head-img{
 		width: 100rpx;
 		height: 100rpx;
 	}
 	.gift-small-content-card{
-		width: 450rpx;
-		height: 580rpx;
+		padding: 24rpx;
+		width: 100%;
 		position: relative;
+		box-sizing: border-box;
 	}
 	.gift-small-content-card-top{
-	    width: 450rpx;
-		height: 520rpx;
-		position: absolute;
-		left: 1rpx;
-		top: 1rpx;
+	    width: 100%;
+		padding-bottom: 30rpx;
 	}
 	.gift-card-img{
 		width: 40rpx;
 		height: 40rpx;
-		margin-top: 25rpx;
-		margin-left: 20rpx;
+		margin-right: 10rpx;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.gift-card-title{
-		position: absolute;
-		top: 30rpx;
-		left: 70rpx;
 		color: #999999;
-		font-size: 11px
+		font-size: 24rpx;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.gift-card-con{
-		position: absolute;
-		top: 80rpx;
-		left: 20rpx;
-		font-size: 14px;
+		position: relative;
+	}
+	.gift-card-con>view{
+		line-height: 1.5em;
+		font-size: 28rpx;
 		color: #333333;
 	}
 	.gift-card-edit{
-		width: 35rpx;
-		height: 35rpx;
+		font-size: 28rpx;
+		color: #666;
 		position: absolute;
-		left: 380rpx;
-		top: 110rpx;
+		right: 0;
+		bottom: 0;
 	}
 	.gift-card{
-		width: 430rpx;
-		height: 260rpx;
-		position: absolute;
+		width: 100%;
+		
+		/* position: absolute;
 		top: 160rpx;
-		left: 10rpx;
+		left: 10rpx; */
+		box-sizing: border-box;
 	}
 	.gift-card-btn{
-		width: 260rpx;
+		margin-top: 14rpx;
+		border: 1px solid #EDEDED;
+		text-align: center;
+		padding: 20rpx;
+		box-sizing: border-box;
+	}
+	.gift-card-btn button{
+		width: 214rpx;
 		border-radius: 50rpx;
-		position: absolute;
-		top: 440rpx;
-		left: 100rpx;
 		color: red;
 	}
 	.gift-small-bottom{
-		width: 225px;
-		height: 65rpx;
-		position: relative;
-		top: 523rpx;
-		left: 1rpx;
+		box-sizing: border-box;
+		padding-top: 20rpx;
+		border-top: 1rpx solid #E6E6E6; 
+		/* position: relative; */
+		/* top: 523rpx; */
+		/* left: 1rpx; */
 		display: flex;
 		align-items: center;
 	}
 	.gift-small-bottom-img{
-		width: 30rpx;
-		height: 30rpx;
-		margin-left: 30rpx;
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 24rpx;
+		color: #8082B0;
 	}
 	.gift-small-bottom-font{
+		display: inline-block;
+		vertical-align: middle;
 		margin-left: 10rpx;
 		color: #999999;
-		font-size: 11px;
+		font-size: 24rpx;
 	}
 	/* 左滑动效果 */
 	.reg-img {
 	    width: 350rpx;
 	    height: 260rpx;
-	    margin-right:18rpx;
-		margin-top: 30rpx;
+	    margin-right: 18rpx;
+		margin-top: 10rpx;
 	}
 	.my-reg {
 	    padding:20rpx 30rpx;
-	    border-bottom: 20rpx solid #F5F6F9;
 	    display: flex;
 	    overflow-y: hidden;
 	    overflow-x: scroll
@@ -392,21 +431,33 @@
 	    margin-right: 8px;
 	}
 	.gift-img{
-		position: absolute;
-		left: 323rpx;
-		top: 1040rpx;
-		color: #999999;
-		border-bottom: 1px solid #999999;
+		text-align: center;
+		font-size: 24rpx;
+		margin-top: 20rpx;
+		color: #999;
+	}
+	.gift-img text{
+		border-bottom: 1px solid #999;
 	}
 	.gift-btn{
-		width: 300rpx;
-		position: absolute;
-		top: 1080rpx;
-		left: 233rpx;
+		margin-top: 30rpx;
+		width: 384rpx;
+		background-color: #F55856;
+		height: 80rpx;
+		line-height: 80rpx;
+		margin-bottom: 30rpx;
+		font-size: 32rpx;
 	}
 	textarea{
-		width: 380rpx;
-		font-size: 12px;
+		width: 100%;
+		font-size: 30rpx;
 		color: #333333;
+		line-height: 1.5em;
+		border: 1px solid #efefef;
+		padding: 10rpx;
+	}
+	.success-pop .pop-center .p{
+		margin: 20rpx 0;
+		text-align: left;
 	}
 </style>

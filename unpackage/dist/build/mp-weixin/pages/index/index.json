@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "指间礼物",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "own-index-header": "/components/own-components/own-index-header",
+    "own-swiper": "/components/own-components/own-swiper",
+    "own-product-list": "/components/own-components/own-product-list",
+    "own-commodity-block": "/components/own-components/own-commodity-block",
+    "own-grid": "/components/own-components/own-grid",
+    "own-index-coupon-module": "/components/own-components/own-index-coupon-module",
+    "index-jrtj": "/components/own-image/index-jrtj"
+  }
+}

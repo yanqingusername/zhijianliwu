@@ -1,28 +1,25 @@
 <template>
-	<view class="owm-index-header">
-		<view class="owm-index-header-box"></view>
-		<view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view>
+	<view class="owm-index-header" :style="'padding-top:'+ (statusBarHeight + 30)+'px'">
+		<!-- <view class="owm-index-header-box"></view> -->
+		<view class="z-logo-top">
+			<view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view>
+			<!-- <image :src="$utils.osspath_url('/xcx-static/index/logo.png')" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image> -->
+			<image src="../../static/logo.png" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image>
+		</view>
+		
+		
 		<view class="bg">
-			<!-- <image :src="$utils.osspath_url('/xcx-static/index/bgs.png')" mode=""></image> -->
-			<view class="">
-				<image :src="$utils.osspath_url('/xcx-static/index/logo.png')" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image>
-			</view>
+			<image :src="$utils.osspath_url('/xcx-static/index/bgs.png')" mode="widthFix" style="width: 100%;"></image>
 			<view class="owm-index-box">
 				<!-- <image :src="$utils.imageUrl(loginUrl)" mode="heightFix" class="owm-index-logo" @click="goTo()"></image> -->
 				<!-- <input type="text" placeholder="搜索想要的礼物" class="owm-index-search-box" confirm-type="search"/> -->
 				<view class="owm-index-search" @click="goToSearch">
 					<image class="owm-index-search-img" src="@/static/navgation-search-img.png" mode="widthFix"></image>
-					<input class="owm-index-search-input" disabled="true" type="text" value="" placeholder="搜索热门礼物" />
+					<!-- <input class="owm-index-search-input" disabled="true" type="text" value="" placeholder="搜索热门礼物" /> -->
+					<text class="owm-index-search-input">搜索热门礼物</text>
 				</view>
 			</view>
 		</view>
-		
-		<scroll-view scroll-x="true" class="owm-index-tab-bar-box"  show-scrollbar="false">
-			<view class="owm-index-tab-bar  sticky-box">
-				<view class="owm-index-tab-bar-item" :class="[Index==item.id?'owm-index-tab-bar-item-active':'']" v-for="item, index in List"
-				 @click="change(item.id)">{{item.name}}</view> 
-			</view>
-		</scroll-view>
 	</view>
 </template>
 
@@ -98,24 +95,44 @@
 		    padding: 1px 0 1px 0;
 		    background-color: #F4F5F6;
 		}
+	.owm-index-header{
+		/* padding-top: 80rpx; */
+	}
+	.z-logo-top{
+		font-size: 0;
+		padding: 0 26rpx 0;
+		position: fixed;
+		top: 0; 
+		left: 0; 
+		width: 100%; 
+		z-index: 20;
+		background-color: #F2341E;
+	}
+	.z-logo-top image{
+		
+	}
 	.bg{
+		/* margin-top: -60rpx; */
 		width: 100%;
-		height: 350rpx;
-		background-image: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/bgs.png);
-		background-size: 753rpx 300rpx;
-		background-repeat: no-repeat;
-		margin-top: -60rpx;
+		position: relative;
+		/* height: 460rpx; */
+		box-sizing: border-box;
+		/* background: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/bgs.png) no-repeat center center/100% 100%; */
+		/* background: linear-gradient(133deg, #F32C14 0%, #EB1515 100%); */
+		/* background-repeat: no-repeat; */
+		/* margin-top: -60rpx; */
+		/* padding: 0 26rpx; */
 	}
 	.owm-index-header-box{
 		/* height: 95rpx; */
 	}
 	.owm-index-header {
 		/* background: #FFFFFF; */
-		position: fixed; 
-		left: 0; 
-		top: 0;
+		/* position: fixed; */
+		/* left: 0; */
+		/* top: 0; */
 		width: 100%;
-		z-index: 99;
+		/* z-index: 99; */
 	}
 
 	.owm-index-status-bar {
@@ -123,45 +140,60 @@
 	}
 
 	.owm-index-box {
-		display: flex;
-		height: 95rpx;
-		width: 90%;
-		align-items: center;
-		justify-content: center;
-		margin-left: 30rpx;
-		margin-top: -50rpx;
+		/* display: flex; */
+		/* height: 95rpx; */
+		width: 100%;
+		box-sizing: border-box;
+		/* align-items: center; */
+		/* justify-content: center; */
+		/* margin-left: 30rpx; */
+		position: absolute;
+		width: 100%;
+		padding: 0 26rpx;
+		top: 60rpx;
+		left: 0;
 	}
 
 	.owm-index-logo {
 		/* height: 23px; */
 		/* margin: 0 54rpx 0 15rpx; */
 		/* width: 173.61rpx; */
-		    height: 50rpx;
-		    margin-top: 70rpx;
-		    margin-left: 30rpx;
+		    height: 72rpx;
+			margin-bottom: 10rpx;
+		    /* margin-top: 70rpx; */
+		    /* margin-left: 30rpx; */
 		/* background: #33333330; */
 	}
 
 	.owm-index-search {
-		height: 60rpx;
+		height: 66rpx;
+		line-height: 66rpx;
 		text-align: center;
 		border-radius: 50rpx;
 		padding: 0rpx 16rpx;
 		background: #F9F9F9;
-		display: flex;
+		width: 100%;
+		box-sizing: border-box;
+		/* display: flex;
 		justify-content: space-around;
-		align-items: center;
+		align-items: center; */
 	}
 	.owm-index-search-img{
 		width: 28rpx;
 		height: 28rpx;
-		position: absolute;
-		left: 240rpx;
+		display: inline-block;
+		vertical-align: middle;
+		/* position: absolute; */
+		/* left: 240rpx; */
 	}
 	.owm-index-search-input{
-		width: calc(100% - 48rpx);
+		display: inline-block;
+		vertical-align: middle;
+		/* width: calc(100% - 48rpx); */
 		margin-left: 8rpx;
-		height: 28rpx;
+		/* height: 100% */
+		color: #AAAAAA;
+		font-size: 24rpx;
 	}
 
 	.owm-index-tab-bar {

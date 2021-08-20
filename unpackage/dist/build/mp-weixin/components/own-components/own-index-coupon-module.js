@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/own-components/own-index-coupon-module"],{"2a81":function(n,t,e){"use strict";(function(n){Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var e={props:["coupon_left","coupon_right"],data:function(){return{sta:0,coupon_left:"",coupon_right:""}},onLoad:function(){var t=n.getStorageSync("sign");t&&(this.sta="200")},methods:{coupon:function(t){n.navigateTo({url:"../index-coupon/index-coupon"})},recommend:function(){n.navigateTo({url:"../Recommend/Recommend"})},share:function(t){n.navigateTo({url:"../Member/Member"})}},computed:{}};t.default=e}).call(this,e("543d")["default"])},"33a5":function(n,t,e){"use strict";var o;e.d(t,"b",(function(){return u})),e.d(t,"c",(function(){return a})),e.d(t,"a",(function(){return o}));var u=function(){var n=this,t=n.$createElement,e=(n._self._c,n.$utils.osspath_url("/xcx-static/index/bg.png")),o=n.$utils.osspath_url("/xcx-static/index/cardbg.png"),u=n.$utils.osspath_url("/xcx-static/index/mem.png");n.$mp.data=Object.assign({},{$root:{g0:e,g1:o,g2:u}})},a=[]},"54ee":function(n,t,e){"use strict";var o=e("d3b0"),u=e.n(o);u.a},"8a1e":function(n,t,e){"use strict";e.r(t);var o=e("2a81"),u=e.n(o);for(var a in o)"default"!==a&&function(n){e.d(t,n,(function(){return o[n]}))}(a);t["default"]=u.a},9277:function(n,t,e){"use strict";e.r(t);var o=e("33a5"),u=e("8a1e");for(var a in u)"default"!==a&&function(n){e.d(t,n,(function(){return u[n]}))}(a);e("54ee");var c,r=e("f0c5"),i=Object(r["a"])(u["default"],o["b"],o["c"],!1,null,null,null,!1,o["a"],c);t["default"]=i.exports},d3b0:function(n,t,e){}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/own-components/own-index-coupon-module-create-component',
+    {
+        'components/own-components/own-index-coupon-module-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("9277"))
+        })
+    },
+    [['components/own-components/own-index-coupon-module-create-component']]
+]);

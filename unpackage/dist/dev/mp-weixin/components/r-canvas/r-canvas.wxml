@@ -1,0 +1,1 @@
+<view class="{{['r-canvas-component',(hidden)?'hidden':'']}}"><block wx:if="{{canvas_id}}"><canvas style="{{'width:'+(canvas_width+'px')+';'+('height:'+(canvas_height+'px')+';')}}" canvas-id="{{canvas_id}}" id="{{canvas_id}}"></canvas></block></view>

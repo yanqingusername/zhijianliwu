@@ -1,16 +1,34 @@
 <template>
 	<view class="center">
-		<img class="index-img" src="../../static/index-coupons.png">
-		<text class="choose">您可以选择下列1款礼物进行兑换</text>
-		<view v-for="item in goodslist" class="tea">
-			<view class="tea-img">
-				<image class="img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
+		<img class="index-img" src="../../static/index-coupons.png" mode="widthFix">
+		<view class="choose">您可以选择下列1款礼物进行兑换</view>
+		
+		<view class="wrapper">
+			<!-- 假数据 -->
+			<view v-for="item in goodslist" class="tea">
+				<view>
+					<view class="tea-img">
+						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+					</view>
+					<view style="padding: 16rpx 20rpx 26rpx">
+						<view class="t-title">{{item.goodsname}}</view>
+						<view class="l-title">{{item.goodstitle}}</view>
+						<button size="mini" class="sub" :data-keynum="item.keynum"   @click="confirm_order">去兑换</button>
+					</view>
+				</view>
 			</view>
-			<view>
-				<text class="t-title">{{item.goodsname}}</text>
-				<text class="l-title">{{item.goodstitle}}</text>
-				<button size="mini" class="sub"    :data-keynum="item.keynum"   @click="confirm_order">去兑换</button>
-			</view>
+			
+			
+			<!-- <view v-for="item in goodslist" class="tea">
+				<view class="tea-img">
+					<image class="img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
+				</view>
+				<view>
+					<text class="t-title">{{item.goodsname}}</text>
+					<text class="l-title">{{item.goodstitle}}</text>
+					<button size="mini" class="sub"   :data-keynum="item.keynum"   @click="confirm_order">去兑换</button>
+				</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -70,61 +88,82 @@
 </script>
 
 <style>
+	.center{
+		background: #FAFAFA;
+	}
 	.index-img {
 		width: 100%;
 		height: 350rpx;
 	}
 
 	.choose {
-		font-size: 16px;
-		color: #8C8C8C;
-		display: flex;
-		justify-content: center;
+		font-size: 28rpx;
+		color: #666;
+		text-align: center;
 		margin-top: 30rpx;
+		margin-bottom: 30rpx;
+	}
+	
+	.wrapper{
+		padding: 0 16rpx;
+		box-sizing: border-box;
+		font-size: 0;
 	}
 
 	.tea {
-		width: 345rpx;
-		float: left;
-		margin-left: 20rpx;
-		margin-top: 30rpx;
+		display: inline-block;
+		width: 50%;
+		padding: 0 10rpx;
+		box-sizing: border-box;
+		margin-bottom: 40rpx;
+	}
+	.tea>view{
 		background-color: #fff;
+		box-sizing: border-box;
 	}
-
 	.tea-img {
-		width: 345rpx;
+		width: 100%;
 		height: 350rpx;
-		border: 1px dashed #000;
+		position: relative;
+		/* border: 1px dashed #000; */
 	}
-
-	.img {
-		width: 350rpx;
-		width:350rpx;
+	.tea-img .img {
+		max-width: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
 	}
 
 	.sub {
 		color: #fff;
-		width: 200rpx;
+		width: 180rpx;
 		border-radius: 15px;
-		margin-top: 10rpx;
-		margin-bottom: 10rpx;
-		margin-left: 70rpx;
+		height: 56rpx;
+		line-height: 56rpx!important;
+		margin: 0 auto;
+		display: block!important;
 		background-color: #EC1815;
 	}
 
 	.t-title {
 		font-weight: bold;
 		display: block;
-		text-align: center;
-		margin-top: 10rpx;
-		margin-bottom: 10rpx;
-		font-size: 15px;
+		font-size: 28rpx;
+		color: #333;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-bottom: 8rpx;
 	}
 
 	.l-title {
 		color: #999;
-		font-size: 12px;
-		display: flex;
-		justify-content: center;
+		font-weight: bold;
+		font-size: 24rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-bottom: 22rpx;
 	}
 </style>

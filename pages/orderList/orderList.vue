@@ -14,7 +14,7 @@
 			</view>
 			<!-- 我购买的,我收到的 -->
 			<view class="order-nav">
-				<view class="order-nav-content flex-between margin-auto">
+				<view class="order-nav-content">
 					<!-- 0未审核1待发货2已发货3已签收99已取消4异常订单5未支付	 -->
 					<view class="order-nav-content-left" data-index="-1" @click="top" :class="[nav==-1?'order-nav-content-active':'']">全部</view>
 					<view class="order-nav-content-left" data-index="5" @click="top" :class="[nav==5?'order-nav-content-active':'']">待付款</view>
@@ -89,23 +89,22 @@
 				<!-- 礼品 按钮 -->
 				<view class="order-purchase-li-btm flex-between" v-if="item.status == '5'||item.status == '2'">
 					<!-- <x></x>  已完成  已关闭 -->
-					<view class="order-purchase-li-btm-button flex-between" v-if="item.status == '5'">
+					<view class="z-order-purchase-li-btm-button" v-if="item.status == '5'">
 						<view class="order-purchase-btm-li" :data-index="index" :data-ordernumber="item.ordernumber" @click="cancel">取消订单</view>
-						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber">
-							<form @submit="submit" :data-ordernumber="item.ordernumber"><button :data-index="index" class="order-purchase-btm-li"
-								 :data-ordernumber="item.ordernumber" :data-id="item.id" form-type="submit">立即支付</button></form>
+						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber"  style='display: inline-block;'>
+							<form @submit="submit" :data-ordernumber="item.ordernumber"><button :data-index="index" class="order-purchase-btm-li" :data-ordernumber="item.ordernumber" :data-id="item.id" form-type="submit">立即支付</button></form>
 						</view>
 					</view>
 
 					<!-- 订单全部生成 -->
-					<view class="flex-between" v-else-if="item.has_order =='1' && item.has_exchange_order=='0'">
+					<view class="" v-else-if="item.has_order =='1' && item.has_exchange_order=='0'">
 						<view class="order-li-btn-right" :data-ordernumber="item.ordernumber" @click="purchasedetails">查看详情</view>
 					</view>
 
 					<!-- 支付中 -->
-					<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status=='5'">
+					<view class="z-order-purchase-li-btm-button" v-else-if="item.status=='5'">
 						<view class="order-purchase-btm-li" :data-index="index" :data-ordernumber="item.ordernumber" @click="cancel">取消订单</view>
-						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber">
+						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber" style='display: inline-block;'>
 							<form @submit="submit"><button :data-index="index" class="order-purchase-btm-li" :data-ordernumber="item.ordernumber"
 								 :data-id="item.id" form-type="submit">立即支付</button>
 							</form>
@@ -1546,7 +1545,15 @@
 	page {
 		background-color: #F8F7F5;
 	}
-
+	.order-nav-content{
+		width: auto!important;
+	}
+	.order-nav-content>view{
+		display: inline-block;
+		vertical-align: middle;
+		width: 20%;
+		text-align: center;
+	}
 	.order-commodity-name {
 		width: 75%;
 		white-space: nowrap;
@@ -1555,6 +1562,7 @@
 	}
 
 	.order-purchase-li-btm {
+		height: auto;
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -1568,7 +1576,9 @@
 	}
 
 	.order-purchase-btm-li {
+		display: inline-block;
 		margin-left: 20rpx;
+		vertical-align: middle;
 	}
 
 	.no-btm {

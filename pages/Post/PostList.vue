@@ -2,7 +2,7 @@
 	<view>
 		<view class="post-list">
 			<view class="post" v-for="post in postList" @click="goToPost(post.id)">
-				<image :src="$utils.imageUrl(post.title_img)" mode=""></image>
+				<image :src="$utils.imageUrl(post.title_img)" mode="aspectFill"></image>
 				<view class="text">
 					<view class="title">
 						{{post.title}}
@@ -91,12 +91,14 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center
+		align-items: center;
+		padding: 0 26rpx;
+		box-sizing: border-box;
 	}
 
 	.post {
 		margin-top: 32rpx;
-		width: 627.77rpx;
+		width: 100%;
 		height: 400rpx;
 		border-radius: 16rpx;
 		background: #FFF;
@@ -128,7 +130,7 @@
 
 	.post image {
 		float: right;
-		width: 627.77rpx;
+		width: 100%;
 		height: 300rpx;
 		background: #33333330;
 		border-radius: 16rpx 16rpx 0 0;

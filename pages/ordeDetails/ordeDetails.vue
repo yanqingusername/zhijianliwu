@@ -32,19 +32,19 @@
 			</view>
 		</scroll-view>
 
-
 		<view class="order-purchase" v-for="(item,index) in purchase" :key="index" :class="[nav==0?'':'none']">
 			<view class="order-purchase-li">
 				<!-- 商品 介绍 -->
 				<view class="order-purchase-li-top flex" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="orderdetails">
 					<!-- 商品图 -->
 					<view class="order-purchase-top-img">
-						<image class="img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
+						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 					</view>
 					<!-- 介绍 -->
 					<view class="order-purchase-top-introduce">
 						<!-- 名称,状态-->
-						<view class="order-purchase-top-header flex-between">{{item.goodsname}}
+						<view class="order-purchase-top-header flex-between">
+							<view>{{item.goodsname}}</view>
 							<view class="order-purchase-top-header-right" v-if="item.status=='0'">支付中></view>
 							<view class="order-purchase-top-header-right" v-else-if="item.status=='1'">待赠送></view>
 							<view class="order-purchase-top-header-right" v-else-if="item.status=='2'">赠送中></view>
@@ -145,7 +145,7 @@
 				<image src="../../static/details-close.png" class="details-hidden-close" mode="" @click="close"></image>
 			</view>
 		</view>
-
+		
 
 		<button class="balance-button" @click="generate">生成订单</button>
 		<view style="height:176rpx;width: 100%;"></view>
@@ -963,14 +963,37 @@
 	.logistics-number-scroll-li {
 		width: 120rpx;
 	}
-
-	.order-purchase-top-header {
-		height: 34rpx;
+	.order-purchase-top-header{
+		height: auto!important;
+		padding: 0!important;
+	}
+	.order-purchase-li{
+		width: auto;
+	}
+	.order-purchase-top-img{
+		margin-left: 26rpx;
+		height: auto;
+	}
+	.order-purchase-top-introduce{
+		flex: 1;
+		padding-right: 26rpx;
+	}
+	.order-purchase-right{
+		transform: translateY(-50%);
+		right: 26rpx;
+		top: 50%;
+	}
+	.order-purchase-top-header view:first-child{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		background-color: white;
+		width: 70%;
+	}
+	
+	.order-purchase-li-btm {
+		height: auto!important;
 	}
 </style>

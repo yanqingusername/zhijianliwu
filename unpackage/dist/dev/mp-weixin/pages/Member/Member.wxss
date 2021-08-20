@@ -1,0 +1,15 @@
+
+.member-btm-li{
+	font-size: 28rpx;
+	line-height: 0rpx;
+}
+.member-button {
+	width: 448rpx;
+}
+.member-button button{
+	width: 448rpx;
+}
+.member-content{
+	margin-top: 0!important;
+}
+

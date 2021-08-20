@@ -1,0 +1,1 @@
+<view class="index-discount-recommend index-discount-content flex"><image class="index-discount-recommend-left" lazy-load="true" src="../../static/xing-left.jpg" mode></image>今日推荐<image class="index-discount-recommend-right" lazy-load="true" src="../../static/xing-right.jpg" mode></image></view>

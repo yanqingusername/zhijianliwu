@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "新增地址",
+  "usingComponents": {
+    "evan-switch": "/components/evan-switch/evan-switch",
+    "simple-address": "/components/simple-address/simple-address"
+  }
+}

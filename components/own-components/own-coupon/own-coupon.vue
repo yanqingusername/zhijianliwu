@@ -43,13 +43,12 @@
 		},
 		methods: {
 			receive(id){
-				console.log(id, this.id)
 				var data = JSON.stringify({
 					memberid: uni.getStorageSync('id'),
 					coupon_type: this.coupon.id
 				});
 				var action = 'receive_coupon';
-				console.log('领取优惠券', data)
+				// console.log('领取优惠券', data)
 				this.$utils.post(action, data).then(res => {
 					console.log('领取优惠券', res)
 					if (res.sta == 1) {
