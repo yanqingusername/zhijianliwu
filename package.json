@@ -5,5 +5,8 @@
     "description": "操作组件：左滑删除，自定义任意内容",
     "keywords": [
         "左滑删除"
-    ]
+    ],
+    "dependencies": {
+        "sr-sdk-wxapp": "^1.4.2"
+    }
 }

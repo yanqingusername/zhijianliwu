@@ -1,79 +1,86 @@
 <template>
 	<view>
+		<view class="post-header" :style="'padding-top:'+ (statusBarHeight + 30)+'px'">
+			<view class="z-logo-top">
+				<view class="post-nav" :style="'height:'+statusBarHeight+'px'"></view>
+				<view class="post-header-interstall" >
+					<view class="post-header-title">攻略</view>
+					<view class="post-header-search" @click="goToSearch">
+						<image class="post-header-search-img" src="@/static/navgation-search-img.png" mode="widthFix"></image>
+						<input class="post-header-search-input" disabled="true" type="text" value="" placeholder="搜索热门礼物" />
+					</view>
+				</view>
+			</view>
+		</view>
+		
 		<view class="post-list">
-			<view class="post" v-for="post in postList" @click="goToPost(post.id)">
-				<image :src="$utils.imageUrl(post.title_img)" mode="aspectFill"></image>
+			<!-- <view class="post" v-for="post in postList" @click="goToPost(post.id)">
+				<image :src="$utils.imageUrl(post.title_img)" mode=""></image>
 				<view class="text">
 					<view class="title">
 						{{post.title}}
 					</view>
 				</view>
-			</view>
+			</view> -->
+			<post-product :postList="postList" :state="state" @clickLike="clickLike"></post-product>
+			<!-- <view class="goodslist">
+				<block v-for="post in postList" >
+					<view class="goods" @click="goToPost(post.id)">
+						<view class="goods-head">
+							<image :src="$utils.imageUrl(post.title_img)" mode=""class="goods-head-img" ></image>
+							<image src="@/static/post-play-button.png" mode=""class="goods-head-label" ></image>
+						</view>
+						<view class="goods-text">{{post.title}}</view>
+						<view class="goods-bottom">
+							<image src="@/static/post-like.png" mode=""class="goods-bottom-img" ></image>
+							<view class="goods-number">{{'263'}}</view>
+						</view>
+					</view>
+				</block>
+			</view> -->
 		</view>
 		<view class="post-bottom" v-if="isAll">
-			-- 全部加载 --
+			<view class="post-bottom-line"></view>
+			<view class="post-bottom-text">我是有底线的</view>
+			<view class="post-bottom-line"></view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import config from '../../common/config.js';
+	import postProductList from "@/components/own-components/post-product.vue"
 	export default {
+		components:{
+			"post-product": postProductList,
+		},
 		data() {
 			return {
 				isAll: false,
 				pageSize: 10,
 				pageIndex: 1,
-				postNumber: 0,
-				url:"",
-				postList: []
+				postList: [],
+				nav:'20',
 			}
 		},
 		onLoad:function() {
-			this.url = config.URL;
-			let that = this;
-			let action = "get_gifts_article_list";
-			let data = JSON.stringify({pageSize: this.pageSize,pageIndex: this.pageIndex});
-			this.$utils.post(action,data).then(res=>{
-				that.postList = res.rs;
-				that.pageIndex++;
-				that.postNumber += res.rs.length;
-				console.log("文章列表-首页", res.rs);
-			})
+			this.getProductList(1);
+			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 		},
 		onPullDownRefresh:function(){
-			this.postNumber = 0;
-			this.pageIndex = 1;
-			let that = this;
-			let action = "get_gifts_article_list";
-			let data = JSON.stringify({pageSize: this.pageSize,pageIndex: this.pageIndex});
-			this.$utils.post(action,data).then(res=>{
-				setTimeout(()=>{
-					uni.stopPullDownRefresh();
-				}, 500)
-				that.pageIndex++;
-				that.postList = res.rs;
-				that.isAll = false;
-				that.postNumber += res.rs.length;
-				console.log("文章列表-刷新", res.rs);
-			})
+			this.getProductList(1);
+			setTimeout(()=>{
+				uni.stopPullDownRefresh();
+			}, 500);
 		},
 		onReachBottom:function(){
-			let that = this;
-			let action = "get_gifts_article_list";
-			let data = JSON.stringify({pageSize: this.pageSize,pageIndex: this.pageIndex});
-			this.$utils.post(action,data).then(res=>{
-				if(res.rs.length>0){
-					that.postList = that.postList.concat(res.rs);
-					that.pageIndex++;
-					that.postNumber += res.rs.length;
-					// console.log("文章列表-全部", that.postList);
-					console.log("文章列表-下一页", res.rs);
-				}else{
-					console.log("文章列表-全部加载");
-					that.isAll = true;
-				}
-			})
+			this.getProductList(2);
+		},
+		computed: {
+			statusBarHeight: function() {
+				// 获取顶部状态栏高度
+				return uni.getSystemInfoSync().statusBarHeight;
+			},
 		},
 		methods: {
 			goToPost: function(id){
@@ -81,24 +88,142 @@
 				uni.navigateTo({
 					url:'./Post?id='+id
 				})
+			},
+			goToSearch: function(){
+				uni.navigateTo({
+					url: './PostSearch'
+				})
+			},
+			getProductList(typeNumber){
+				if(typeNumber == 1){
+					this.pageIndex = 1;
+				}
+				
+				let that = this;
+				let action = "get_gifts_article_list";
+				let controller = 'article';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
+					memberid: memberid
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(typeNumber == 1){
+						that.pageIndex++;
+						that.postList = res.rs;
+						that.isAll = false;
+					} else {
+						if(res.rs.length>0){
+							that.postList = that.postList.concat(res.rs);
+							that.pageIndex++;
+						}else{
+							that.isAll = true;
+						}
+					}
+				});
+			},
+			clickLike: function(id,index,is_collect) {
+				let that = this;
+				let action = "set_article_live_number";
+				let controller = 'article';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					number: 1,
+					article_id: id,
+					memberid: memberid,
+					set_status: is_collect == "1"?"2" : "1"
+				});
+				
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						if(is_collect == 1){
+							let item = that.postList[index];
+							item.live_number --;
+							item.is_collect = 2;
+							that.postList = that.postList;
+						}else{
+							let item = that.postList[index];
+							item.live_number ++;
+							item.is_collect = 1;
+							that.postList = that.postList;
+						}
+					}
+				})
 			}
 		}
 	}
 </script>
 
 <style>
-	.post-list {
+	.post-header{
+		background: #FAFAFA;
+		width: 100%;
+		position: fixed;
+	    z-index: 200;
+	    height: 140rpx;
+	}
+	.z-logo-top{
+		font-size: 0;
+		padding: 0;
+		position: fixed;
+		top: 0; 
+		left: 0; 
+		width: 100%; 
+		z-index: 222;
+		background-color: #FAFAFA;
+	}
+	.post-nav{
+		width: 100%;
+		height: 20px;
+	}
+	.post-header-interstall{
+		    margin-top: 16rpx;
+		    /* width: 696.52rpx; */
+		    height: 60rpx;
+		    position: relative;
+			display: flex;
+		    align-items: center;
+	}
+	.post-header-title{
+		font-size: 36rpx;
+		margin-left: 35rpx;
+		margin-right: 32rpx;
+		color: #333333;
+	}
+	.post-header-search {
+		height: 60rpx;
+		text-align: center;
+		border-radius: 50rpx;
+		padding: 0rpx 16rpx;
+		background: #FFFFFF;
 		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.post-header-search-img{
+		width: 28rpx;
+		height: 28rpx;
+		position: absolute;
+		left: 190rpx;
+	}
+	.post-header-search-input{
+		width: calc(100% - 48rpx);
+		margin-left: 8rpx;
+		height: 28rpx;
+	}
+	
+	.post-list {
+		/* display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
-		padding: 0 26rpx;
-		box-sizing: border-box;
+		align-items: center; */
+		padding-top: 140rpx;
 	}
 
-	.post {
+	/* .post {
 		margin-top: 32rpx;
-		width: 100%;
+		width: 627.77rpx;
 		height: 400rpx;
 		border-radius: 16rpx;
 		background: #FFF;
@@ -107,40 +232,125 @@
 		flex-direction: column;
 		justify-content: space-between;
 		font-size: 16px;
-	}
+	} */
 
-	.post .text {
+	/* .post .text {
 		position: relative;
 		text-align: left;
 		margin: 30rpx 20rpx;
-	}
+	} */
 
-	.post .title {
+	/* .post .title {
 		text-align: left;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-	}
+	} */
 
-	.post .time {
+	/* .post .time {
 		bottom: 0rpx;
 		position: absolute;
 		text-align: left;
-	}
+	} */
 
-	.post image {
+	/* .post image {
 		float: right;
-		width: 100%;
+		width: 627.77rpx;
 		height: 300rpx;
 		background: #33333330;
 		border-radius: 16rpx 16rpx 0 0;
 		flex-grow: 0;
 		flex-shrink: 0;
-	}
+	} */
 	.post-bottom{
-		color: #888888;
+		display: flex;
+		align-items: center;
+		color: #B3B3B3;
 		text-align: center;
-		margin-top: 24rpx;
-		margin-bottom: 48rpx;
+		padding-top: 24rpx;
+		padding-bottom: 48rpx;
+		justify-content: center;
 	}
+	.post-bottom-text{
+		font-size: 24rpx;
+		color: #B3B3B3;
+		line-height: 33rpx;
+		margin: 0rpx 18rpx;
+	}
+	.post-bottom-line{
+		width: 240rpx;
+		height: 1px;
+		background: #E0E0E0;
+	}
+	
+	/* .goodslist {
+	  padding: 20rpx 24rpx;
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: space-between;
+	  padding-bottom: 10rpx;
+	}
+	
+	.goods {
+	    width: 338rpx;
+	    margin-bottom: 20rpx;
+	    background: #FFFFFF;
+	    border-radius: 3rpx;
+	    position: relative;
+	    height: 580rpx;
+	}
+	
+	.goods-head {
+	    position: relative;
+	    width: 338rpx;
+	    height: 420rpx;
+	}
+	
+	.goods-head-img{
+		width: 100%;
+		height: 420rpx;
+	}
+	.goods-head-label{
+		position: absolute;
+		top: 20rpx;
+		right: 20rpx;
+		width:41rpx;
+		height:41rpx;
+	}
+	
+	.goods-text {
+		margin: 18rpx 20rpx 0rpx;
+		height: 84rpx;
+		font-size: 30rpx;
+		font-weight: 500;
+		color: #333333;
+		line-height: 42rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.goods-bottom{
+		display: flex;
+		position: absolute;
+		bottom: 10rpx;
+		right: 0rpx;
+		margin-right: 20rpx;
+		flex-direction: row;
+		align-items: center;
+	}
+	
+	.goods-bottom-img{
+		width: 40rpx;
+		height: 40rpx;
+	}
+	
+	.goods-number{
+		font-size: 26rpx;
+		color: #888888;
+	} */
 </style>

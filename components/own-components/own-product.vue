@@ -1,5 +1,5 @@
 <template>
-	<view class="own-product product" @click="details" :data-keynum="data.keynum">
+	<view class="own-product product" @click="details" :data-keynum="data.keynum" :data-dataitem="data">
 		<view class="own-image-box">
 			<image lazy-load="true" :src="$utils.imageUrl(data.head_img)" mode="widthFix" class="own-image" v-if="data.head_img"></image>
 			<!-- 无图时的状态 -->
@@ -9,7 +9,7 @@
 		<view class="z-good-bottom">
 			<!-- 商品名称 -->
 			<view class="own-name">{{data.goodsname}}</view>
-			<view class="own-introduce">这是介绍这是介绍这是介绍这是介绍</view>
+			<view class="own-introduce">{{data.goodstitle ? data.goodstitle : ''}}</view>
 			<!-- 会员状态 -->
 			<view class="own-other-info-box" v-if="level>1">
 				<text class="price-i">￥</text><text class="own-price">{{price_level}}</text>
@@ -30,7 +30,7 @@
 				<block v-else>
 					<text class="price-i">￥</text><text class="own-price" style="font-size: 34rpx">{{price_level}}</text>
 				</block>
-				<text class="number" style="margin-top: 6rpx;">34人已购</text>
+				<text class="number" style="margin-top: 6rpx;">{{data.buy_count || 0}}人已购</text>
 				<!-- <image class="own-give" src="../../static/fica-give.jpg" mode="heightFix"></image> -->
 			</view>
 		</view>
@@ -38,6 +38,7 @@
 	</view>
 </template>
 <script>
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		props: {
 			"data":{},
@@ -54,6 +55,21 @@
 		},
 		methods:{
 			details:function(e){
+				// 腾讯有数
+				let dataitem = e.currentTarget.dataset.dataitem;
+				sr.track('trigger_sku_component',
+					{
+					   "sku": {
+						 "sku_id": dataitem.sku, // 若商品无sku_id时，可传spu_id信息
+						 "sku_name": dataitem.goodsname // 若商品无sku_name时，可传spu_name信息
+					   },
+					   "spu": {
+							"spu_id": dataitem.sku, // 若商品无spu_id时，可传sku_id信息
+							"spu_name": dataitem.goodsname // 若商品无spu_name时，可传sku_name信息
+						},
+					   "primary_image_url": dataitem.head_img
+					})
+				  
 				let index = e.currentTarget.dataset.keynum;
 				uni.navigateTo({
 					url: '/pages/details/details?keynum=' + index,
@@ -120,18 +136,19 @@
 		font-size: 28rpx;
 		margin: 0 0 16rpx ;
 	}
-	.own-name::after{
+	/* .own-name::after{
 		width: 100%;
 		display: inline-block;
 		content: '';  //这三个都不可以少
-	}
+	} */
 	.own-introduce{
 		color: #999;
 		font-size: 24rpx;
-		margin-bottom: 24rpx;
+		margin-bottom: 0rpx;
 		overflow : hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		height: 30rpx;
 	}
 	.own-price-box{
 		margin-top: 14rpx;

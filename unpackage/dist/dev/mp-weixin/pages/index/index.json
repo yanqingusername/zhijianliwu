@@ -4,6 +4,7 @@
   "enablePullDownRefresh": true,
   "navigationBarTextStyle": "white",
   "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup",
     "own-index-header": "/components/own-components/own-index-header",
     "own-swiper": "/components/own-components/own-swiper",
     "own-product-list": "/components/own-components/own-product-list",

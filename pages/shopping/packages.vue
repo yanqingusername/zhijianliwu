@@ -81,7 +81,7 @@
 					
 					<view class="wucou" style="text-align: center;">
 						<!-- <text class="wucou">暂无优惠券</text> -->
-						<image src="../../static/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
+						<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
 					</view>
 				<button class="sure" type="warn" @click="coupon1">确定</button> 
 				</view>
@@ -609,8 +609,13 @@
 		margin-top: 200rpx;
 		color: #999999;
 	}
+.must-guige-title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .must-guige-price{
-	margin-top: -29rpx;
+	margin-top: 0rpx;
 }
 .fare1{
 	margin-top: 69rpx;

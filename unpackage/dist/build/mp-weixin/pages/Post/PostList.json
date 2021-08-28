@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "送礼推荐",
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "post-product": "/components/own-components/post-product"
+  }
 }

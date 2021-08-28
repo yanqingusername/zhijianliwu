@@ -184,8 +184,29 @@ page{
 	margin-top: -26rpx;
 }
 .rotate{
-	-webkit-transform: translate(-40rpx,20rpx);
-	        transform: translate(-40rpx,20rpx);
+	-webkit-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+	-webkit-animation: 2s;
+	        animation: 2s;
+}
+.sound-san{
+	top: 364rpx;
+}
+.sound-on {
+    width: 196rpx;
+    height: 90rpx;
+    position: absolute;
+    top: 170rpx;
+    left: 296rpx;
+}
+.sound-on-rotate {
+    width: 196rpx;
+    height: 90rpx;
+    position: absolute;
+    top: 222rpx;
+    left: 286rpx;
+	-webkit-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
 	-webkit-animation: 2s;
 	        animation: 2s;
 }

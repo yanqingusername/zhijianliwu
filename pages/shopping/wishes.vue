@@ -37,7 +37,7 @@
 							<input type="text" @input="alt" maxlength="20" :value="zhufu_msg">
 							<view class="bottom-icon">
 								<text class="icon icon-refresh"></text>
-								<text>换一换</text>
+								<text @click="getShowZhufuList">换一换</text>
 								<text class="icon icon-edit wishes-font-edit"></text>
 							</view>
 						</view>
@@ -45,7 +45,7 @@
 						<view style="position: relative;">
 							<view class="">
 								<image class="wishes-fu"
-									src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/wishes/mb_fuyu.png" mode="widthFix">
+									src="https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_28.png" mode="widthFix">
 								</image>
 							</view>
 							<view class="infor">
@@ -55,7 +55,7 @@
 								</view>
 								
 								<view class="wishes-name zhufu">{{zhufu_msg}}</view>
-								<view class="wishes-name wish">{{send_talk_msg}}</view>
+								<!-- <view class="wishes-name wish">{{send_talk_msg}}</view> -->
 							</view>
 							<view class="wishes-line">
 								<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
@@ -64,8 +64,9 @@
 					</view>
 					<view class="wishes-card1" v-show="Inv == 1">
 						<view class="" v-if="begin==3" @longpress="start" @touchend="stopp">
-							<text class="iconfont icon-luyin yin"></text>
-							<view class="wishes-chongxin" type="warn">重新录音</view>
+							<!-- <text class="iconfont icon-luyin yin"></text>
+							<view class="wishes-chongxin" type="warn">重新录音</view> -->
+							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>重新录音</view>
 						</view>
 
 						<view class="" v-else-if="begin==1" @longpress="start" @touchend="stopp">
@@ -73,12 +74,13 @@
 						</view>
 
 						<view class="" v-else @tap="stopp">
-							<text class="iconfont icon-luyin yin"></text>
-							<view class="wishes-say-btn">停止 录音</view>
+							<!-- <text class="iconfont icon-luyin yin"></text>
+							<view class="wishes-say-btn">停止 录音</view> -->
+							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>停止录音</view>
 						</view>
 
 						<view class="say-img">
-							<image class="say-img-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_recording.png')" mode="widthFix"></image>
+							<image class="say-img-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_28.png" mode="widthFix"></image>
 							<view class="infor">
 								<view class="img-infor">
 									<image class="wishes-fu-head says" :src="sign.head_img" mode=""></image>
@@ -96,8 +98,7 @@
 									
 									<view class="uni-padding-wrap" @click="audioPlay">
 										<!-- <movable-area class="progress" :style="'width:'+w+'px'"> -->
-										<movable-area class="progress" style="width:100%">
-											<!-- 按钮 -->
+										<!-- <movable-area class="progress" style="width:100%">
 											<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star" @touchend="to" class="progress-one"
 											 :x="movable_x">
 												<view class="progress-view">
@@ -105,13 +106,12 @@
 												</view>
 											</movable-view>
 										</movable-area>
-										<!-- 进度条 -->
 										<progress :percent="schedule" class="b"  duration data-index="index" activeColor='#D8D8D8' backgroundColor='#767676'
-										 border-radius="50" stroke-width="8" />
+										 border-radius="50" stroke-width="8" /> -->
 										<view class="duration">
 											<!-- {{duration}} -->
 										</view> 
-										
+										<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
 									</view>
 								</view>
 							</view>
@@ -137,8 +137,8 @@
 						<view class="proposal">建议上传/录制竖版视频展示效果更佳!</view>
 						<view class="wishes-video">
 							<!-- <image class="wishes-video-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode="widthFix"></image> -->
-							<image class="wishes-video-bg-bottom" src="../../static/mb_movie_b.png" mode="widthFix"></image>
-							<image class="wishes-video-bg" src="../../static/mb_movie-2.png" mode="widthFix"></image>
+							<image class="wishes-video-bg-bottom" src="https://zhijianlw.com/static/web/img/mb_movie_b.png" mode="widthFix"></image>
+							<image class="wishes-video-bg" src="https://zhijianlw.com/static/web/img/mb_movie-2.png" mode="widthFix"></image>
 							<view class="z-template-btm-information-video">
 								<!-- 有视频才能点击播放按钮 -->
 								<image v-if="showvideoPlayBtn" class="say-img-off" @click="videoPlay" :src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
@@ -216,6 +216,11 @@
 			let that = this;
 			console.log('份数', e)
 			this.fenshu = e.fenshu;
+			
+			// 获取祝福语
+			this.getShowZhufuList();
+			// 得到自定义祝福
+			this.getCustomZhufuTheme();
     
 			// 音频用到的宽度
 			uni.getSystemInfo({
@@ -279,6 +284,38 @@
 
 		},
 		methods: {
+			getShowZhufuList(){
+				var data = JSON.stringify({});
+				var action = 'show_zhufu_list';
+				var controller = 'zhufu';
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta ==1){
+						this.zhufu_msg = res.rs.info;
+					}
+				});
+			},
+			getCustomZhufuTheme(){
+				var memberid = uni.getStorageSync('id');
+				var data = JSON.stringify({
+					memberid: memberid
+				});
+				var action = 'get_custom_zhufu_theme';
+				var controller = 'zhufu';
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta ==1){
+						console.log(res.rs)
+						this.Inv = res.rs.zhufu_type;
+						this.zhufu_msg = res.rs.zhufu_msg;
+						this.voicePath = res.rs.zhufu_mp3;
+						this.zhufu_mp4 = res.rs.zhufu_mp4;
+						if(res.rs.zhufu_mp3){
+							this.begin = 3
+						}else{
+							this.begin = 1
+						}
+					}
+				});
+			},
 			changeInv: function(v){
 				this.Inv = v;
 				if(this.innerVideoContext){
@@ -288,14 +325,40 @@
 				}
 				
 			},
+			openSetting(authouName){
+				uni.showModal({
+					title:'授权',
+					content:'获取授权'+ authouName + '失败,是否前往授权设置？',
+					success:function(result){
+						if(result.confirm){
+							uni.openSetting();
+						}
+		            },
+					fail:function(){
+			            uni.showToast({
+			                title:'系统错误！',
+			                icon:'none'
+			            });
+			        }
+			    })
+			},
 			//开始录音
 			start: function() {
-				this.radio = true
-				// this.begin = 0;
-				console.log('开始录音');
-				recorderManager.start();
-				uni.showLoading({
-					title: '正在录音中'
+				let that = this;
+				uni.authorize({
+				    scope:'scope.record',
+				    success:function(){
+						that.radio = true
+						// this.begin = 0;
+						console.log('开始录音');
+						recorderManager.start();
+						uni.showLoading({
+							title: '正在录音中'
+						});
+				    },
+				    fail:function(){
+				        that.openSetting("录音功能");
+				    }
 				});
 			},		
 			//结束录音  
@@ -308,11 +371,21 @@
 			},
 			// 播放录音
 			audioPlay: function() {
+				if(!this.voicePath){
+					uni.showToast({
+						title:'请先完成录音',
+						mask:true,
+						icon:'none'
+					})
+					return
+				}
+				
+				this.schedule = 0;
 				// 开始播放
 				this.stop = 1;
 				// 左边小喇叭动
 				// this.radio = 1;
-				this.radio=!this.radio 
+				this.radio = false
 
 				let that = this;
 				console.log('播放')
@@ -323,8 +396,7 @@
 				innerAudioContext.play();
 				
 				setTimeout(() => {
-					innerAudioContext.currentTime
-
+					console.log('总时长', innerAudioContext.duration)
 					innerAudioContext.onTimeUpdate((res) => {
 						console.log('总时长', innerAudioContext.duration)
 						console.log('当前播放进度', innerAudioContext.currentTime)
@@ -335,32 +407,31 @@
 						// 白色圆点
 						let x = (that.width * 0.5 - that.width * 0.5 * 0.07) * schedule / 100;
 
-						if (this.stop == 0) {
+						if (that.stop == 0) {
 
 						} else {
 							// 白色圆点
-							this.movable_x = x;
+							that.movable_x = x;
 							// 进度条
-							this.schedule = schedule;
-							this.duration = innerAudioContext.duration;
+							that.schedule = schedule;
+							that.duration = innerAudioContext.duration;
 							console.log(innerAudioContext.duration / innerAudioContext.currentTime)
 						}
 						// 播放结束
 						innerAudioContext.onEnded((res) => {
 							console.log('结束', res)
 							// 左边小喇叭停止
-							that.radio = 0;
+							that.radio = true;
 							// 按钮    最右边
 							// this.movable_x = that.width * 0.57;
-							this.movable_x = that.width * 0.5;
+							that.movable_x = that.width * 0.5;
 							// 进度条  满
-							this.schedule = 100
-							this.stop=0
+							that.schedule = 0
+							that.stop=0
+							innerAudioContext.stop();
 						})
-
-
 					})
-				})
+				},500)
 
 			},
 			// 暂停录音
@@ -537,21 +608,9 @@
 			wish: function(e) {
 				var that = this;
 				var memberid = uni.getStorageSync('id');
-				var zhufu_theme_id = uni.getStorageSync('zhufu_theme_id');
-				var theme_type = uni.getStorageSync('theme_type');
-				var send_talk_msg = uni.getStorageSync('send_talk_msg');
-				this.memberid = memberid;
-				this.zhufu_theme_id = zhufu_theme_id
-				this.theme_type = theme_type
-				this.send_talk_msg = send_talk_msg
 				var data = {
-					zhufu_theme_id: this.zhufu_theme_id,
-					memberid: this.memberid,
-					theme_type: this.theme_type,
-					send_talk_msg: this.send_talk_msg,
+					memberid: memberid,
 					zhufu_type: 0,
-					theme_background: this.theme_background,
-					update_type: 1
 				};
 				if (this.Inv == 0) {
 					data['zhufu_type'] = 0;
@@ -565,9 +624,10 @@
 				}
 				console.log(data)
 
-				var action = 'save_zhufu_theme';
+				var action = 'save_custom_zhufu_theme';
+				var controller = 'zhufu';
 
-				this.$utils.post(action, JSON.stringify(data)).then(res => {
+				this.$utils.postNew(action, JSON.stringify(data),controller).then(res => {
 					console.log('修改祝福模板', res)
 					if (res.sta == 0) {
 						uni.showToast({
@@ -585,11 +645,12 @@
 							icon: "success",
 							mask: 'true',
 							success: (res) => {
+								uni.setStorageSync('setwishessuccess', '1');
 								setTimeout(function(e) {
 									uni.navigateBack({
 										url: 1
 									})
-								}, 1500)
+								}, 1000)
 							}
 						})
 					}

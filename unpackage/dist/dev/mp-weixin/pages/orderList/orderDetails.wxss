@@ -70,6 +70,7 @@ page {
 	height: 24rpx;
 	border: 2rpx solid #BDBDBD;
 	border-radius: 50%;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#EFEFEF), color-stop(#E6E6E6), color-stop(#C6C6C6), to(#A1A1A1));
 	background-image: -webkit-linear-gradient(#EFEFEF, #E6E6E6, #C6C6C6, #A1A1A1);
 	background-image: linear-gradient(#EFEFEF, #E6E6E6, #C6C6C6, #A1A1A1);
 }

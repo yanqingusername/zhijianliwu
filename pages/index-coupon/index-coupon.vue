@@ -1,12 +1,12 @@
 <template>
 	<div class="index-coupon">
-		<img class="index-img" :src="$utils.osspath_url('/xcx-static/index-coupons.png')" mode="widthFix">
+		<img class="index-img" src="https://zhijianlw.com/static/web/img/index-coupons-2021-08-28.png" mode="widthFix">
 		<form @submit="submit">
 			<view class="card">
-				<h3>卡密兑换</h3>
+				<h3>礼品卡/册兑换:</h3>
 				<uni-forms :value="formData" ref="form">
 					<uni-forms-item name="pass">
-						<input type="text" name="cardpass" v-if="showInput" v-model="formData.pass" placeholder="请输入卡册上的密码" @input="binddata('pass',$event.detail.value)" />
+						<input type="text" name="cardpass" v-if="showInput" v-model="formData.pass" placeholder="请输入礼品卡/册密码" @input="binddata('pass',$event.detail.value)" />
 					</uni-forms-item>
 					<button form-type="submit" class="sub">立即绑定</button>
 				</uni-forms>
@@ -127,24 +127,26 @@
 	.card {
 		/* margin-top: 50rpx; */
 		/* margin-left: 100rpx; */
-		padding: 50rpx 94rpx;
+		padding: 50rpx;
 		box-sizing: border-box;
 	}
 
 	.card input {
-		width: 100%;
-		border-bottom: 4rpx solid #D5D5D5;
-		margin-top: 58rpx;
-		padding-bottom: 20rpx;
-		font-size: 26rpx;
-		color: #999999;
+		width: 628rpx;
+		border: 2rpx solid #999999;
+	    height: 76rpx;
+	    margin-top: 36rpx;
+		/* padding-bottom: 20rpx; */
+	    font-size: 26rpx;
+	    color: #999999;
+	    padding-left: 20rpx;
 	}
 
 	.sub {
-		display: block;
-		width: 380rpx;
-		background-color: #EC1815;
-		color: #fff;
-		margin: 96rpx auto 0;
+		    display: block;
+		    width: 648rpx;
+		    background-color: #EC1815;
+		    color: #fff;
+		    margin: 40rpx auto 0;
 	}
 </style>

@@ -53,25 +53,24 @@
 					<text class="bag-red-con">{{cardbag_theme.send_talk_msg}}</text></text>
 				</view>
 			</view>
-			<view class="bag-red" v-if="gift==='1'">
-				<image class="bag-red-img" :src="$utils.osspath_url('/xcx-static/wishes/mb_recording.png')" mode="">
+			<view class="bag-red" style="width: 480rpx;" v-if="gift==='1'">
+				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_28.png" mode="">
 				</image>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
 				<image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
 
-				<image class="sound-san" @click="audioPlay" v-show="radio"
+				<image class="sound-san" @click="audioPlay" v-if="radio"
 					:src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
-				<image class="sound-san" @click="audioPlay" v-show="!radio"
+				<image class="sound-san" @click="audioPlay" v-else
 					:src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
 
 
-				<image class="sound-on" @click="audioPlay" :class="stop==0?'sound-on':'rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')"
+				<image class="sound-on" @click="audioPlay" :class="radio?'sound-on':'sound-on-rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')"
 					mode=""></image>
 					
 				<view class="slider" @click="audioPlay">
-					<movable-area class="progress" :style="'width:'+w+'px'">
-						<!-- 按钮 -->
+					<!-- <movable-area class="progress" :style="'width:'+w+'px'">
 						<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star"
 							@touchend="to" class="progress-one" :x="movable_x">
 							<view class="progress-view">
@@ -79,9 +78,9 @@
 							</view>
 						</movable-view>
 					</movable-area>
-					<!-- 进度条 -->
 					<progress :percent="schedule" class="b" data-index="index" activeColor='#D8D8D8'
-						backgroundColor='#767676' border-radius="10" stroke-width="8" />
+						backgroundColor='#767676' border-radius="10" stroke-width="8" /> -->
+					<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
 				</view>
 
 
@@ -309,11 +308,12 @@
 			},
 			// 播放录音
 			audioPlay: function() {
+				this.schedule = 0;
 				// 开始播放
 				this.stop = 1;
 				// 左边小喇叭动
 				// this.radio = 1;
-				this.radio = !this.radio
+				this.radio = false
 
 				let that = this;
 				console.log('播放')
@@ -323,8 +323,6 @@
 				innerAudioContext.play();
 
 				setTimeout(() => {
-
-					innerAudioContext.currentTime
 
 					innerAudioContext.onTimeUpdate((res) => {
 						console.log('总时长', innerAudioContext.duration)
@@ -350,17 +348,19 @@
 						innerAudioContext.onEnded((res) => {
 							console.log('结束', res)
 							// 左边小喇叭停止
-							that.radio = 0;
-							this.stop=0
+							that.radio = true;
 							// 按钮    最右边
-							this.movable_x = that.width * 0.57;
+							// this.movable_x = that.width * 0.57;
+							that.movable_x = that.width * 0.5;
 							// 进度条  满
-							this.schedule = 100
+							that.schedule = 0
+							that.stop=0
+							innerAudioContext.stop();
 						})
 
 
 					})
-				})
+				},500)
 
 
 			},
@@ -621,16 +621,16 @@
 		width: 80rpx;
 		height: 80rpx;
 		position: absolute;
-		top: 245rpx;
+		top: 212rpx;
 		left: 190rpx;
 	}
 
 	.sound-on {
-		width: 60rpx;
-		height: 60rpx;
-		position: absolute;
-		top: 110rpx;
-		left: 240rpx;
+	    width: 100rpx;
+	    height: 60rpx;
+	    position: absolute;
+	    top: 100rpx;
+	    left: 240rpx;
 	}
 
 	.slider {
@@ -662,8 +662,13 @@
 	.template-btm-information-video video{
 		width: 466rpx;
 	}
-	.rotate{
-		transform: translate(-40rpx,20rpx);
+	.sound-on-rotate{
+		transform: rotate(-45deg);
 		animation: 2s;
+	    width: 100rpx;
+	    height: 60rpx;
+	    position: absolute;
+	    top: 142rpx;
+	    left: 240rpx;
 	}
 </style>

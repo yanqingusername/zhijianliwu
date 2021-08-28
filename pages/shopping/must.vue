@@ -42,14 +42,24 @@
 					<text class="message-title">运费：</text>
 					<text class="message-price">￥0.00</text>
 				</view>
-				<view class="">
+				<!-- <view class="">
 					<text class="message-title">优惠券：</text>
 					<view class="message-price" v-if="coupon_name">无</view>
 					<view class="message-price yhj" v-else @click="open">
 						<text style="color: #EC1815;">{{money1}}</text>
 						<text class="iconfont icon-youjiantou message-jiantou1"></text>
 					</view>
-				</view>
+				</view> -->
+				
+				<view class="">
+					<text class="message-title">优惠券：</text>
+					<view class="message-price" v-if="coupon_name">无可用</view>
+					<view class="message-price yhj" v-else>
+						<text style="color: #EC1815;">{{money1 == 0 ? '无可用' : money1}}</text>
+						<text @click="open" v-if="money1 !=0" class="iconfont icon-youjiantou message-jiantou1"></text>
+					</view>
+				</view> 
+				
 				<view class="">
 					<text class="message-title">余额：</text>
 					<text class="message-price">¥{{balance}}</text>
@@ -106,7 +116,7 @@
 					
 					<view class="wucou" style="text-align: center;">
 						<!-- <text class="wucou">暂无优惠券</text> -->
-						<image src="../../static/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
+						<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
 					</view>
 					<button class="sure-btn" type="warn" @click="coupon1">确定</button>
 				</view>
@@ -132,6 +142,7 @@
 	import MD5 from "../../common/md5.js";
 	import drawQrcode from "../../common/weapp.qrcode.min.js";
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -318,7 +329,7 @@
 					//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
 					this.price_zhe=res.rs.price_zhe-money1
 
-					
+					console.log('---->:',res.rs.price_zhe,money1)
 			
 				})					
 				
@@ -358,6 +369,22 @@
 					console.log("付款");
 					console.log(res);
 					if (res.pay_status == 1) {
+
+						// 腾讯有数
+						let timestamp=new Date().getTime();
+						sr.track('custom_order', {
+						    "order": {
+						        "order_id": ordernumber,
+						        "order_time": timestamp,
+						        "order_status": "pay"
+						    },
+						    "sub_orders": [{
+						        "sub_order_id": ordernumber,
+						        "order_amt": this.price_zhe,
+						        "pay_amt": this.price_zhe
+						    }],
+						})
+
 						uni.showToast({
 							title: "支付成功"
 						})
@@ -457,6 +484,21 @@
 													// 成功回调
 													success: (
 														res) => {
+															// 腾讯有数
+															let timestamp=new Date().getTime();
+															sr.track('custom_order', {
+															    "order": {
+															        "order_id": ordernumber,
+															        "order_time": timestamp,
+															        "order_status": "pay"
+															    },
+															    "sub_orders": [{
+															        "sub_order_id": ordernumber,
+															        "order_amt": that.price_zhe,
+															        "pay_amt": that.price_zhe
+															    }],
+															})
+
 															console
 																.log(
 																	'微信成功回调',
@@ -489,6 +531,21 @@
 												})
 											},
 											fail(res) {
+												// 腾讯有数
+												let timestamp=new Date().getTime();
+												sr.track('custom_order', {
+												    "order": {
+												        "order_id": ordernumber,
+												        "order_time": timestamp,
+												        "order_status": "cancel_pay"
+												    },
+												    "sub_orders": [{
+												        "sub_order_id": ordernumber,
+												        "order_amt": that.price_zhe,
+												        "pay_amt": that.price_zhe
+												    }],
+												})
+												
 												uni.hideLoading();
 												console.log(res)
 												uni.showToast({
@@ -503,6 +560,21 @@
 							});
 						})
 					} else {
+						// 腾讯有数
+						let timestamp=new Date().getTime();
+						sr.track('custom_order', {
+						    "order": {
+						        "order_id": ordernumber,
+						        "order_time": timestamp,
+						        "order_status": "cancel_pay"
+						    },
+						    "sub_orders": [{
+						        "sub_order_id": ordernumber,
+						        "order_amt": this.price_zhe,
+						        "pay_amt": this.price_zhe
+						    }],
+						})
+						
 						uni.showToast({
 							icon: "none",
 							title: res.msg ? res.msg : "支付错误"

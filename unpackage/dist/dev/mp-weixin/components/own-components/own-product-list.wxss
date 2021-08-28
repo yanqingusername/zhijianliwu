@@ -3,13 +3,15 @@
 	font-size: 0!important;
 	margin-top: 22rpx;
 	padding: 0 16rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .own-product-column{
 	width: 50%;
 	display: inline-block;
 	padding: 0 10rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	vertical-align: top;
 }
 .own-product-bottom{

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -181,6 +182,16 @@
 						});
 					}			
 				  })
+				    
+				// 腾讯有数
+				sr.track('register_wxapp',{})
+				sr.track('login_wxapp',{})
+				sr.startReport();
+				sr.setContext({
+				    wx_user: { // 首次添加
+				        open_id: openid
+				    }
+				})
 			},
 
 			

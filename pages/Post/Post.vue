@@ -1,39 +1,49 @@
 <template>
 	<view>
-		<view class="parse-title" v-if="postStyle=='post'">
+		<!-- <view class="parse-title" v-if="postStyle=='post'">
 			<view class="title">
 				{{title}}
 			</view>
 			<view class="time">
 				{{time}}
 			</view>
-		</view>
-		<view :class="postStyle=='post'?'parse-con':'poster-con'">
-			<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
-	<u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
-		</view>
-		<view class="product-list" v-if="!(productList.length<=0)">
-			<view class="title" style="font-size: 1.8em;">
-				推荐商品
+		</view> -->
+		<view style="padding-bottom: 80rpx;">
+			<view class="parse-view" v-if="postStyle=='post'">
+				<image class="parse-view-img" :src="title_img"></image>
 			</view>
-			<view class="product" v-for="product in productList" 
-			    @click="goToShop(product.keynum)">
-				<image :src="$utils.imageUrl(product.head_img)" mode=""></image>
-				<view class="product-text">
-					<view class="product-title">
-						{{product.goodsname}}
-					</view>
-					<view class="product-price">
-						￥{{product.price}}
-					</view>
-					<view class="product-move">
-						去送礼 >
+			<view :class="postStyle=='post'?'parse-con':'poster-con'">
+				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
+			<u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
+			</view>
+			<view class="product-list" v-if="!(productList.length<=0)">
+				<view class="title" style="font-size: 1.8em;">
+					推荐商品
+				</view>
+				<view class="product" v-for="product in productList" 
+					@click="goToShop(product.keynum)">
+					<image :src="$utils.imageUrl(product.head_img)" mode=""></image>
+					<view class="product-text">
+						<view class="product-title">
+							{{product.goodsname}}
+						</view>
+						<view class="product-price">
+							￥{{product.price}}
+						</view>
+						<view class="product-move">
+							去送礼 >
+						</view>
 					</view>
 				</view>
 			</view>
+			<view class="post-bottom" v-if="postStyle=='post'">
+				-- 看完了，去送礼 --
+			</view>
 		</view>
-		<view class="post-bottom" v-if="postStyle=='post'">
-			-- 看完了，去送礼 --
+		<view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
+			<image v-if="is_collect == 1" src="@/static/icon-post-like-now.png" mode="" class="post-bottom-fixed-img" ></image>
+			<image v-else src="@/static/post-like.png" mode="" class="post-bottom-fixed-img" ></image>
+			<view class="post-bottom-fixed-number">{{live_number || 0}}</view>
 		</view>
 	</view>
 </template>
@@ -54,7 +64,11 @@
 				time: "",
 				postContnet: ``,
 				productList: [],
-				imageProp: {}
+				imageProp: {},
+				title_img: '',
+				article_id: '',
+				live_number: '',
+				is_collect: 1
 			}
 		},
 		onShow() {
@@ -69,11 +83,16 @@
 			this.imageProp.domain = config.URL.replace("https://","").replace("http://", "");
 			let that = this;
 			let action = "get_gifts_article_detail";
+			let memberid = uni.getStorageSync('id')
 			let data = JSON.stringify({
-				gifts_article_id: e.id
+				gifts_article_id: e.id,
+				memberid: memberid
 			});
 			this.$utils.post(action,data).then(res=>{
 				uni.hideToast();
+				uni.setNavigationBarTitle({
+				　　title:res.rs.gifts_article.title
+				})
 				console.log(res.rs.gifts_article.detail);
 				console.log(res.rs.gifts_article.detail.replace(/<[^>]+>/g,""));
 				if(res.rs.gifts_article.detail.replace(/<[^>]+>/g,"")==""){
@@ -86,6 +105,10 @@
 				}
 				console.log('文章详情',res);
 				that.title=res.rs.gifts_article.title;
+				that.title_img = res.rs.gifts_article.title_img;
+				that.article_id = res.rs.gifts_article.id;
+				that.is_collect = res.rs.gifts_article.is_collect;
+				that.live_number = res.rs.gifts_article.live_number;
 				that.time=res.rs.gifts_article.time;
 				that.postContnet=res.rs.gifts_article.detail;
 				that.productList=res.rs.goodslist;
@@ -108,6 +131,30 @@
 				uni.navigateTo({
 					url: '../details/details?keynum='+keynum,
 				});
+			},
+			clickLike: function(id, is_collect) {
+				let that = this;
+				let action = "set_article_live_number";
+				let controller = 'article';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					number: 1,
+					article_id: id,
+					memberid: memberid,
+					set_status: is_collect == "1"?"2" : "1"
+				});
+				
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						if(is_collect == 1){
+							that.live_number --;
+							that.is_collect = 2;
+						}else{
+							that.live_number ++;
+							that.is_collect = 1;
+						}
+					}
+				})
 			}
 		}
 	}
@@ -219,5 +266,38 @@
 }
 .poster-con{
 	width: 100%;
+}
+
+.parse-view{
+	width: 750rpx;
+	height: 938rpx;
+	margin-bottom: 30rpx;
+}
+.parse-view-img{
+	width: 750rpx;
+	height: 938rpx;
+}
+
+.post-bottom-fixed{
+	position: fixed;
+	width: 100%;
+	height: 80rpx;
+	z-index: 222;
+	bottom: 0;
+	left: 0;
+	background: #FFFFFF;
+	display: flex;
+	align-items: center;
+}
+
+.post-bottom-fixed-img{
+		width: 40rpx;
+		height: 40rpx;
+		margin-left: 30rpx;
+	}
+	
+.post-bottom-fixed-number{
+	font-size: 26rpx;
+	color: #888888;
 }
 </style>

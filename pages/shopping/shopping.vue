@@ -18,13 +18,15 @@
 						<view class="top-right">
 							<view class="shop-gift-buys-title">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>
-							<view class="price-bottom">
-								<text style="font-size: 24rpx; color: #FB4133;">￥</text>
-								<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
-								<view class="shop-gift-num">
-									<view class="reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="reduce(item)">-</view>
+							<view class="price-bottom flex-between">
+								<view>
+									<text style="font-size: 24rpx; color: #FB4133;">￥</text>
+									<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
+								</view>
+								<view class="flex-vertically">
+									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="reduce(item)">-</view>
 									<view class="cart-count">{{item.goodsnum}}</view>
-									<view class="add" :data-index="item.id" :data-goodsid="item.goodsid" @click="increase(item)">+</view>
+									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="increase(item)">+</view>
 									
 								</view>
 							</view>
@@ -74,7 +76,7 @@
 					<view class="shop-gift-pin shop-list" @click="chooseGift">
 						<text>选择礼物封面</text>
 						<view class="right">
-							<!-- <text class="yixuan">{{chooses==1?'已选':''}}</text> -->
+							<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
 						</view>
 						
@@ -84,6 +86,7 @@
 						<text>自定义“福语”</text>
 						<view class="right">
 							<!-- <text class="">{{zhufu_type}}</text> -->
+							<text class="yixuan">{{setwishessuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
 							<!-- <image class="shop-jiantou" :src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 						</view>
@@ -112,16 +115,17 @@
 						<view class="shop-gift-pin shop-list"  @click="chooseGift">
 							<text>选择礼物封面</text>
 							<view class="right">
-								<!-- <text class="yixuan">{{chooses==1?'已选':''}}</text> -->
+								<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
 							<!-- <image class="shop-gift-jiantou"
 								:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 							</view>
 						</view>
-						<view class="shop-gift-pin fu shop-list"  @click="wishes">
+						<view class="shop-gift-pin shop-list flex-between"  @click="wishes">
 							<text>自定义“福语”</text>
-							<view class="right">
+							<view style="display: flex;align-items: center;">
 								<!-- <text class="">{{zhufu_type}}</text> -->
+								<text class="yixuan" style="margin-left: 0rpx;">{{setwishessuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
 								<!-- <image class="shop-jiantou"
 									:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
@@ -133,7 +137,7 @@
 				
 				<!-- 底部送礼方式 -->
 				<uni-popup ref="popup" type="bottom" :animation="false">
-					<view class="shop-gift-buy-bot">
+					<view class="new-shop-gift-buy-bot">
 						<text class="shop-bot" @click="box1">直接送礼</text>
 						<text class="shop-bot" @click="box2">拼手气红包</text>
 						<text class="shop-bot" @click="box3">立即购买</text>
@@ -167,14 +171,16 @@
 				goodsid: "",
 				flag: true,
 				type: '',
-				show: '1',
+				show: '2',
 				gift: true,
 				chooses: 1,
 				numberss: 0,
 				com: '',
 				fenshu:1,
 				zhufu_type:0,
-				id:''
+				id:'',
+				setgiftssuccess: '2',
+				setwishessuccess: '2'
 			}
 
 		},
@@ -212,8 +218,9 @@
 				}
 			})
 			
-			
-			
+				this.setgiftssuccess = uni.getStorageSync('setgiftssuccess');
+				this.setwishessuccess = uni.getStorageSync('setwishessuccess');
+				
 				let zhufu_type = uni.getStorageSync('zhufu_type')
 				this.zhufu_type=zhufu_type
 				console.log("this.zhufu_type11")
@@ -231,13 +238,17 @@
 		},
 		onLoad: function(e) {
            
-			//计算总价			this.caltotalmoney()
+			//计算总价
+			this.caltotalmoney()
 		},
 		methods: {
 			box_gift() {
-				uni.reLaunch({
-					url: '../index/index'
-				})
+				// uni.reLaunch({
+				// 	url: '../index/index' //跳转首页
+				// })
+				uni.navigateTo({
+					url: "./shoppingList"
+				});
 			},
 			// 加法
 			increase: function(e) {
@@ -329,9 +340,12 @@
 				
 			},
 			add: function(e) {
-				uni.reLaunch({
-					url:'../index/index'
-				})
+				// uni.reLaunch({
+				// 	url:'../index/index' //跳转首页
+				// })
+				uni.navigateTo({
+					url: "./shoppingList"
+				});
 			},
 			open() {
 				this.$refs.popup.open('')
@@ -492,4 +506,24 @@
 </script>
 <style>
 	@import '../../common/gift.css';
+	.new-shop-gift-buy-bot {
+	    width: 750rpx;
+	    /* height: 338rpx; */
+	    background-color: #fff;
+	}
+	
+	.new-reduce {
+	    font-size: 28rpx;
+	    display: flex;
+	    vertical-align: middle;
+	    width: 42rpx;
+	    height: 42rpx;
+	    line-height: 42rpx;
+	    text-align: center;
+	    border: 1px solid #AAAAAA;
+	    border-radius: 50rpx;
+	    color: #999999;
+	    align-items: center;
+	    justify-content: center;
+	}
 </style>

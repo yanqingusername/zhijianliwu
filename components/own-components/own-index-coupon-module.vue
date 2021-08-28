@@ -12,7 +12,7 @@
 						<text class="baopin">爆品推荐</text>
 						<text class="l_title">热卖单品 送就送爆款</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" :src="$utils.osspath_url('/xcx-static/index/bg.png')" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/bg.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
 				</view>
 			</view>
 			<view class="z-list">
@@ -21,14 +21,14 @@
 						<text class="carddui">卡册兑换</text>
 						<text class="card">输入卡密 一键兑换</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" :src="$utils.osspath_url('/xcx-static/index/cardbg.png')" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/cardbg.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
 				</view>
 				<view class="own-index-coupon-image-box threes right-item"  @click="share" style="overflow: hidden;">
 					<view class="z-top-infor">
 						<text class="member">开通企业会员</text> 
 						<text class="mine">自营商品折上折</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" :src="$utils.osspath_url('/xcx-static/index/mem.png')" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/mem.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
 				</view>
 			</view>
 		</view>

@@ -195,6 +195,159 @@ function post(action, data) {
 		})
 	})
 }
+
+/**
+ * 网络请求
+ *
+ * @param   {String}  action  接口名称
+ * @param   {String}  data  参数
+ *
+ * @return  {PromiseObj}	网络请求的Promise对象
+ */
+function postNew(action, data, controller) {
+	// var data =  JSON.stringify(data);
+	var timestamp = Date.parse(new Date());
+	var ACTION = action;
+	timestamp = timestamp / 1000;
+
+	var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+		'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+		'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+	];
+
+	var nums = "";
+
+	for (var i = 0; i < 32; i++) {
+		var id = parseInt(Math.random() * 61);
+		nums += chars[id];
+	}
+
+	var arr = []
+	// 时间戳
+	arr[0] = 'ts=' + timestamp + '';
+	// appid
+	arr[1] = 'appid=' + appid + '';
+	// 字符串
+	arr[2] = 'noncestr=' + nums + '';
+	// 数据
+	if (data == '' || data == null || data == undefined) {
+		// arr[3] = 'body='; 
+	} else {
+		arr[3] = 'body=' + data + '';
+	}
+	// 排序
+	arr.sort();
+
+	let stringA = '';
+	// 拼接字符串
+	for (let i in arr) {
+		if (i == arr.length - 1) {
+			stringA += arr[i];
+		} else {
+			stringA += arr[i] + '&';
+		}
+
+	}
+	// 拼接密钥
+
+	let stringSignTemp = stringA + '&appkey=' + config.__APPKEY();
+
+	// md5加密转大写
+	// console.log(stringSignTemp);
+	let sign = MD5.hexMD5(stringSignTemp).toUpperCase();
+
+
+	// appid        body                             随机字符串     时间戳                
+	var action = 'action=' + action + '' +'&' + 'controller='+ controller +'&' + 'is_dev=1' +'&' + arr[0] + '&' + arr[1] + '&' + 'sign=' + sign + '&' + arr[3] + '&' + arr[
+		2];
+
+	var URL = url + action;
+	console.log(URL);
+	return new Promise((resolve) => {
+		uni.request({
+			url: URL,
+			data: '',
+			header: {
+				'content-type': "application/x-www-form-urlencoded" //自定义请求头信息
+			},
+			method: 'POST',
+			// 成功回调
+			success: (res) => {
+				// console.log(res)
+				if (res.data.sta == 1) {
+					resolve(res.data);
+				} else {
+					resolve(res.data);
+				}
+			},
+			complete: (res, err) => {
+				// DEBUG = 1 的话开启 调试打印
+				// 蓝色(#66F)为正常答应
+				// 红色(#F66)为错误请求
+				if (config.DEBUG == 1) {
+					let text = err ? "%c🔥 " + ACTION + " 请求信息  -  请求出错" : "%c⚫ " + ACTION + " 请求信息";
+					let style = err ? "display: block;width:100%;background: #F66;color: #FFF;font-size: 24px;" :
+						"display: block;width:100%;background: #66F;color: #FFF;font-size: 24px;";
+					console.groupCollapsed(text, style);
+					let log = [{
+							key: "action",
+							value: ACTION,
+							type: typeof ACTION
+						},
+						{
+							key: "data",
+							value: data,
+							type: typeof data
+						},
+						{
+							key: "data",
+							value: JSON.parse(data),
+							type: typeof JSON.parse(data)
+						},
+						{
+							key: "sta",
+							value: res.data.sta,
+							type: typeof res.data.sta
+						},
+						{
+							key: "msg",
+							value: res.data.msg,
+							type: typeof res.data.msg
+						},
+						{
+							key: "URL",
+							value: URL,
+							type: typeof URL
+						},
+						{
+							key: "timestamp",
+							value: timestamp,
+							type: typeof timestamp
+						},
+						{
+							key: "appid",
+							value: appid,
+							type: typeof appid
+						},
+						{
+							key: "noncestr",
+							value: nums,
+							type: typeof nums
+						}
+					];
+					console.table(log);
+					// 以表格形式打印 data 信息
+					if (data != '{}') console.table(JSON.parse(data));
+					else console.warn("data为空");
+					// 如果出错就返回错误信息 如果没有就返回res信息
+					if (err) console.error(ACTION + " 错误信息： ", err);
+					else console.info(ACTION + " 返回结果： ", res);
+					console.groupEnd();
+				}
+			}
+		})
+	})
+}
 /**
  * 网络请求
  *
@@ -389,7 +542,13 @@ function  cut_str(str,length=10){
 	}
 }
 
-
+function  sub_str(str,length){
+	if(str.length<=length){
+		return str
+	}else {
+		return str.substr(0,length)+"..."
+	}
+}
 
 function date_time(time){
 	var dateTime = new Date(time*1000)
@@ -557,5 +716,7 @@ module.exports = {
 	cut_str:cut_str,
 	date_time:date_time,
 	wxPay: wxPay,
-	formatPrice: formatPrice
+	formatPrice: formatPrice,
+	postNew: postNew,
+	sub_str: sub_str
 }

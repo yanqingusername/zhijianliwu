@@ -1,4 +1,5 @@
 page{
+		background:-webkit-gradient(linear,left top, left bottom,color-stop(60%, #F32C14),to(#EB1515));
 		background:-webkit-linear-gradient(top,#F32C14 60%,#EB1515 100%);
 		background:linear-gradient(180deg,#F32C14 60%,#EB1515 100%);
 }
@@ -183,7 +184,8 @@ page{
 	margin-left: 3rpx;
 	position: relative;
 	padding: 72rpx 40rpx 40rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	display: inline-block;
 }
 .flowers{

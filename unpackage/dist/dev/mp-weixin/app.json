@@ -4,8 +4,11 @@
     "pages/index/index",
     "wxcomponents/navgation/navgation",
     "pages/details/details",
+    "pages/details/detailsshare",
     "pages/classification/classification",
+    "pages/classification/classificationSearch",
     "pages/shopping/shopping",
+    "pages/shopping/shoppingList",
     "pages/shopping/share",
     "pages/order/order",
     "pages/success/success",
@@ -16,19 +19,25 @@
     "pages/balance/balance",
     "pages/balance/Query",
     "pages/balance/Recharge",
+    "pages/balance/RechargeStatus",
     "pages/AccountBook/AccountBook",
     "pages/RewardRecord/RewardRecord",
     "RewardRecord/RewardRecord",
     "pages/Friends/Friends",
     "pages/wallet/wallet",
     "pages/Apply/Apply",
+    "pages/Apply/ApplyInvoice",
+    "pages/Apply/ApplySuccess",
     "pages/Address/Address",
     "pages/Coupon/Coupon",
+    "pages/Coupon/ExpiredCoupon",
     "pages/Member/Member",
     "pages/index-coupon/index-coupon",
     "pages/index-coupon/redemption_center",
     "pages/index-coupon/index-address",
     "pages/index-coupon/change",
+    "pages/index-coupon/ExchangeIndex",
+    "pages/index-coupon/ExchangeOrder",
     "pages/search/search",
     "pages/ordeDetails/ordeDetails",
     "pages/Add/Add",
@@ -56,14 +65,37 @@
     "pages/settlement/settlement",
     "pages/shopList/shopList",
     "pages/orderList/orderList",
+    "pages/orderList/ReceptionDetails",
+    "pages/orderList/ReceptionAddress",
+    "pages/orderList/ReceptionOrderInfo",
+    "pages/orderList/MyBuyOrderInfo",
+    "pages/orderList/MySendOrderInfo",
     "pages/Post/Post",
+    "pages/Post/PostSearch",
+    "pages/Post/PostLike",
     "pages/Post/PostList",
     "pages/orderList/orderDetails",
     "pages/orderList/logistics/logistics",
     "pages/Poster/Poster2",
     "pages/product-list/product-list"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pagesub",
+      "pages": [
+        "Refund/ApplyRefund",
+        "Refund/RefundInfo",
+        "Refund/RefundAfterSale",
+        "Refund/ExchangeGoods",
+        "Refund/RefundExchangeInfo",
+        "Refund/RefundExchangeDown",
+        "Refund/LogisticsInfo",
+        "AllCovers/AllCovers",
+        "AllCovers/ExchangeDetails",
+        "AllCovers/ExchangeOrderInfo"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "指间礼物",
@@ -92,7 +124,7 @@
         "pagePath": "pages/Post/PostList",
         "iconPath": "static/icon_give_m.png",
         "selectedIconPath": "static/icon_give_d.png",
-        "text": "送什么"
+        "text": "攻略"
       },
       {
         "pagePath": "pages/personal/personal",
@@ -101,6 +133,14 @@
         "text": "我的"
       }
     ]
+  },
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "pagesub"
+      ]
+    }
   },
   "permission": {
     "scope.userLocation": {

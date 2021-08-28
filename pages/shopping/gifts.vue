@@ -17,13 +17,13 @@
 								<text class="gift-card-title">指间礼物|送礼有温度</text>
 							</view>
 							<view class="gift-card-con">
-								<view>{{text}}</view>
+								<view><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text"></textarea></view>
 								<text class="icon icon-edit gift-card-edit" @click="showTxt"></text>
 								<!-- <image class="gift-card-edit" :src="$utils.osspath_url('/xcx-static/gift/edit_icon.png')" mode=""></image> -->
 							</view>
 							<view class="gift-card-btn">
-								<image class="gift-card" :src="theme_background!=null?theme_background:background" mode="widthFix"></image>
-								<button type="warn" size="mini" @click="getgift" plain="true">立即领取</button>
+								<image class="gift-card" :src="theme_background!=''?theme_background:background" mode="widthFix"></image>
+								<button type="warn" size="mini" plain="true">立即领取</button>
 							</view>
 					    </view>
 						<view class="gift-small-bottom">
@@ -41,10 +41,10 @@
 					   <image class="reg-img" :src="$utils.imageUrl(item.background)" mode=""></image>
 					 </view>
 			 	</view>
-				<view class="gift-img"><text>全部封面</text></view>
+				<view class="gift-img"><text @click="$buttonClick(allCovers)">全部封面</text></view>
 			 </view>
 		</view>
-		<button class="gift-btn" type="warn" @click="gift">使用该封面</button>
+		<button class="gift-btn" type="warn" @click="getgift">使用该封面</button>
 		
 		
 		<!-- 修改文字 -->
@@ -75,11 +75,20 @@
 				content:'',
 				send_talk_msg:'',
 				sign: '',
-				showPop: false
+				showPop: false,
+				Inv: 0
+			}
+		},
+		onShow() {
+			let background = uni.getStorageSync('all_cover_bg');
+			let id = uni.getStorageSync('all_cover_id');
+			if(background && id){
+				this.theme_background = "";
+				this.background =background;
+				this.id = id;
 			}
 		},
 		onLoad: function(e) {
-			console.log("祝福语")
 			this.url = config.URL;
 			let that = this;
 			this.sign = uni.getStorageSync('sign');
@@ -101,7 +110,6 @@
 				var action = 'get_zhufu_theme_type';
 			
 				this.$utils.post(action, data).then(res => {
-					console.log('可选模板', res)
 					this.template = res.rs;
 				})
 			
@@ -129,14 +137,12 @@
 				var action = 'get_zhufu_theme_type';
 			
 				this.$utils.post(action, data).then(res => {
-					console.log('可选模板', res)
 					// 可选模板
 					this.template = res.rs;
 					var data = '{"memberid":"' + memberid + '"}';
 					var action = 'get_zhufu_theme';
 			
 					this.$utils.post(action, data).then(res => {
-						console.log('祝福模板', res)
 						// 页面渲染
 						this.content = res.rs;
 						// 发送模板 文字可编辑
@@ -153,20 +159,26 @@
 						// 模板id
 						this.zhufu_theme_id = res.rs.id;
 						
-			            uni.setStorageSync('theme_type', res.rs.theme_type)
-			            uni.setStorageSync('zhufu_theme_id', res.rs.id)
-						uni.setStorageSync('send_talk_msg', res.rs.send_talk_msg)
+						// uni.setStorageSync('theme_type', res.rs.theme_type)
+						// uni.setStorageSync('zhufu_theme_id', res.rs.id)
+						// uni.setStorageSync('send_talk_msg', res.rs.send_talk_msg)
 					})
 			
 				})
 			}
 		},
 		methods:{
+			allCovers(){
+				// 跳转全部封面
+				uni.navigateTo({
+					url:`../../pagesub/AllCovers/AllCovers?id=${this.id}`
+				});
+			},
 			close: function(){
 				this.showPop = false;
 			},
 			showTxt: function(){
-				this.showPop = true;
+				// this.showPop = true;
 			},
 			txt: function(e) {
 				if (e.detail.cursor == 0) {
@@ -188,11 +200,8 @@
 			},
 		   // 选择模板
 		   choose: function(e) {
-			   console.log(e)
-		   	this.theme_background = null;
+		   	this.theme_background = "";
 		   	this.background = e.currentTarget.dataset.background;
-			console.log("this.background")
-			console.log(this.background)
 		   	this.id = e.currentTarget.dataset.id
 		   },
 		   getgift:function(e){
@@ -208,14 +217,12 @@
 			   };
 			   if (this.Inv == 0) {
 			   	data['zhufu_type']=0;
-			   	data['zhufu_msg'] = this.zhufu_msg;
+			   	data['zhufu_msg'] = this.text;
 			   } 
-			   console.log(data)
 			   
 			   var action = 'save_zhufu_theme';
 			   
 			   this.$utils.post(action, JSON.stringify(data)).then(res => {
-			   	console.log('修改祝福模板', res)
 				
 				  let icon="success"
 				  if (res.sta !=1) {
@@ -246,9 +253,16 @@
 			   			})
 			   		}
 			   	}
-				uni.navigateTo({
-					 url:'../shopping/wishes'
-				})
+				/**
+				 * 之前跳转自定义福语页面
+				 */
+				// uni.navigateTo({
+				// 	 url:'../shopping/wishes'
+				// })
+				uni.setStorageSync('setgiftssuccess', '1');
+				uni.navigateBack({
+				   delta: 1
+				});	
 			   })
 		   },
 		   gift:function(e){
@@ -259,13 +273,10 @@
 				   var action = 'get_zhufu_theme';
 				   			
 				   this.$utils.post(action, data).then(res => {
-				   	console.log('祝福模板', res)
 				   					// 页面渲染
 				   					this.content = res.rs;
 									this.zhufu_type=res.rs.zhufu_type
 									uni.setStorageSync('zhufu_type', res.rs.zhufu_type);
-									console.log("this.zhufu_type")
-									console.log(this.zhufu_type)
 				   	uni.setStorageSync('text', res.rs.send_talk_msg);
 					uni.setStorageSync('zhufu_msg', res.rs.zhufu_msg);			
 					uni.navigateBack({
@@ -453,8 +464,9 @@
 		font-size: 30rpx;
 		color: #333333;
 		line-height: 1.5em;
-		border: 1px solid #efefef;
-		padding: 10rpx;
+		/* border: 1px solid #efefef;
+		padding: 10rpx; */
+		height: 85px;
 	}
 	.success-pop .pop-center .p{
 		margin: 20rpx 0;

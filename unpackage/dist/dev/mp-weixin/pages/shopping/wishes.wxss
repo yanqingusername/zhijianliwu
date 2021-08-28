@@ -77,12 +77,14 @@ page {
 		/* position: absolute; */
 		/* top: 100rpx; */
 		/* left: 10rpx; */
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 }
 
 /* 财源滚滚 */
 .wishes-font {
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		width: 100%;
 		padding: 24rpx;
 		background-color: #fff;
@@ -146,7 +148,8 @@ page {
 .infor{
 		position: absolute;
 		padding: 40rpx;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		width: 100%;
 		top: 0;
 }
@@ -177,7 +180,8 @@ page {
 		vertical-align: middle;
 }
 .wishes-name {
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		color: #F6DBA5;
 }
 .zhufu{

@@ -6,6 +6,7 @@
 		    "style" : {
 		    	"navigationBarTitleText":"我的",
 				"enablePullDownRefresh":true
+				// "navigationStyle":"custom"
 		    }
 		},{
 			"path": "pages/index/index",
@@ -26,20 +27,39 @@
 				"navigationBarTitleText":"商品详情"
 			}
         }
+		,{
+		    "path" : "pages/details/detailsshare",
+		    "style" : {
+				"navigationBarTitleText":"分享商品详情"
+			}
+		}
         ,{
             "path" : "pages/classification/classification",
             "style": {
-            	"navigationBarTitleText": "分类",
-            	"navigationStyle":"custom"
+            	"navigationBarTitleText": "分类"
+            	// "navigationStyle":"custom"
             }
-        }
-        ,{
+        },
+		{
+		    "path" : "pages/classification/classificationSearch",
+		    "style": {
+		    	"navigationBarTitleText": "选礼物"
+		    	// "navigationStyle":"custom"
+		    }
+		},
+        {
             "path" : "pages/shopping/shopping",
             "style" : {
             	"navigationBarTitleText":"购物车",
 				"navigationStyle":"custom"
             }
-        }
+        },
+		{
+			"path" : "pages/shopping/shoppingList",
+			"style" : {
+				"navigationBarTitleText":"礼物列表"
+			}
+		}
 		,{
 		    "path" : "pages/shopping/share",
 		    "style" : {
@@ -121,6 +141,13 @@
 		    "style" : {
 				"navigationBarTitleText":"充值卡充值"
 			}
+		},
+		{
+			"path" : "pages/balance/RechargeStatus",
+			"style" : {
+				"navigationBarTitleText":"充值",
+				"navigationStyle":"custom"
+			}
 		}
         ,{
             "path" : "pages/AccountBook/AccountBook",
@@ -153,10 +180,23 @@
         ,{
             "path" : "pages/Apply/Apply",
             "style" : {
-				"navigationBarTitleText":"企业会员申请"
+				"navigationBarTitleText":"企业会员申请",
+				"navigationBarBackgroundColor":"#EAC48A"
 			}
-        }
-        ,{
+        },
+		{
+			"path" : "pages/Apply/ApplyInvoice",
+			"style" : {
+				"navigationBarTitleText":"发票信息"
+			}
+		},
+		{
+			"path" : "pages/Apply/ApplySuccess",
+			"style" : {
+				"navigationBarTitleText":"申请成功"
+			}
+		},
+        {
             "path" : "pages/Address/Address",
             "style" : {
 				"navigationBarTitleText":"新增地址"
@@ -167,7 +207,12 @@
             "style" : {
 				"navigationBarTitleText":"我的优惠券"
 			}
-        }
+		},{
+			"path" : "pages/Coupon/ExpiredCoupon",
+			"style" : {
+				"navigationBarTitleText":"失效券"
+			}
+		}
         ,{
             "path" : "pages/Member/Member",
             "style" : {
@@ -199,11 +244,24 @@
 		    "style" : {
 				"navigationBarTitleText":"兑换中心"
 			}
+		},
+		{
+			"path" : "pages/index-coupon/ExchangeIndex",
+			"style" : {
+				"navigationBarTitleText":"兑换中心"
+			}
+		},
+		{
+			"path" : "pages/index-coupon/ExchangeOrder",
+			"style" : {
+				"navigationBarTitleText":"兑换订单"
+			}
 		}
         ,{
             "path" : "pages/search/search",
             "style" : {
-				"navigationBarTitleText":"搜索"
+				"navigationBarTitleText":"搜索",
+				"enablePullDownRefresh": true
 			}
         }
         ,{
@@ -394,22 +452,76 @@
                 "navigationBarTitleText": "订单列表",
                 "enablePullDownRefresh": true
             }
-            
-        }
-        ,{
+        },
+		{
+			"path" : "pages/orderList/ReceptionDetails",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "收礼详情"
+			}
+		},
+		{
+			"path" : "pages/orderList/ReceptionAddress",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "收货地址"
+			}
+		},
+		{
+			"path" : "pages/orderList/ReceptionOrderInfo",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/orderList/MyBuyOrderInfo",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/orderList/MySendOrderInfo",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "",
+				"navigationStyle":"custom"
+			}
+		},
+		{
             "path" : "pages/Post/Post",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-        }
+        },
+		{
+			"path" : "pages/Post/PostSearch",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "",
+			    "enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/Post/PostLike",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "我的喜欢",
+			    "enablePullDownRefresh": true
+			}
+		}
         ,{
             "path" : "pages/Post/PostList",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "送礼推荐",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh": true,
+				"navigationStyle":"custom"
             }
             
         }
@@ -450,6 +562,84 @@
             
         }
     ], 
+	"subPackages": [{
+		"root": "pagesub",  //文件夹名称，  pages文件夹同级新建一个就行
+		"pages": [
+				{
+					"path" : "Refund/ApplyRefund",
+					"style" : {
+						"navigationBarTitleText":"申请退款"
+					}
+				},
+				{
+					"path" : "Refund/RefundInfo",
+					"style" : {
+						"navigationBarTitleText":"",
+						"navigationStyle":"custom"
+					}
+				},
+				{
+					"path" : "Refund/RefundAfterSale",
+					"style" : {
+						"navigationBarTitleText":"退换/售后"
+					}
+				},
+				{
+					"path" : "Refund/ExchangeGoods",
+					"style" : {
+						"navigationBarTitleText":"换货"
+					}
+				},
+				{
+					"path" : "Refund/RefundExchangeInfo",
+					"style" : {
+						"navigationBarTitleText":"",
+						"navigationStyle":"custom"
+					}
+				},
+				{
+					"path" : "Refund/RefundExchangeDown",
+					"style" : {
+						"navigationBarTitleText":"",
+						"navigationStyle":"custom"
+						// "navigationBarTextStyle":"white",
+						// "navigationBarBackgroundColor":"#FB503D"
+					}
+				},
+				{
+					"path" : "Refund/LogisticsInfo",
+					"style" : {
+						"navigationBarTitleText":"订单跟踪"
+					}
+				},
+				{
+					"path" : "AllCovers/AllCovers",
+					"style" : {
+						"navigationBarTitleText":"全部封面"
+					}
+				},
+				{
+					"path" : "AllCovers/ExchangeDetails",// 待兑换详情
+					"style" : {
+						"navigationBarTitleText":"订单详情"
+					}
+				},
+				{
+					"path" : "AllCovers/ExchangeOrderInfo",// 已兑换详情
+					"style" : {
+						"navigationBarTitleText":""
+					}
+				}
+				
+				
+		 ]
+	}],
+	"preloadRule": {
+			"pages/index/index": {
+				"network": "all",
+				"packages": ["pagesub"]
+			}
+		},
 	"globalStyle": { 
 		"navigationBarTextStyle": "black",   
 		"navigationBarTitleText": "指间礼物", 
@@ -499,7 +689,7 @@
 	        "pagePath": "pages/Post/PostList",
 	        "iconPath": "static/icon_give_m.png",
 	        "selectedIconPath": "static/icon_give_d.png",
-	        "text": "送什么"
+	        "text": "攻略"
 	    },{
 	        "pagePath": "pages/personal/personal",
 	        "iconPath": "static/icon_my_m.png",

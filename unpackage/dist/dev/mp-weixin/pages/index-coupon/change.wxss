@@ -31,7 +31,8 @@
 		width: 140rpx;
 		height: 140rpx;
 		padding: 10rpx;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		background: #FAFAFA;
 		display: inline-block;
 		vertical-align: middle;

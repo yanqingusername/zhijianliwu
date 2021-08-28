@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "礼物列表",
+  "usingComponents": {
+    "search-product": "/components/own-components/search-product"
+  }
+}

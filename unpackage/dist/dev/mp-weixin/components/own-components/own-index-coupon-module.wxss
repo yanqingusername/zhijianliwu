@@ -28,7 +28,8 @@
 	display: inline-block;
 	width: 50%;
 	padding: 0 10rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .own-index-coupon-image-box{
 	background: #FFF6F7;

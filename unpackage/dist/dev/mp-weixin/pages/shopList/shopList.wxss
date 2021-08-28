@@ -137,6 +137,7 @@ page{
 		  height: 261.8rpx;
 		  border-radius: 23.61rpx;
 		  padding-top: 23.61rpx;
+		  background: -webkit-gradient(linear,left top, left bottom,from(#FF647F),color-stop(#FF879A),color-stop(#FFB0BC),to(#FFE3E5));
 		  background: -webkit-linear-gradient(#FF647F,#FF879A,#FFB0BC,#FFE3E5);
 		  background: linear-gradient(#FF647F,#FF879A,#FFB0BC,#FFE3E5);
 }
@@ -314,7 +315,8 @@ page{
 	 padding:20.83rpx 0 20.83rpx 0 ;
 	 background-color: #FFF;
 	 z-index:9;
-	 box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
+	 -webkit-box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
+	         box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
 	 max-height: 800rpx;
 }
 .show-right{
@@ -326,7 +328,8 @@ page{
 	    padding:20.83rpx 0 20.83rpx 0 ;
 	    background-color: #FFF;
 	    z-index:9;
-	    box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
+	    -webkit-box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
+	            box-shadow: 0 0 4.08rpx 1.38rpx #F1F0F1;
 		max-height: 800rpx;
 }
 .show-li{
@@ -354,7 +357,8 @@ page{
 /* 首页-商品 */
 .index-commodity{
 	 width: 92%;
-	 box-shadow: 0 0  1.38rpx 2.08rpx #F5F5F5;
+	 -webkit-box-shadow: 0 0  1.38rpx 2.08rpx #F5F5F5;
+	         box-shadow: 0 0  1.38rpx 2.08rpx #F5F5F5;
 	 background-color: #F8F8F8;
 	 padding:0 4%;
 	 /* min-height: 800rpx; */
@@ -797,7 +801,8 @@ button::after {
 /* 口味 */
 .details-hidden-content{
 				width: 100%;
-				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				        box-sizing: border-box;
 				padding: 30rpx;
 }
 .details-hidden-title{
@@ -1358,6 +1363,7 @@ button::after {
 			 font-size:20.83rpx;
 			 color:#FFF;
 			 border-radius: 4.16rpx;
+			 background: -webkit-gradient(linear,left top, right top,from(#DDC6A6), color-stop(#DCC5A3),color-stop(#D8C79C),to(#D1B286));
 			 background: -webkit-linear-gradient(left,#DDC6A6, #DCC5A3,#D8C79C,#D1B286);
 			 background: linear-gradient(to right,#DDC6A6, #DCC5A3,#D8C79C,#D1B286);
 }
@@ -1599,7 +1605,8 @@ button::after {
 }
 .shop-template-img{
 		   border-radius: 18.75rpx;
-		   box-shadow: 0 0rpx 18rpx 2rpx rgba(0,0,0,.2);
+		   -webkit-box-shadow: 0 0rpx 18rpx 2rpx rgba(0,0,0,.2);
+		           box-shadow: 0 0rpx 18rpx 2rpx rgba(0,0,0,.2);
 }
 /* 无商品 */
 .shop-no-img{
@@ -1819,7 +1826,8 @@ button::after {
 				 font-size: 19.44rpx;
 				 line-height: 46.52rpx;
 				 text-align: center;
-				 box-shadow: 0 0 2.08rpx 0.69rpx #F5F5F5;
+				 -webkit-box-shadow: 0 0 2.08rpx 0.69rpx #F5F5F5;
+				         box-shadow: 0 0 2.08rpx 0.69rpx #F5F5F5;
 }
 .shop-commodity-bottom{
 			width: 637.5rpx;
@@ -3170,7 +3178,8 @@ button::after {
 }
 /* 包裹 */
 .logistics-number{
-	   box-shadow: 0 -4rpx 4rpx 0 #F4F4F4;
+	   -webkit-box-shadow: 0 -4rpx 4rpx 0 #F4F4F4;
+	           box-shadow: 0 -4rpx 4rpx 0 #F4F4F4;
 	   background-color: #FFF;
 }
 .logistics-number-title{
@@ -3693,7 +3702,8 @@ button::after {
 		border-radius: 12rpx;
 		margin: 0 auto 50rpx auto;
 		width: 709rpx;
-		box-shadow: 0 0  18rpx 0 #BBBBBB;
+		-webkit-box-shadow: 0 0  18rpx 0 #BBBBBB;
+		        box-shadow: 0 0  18rpx 0 #BBBBBB;
 		padding-top: 46rpx;
 		padding-bottom: 63rpx;
 		background: #FFF;
@@ -3856,7 +3866,8 @@ button::after {
 		  border-radius: 18rpx;
 		  margin: 0 auto 39rpx auto;
 		  background-color: #FFF;
-		  box-shadow: 0 0 5rpx 0 #BBBBBB;
+		  -webkit-box-shadow: 0 0 5rpx 0 #BBBBBB;
+		          box-shadow: 0 0 5rpx 0 #BBBBBB;
 }
 .coupon-core-left{
 			width: 52rpx;
@@ -4067,6 +4078,7 @@ button::after {
 		  line-height: 50rpx;
 		  text-align: center;
 		  color: #FFF;
+		  background: -webkit-gradient(linear,left top, left bottom,from(#FFE400),color-stop(#FBD700),color-stop(#F9D300),color-stop(#ECAA00),color-stop(#E59600),to(#DF8400));
 		  background: -webkit-linear-gradient(#FFE400,#FBD700,#F9D300,#ECAA00,#E59600,#DF8400);
 		  background: linear-gradient(#FFE400,#FBD700,#F9D300,#ECAA00,#E59600,#DF8400);
 		   margin:0 auto 20rpx auto;
@@ -4487,6 +4499,7 @@ button::after {
 .search-right{
 		width: 100rpx;
 		height: 56rpx;
+		background:-webkit-gradient(linear,left top, left bottom,from(#FB9703),color-stop(#FF8403),color-stop(#FF6B05),to(#FD5D07));
 		background:-webkit-linear-gradient(#FB9703,#FF8403,#FF6B05,#FD5D07);
 		background:linear-gradient(#FB9703,#FF8403,#FF6B05,#FD5D07);
 		line-height: 56rpx;
@@ -4635,7 +4648,8 @@ page {
 	margin-top: 3rpx;
 	margin-left: 4rpx;
 	/* background: #FF0137 !important; */
-	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	        box-shadow: none !important;
 	border-radius: 50%;
 	background: #BFBFBF !important;
 }

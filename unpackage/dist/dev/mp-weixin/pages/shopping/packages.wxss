@@ -389,7 +389,8 @@ page{
 .must-list-xq{
 		padding: 20rpx 38rpx;
 		height: auto;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 }
 .must-list-bg{
 		width: 140rpx;
@@ -447,7 +448,8 @@ page{
 .message{
 		position: static;
 		background-color: #fff;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		padding: 20rpx 38rpx;
 }
 .message>view{
@@ -593,8 +595,13 @@ page{
 		margin-top: 200rpx;
 		color: #999999;
 }
+.must-guige-title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .must-guige-price{
-	margin-top: -29rpx;
+	margin-top: 0rpx;
 }
 .fare1{
 	margin-top: 69rpx;

@@ -47,6 +47,7 @@
 	box-sizing: border-box;
 	width: 100%;
 	height: 280rpx;
+	border-radius: 10rpx;
 	/* margin-top: -50rpx; */
 	/* position: fixed; */
 	/* z-index: 99; */
@@ -54,6 +55,7 @@
 .own-swiper-img{
 	width: 100%;
 	height: 100%!important;
+	border-radius: 10rpx;
 }
 
 /* 自定义轮播图的指示点 */

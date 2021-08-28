@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "分享商品详情",
+  "usingComponents": {
+    "r-canvas": "/components/r-canvas/r-canvas"
+  }
+}

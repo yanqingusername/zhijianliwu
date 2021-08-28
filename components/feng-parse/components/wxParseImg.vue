@@ -17,7 +17,7 @@ export default {
 	data() {
 		return {
 			newStyleStr: '',
-			preview: true
+			preview: false
 		};
 	},
 	inject: ['parseWidth'],

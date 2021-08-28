@@ -62,6 +62,11 @@
 			}
 		},
 		onLoad: function(e) {
+			uni.setStorageSync('all_cover_bg',"");
+			uni.setStorageSync('all_cover_id',"");
+			uni.setStorageSync('setgiftssuccess', '2');
+			uni.setStorageSync('setwishessuccess', '2');
+			
 			let cardbag_number = e.cardbag_number;
 			let data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
 			var action = 'get_cardbag_detail';
@@ -69,12 +74,9 @@
 
 				this.cardbag_theme = res.cardbag_theme
 				this.cardbag = res.cardbag
-				console.log('礼包详情', res)
 				if (res.goods_list.length == 1) {
 					this.gift = res.goods_list
 					this.cardbag_number = res.cardbag.cardbag_number
-					console.log("cardbag_number")
-					console.log(this.cardbag_number)
 					uni.setStorageSync("cardbag_number", res.cardbag.cardbag_number)
 					this.com = 1
 				} else {
@@ -99,7 +101,6 @@
 				})
 			},
 			test_tz: function() {
-				console.log(666)
 				uni.navigateTo({
 					url: "../shopping/receive?cardbag_number=" + this.cardbag.cardbag_number
 				})

@@ -4,7 +4,7 @@
 			<uni-segmented-control :current="current" :values="items" style-type="text" active-color="#EC1815" @clickItem="onClickItem" />
 			<view v-show="current === 0">
 				<view class="no-btm" v-if="cardlist1.length<=0">
-					<image class="img empty-img" src="../../static/empty_page_xm.png" mode="widthFix"></image>
+					<image class="img empty-img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix"></image>
 				</view>
 				<!-- 假数据 -->
 				<view class="not" v-for="item in cardlist1" :key="item.id">
@@ -14,7 +14,7 @@
 							<view class="right"><text>未兑换</text><text class="icon icon-z-right"></text></view>
 						</view>
 						<view class="z-list-center">
-							<view class="image"><img class="per" src="../../static/empty_page_xm.png" mode="widthFix"></view>
+							<view class="image"><img class="per" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix"></view>
 							<view class="name">
 								<h4 class="title">{{item.name}}</h4>
 								<text class="specs">规格：50</text>
@@ -50,7 +50,7 @@
 
 
 				<view class="no-btm" v-if="cardlist2.length<=0">
-					<image class="img empty-img" src="../../static/empty_page_xm.png" mode="widthFix"></image>
+					<image class="img empty-img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix"></image>
 				</view>
 				
 				<!-- 假数据 -->

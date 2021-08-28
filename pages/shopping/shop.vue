@@ -1,40 +1,45 @@
 <template>
 	<view class="shop z-gift">
-		<view class="shop-header-backgrounds"></view>
+		<view class="shop-header-backgrounds">
+			<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
+		</view>
 		<!-- <view class="shop-header">
 			<image class="shop-header-xiong" :src="$utils.osspath_url('/xcx-static/xiong.png')" mode=""></image>
 			<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
 		</view> -->
 		<view style="margin-top: -100rpx">
 			<view class="box">
-				<view class="box-content">
+				<view class="box-content" v-if="goodsinfo.length > 0">
 					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id">
 						<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)">
 						<view class="top-right">
 							<view class="shop-gift-buys-title">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>
-							<view class="price-bottom">
+							<view class="price-bottom flex-between">
 								<text style="font-size: 24rpx; color: #FB4133;">￥</text>
 								<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
-								<view class="shop-gift-num">
-									<view class="reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="reduce(item)">-</view>
+								<view class="flex-vertically">
+									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="reduce(item)">-</view>
 									<view class="cart-count">{{item.goodsnum}}</view>
-									<view class="add" :data-index="item.id" :data-goodsid="item.goodsid" @click="increase(item)">+</view>
+									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="increase(item)">+</view>
 									
 								</view>
 							</view>
-							
 						</view>
 					</view>
 					<view class="shop-gift-buys-bottom">
-					<text class="shop-gift-buys-bottom-num">共{{goodsinfo.length}}件礼物/份</text>
-					<view class="right">
-						<text class="shop-gift-buys-bottom-add" @click="add">继续添加</text>
-						<text class="icon icon-z-right"></text>
+						<text class="shop-gift-buys-bottom-num">共{{goodsinfo.length}}件礼物/份</text>
+						<view class="right">
+							<text v-if="type!=1" class="shop-gift-buys-bottom-add" @click="add">继续添加</text>
+							<text v-if="type!=1" class="icon icon-z-right"></text>
+						</view>
+						
 					</view>
-					
 				</view>
-				</view>
+				<view class="shop-header" v-else>
+					<image class="shop-header-xiong" :src="$utils.osspath_url('/xcx-static/xiong.png')" mode=""></image>
+					<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
+				</view> 
 			</view>
 			
 			<!-- 送礼方式 -->
@@ -70,19 +75,21 @@
 					<view class="shop-gift-pin shop-list" @click="chooseGift">
 						<text>选择礼物封面</text>
 						<view class="right">
-							<!-- <text class="yixuan">{{chooses==1?'已选':''}}</text> -->
+							<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
 						</view>
 						
 						<!-- <image  class="shop-gift-jiantou" :src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 					</view>
-					<view class="shop-gift-pin fu shop-list"  @click="wishes">
+					<view class="shop-gift-pin shop-list flex-between"  @click="wishes">
 						<text>自定义“福语”</text>
-						<view class="right">
+						<view style="display: flex;align-items: center;">
 							<!-- <text class="">{{zhufu_type}}</text> -->
+							<text class="yixuan" style="margin-left: 0rpx;">{{setwishessuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
 							<!-- <image class="shop-jiantou" :src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 						</view>
+						
 					</view>
 				</view>
 				 
@@ -108,7 +115,7 @@
 						<view class="shop-gift-pin shop-list"  @click="chooseGift">
 							<text>选择礼物封面</text>
 							<view class="right">
-								<!-- <text class="yixuan">{{chooses==1?'已选':''}}</text> -->
+								<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
 							<!-- <image class="shop-gift-jiantou"
 								:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
@@ -118,6 +125,7 @@
 							<text>自定义“福语”</text>
 							<view class="right">
 								<!-- <text class="">{{zhufu_type}}</text> -->
+								<text class="yixuan">{{setwishessuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
 								<!-- <image class="shop-jiantou"
 									:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
@@ -130,7 +138,7 @@
 				 
 				<!-- 底部送礼方式 -->
 				<uni-popup ref="popup" type="bottom" :animation="false"  >
-					<view class="shop-gift-buy-bot">
+					<view class="new-shop-gift-buy-bot">
 						<text class="shop-bot" @click="box1">直接送礼</text>
 						<text class="shop-bot" @click="box2">拼手气红包</text>
 						<text @click="close" class="shop-bot close">取消</text>
@@ -159,39 +167,65 @@
 			   checknum: '1',
 			   flag:true,
 			   type: '',
-			   show: '1',
+			   show: '2',
 			   gift:true,
 			   zhufu_type:0,
 			   chooses:1,
 			   length:0,
 			   fenshu:1,
+			   setgiftssuccess: '2',
+			   setwishessuccess: '2'
 			}
 		
 		},
 		onLoad:function(e){
 				let type=e.type
 				this.type=type
-			    let memberid = uni.getStorageSync('id')
-				this.memberid = memberid;
-				var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
-				var action = 'get_giftbag_list';
-				 this.$utils.post(action,data).then(res=>{
-					 console.log('商品信息',res)
-					 if (res.sta ===1) {				   
-						uni.showToast({
-							icon: 'success',
-							title: res.msg,
-							duration: 1000
-						});
-					 }
-					this.goodsinfo = res.rs.giftbag
-					this.price_zhe=res.rs.price_zhe
-				})
+			 //    let memberid = uni.getStorageSync('id')
+				// this.memberid = memberid;
+				// var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+				// var action = 'get_giftbag_list';
+				//  this.$utils.post(action,data).then(res=>{
+				// 	 console.log('商品信息',res)
+				// 	 if (res.sta ===1) {				   
+				// 		uni.showToast({
+				// 			icon: 'success',
+				// 			title: res.msg,
+				// 			duration: 1000
+				// 		});
+				// 	 }
+				// 	this.goodsinfo = res.rs.giftbag
+				// 	this.price_zhe=res.rs.price_zhe
+				// })
 				
-				//计算总价
-				this.caltotalmoney()
+				// //计算总价
+				// this.caltotalmoney()
 		},
-		onShow: function(e){
+		onShow: function(){
+			this.setgiftssuccess = uni.getStorageSync('setgiftssuccess');
+			this.setwishessuccess = uni.getStorageSync('setwishessuccess');
+			
+			let type=this.type
+			let memberid = uni.getStorageSync('id')
+			this.memberid = memberid;
+			var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+			var action = 'get_giftbag_list';
+			 this.$utils.post(action,data).then(res=>{
+				 console.log('商品信息',res)
+				 if (res.sta ===1) {				   
+					uni.showToast({
+						icon: 'success',
+						title: res.msg,
+						duration: 1000
+					});
+				 }
+				this.goodsinfo = res.rs.giftbag
+				this.price_zhe=res.rs.price_zhe
+			})
+			
+			//计算总价
+			this.caltotalmoney()
+			
 			let zhufu_type = uni.getStorageSync('zhufu_type')
 			this.zhufu_type=zhufu_type
 			console.log("this.zhufu_type11")
@@ -205,6 +239,11 @@
 			}
 		},
 		methods: {
+			backbutton(e){
+				uni.navigateBack({
+					delta: 1
+				});
+			},
 			caltotalmoney:function (e){
 				let fenshu=this.fenshu
 				//这里要判断下类型，如果是直接送礼份数取出来实际的，如果是拼手气的话，份数是固定的1
@@ -248,19 +287,62 @@
 				
 			},						
 			add: function(e) {
-				uni.reLaunch({
-					url:'../index/index'
-				})
+				// uni.reLaunch({
+				// 	url:'../index/index'
+				// })
+				uni.redirectTo({
+					url: "./shoppingList"
+				});
 			},						
 		 box_gift(){
-			uni.navigateTo({
-				url:'../index/index'
+			uni.redirectTo({
+				url: './shoppingList'
 			})
+			// ({
+			// 	url:'../index/index'
+			// })
 		 },
+		 // 加法
+		 increase: function(e) {
+		 	console.log(e)
+		 	let goodsid = e.goodsid;
+		 	this.goodsid = goodsid;
+		 	let acount=e.goodsnum+1
+		 	this.give(e,acount);
+		 },
+		 reduce(e) {
+			 let goodsid = e.goodsid;
+			 let acount=e.goodsnum-1
+			 this.goodsid = goodsid;
+			 this.give(e,acount);
+			 
+		 	// this.checknum = parseInt(num) + parseInt(type);
+		 	// return
+		 },
+		 // 加减数量
+		 give: function(e,acount) {
+		 	let memberid = uni.getStorageSync('id')
+		 	this.memberid = memberid;
+		 	let type = this.type;
+		 	var data = '{"memberid":"' + this.memberid + '","goodsid":"' + this.goodsid + '","num":"' + acount + '","buy_type":"' +type+'","goods_model":"' +e.goods_model+'","goods_spec":"' +e.goods_spec+'","goods_item":"' +e.goods_spec_item+'"}';
+		 	var action = 'op_buy_shopping_cart';
+		 	console.log(data)
+		 	
+		 	this.$utils.post(action, data).then(res => {
+		 		console.log('添加购物车', res)
+		 		   //更改为下面的重新获取
+		 		var data = '{"memberid":"' + this.memberid + '","buy_type":"' +type+'"}';
+		 		var action = 'get_giftbag_list';
 		 
-		 reduce(num, type) {
-		 	this.checknum = parseInt(num) + parseInt(type);
-		 	return
+		 		this.$utils.post(action, data).then(res => {
+		 			console.log('更改价格', res)
+		 			this.goodsinfo = res.rs.giftbag
+		 		})
+		 	})
+		 	//计算总价
+		 	this.caltotalmoney()
+		 	console.log(this.goodsinfo)
+		 	// this.calculation();
 		 },
 		   open() {
 		      this.$refs.popup.open('')
@@ -375,4 +457,31 @@
 
 <style>
 	@import '../../common/gift.css';
+	.icon-back-img{
+		position: absolute;
+		top: 60rpx;
+		left: 26rpx;
+		width: 50rpx;
+		height: 50rpx;
+	}
+	
+	.new-shop-gift-buy-bot {
+	    width: 750rpx;
+	    /* height: 338rpx; */
+	    background-color: #fff;
+	}
+	.new-reduce {
+	    font-size: 28rpx;
+	    display: flex;
+	    vertical-align: middle;
+	    width: 42rpx;
+	    height: 42rpx;
+	    line-height: 42rpx;
+	    text-align: center;
+	    border: 1px solid #AAAAAA;
+	    border-radius: 50rpx;
+	    color: #999999;
+	    align-items: center;
+	    justify-content: center;
+	}
 </style>

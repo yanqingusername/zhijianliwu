@@ -23,7 +23,8 @@
 	height: max-content;
 	border-radius: 32rpx 32rpx 0 0;
 	background: #FFF;
-	box-shadow: 0 0 6rpx 0rpx rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 0 6rpx 0rpx rgba(0, 0, 0, 0.3);
+	        box-shadow: 0 0 6rpx 0rpx rgba(0, 0, 0, 0.3);
 	position: fixed;
 	padding-top: 40rpx;
 	top: auto;

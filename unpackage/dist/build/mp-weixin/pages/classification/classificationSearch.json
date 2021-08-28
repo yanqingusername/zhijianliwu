@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选礼物",
+  "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup",
+    "search-product": "/components/own-components/search-product"
+  }
+}

@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "企业会员申请",
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#EAC48A",
+  "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
 }

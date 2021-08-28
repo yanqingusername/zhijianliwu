@@ -82,16 +82,16 @@
 		</view>
 
 		<!-- 轮播图 -->
-
-		<swiper v-if="details.length>0" class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true"
-			:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#EC1815">
-			<swiper-item v-for="(item,index) in details" :key="index">
-				<view class="details-swiper-img">
-					<image :src="$utils.imageUrl(item)" class="img" mode=""></image>
-				</view>
-			</swiper-item>
-		</swiper>
-
+		<view v-if="details.length>0" style="width: 100%;height: 750rpx;">
+			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true"
+				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#EC1815">
+				<swiper-item v-for="(item,index) in details" :key="index">
+					<view class="details-swiper-img">
+						<image :src="$utils.imageUrl(item)" class="img" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>
 		<!-- 不是轮播图的时候 -->
 		<view v-else class="details-swiper">
 			<view class="details-swiper-img">
@@ -154,8 +154,9 @@
 		<!-- 赠礼须知 -->
 		<view v-else style="background: #fff; padding-top: 30rpx">
 			<!-- <u-parse :content="btmnotice" style="background: #fff;"></u-parse> -->
+			<image lazy-load="true" src="https://zhijianlw.com/static/web/img/lizengxuzhi_2021_08_26.jpg" mode="widthFix" style="width: 100%;height: 100%;"></image>
 			<view class="z-zlxz">
-				<view class='z-zlxz-title'>
+				<view class='z-zlxz-title' style="margin-top: 40rpx;">
 					<text class="icon-hg"></text>
 					<text class='text'>退换以及售后</text>
 				</view>
@@ -187,15 +188,19 @@
 		<button class="details-btm flex" v-if="sta == 0" open-type="getUserInfo" @getuserinfo="bindGetUserInfo"
 			style="padding: 0;background: transparent;z-index:1;"></button>
 
-		<view class="details-btm flex">
+		<!-- 底部客服礼篮内容 -->
+		<view class="details-btm flex-between">
 			<view class="details-icon flex-vertically">
-				<view class="details-icon-content flex-between ">
-					<!-- 底部客服礼篮内容 -->
-					<view >
-						<view class="online_service">
+				<view class="personal-details-content flex">
+					<button class="personal-item-li" open-type="contact" @click="$buttonClick(trackClick)">
+						<view class="personal-item-li-img"><image class="item-li-img" src="../../static/online_service.png"  mode=""></image></view>
+						<view class="personal-item-li-text">客服</view>
+					</button>
+					
+						<!-- <view class="online_service">
 							<image src="../../static/online_service.png" class="tab1" mode=""></image>
 							<view class="flex-between-text online">在线客服</view>
-						</view>
+						</view> -->
 						
 						<view class="bottom-lilan" @click="bottom_btn">
 							<view class="flex-between-img">
@@ -204,8 +209,7 @@
 							<view class="flex-between-text">礼篮</view>
 							<text class="num_all">{{num_all}}</text>
 						</view>
-						<button open-type="contact"></button>
-					</view>
+						
 				</view>
 			</view>
 
@@ -219,16 +223,18 @@
 			<!-- 礼篮 -->
 			<view class="details-alt-logo lilan" style="margin: 0;padding: 0;" @click="lilan">
 				<!-- <image class="img" :src="$utils.osspath_url('/xcx-static/details/add.png')" mode=""></image> -->
-				<image class="img" src="../../static/lilan.png" mode="widthFix"></image>
+				<image class="new-img" src="../../static/lilan.png" mode="widthFix"></image>
 			</view>
 			<!-- 求礼物 -->
-			<view class="details-alt-logo gifts" style="margin: 0;padding: 0;" open-type="share">
+			<view class="details-alt-logo gifts" style="margin: 0;padding: 0;">
 				<!-- <image @click="gotoShare" class="img" :src="$utils.osspath_url('/xcx-static/details/qiugift.png')" -->
-				<image @click="gotoShare" class="img" src="../../static/liwu.png" mode="widthFix"></image>
+				<image @click="gotoShare" class="new-img" src="../../static/liwu.png" mode="widthFix"></image>
 				<uni-popup ref="popup" backgroundColor="#fff" type="bottom">
 					<view class="qiu">
-						<text class="wx">发送给微信好友</text>
-						<text class="wx">保存图片发朋友圈</text>
+						<!-- <text class="wx">发送给微信好友</text>
+						<text class="wx">保存图片发朋友圈</text> -->
+						<button type="warn" class="wx" open-type="share" >发送给微信好友</button>
+						<button type="warn" class="wx" @click="firend">保存图片发朋友圈</button>
 						<text class="wx close1" @click="close1">取消</text>
 					</view>
 				</uni-popup>
@@ -242,6 +248,7 @@
 	import uParse from "@/components/feng-parse/parse.vue";
 	import '@/components/feng-parse/parse.css';
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		components: {
 			uParse,
@@ -372,6 +379,21 @@
 				console.log('res： ', res)
 				console.log('详情', res.rs.goodsinfo)
 				this.goodsinfo = res.rs.goodsinfo;
+
+				//新增腾讯有数
+				sr.track('browse_sku_page',
+				  {
+				    "sku": {
+				      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
+				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				    },
+					"spu": {
+						"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
+						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+					},
+				    "primary_image_url": this.goodsinfo.head_img
+				  })
+
 				var data = JSON.stringify({
 					memberid: this.id,
 					goodsid: this.goodsinfo.id,
@@ -391,6 +413,8 @@
 					this.details = details;
 				}
 
+				//礼篮数量
+				this.num_all = res.rs.goodsinfo.buy_shopping_cart_number;
 
 				// 规格
 				this.text = res.rs.goodsinfo.goods_spec.length;
@@ -428,14 +452,58 @@
 				this.goodsid = res.rs.goodsinfo.id;
 				console.log("礼篮");
 
-				console.log("是否只有一个选项：", res.rs.goodsinfo.goods_spec.length, res.rs.goodsinfo.goods_spec
-					.goods_spec_item.length);
 				if (res.rs.goodsinfo.goods_spec.length == 1 && res.rs.goodsinfo.goods_spec.goods_spec_item ==
 					1) {
 					// TODO
 					this.goods_spec = [0];
 					this.goods_item = [res.rs.goodsinfo.goods_spec.goods_spec_item];
 				}
+				
+				/**
+				 * 默认设置商品规格
+				 */
+				// 规格第一层
+				let one;
+				// 内容第二层
+				let index;
+				// 已选择文字
+				let text;
+				let goods_spec = this.goods_spec;
+				let goods_item = this.goods_item;
+				let first = this.first;
+				let arr = this.arr;
+				let specArr = this.specArr;
+				
+				if(this.choose.length > 0){
+					for (let i in this.choose) {
+						let item = this.choose[i];
+						let goods_spec_item = item.goods_spec_item;
+						one = item.one;
+						
+						goods_spec.push(one);
+						first.splice(0, 1);
+						arr.splice(0, 1);
+						if (first.indexOf(one) == -1) {
+							first.push(one);
+						}
+						
+						for (let j in goods_spec_item) {
+							let specitem = goods_spec_item[0]
+							index = j;
+							text = specitem.item;
+							
+							if (arr.indexOf(index) == -1) {
+								arr.push(specArr);
+							}
+							specArr[one] = text;
+						}
+					}
+				}
+				goods_spec = Object.keys(specArr);
+				goods_item = Object.values(specArr);
+				//规格里的已选择
+				this['guige'] = goods_item
+				console.log(this.guige.join(","))
 			})
 			// 赠礼须知
 			var data = '{}';
@@ -458,9 +526,19 @@
 
 		},
 		onShareAppMessage: function(e) {
+			this.$refs.popup.close()
+			// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": "我发现了一份不错的礼物，快来看看吧！",
+			  "share_path": '/pages/details/details?keynum=' + this.keynum,
+			  "share_image_url": "",
+			  "share_to": "friends",
+			})
+
 			return {
-				// title:this.alt.goodsname,
-				title: '我好喜欢这个礼物，可以送给我吗？',
+				imageUrl: this.alt.head_img,
+				title: '我发现了一份不错的礼物，快来看看吧！',
 				path: '/pages/details/details?keynum=' + this.keynum,
 				desc: '指间送礼',
 			}
@@ -472,13 +550,61 @@
 			}
 		},
 		methods: {
+			firend: function(e) {
+				this.$refs.popup.close()
+				uni.navigateTo({
+					url: `./detailsshare?keynum=${this.keynum}&imageUrl=${this.head_img}&goodsname=${this.alt.goodsname}`
+				})
+			},
+			trackClick:function(e){
+				//腾讯有数
+				sr.track('start_consult', {
+				  "action_type": "consult_online",
+				})
+			},
 			//底部规格购买数量加减
 			reduce(num, type, index) {
-				this.checknum = parseInt(num) + parseInt(type);
+				
+				// 腾讯有数
+				let action_type;
+				let numInt = parseInt(num);
+				if(type == 1){
+					numInt++;
+					action_type = 'append_to_cart';
+				} else {
+					numInt--
+					action_type = 'remove_from_cart'
+				}
+				if(numInt < 1){
+					uni.showToast({
+						title:'商品购买数量最少一个',
+						mask:true,
+						icon:'none'
+					})
+					return
+				}
+				
+				sr.track('add_to_cart', {
+				    "action_type": action_type,
+					"sku": {
+				      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
+				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				    },
+					"spu": {
+						"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
+						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+					},
+					"sku_num": numInt,
+					   	"primary_image_url": this.goodsinfo.head_img
+					})
+					
+				// this.checknum = parseInt(num) + parseInt(type);
+				this.checknum = parseInt(numInt);
 				return
 			},
 			handleSelect(goods) {
 				this.goods_item = goods
+				console.log('---->:',goods)
 			},
 			// 底部选项卡  商品详情   赠礼须知
 			join: function(e) {
@@ -751,7 +877,11 @@
 					   	return
 					   }
              		   if(goods_item!=''){
-             			uni.navigateTo({
+						// 打开新页面跳转
+             			// uni.navigateTo({
+             			// 	url:'../shopping/shop?type=1'
+             			// })
+						 uni.redirectTo({
              				url:'../shopping/shop?type=1'
              			})
              		  }
@@ -783,11 +913,11 @@
 			 	this.$utils.post(action,data).then(res => {
 					console.log("res")
 					console.log(res)
-					   if (res.sta ===1) {
+					   if (res.sta ==1) {
 						   
 					   	uni.showToast({
 					   		icon: 'success',
-					   		title: res.msg,
+					   		title: '添加成功',
 					   		duration: 1000
 					   	});
 					   }
@@ -1064,7 +1194,7 @@
 
 <style>
 	.details-alt-logo{
-		width: 120rpx;
+		width: 150rpx;
 		height: auto;
 	}
 	.z-zlxz{
@@ -1297,8 +1427,15 @@
 		font-family: "苹方 中等";
 		font-size: 12px;
 		color: #333333;
+		padding-top: 0rpx;
+		margin-top: 6rpx;
+		margin-left: -2rpx;
 	}
-
+	
+	.flex-between-img{
+		width: 40rpx;
+		height: 40rpx;
+	}
 	.person {
 		width: 350rpx;
 		height: 200rpx;
@@ -1402,6 +1539,9 @@
 		text-align: center;
 		border-bottom: 1px solid #EDEDED;
 		display: block;
+		background-color: #FFFFFF !important;
+		color: #000 !important;
+		font-size: 26rpx !important;
 	}
 
 	.close1 {
@@ -1435,23 +1575,25 @@
 		display: flex;
 		justify-content: unset;
 	}
-	.num_all{
-		    position: absolute;
-		    top: -5rpx;
-		    left: 36rpx;
-		    width: 20rpx;
-		    height: 20rpx;
-			line-height: 20rpx;
-			text-align: center;
-		    border-radius: 50%;
-		    background-color: red;
-			font-size: 10px;
-			color: #fff;
+	.num_all {
+	    position: absolute;
+	    top: -4rpx;
+	    left: 27rpx;
+	    /* width: 20rpx; */
+	    /* height: 20rpx; */
+	    line-height: 20rpx;
+	    text-align: center;
+	    border-radius: 50%;
+	    background-color: red;
+	    font-size: 10px;
+	    color: #fff;
+	    padding: 2rpx 6rpx;
 	}
 	.bottom-lilan{
 		display: inline-block;
 		text-align: center;
 		position: relative;
+		margin-left: 30rpx;
 	}
 	.online_service{
 		text-align: center;
@@ -1487,5 +1629,40 @@
 		line-height: 90rpx;
 		color: #fff; background-color: #EC1815;
 		border-radius: 50rpx;
+	}
+	
+	.personal-item-li{
+		width: 96rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 0rpx;
+		    padding: 0;
+		    background: #FFFFFF;
+	}
+	
+	.personal-item-li-img{
+		width: 40rpx;
+		height: 40rpx;
+	}
+	
+	.item-li-img{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.personal-item-li-text{
+		font-size: 24rpx;
+		color: #333333;
+		margin-top: 8rpx;
+		text-align: center;
+	}
+	.personal-details-content{
+		width: 100%;
+		position: relative;
+	}
+	.new-img{
+		width: 150rpx;
+		height: 150rpx;
 	}
 </style>

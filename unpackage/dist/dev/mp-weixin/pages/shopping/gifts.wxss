@@ -279,6 +279,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* 发送页 */
 .gift-header{
 	width: 100%;
@@ -339,7 +350,8 @@
 	padding: 24rpx;
 	width: 100%;
 	position: relative;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .gift-small-content-card-top{
     width: 100%;
@@ -379,14 +391,16 @@
 	/* position: absolute;
 	top: 160rpx;
 	left: 10rpx; */
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .gift-card-btn{
 	margin-top: 14rpx;
 	border: 1px solid #EDEDED;
 	text-align: center;
 	padding: 20rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .gift-card-btn button{
 	width: 214rpx;
@@ -394,7 +408,8 @@
 	color: red;
 }
 .gift-small-bottom{
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding-top: 20rpx;
 	border-top: 1rpx solid #E6E6E6; 
 	/* position: relative; */
@@ -464,8 +479,9 @@ textarea{
 	font-size: 30rpx;
 	color: #333333;
 	line-height: 1.5em;
-	border: 1px solid #efefef;
-	padding: 10rpx;
+	/* border: 1px solid #efefef;
+	padding: 10rpx; */
+	height: 85px;
 }
 .success-pop .pop-center .p{
 	margin: 20rpx 0;
