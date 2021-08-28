@@ -1,294 +1,8 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+page{
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
 
 /* 发送页 */
 .gift-header{
@@ -304,19 +18,20 @@
 .gift-header-ltitle{
 	color: #999999;
 }
+
 /* 信息 */
 .gift-small{
 	width: 100%;
 	/* height: 600rpx; */
 }
-.gift-small-con{
-	width: 80%;
-	/* margin-left: 32rpx; */
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-justify-content: space-around;
-	        justify-content: space-around;
+.gift-small-con {
+    /* width: 94%; */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+            justify-content: space-around;
+    padding: 0rpx 30rpx;
 }
 .gift-small-head{
 	width: 76rpx;
@@ -327,9 +42,9 @@
 }
 .gift-small-content{
 	position: relative;
-	width: 66.7%;
-	background-color: #fff;
-	border-radius: 10rpx;
+	    width: 500rpx;
+	    background-color: #fff;
+	    border-radius: 10rpx;
 }
 .gift-small-content::before{
 	content: "";
@@ -386,7 +101,8 @@
 	bottom: 0;
 }
 .gift-card{
-	width: 100%;
+	height: 275rpx;
+	    width: 450rpx;
 	
 	/* position: absolute;
 	top: 160rpx;
@@ -395,10 +111,10 @@
 	        box-sizing: border-box;
 }
 .gift-card-btn{
-	margin-top: 14rpx;
-	border: 1px solid #EDEDED;
+	margin-top: 24rpx;
+	/* border: 1px solid #EDEDED; */
 	text-align: center;
-	padding: 20rpx;
+	/* padding: 20rpx; */
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 }
@@ -435,6 +151,7 @@
 	color: #999999;
 	font-size: 24rpx;
 }
+
 /* 左滑动效果 */
 .reg-img {
     width: 350rpx;
@@ -481,10 +198,43 @@ textarea{
 	line-height: 1.5em;
 	/* border: 1px solid #efefef;
 	padding: 10rpx; */
-	height: 85px;
+	height: 40px;
 }
 .success-pop .pop-center .p{
 	margin: 20rpx 0;
 	text-align: left;
+}
+.swiper-container {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.swiper-item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	height: 274rpx;
+	width: 450rpx;
+	text-align: center;
+	broder-radius: 6rpx;
+}
+.swiper-tall {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 300rpx;
 }
 

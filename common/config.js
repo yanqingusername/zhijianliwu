@@ -4,8 +4,8 @@ module.exports = {
 	// URL
 	URL: "https://zhijianlw.com/",
 	// ApiUrl 接口路径
-	// APIURL: "https://zhijianlw.com/api.php/test/index?", //正式环境
-	APIURL: "http://8.140.132.21/api.php/index/index?", //测试环境
+	APIURL: "https://zhijianlw.com/api.php/test/index?", //正式环境
+	// APIURL: "http://8.140.132.21/api.php/index/index?", //测试环境
 	// StaticUrl 静态资源地址
 	STATICURL: "",
 	// 微信小程序AppId

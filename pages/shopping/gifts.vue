@@ -23,7 +23,7 @@
 							</view>
 							<view class="gift-card-btn">
 								<image class="gift-card" :src="theme_background!=''?theme_background:background" mode="widthFix"></image>
-								<button type="warn" size="mini" plain="true">立即领取</button>
+								<button type="warn" size="mini" plain="true" style="margin-top: 20rpx;">立即领取</button>
 							</view>
 					    </view>
 						<view class="gift-small-bottom">
@@ -33,13 +33,23 @@
 					</view>
 				</view>
 			 </view>
-			 <view class="">
+			 <view class="" style="margin-top: 60rpx;">
 			 	<!-- 照片 -->
-			 	<view class="my-reg">
-					<view class="my-regs" @click="choose" v-for="(item,index) in template" :key="index" :data-id="item.id"
+			 	<view class="">
+					<!-- <view class="my-regs" @click="choose" v-for="(item,index) in template" :key="index" :data-id="item.id"
 					 :data-background="item.background">
 					   <image class="reg-img" :src="$utils.imageUrl(item.background)" mode=""></image>
-					 </view>
+					 </view> -->
+					 <swiper class="swiper-tall" :indicator-dots="indicatorDots" :autoplay="autoplay" :previous-margin="previousMargin"
+					  :next-margin="nextMargin" :circular="circular" @change="change" :current="swiperCurrentIndex">
+					 	<swiper-item class="swiper-container" v-for="(item,index) in template" :key="index">
+					 	 
+					 	<image class="swiper-item"
+					 	  :src="$utils.imageUrl(item.background)"
+					 	   :animation="swiperCurrentIndex == index ? animationData : animationDataDefault">
+					 	</image>
+					 	</swiper-item>
+					 </swiper>
 			 	</view>
 				<view class="gift-img"><text @click="$buttonClick(allCovers)">全部封面</text></view>
 			 </view>
@@ -76,8 +86,20 @@
 				send_talk_msg:'',
 				sign: '',
 				showPop: false,
-				Inv: 0
+				Inv: 0,
+				indicatorDots: false,
+				autoplay: false,
+				previousMargin: '60px',
+				nextMargin: '60px',
+				circular: true,
+				zoomParam: 1.10,
+				swiperCurrentIndex: 0,
+				animationData: "",
+				animationDataDefault: ""
 			}
+		},
+		computed:{
+			
 		},
 		onShow() {
 			let background = uni.getStorageSync('all_cover_bg');
@@ -89,6 +111,13 @@
 			}
 		},
 		onLoad: function(e) {
+			this.animation = uni.createAnimation();
+			this.animation.scale(this.zoomParam).step();
+			this.animationData = this.animation.export();
+			
+			this.animation.scale(1.0).step();
+			this.animationDataDefault = this.animation.export();
+			
 			this.url = config.URL;
 			let that = this;
 			this.sign = uni.getStorageSync('sign');
@@ -168,6 +197,14 @@
 			}
 		},
 		methods:{
+			change(e) {
+				this.swiperCurrentIndex = e.detail.current;
+				this.theme_background = "";
+				if(this.template.length > 0){
+					this.background = this.template[this.swiperCurrentIndex].background;
+					this.id = this.template[this.swiperCurrentIndex].id;
+				}
+			},
 			allCovers(){
 				// 跳转全部封面
 				uni.navigateTo({
@@ -195,6 +232,8 @@
 				for (let i in this.template) {
 					if (this.template[i].id == this.theme_type) {
 						this.background = this.template[i].background;
+						this.id = this.template[i].id;
+						this.swiperCurrentIndex = i;
 					}
 				}
 			},
@@ -290,6 +329,10 @@
 </script>
 
 <style>
+	page{
+		flex-wrap: wrap;  
+	}
+	
 	/* 发送页 */
 	.gift-header{
 		width: 100%;
@@ -309,11 +352,11 @@
 		width: 100%;
 		/* height: 600rpx; */
 	}
-	.gift-small-con{
-		width: 80%;
-		/* margin-left: 32rpx; */
-		display: flex;
-		justify-content: space-around;
+	.gift-small-con {
+	    /* width: 94%; */
+	    display: flex;
+	    justify-content: space-around;
+	    padding: 0rpx 30rpx;
 	}
 	.gift-small-head{
 		width: 76rpx;
@@ -324,9 +367,9 @@
 	}
 	.gift-small-content{
 		position: relative;
-		width: 66.7%;
-		background-color: #fff;
-		border-radius: 10rpx;
+		    width: 500rpx;
+		    background-color: #fff;
+		    border-radius: 10rpx;
 	}
 	.gift-small-content::before{
 		content: "";
@@ -382,7 +425,8 @@
 		bottom: 0;
 	}
 	.gift-card{
-		width: 100%;
+		height: 275rpx;
+		    width: 450rpx;
 		
 		/* position: absolute;
 		top: 160rpx;
@@ -390,10 +434,10 @@
 		box-sizing: border-box;
 	}
 	.gift-card-btn{
-		margin-top: 14rpx;
-		border: 1px solid #EDEDED;
+		margin-top: 24rpx;
+		/* border: 1px solid #EDEDED; */
 		text-align: center;
-		padding: 20rpx;
+		/* padding: 20rpx; */
 		box-sizing: border-box;
 	}
 	.gift-card-btn button{
@@ -466,10 +510,33 @@
 		line-height: 1.5em;
 		/* border: 1px solid #efefef;
 		padding: 10rpx; */
-		height: 85px;
+		height: 40px;
 	}
 	.success-pop .pop-center .p{
 		margin: 20rpx 0;
 		text-align: left;
+	}
+	
+	.swiper-container {
+		display: flex;
+		align-items: center;
+	}
+	
+	.swiper-item {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-left: auto;
+		margin-right: auto;
+		height: 274rpx;
+		width: 450rpx;
+		text-align: center;
+		broder-radius: 6rpx;
+	}
+	
+	.swiper-tall {
+		display: flex;
+		align-items: center;
+		height: 300rpx;
 	}
 </style>
