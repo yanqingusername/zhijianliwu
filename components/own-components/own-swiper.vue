@@ -52,6 +52,14 @@
 	/* position: fixed; */
 	/* z-index: 99; */
 }
+.swiper-box {
+	border-radius: 10rpx;
+	overflow: hidden;
+	transform: translateY(0);
+}
+swiper-item{
+	border-radius: 10rpx !important;
+}
 .own-swiper-img{
 	width: 100%;
 	height: 100%!important;

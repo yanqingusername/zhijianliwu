@@ -41,6 +41,9 @@
 		/* position: absolute; */
 		/* top: 1080rpx; */
 }
+.owm-index-tab-bar-box ::-webkit-scrollbar {
+		display: none;
+}
 .right-op{
 		/* position: absolute;
 		right: 26rpx;

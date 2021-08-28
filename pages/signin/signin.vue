@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<view class="sign"><image class="img" src="../../static/sign.jpg" mode=""></image></view>
-		<view class="sign-alt">指间礼物</view>
-		<button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="wxsign margin-auto">微信授权登录</button>
+		<view class="new-sign"><image class="new-sign-img" src="https://zhijianlw.com/static/web/img/Embellishment_2021_08_28.jpg" mode=""></image></view>
+		<!-- <view class="sign-alt">指间礼物</view> -->
+		<button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
 	</view>
 </template>
 
@@ -229,4 +229,23 @@
 page{
 	background-color: #FFFFFF;
 }
+.new-sign{
+	width: 100%;
+	height: 370rpx;
+}
+.new-sign-img{
+	width: 100%;
+	height: 100%;
+}
+
+.new-wxsign {
+	width: 608rpx;
+	height: 80rpx;
+	background: #52A91C;
+	border-radius: 40rpx;
+	font-size: 34rpx;
+	color: #FFFFFF;
+    text-align: center;
+}
+
 </style>

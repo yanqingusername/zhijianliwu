@@ -1194,7 +1194,7 @@
 
 <style>
 	.details-alt-logo{
-		width: 150rpx;
+		width: 140rpx;
 		height: auto;
 	}
 	.z-zlxz{
@@ -1343,7 +1343,7 @@
 	}
 	.slider{
 		position: fixed;
-		right: 20rpx;
+		right: 0rpx;
 		top: 50%;
 	}
 	.lilan {
@@ -1662,7 +1662,7 @@
 		position: relative;
 	}
 	.new-img{
-		width: 150rpx;
-		height: 150rpx;
+		width: 140rpx;
+		height: 140rpx;
 	}
 </style>

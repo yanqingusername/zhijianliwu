@@ -4621,4 +4621,22 @@ button::after {
 page{
 	background-color: #FFFFFF;
 }
+.new-sign{
+	width: 100%;
+	height: 370rpx;
+}
+.new-sign-img{
+	width: 100%;
+	height: 100%;
+}
+.new-wxsign {
+	width: 608rpx;
+	height: 80rpx;
+	background: #52A91C;
+	border-radius: 40rpx;
+	font-size: 34rpx;
+	color: #FFFFFF;
+    text-align: center;
+}
+
 

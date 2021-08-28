@@ -83,4 +83,7 @@
 	margin-top: 12rpx;
 	font-size: 12px;
 }
+.monthDescTab ::-webkit-scrollbar {
+	display: none;
+}
 </style>

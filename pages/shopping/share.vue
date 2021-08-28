@@ -146,7 +146,7 @@
 								
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.goodsname,
+									text: this.goodsname.substr(0,6),
 									x: 160,
 									y: 280,
 									max_width: 100,
@@ -250,7 +250,7 @@
 								})
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.goodsname,
+									text: this.goodsname.substr(0,6),
 									x: 150,
 									y: 230,
 									max_width: 200,
