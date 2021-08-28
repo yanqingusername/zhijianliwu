@@ -288,14 +288,14 @@
 						console.log('更改价格', res)
 						if (res.rs.giftbag.length >= 1) {
 							this.goodsinfo = res.rs.giftbag
+							this.com = true
+						} else {
+							this.com = false
 						}
-						
+						//计算总价
+						this.caltotalmoney()
 					})
 				})
-				//计算总价
-				this.caltotalmoney()
-				console.log(this.goodsinfo)
-				// this.calculation();
 			},
 			changefenshu:function (e){
 				console.log("获取价格接口")

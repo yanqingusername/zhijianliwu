@@ -337,12 +337,10 @@
 		 		this.$utils.post(action, data).then(res => {
 		 			console.log('更改价格', res)
 		 			this.goodsinfo = res.rs.giftbag
+					//计算总价
+					this.caltotalmoney()
 		 		})
 		 	})
-		 	//计算总价
-		 	this.caltotalmoney()
-		 	console.log(this.goodsinfo)
-		 	// this.calculation();
 		 },
 		   open() {
 		      this.$refs.popup.open('')

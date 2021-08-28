@@ -60,7 +60,7 @@
 				pageSize: 10,
 				pageIndex: 1,
 				postList: [],
-				nav:'20',
+				statusBarHeight:'20',
 			}
 		},
 		onLoad:function() {
