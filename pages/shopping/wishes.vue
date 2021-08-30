@@ -45,7 +45,7 @@
 						<view style="position: relative;">
 							<view class="">
 								<image class="wishes-fu"
-									src="https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_28.png" mode="widthFix">
+									src="https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_30.png" mode="widthFix">
 								</image>
 							</view>
 							<view class="infor">
@@ -80,7 +80,7 @@
 						</view>
 
 						<view class="say-img">
-							<image class="say-img-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_28.png" mode="widthFix"></image>
+							<image class="say-img-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode="widthFix"></image>
 							<view class="infor">
 								<view class="img-infor">
 									<image class="wishes-fu-head says" :src="sign.head_img" mode=""></image>
@@ -137,8 +137,9 @@
 						<view class="proposal">建议上传/录制竖版视频展示效果更佳!</view>
 						<view class="wishes-video">
 							<!-- <image class="wishes-video-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode="widthFix"></image> -->
-							<image class="wishes-video-bg-bottom" src="https://zhijianlw.com/static/web/img/mb_movie_b.png" mode="widthFix"></image>
-							<image class="wishes-video-bg" src="https://zhijianlw.com/static/web/img/mb_movie-2.png" mode="widthFix"></image>
+							<!-- <image class="wishes-video-bg-bottom" src="https://zhijianlw.com/static/web/img/mb_movie_b.png" mode="widthFix"></image>
+							<image class="wishes-video-bg" src="https://zhijianlw.com/static/web/img/mb_movie-2.png" mode="widthFix"></image> -->
+							<image class="wishes-video-bg" src="https://zhijianlw.com/static/web/img/mb_movie_2021_08_30.png" mode="widthFix"></image>
 							<view class="z-template-btm-information-video">
 								<!-- 有视频才能点击播放按钮 -->
 								<image v-if="showvideoPlayBtn" class="say-img-off" @click="videoPlay" :src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>

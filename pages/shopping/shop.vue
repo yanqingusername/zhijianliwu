@@ -10,18 +10,22 @@
 		<view style="margin-top: -100rpx">
 			<view class="box">
 				<view class="box-content" v-if="goodsinfo.length > 0">
-					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id">
+					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id" @click="goToDetails(item.goodsinfo.keynum)">
 						<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)">
 						<view class="top-right">
 							<view class="shop-gift-buys-title">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>
 							<view class="price-bottom flex-between">
-								<text style="font-size: 24rpx; color: #FB4133;">￥</text>
-								<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
+								<view>
+									<text style="font-size: 24rpx; color: #FB4133;">￥</text>
+									<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
+								</view>
 								<view class="flex-vertically">
-									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="reduce(item)">-</view>
+									<image src="../../static/reduce_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="reduce(item)"></image>
+									<!-- <view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="reduce(item)">-</view> -->
 									<view class="cart-count">{{item.goodsnum}}</view>
-									<view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click="increase(item)">+</view>
+									<image src="../../static/increase_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="increase(item)"></image>
+									<!-- <view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="increase(item)">+</view> -->
 									
 								</view>
 							</view>
@@ -239,6 +243,11 @@
 			}
 		},
 		methods: {
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
@@ -469,16 +478,16 @@
 	    background-color: #fff;
 	}
 	.new-reduce {
-	    font-size: 28rpx;
+	    font-size: 36rpx;
 	    display: flex;
 	    vertical-align: middle;
 	    width: 42rpx;
 	    height: 42rpx;
 	    line-height: 42rpx;
 	    text-align: center;
-	    border: 1px solid #AAAAAA;
+	    /* border: 1px solid #CCCCCC;
 	    border-radius: 50rpx;
-	    color: #999999;
+	    color: #999999; */
 	    align-items: center;
 	    justify-content: center;
 	}

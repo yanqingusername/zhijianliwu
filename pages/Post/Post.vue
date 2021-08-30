@@ -1,22 +1,42 @@
 <template>
-	<view>
-		<!-- <view class="parse-title" v-if="postStyle=='post'">
-			<view class="title">
-				{{title}}
+	<view class="flex-vertically" style="justify-content: center;">
+		<view style="position: relative;">
+			<view class="z-logo-top">
+				<!-- <view class="post-nav" :style="'height:'+statusBarHeight+'px'"></view> -->
+				<view class="personal-header-interstall" >
+					<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_post_back.png"></image>
+					<view class="personal-header-title"></view>
+				</view>
 			</view>
-			<view class="time">
-				{{time}}
-			</view>
-		</view> -->
-		<view style="padding-bottom: 80rpx;">
+			
 			<view class="parse-view" v-if="postStyle=='post'">
 				<image class="parse-view-img" :src="title_img"></image>
 			</view>
 			<view :class="postStyle=='post'?'parse-con':'poster-con'">
 				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
-			<u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
+				<view v-for="(item, index) in detail_list">
+					<u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
+					<view class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails(goodData.keynum)">
+							<view class="new-order-left">
+								<view class="new-order-img">
+									<image lazy-load="true" class="new-order-commodity-img" :src="goodData.head_img" mode=""></image>
+								</view>
+							</view>
+							<view class="new-order-right">
+								<view class="new-order-item">
+									<view class="new-order-item-title">{{goodData.goodsname}}</view>
+									<view class="new-order-item-money"></view>
+								</view>
+								<view class="new-order-item" style="margin-top: 20rpx;">
+									<view class="new-order-item-money">¥{{goodData.price}}</view>
+									<view class="new-order-item-detail">查看详情</view>
+								</view>
+							</view>
+					</view>
+				</view>
+				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse> -->
 			</view>
-			<view class="product-list" v-if="!(productList.length<=0)">
+			<!-- <view class="product-list" v-if="!(productList.length<=0)">
 				<view class="title" style="font-size: 1.8em;">
 					推荐商品
 				</view>
@@ -38,12 +58,21 @@
 			</view>
 			<view class="post-bottom" v-if="postStyle=='post'">
 				-- 看完了，去送礼 --
-			</view>
+			</view> -->
+			<view style="height: 50rpx;"></view>
 		</view>
-		<view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
+		<!-- <view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
 			<image v-if="is_collect == 1" src="@/static/icon-post-like-now.png" mode="" class="post-bottom-fixed-img" ></image>
 			<image v-else src="@/static/post-like.png" mode="" class="post-bottom-fixed-img" ></image>
 			<view class="post-bottom-fixed-number">{{live_number || 0}}</view>
+		</view> -->
+		<view class='sock_all' :animation="slide_up">
+			<image src='@/static/bg_slices_2021_0830.png' style='width:460rpx;height:200rpx' />
+			<view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
+				<image v-if="is_collect == 1" src="@/static/icon-post-like-now.png" mode="" class="post-bottom-fixed-img" ></image>
+				<image v-else src="@/static/post-like.png" mode="" class="post-bottom-fixed-img" ></image>
+				<view class="post-bottom-fixed-number">{{live_number || 0}}</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -68,13 +97,18 @@
 				title_img: '',
 				article_id: '',
 				live_number: '',
-				is_collect: 1
+				is_collect: 1,
+				statusBarHeight:'20',
+				detail_list: [],
+				slide_up:''
 			}
 		},
 		onShow() {
 			const that = this
 		},
 		onLoad:function(e){
+			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
+			
 			uni.showToast({
 				title: "加载中",
 				icon: "loading"
@@ -83,12 +117,13 @@
 			this.imageProp.domain = config.URL.replace("https://","").replace("http://", "");
 			let that = this;
 			let action = "get_gifts_article_detail";
+			let controller = "article";
 			let memberid = uni.getStorageSync('id')
 			let data = JSON.stringify({
 				gifts_article_id: e.id,
 				memberid: memberid
 			});
-			this.$utils.post(action,data).then(res=>{
+			this.$utils.postNew(action,data,controller).then(res=>{
 				uni.hideToast();
 				uni.setNavigationBarTitle({
 				　　title:res.rs.gifts_article.title
@@ -112,9 +147,56 @@
 				that.time=res.rs.gifts_article.time;
 				that.postContnet=res.rs.gifts_article.detail;
 				that.productList=res.rs.goodslist;
+				that.detail_list = res.rs.gifts_article.detail_list;
 			})
 		},
+		computed: {
+			statusBarHeight: function() {
+				// 获取顶部状态栏高度
+				return uni.getSystemInfoSync().statusBarHeight;
+			},
+		},
+		// 监测滑动距离
+		onPageScroll: function(e) {
+			if (e.scrollTop > 200) {
+				this.fadeIn();
+			} else if (e.scrollTop < 200) {
+				this.fadeOut();
+			}
+		},
 		methods: {
+			//渐显
+			    fadeIn() {
+			      var animation = wx.createAnimation({
+			        duration: 600,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+			      animation.opacity(1).step();
+				  animation.translateY(-60).step()
+			      this.slide_up = animation.export()
+			    },
+			    //渐隐消失
+			    fadeOut() {
+			      var animation = wx.createAnimation({
+			        duration: 600,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+				  animation.translateY(60).step()
+				  animation.opacity(0).step();
+			      this.slide_up = animation.export()
+			    },
+			backbutton(e){
+				uni.navigateBack({
+					delta: 1
+				});
+			},
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			navigate(e){
 				console.log(e);
 				uni.setClipboardData({
@@ -176,7 +258,7 @@
 }
 .parse-con{
 	margin: 0 auto;
-	width: 627.77rpx;
+	width: 700rpx;
 }
 .parse .h1,
 .parse .h2,
@@ -279,25 +361,142 @@
 }
 
 .post-bottom-fixed{
-	position: fixed;
+	position: absolute;
 	width: 100%;
-	height: 80rpx;
+	height: 200rpx;
 	z-index: 222;
 	bottom: 0;
-	left: 0;
-	background: #FFFFFF;
+	/* left: 0;
+	background: #FFFFFF; */
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .post-bottom-fixed-img{
-		width: 40rpx;
-		height: 40rpx;
-		margin-left: 30rpx;
+		width: 74rpx;
+		height: 74rpx;
 	}
 	
 .post-bottom-fixed-number{
-	font-size: 26rpx;
-	color: #888888;
+	font-size: 28rpx;
+	color: #999999;
 }
+
+	.z-logo-top{
+		font-size: 0;
+		padding: 0;
+		position: fixed;
+	    top: 20px;
+	    left: 0;
+	    width: 100%;
+	    z-index: 20;
+	}
+	
+	.post-nav{
+		width: 100%;
+		height: 20px;
+	}
+		
+	.personal-header-interstall{
+		margin-top: 16rpx;
+	    height: 60rpx;
+	    position: relative;
+		display: flex;
+	    align-items: center;
+		justify-content: center;
+	}
+	.personal-header-title{
+		font-size: 36rpx;
+		color: #FFFFFF;
+		font-weight: bold;
+	}
+			
+	.icon-back-img{
+		position: absolute;
+		top: 2rpx;
+		left: 26rpx;
+		width: 60rpx;
+		height: 60rpx;
+	}
+	
+	.post-goods-list{
+		width: 700rpx;
+		height: 180rpx;
+		background: #F5F5F5;
+		border-radius: 2rpx;
+		padding: 16rpx 20rpx 16rpx 16rpx;
+		display: flex;
+		align-items: center;
+		position: relative;
+		justify-content: space-between;
+	}
+	.new-order-left{
+		width: 140rpx;
+		display: flex;
+		align-items: center;
+	}
+	.new-order-img{
+		width: 140rpx;
+		height: 140rpx;
+	}
+	.new-order-commodity-img{
+		width: 140rpx;
+		height: 140rpx;
+	}
+	.new-order-right{
+		display: flex;
+		flex-direction: column;
+		width: 516rpx;
+		margin-left: 20rpx;
+	}
+	.new-order-item{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.new-order-item-title{
+		font-size: 30rpx;
+		color: #333333;
+		line-height: 42rpx;
+		width: 500rpx;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.new-order-item-sku{
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 33rpx;
+		margin-top: 18rpx;
+	}
+	.new-order-item-money{
+		font-size: 30rpx;
+		color: #EB1615;
+	}
+	.new-order-item-detail{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 160rpx;
+		height: 50rpx;
+		border-radius: 2rpx;
+		border: 1px solid #EB1615;
+		font-size: 24rpx;
+		color: #EB1615;
+	}
+	
+	
+	.sock_all {
+	    position: fixed;
+	    bottom: 100rpx;
+	    display: flex;
+	    z-index: 999;
+	    opacity: 0;
+	  }
+	  
+	
+	
+			
 </style>

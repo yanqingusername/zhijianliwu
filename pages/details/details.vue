@@ -130,8 +130,8 @@
 			</view>
 		</view>
 		<!-- 祝福语 -->
-		<view class="details-blessing">
-			<text class="details-ch">已选</text>
+		<view class="details-blessing flex-vertically">
+			<text class="details-ch">规格</text>
 			<view class="details-ch-xq chec" v-for="(item,index) of guige" :key="index">
 				{{item}}
 			</view>

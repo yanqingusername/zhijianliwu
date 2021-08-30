@@ -1,11 +1,14 @@
 <template>
-	<view style="padding: 0 26rpx; margin-top: -190rpx;">
-		<swiper v-if="swiper.length>0" :indicator-dots="isOne" :autoplay="isOne" indicator-dots="true" circular class="own-swiper swiper-box">
+	<view style="padding: 0 26rpx; margin-top: -210rpx;position: relative;display: flex;align-items: center;justify-content: center;">
+		<swiper v-if="swiper.length>0" :autoplay="isOne" circular class="own-swiper swiper-box" @change="change" :current="swiperCurrentIndex">
 			<swiper-item v-for="(item,index) in swiper" :key="index">
 				<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
 				@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
+		<view class="indicator-view">
+			<view :class="[swiperCurrentIndex == index ? 'indicator-view-item' : 'indicator-view-item-default']" v-for="(item,index) in swiper" :key="index"></view>
+		</view>
 	</view>
 </template>
 
@@ -16,10 +19,13 @@
 		],
 		data() {
 			return {
-				
+				swiperCurrentIndex: 0,
 			}
 		},
 		methods: {
+			change(e) {
+				this.swiperCurrentIndex = e.detail.current;
+			},
 			bannerJump:function(action, id){
 				console.log(action, id);
 				if(action=="gifts_article"){
@@ -86,5 +92,26 @@ swiper-item{
 .swiper-box .wx-swiper-dot-active::before{
  background: #fff;   
  width: 24rpx;
+}
+
+.indicator-view{
+	position: absolute;
+	bottom: 10rpx;
+	display: flex
+}
+.indicator-view-item{
+	width: 24rpx;
+	height: 4rpx;
+	background: #FFFFFF;
+	border-radius: 2rpx;
+	margin-right: 6rpx;
+}
+.indicator-view-item-default{
+	width: 12rpx;
+	height: 4rpx;
+	background: #000000;
+	border-radius: 2rpx;
+	opacity: 0.2;
+	margin-right: 6rpx;
 }
 </style>

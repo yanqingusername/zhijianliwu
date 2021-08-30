@@ -246,6 +246,7 @@ button[type=default] {
 	width: 400rpx;
 	position: absolute;
 	top: 100rpx;
+	left: 6rpx;
 }
 .b{
 	width: 410rpx;
@@ -253,7 +254,7 @@ button[type=default] {
 	margin-top: -26rpx;
 }
 .template-btm-information-video video{
-	width: 466rpx;
+	width: 456rpx;
 }
 .sound-on-rotate{
 	-webkit-transform: rotate(-45deg);

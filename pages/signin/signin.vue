@@ -158,7 +158,8 @@
 							     	success: (res) => {
 							     		setTimeout(function(e){
 							     			uni.reLaunch({
-							     				url:'../personal/personal' 
+							     				// url:'../personal/personal' 
+												url:'../index/index'
 							     			})
 							     		}
 							     		,1500) 

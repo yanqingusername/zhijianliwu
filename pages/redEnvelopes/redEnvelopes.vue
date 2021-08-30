@@ -44,17 +44,17 @@
 
 
 			<view class="bag-red" v-if="gift==='0'">
-				<image class="bag-red-img" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/mb_yuyin_z.png"
+				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_yuyin_z_2021_08_30.png"
 					mode=""></image>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
 				<view class="zhufu">
 					<text class="bag-red-fu">{{cardbag_theme.zhufu_msg}}</text>
-					<text class="bag-red-con">{{cardbag_theme.send_talk_msg}}</text></text>
+					<!-- <text class="bag-red-con">{{cardbag_theme.send_talk_msg}}</text></text> -->
 				</view>
 			</view>
 			<view class="bag-red" style="width: 480rpx;" v-if="gift==='1'">
-				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_28.png" mode="">
+				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_recording_z_2021_08_30.png" mode="">
 				</image>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
@@ -87,7 +87,8 @@
 
 			</view>
 			<view class="bag-red" v-if="gift==='2'">
-				<image class="bag-red-img" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode=""></image>
+				<!-- <image class="bag-red-img" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode=""></image> -->
+				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_movie_z_2021_08_30.png" mode=""></image>
 				<view class="template-btm-information-video"><video :src="cardbag_theme.zhufu_mp4" controls></video>
 				</view>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
@@ -653,6 +654,7 @@
 		width: 400rpx;
 		position: absolute;
 		top: 100rpx;
+		left: 6rpx;
 	}
 	.b{
 		width: 410rpx;
@@ -660,7 +662,7 @@
 		margin-top: -26rpx;
 	}
 	.template-btm-information-video video{
-		width: 466rpx;
+		width: 456rpx;
 	}
 	.sound-on-rotate{
 		transform: rotate(-45deg);

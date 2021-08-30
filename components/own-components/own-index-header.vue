@@ -150,7 +150,7 @@
 		position: absolute;
 		width: 100%;
 		padding: 0 26rpx;
-		top: 60rpx;
+		top: 46rpx;
 		left: 0;
 	}
 

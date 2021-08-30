@@ -355,12 +355,13 @@
 	.gift-small-con {
 	    /* width: 94%; */
 	    display: flex;
-	    justify-content: space-around;
-	    padding: 0rpx 30rpx;
+	    /* justify-content: space-around; */
+	    padding: 0rpx 0rpx;
 	}
 	.gift-small-head{
 		width: 76rpx;
 		height: 76rpx;
+		margin-left: 30rpx
 	}
 	.gift-small-head image{
 		width: 100%;
@@ -370,6 +371,7 @@
 		    width: 500rpx;
 		    background-color: #fff;
 		    border-radius: 10rpx;
+			    margin-left: 30rpx;
 	}
 	.gift-small-content::before{
 		content: "";
@@ -379,7 +381,7 @@
 		border-right: 30rpx solid #fff;
 		border-bottom: 20rpx solid transparent;
 		position: absolute;
-		left: -30rpx;
+		left: -18rpx;
 		top: 20rpx;
 	}
 	.gift-small-head-img{
@@ -510,7 +512,7 @@
 		line-height: 1.5em;
 		/* border: 1px solid #efefef;
 		padding: 10rpx; */
-		height: 40px;
+		height: 42px;
 	}
 	.success-pop .pop-center .p{
 		margin: 20rpx 0;

@@ -151,20 +151,15 @@ page{
 		top: 800rpx;
 		left: 258rpx;
 }
-.zhufu {
+	/* .zhufu {
 	width: 556rpx;
 	height: 180rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	justify-content: center;
+	flex-wrap: wrap;
 	line-height: 40rpx;
 	margin-top: 30rpx;
-}
+} */
 .progress-one {
 	width: 35rpx;
 	height: 35rpx;
@@ -210,4 +205,101 @@ page{
 	-webkit-animation: 2s;
 	        animation: 2s;
 }
+.receive-yello-view {
+    width: 560rpx;
+    height: 940rpx;
+    position: absolute;
+	background: url(https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_30.png) no-repeat center 560rpx 940rpx;
+}
+	/* 红包部分 */
+.wishes-fu {
+	width: 100%;
+	position: relative;
+}
+.infor{
+	position: absolute;
+	padding: 40rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	width: 100%;
+	top: 0;
+}
+.img-infor{
+	margin-bottom: 77rpx;
+}
+.say-img .img-infor{
+	margin-bottom: 33rpx;
+}
+.img-infor image{
+	vertical-align: middle;
+	display: inline-block;
+}
+.img-infor text{
+	vertical-align: middle;
+	display: inline-block;
+	margin-left: 18rpx;
+}
+.wishes-fu-head {
+	width: 100rpx;
+	height: 100rpx;
+	border-radius: 50%;
+}
+.wishes-fu-head-title {
+	color: #D3A97A;
+	font-size: 16px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.wishes-name {
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	color: #F6DBA5;
+}
+.zhufu{
+	text-align: center;
+	color: #F6DBA5;
+	font-size: 36rpx;
+}
+.wish {
+	/* width: 380rpx;/ */
+	/* position: relative;
+	top: -545rpx;
+	left: 180rpx; */
+	text-align: center;
+	margin-top: 20rpx;
+	line-height: 1.5em;
+}
+.wishes-line {
+	/* width: 180px; */
+	line-height: 54rpx;
+	background-color: #000;
+	position: absolute;
+	bottom: 311rpx;
+	left: 0;
+	opacity: 0.7;
+	padding: 0 20rpx;
+	border-radius: 0 26rpx 26rpx 0;
+}
+.wishes-line-font {
+	color: #BD9365;
+	font-size: 24rpx;
+}
+.kai_view{
+	width: 160rpx;
+    height: 160rpx;
+	border-radius: 50%;
+	position: absolute;
+	top: 740rpx;
+	left: 220rpx;
+}
+.new-chai {
+    font-size: 41px;
+    color: #fff;
+    position: absolute;
+    top: 770rpx;
+    left: 220rpx;
+    width: 160rpx;
+    height: 160rpx;
+}
+
 

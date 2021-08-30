@@ -1,25 +1,46 @@
 <template>
 	<view class="">
 		<!-- 文字祝福 -->
-		<view class="receive" v-if="gift==='0'">
-			<view class="receive-yello">
-				<image class="receive-head" :src="$utils.imageUrl(head_img)" mode=""></image>
-				<text class="receive-cat">{{name}}</text>
-				<view class="zhufu">
-					<text class="receive-one">{{zhufu_msg}}</text>
-					<text class="receive-two">{{send_talk_msg}}</text>
+		<view style="position: relative;width: 80%;margin: 100rpx auto;" v-if="gift==='0'">
+			<view class="">
+				<image class="wishes-fu"
+					src="https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_30.png" mode="widthFix">
+				</image>
+			</view>
+			<view class="infor">
+				<view class="img-infor">
+					<image class="wishes-fu-head" :src="$utils.imageUrl(head_img)" mode=""></image>
+					<text class="wishes-fu-head-title">{{name}}</text>
 				</view>
-
-				<image class="receive-bot" :src="$utils.osspath_url('/xcx-static/wishes/bot.png')" mode=""></image>
-				<image class="receive-bar" :src="$utils.osspath_url('/xcx-static/wishes/per_img.png')" mode=""></image>
-				<view class="money">
-					<text class="chai1" @click="open">拆</text>
-				</view>
+				
+				<view class="wishes-name zhufu">{{zhufu_msg}}</view>
+			</view>
+			<view class="wishes-line">
+				<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
+			</view>
+			<view class="kai_view" @click="open">
+				<text class="chai1"></text>
 			</view>
 		</view>
-		<!-- 语音 -->
+		<!-- <view class="receive" v-if="gift==='0'">
+					<view class="receive-yello">
+						<image class="receive-head" :src="$utils.imageUrl(head_img)" mode=""></image>
+						<text class="receive-cat">{{name}}</text>
+						<view class="zhufu">
+							<text class="receive-one">{{zhufu_msg}}</text>
+							<text class="receive-two">{{send_talk_msg}}</text>
+						</view>
+		
+						<image class="receive-bot" :src="$utils.osspath_url('/xcx-static/wishes/bot.png')" mode=""></image>
+						<image class="receive-bar" :src="$utils.osspath_url('/xcx-static/wishes/per_img.png')" mode=""></image>
+						<view class="money">
+							<text class="chai1" @click="open">拆</text>
+						</view>
+					</view>
+				</view> -->
+		<!-- 语音-->
 		<view class="sound-border" v-if="gift==='1'">
-			<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_28.png" mode=""></image>
+			<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode=""></image>
 			<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
 			<text class="sound-name">{{present_memberid_name}}</text>
 			<image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
@@ -46,13 +67,13 @@
 				<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
 			</view>
 			<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
-			<text class="chai" @click="open">拆</text>
+			<text class="new-chai" @click="open"></text>
 		</view>
 
         
         <!-- 视频 -->
         <view class="sound-border" v-if="gift==='2'">
-           	<image class="sound-bg" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')"
+           	<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_movie_2021_08_30.png"
            		mode=""></image>
 				<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
 				<text class="sound-name">{{present_memberid_name}}</text>
@@ -60,7 +81,7 @@
            	</view>
            	
            	<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
-           	<text class="chai" @click="open">拆</text>
+           	<text class="new-chai" @click="open"></text>
         </view>
 
 		
@@ -439,7 +460,7 @@
 	@import '@/common/receive.css';
 	@import '@/common/sound.css';
 
-	.zhufu {
+	/* .zhufu {
 		width: 556rpx;
 		height: 180rpx;
 		display: flex;
@@ -447,7 +468,7 @@
 		flex-wrap: wrap;
 		line-height: 40rpx;
 		margin-top: 30rpx;
-	}
+	} */
 	.progress-one {
 		width: 35rpx;
 		height: 35rpx;
@@ -489,4 +510,107 @@
 		transform: rotate(-45deg);
 		animation: 2s;
 	}
+	
+	.receive-yello-view {
+	    width: 560rpx;
+	    height: 940rpx;
+	    position: absolute;
+		background: url(https://zhijianlw.com/static/web/img/mb_fuyu_2021_08_30.png) no-repeat center 560rpx 940rpx;
+	}
+	/* 红包部分 */
+	.wishes-fu {
+		width: 100%;
+		position: relative;
+	}
+	.infor{
+		position: absolute;
+		padding: 40rpx;
+		box-sizing: border-box;
+		width: 100%;
+		top: 0;
+	}
+	.img-infor{
+		margin-bottom: 77rpx;
+	}
+	.say-img .img-infor{
+		margin-bottom: 33rpx;
+	}
+	.img-infor image{
+		vertical-align: middle;
+		display: inline-block;
+	}
+	.img-infor text{
+		vertical-align: middle;
+		display: inline-block;
+		margin-left: 18rpx;
+	}
+	.wishes-fu-head {
+		width: 100rpx;
+		height: 100rpx;
+		border-radius: 50%;
+	}
+	
+	.wishes-fu-head-title {
+		color: #D3A97A;
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	
+	.wishes-name {
+		box-sizing: border-box;
+		color: #F6DBA5;
+	}
+	.zhufu{
+		text-align: center;
+		color: #F6DBA5;
+		font-size: 36rpx;
+	}
+	
+	.wish {
+		/* width: 380rpx;/ */
+		/* position: relative;
+		top: -545rpx;
+		left: 180rpx; */
+		text-align: center;
+		margin-top: 20rpx;
+		line-height: 1.5em;
+	}
+	
+	.wishes-line {
+		/* width: 180px; */
+		line-height: 54rpx;
+		background-color: #000;
+		position: absolute;
+		bottom: 311rpx;
+		left: 0;
+		opacity: 0.7;
+		padding: 0 20rpx;
+		border-radius: 0 26rpx 26rpx 0;
+	}
+	
+	.wishes-line-font {
+		color: #BD9365;
+		font-size: 24rpx;
+	}
+	
+	.kai_view{
+		width: 160rpx;
+	    height: 160rpx;
+		border-radius: 50%;
+		position: absolute;
+		top: 740rpx;
+		left: 220rpx;
+	}
+	
+	.new-chai {
+	    font-size: 41px;
+	    color: #fff;
+	    position: absolute;
+	    top: 770rpx;
+	    left: 220rpx;
+	    width: 160rpx;
+	    height: 160rpx;
+	}
+	
 </style>
