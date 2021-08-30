@@ -168,7 +168,7 @@
 			//渐显
 			    fadeIn() {
 			      var animation = wx.createAnimation({
-			        duration: 600,
+			        duration: 400,
 			        timingType: 'ease'
 			      });
 			      this.animation = animation
@@ -179,7 +179,7 @@
 			    //渐隐消失
 			    fadeOut() {
 			      var animation = wx.createAnimation({
-			        duration: 600,
+			        duration: 400,
 			        timingType: 'ease'
 			      });
 			      this.animation = animation
@@ -490,7 +490,7 @@
 	
 	.sock_all {
 	    position: fixed;
-	    bottom: 100rpx;
+	    bottom: -60rpx;
 	    display: flex;
 	    z-index: 999;
 	    opacity: 0;

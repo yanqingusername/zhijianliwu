@@ -17,7 +17,7 @@
 								<text class="gift-card-title">指间礼物|送礼有温度</text>
 							</view>
 							<view class="gift-card-con">
-								<view><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text"></textarea></view>
+								<view><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text" focus="isFocus"></textarea></view>
 								<text class="icon icon-edit gift-card-edit" @click="showTxt"></text>
 								<!-- <image class="gift-card-edit" :src="$utils.osspath_url('/xcx-static/gift/edit_icon.png')" mode=""></image> -->
 							</view>
@@ -51,7 +51,7 @@
 					 	</swiper-item>
 					 </swiper>
 			 	</view>
-				<view class="gift-img"><text @click="$buttonClick(allCovers)">全部封面</text></view>
+				<view class="gift-img" style="margin-top: 30rpx;"><text @click="$buttonClick(allCovers)">全部封面</text></view>
 			 </view>
 		</view>
 		<button class="gift-btn" type="warn" @click="getgift">使用该封面</button>
@@ -215,6 +215,7 @@
 				this.showPop = false;
 			},
 			showTxt: function(){
+				this.isFocus = true
 				// this.showPop = true;
 			},
 			txt: function(e) {
@@ -497,7 +498,7 @@
 		border-bottom: 1px solid #999;
 	}
 	.gift-btn{
-		margin-top: 30rpx;
+		margin-top: 60rpx;
 		width: 384rpx;
 		background-color: #F55856;
 		height: 80rpx;

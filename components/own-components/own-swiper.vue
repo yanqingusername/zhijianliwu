@@ -96,19 +96,19 @@ swiper-item{
 
 .indicator-view{
 	position: absolute;
-	bottom: 10rpx;
+	bottom: 20rpx;
 	display: flex
 }
 .indicator-view-item{
-	width: 24rpx;
-	height: 4rpx;
+	width: 36rpx;
+	height: 6rpx;
 	background: #FFFFFF;
 	border-radius: 2rpx;
 	margin-right: 6rpx;
 }
 .indicator-view-item-default{
-	width: 12rpx;
-	height: 4rpx;
+	width: 24rpx;
+	height: 6rpx;
 	background: #000000;
 	border-radius: 2rpx;
 	opacity: 0.2;

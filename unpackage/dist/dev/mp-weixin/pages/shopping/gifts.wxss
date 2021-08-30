@@ -184,7 +184,7 @@ page{
 	border-bottom: 1px solid #999;
 }
 .gift-btn{
-	margin-top: 30rpx;
+	margin-top: 60rpx;
 	width: 384rpx;
 	background-color: #F55856;
 	height: 80rpx;
