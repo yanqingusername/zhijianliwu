@@ -28,7 +28,7 @@
 		</view> -->
 		<!-- 我购买的 -->
 		<view class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="no-btm" v-if="cardlist2.length==0">
+			<view class="no-btm" v-if="screenPurchase.length==0">
 				<image class="img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode=""></image>
 				暂无相关订单
 			</view>

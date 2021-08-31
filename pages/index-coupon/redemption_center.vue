@@ -1,6 +1,6 @@
 <template>
 	<view class="center">
-		<img class="index-img" src="https://zhijianlw.com/static/web/img/index-coupons.png" mode="widthFix">
+		<img class="index-img" src="https://zhijianlw.com/static/web/img/index-coupons-2021-08-28.png" mode="widthFix">
 		<view class="choose">您可以选择下列1款礼物进行兑换</view>
 		
 		<view class="wrapper">

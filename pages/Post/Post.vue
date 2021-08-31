@@ -14,9 +14,9 @@
 			</view>
 			<view :class="postStyle=='post'?'parse-con':'poster-con'">
 				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
-				<view v-for="(item, index) in detail_list">
+				<view v-for="(item, index) in detail_list" :key="index">
 					<u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
-					<view class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails(goodData.keynum)">
+					<view v-if="item.goods_list.length > 0" class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails(goodData.keynum)">
 							<view class="new-order-left">
 								<view class="new-order-img">
 									<image lazy-load="true" class="new-order-commodity-img" :src="goodData.head_img" mode=""></image>
@@ -69,8 +69,8 @@
 		<view class='sock_all' :animation="slide_up">
 			<image src='@/static/bg_slices_2021_0830.png' style='width:460rpx;height:200rpx' />
 			<view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
-				<image v-if="is_collect == 1" src="@/static/icon-post-like-now.png" mode="" class="post-bottom-fixed-img" ></image>
-				<image v-else src="@/static/post-like.png" mode="" class="post-bottom-fixed-img" ></image>
+				<image v-if="is_collect == 1" src="@/static/post_like_0831.png" mode="" class="post-bottom-fixed-img" ></image>
+				<image v-else src="@/static/post_like_default_0831.png" mode="" class="post-bottom-fixed-img" ></image>
 				<view class="post-bottom-fixed-number">{{live_number || 0}}</view>
 			</view>
 		</view>
@@ -375,12 +375,13 @@
 }
 
 .post-bottom-fixed-img{
-		width: 74rpx;
-		height: 74rpx;
+		width: 66rpx;
+		height: 66rpx;
 	}
 	
 .post-bottom-fixed-number{
-	font-size: 28rpx;
+	margin-top: 6rpx;
+	font-size: 24rpx;
 	color: #999999;
 }
 

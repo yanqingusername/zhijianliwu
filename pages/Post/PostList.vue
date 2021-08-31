@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="post-header" :style="'padding-top:'+ (statusBarHeight + 30)+'px'">
+		<view class="post-header" >
 			<view class="z-logo-top">
 				<view class="post-nav" :style="'height:'+statusBarHeight+'px'"></view>
 				<view class="post-header-interstall" >
@@ -161,7 +161,7 @@
 		width: 100%;
 		position: fixed;
 	    z-index: 200;
-	    height: 140rpx;
+	    height: 176rpx;
 	}
 	.z-logo-top{
 		font-size: 0;
@@ -192,6 +192,7 @@
 		color: #333333;
 	}
 	.post-header-search {
+		width: 340rpx;
 		height: 60rpx;
 		text-align: center;
 		border-radius: 50rpx;
@@ -218,7 +219,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center; */
-		padding-top: 140rpx;
+		padding-top: 160rpx;
 	}
 
 	/* .post {

@@ -398,11 +398,12 @@
 	        flex-direction: column;
 }
 .post-bottom-fixed-img{
-		width: 74rpx;
-		height: 74rpx;
+		width: 66rpx;
+		height: 66rpx;
 }
 .post-bottom-fixed-number{
-	font-size: 28rpx;
+	margin-top: 6rpx;
+	font-size: 24rpx;
 	color: #999999;
 }
 .z-logo-top{
