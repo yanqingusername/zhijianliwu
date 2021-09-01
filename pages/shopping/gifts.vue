@@ -23,7 +23,7 @@
 							</view>
 							<view class="gift-card-btn">
 								<image class="gift-card" :src="theme_background!=''?theme_background:background" mode="widthFix"></image>
-								<button type="warn" size="mini" plain="true" style="margin-top: 20rpx;">立即领取</button>
+								<!-- <button type="warn" size="mini" plain="true" style="margin-top: 20rpx;">立即领取</button> -->
 							</view>
 					    </view>
 						<view class="gift-small-bottom">
@@ -89,10 +89,10 @@
 				Inv: 0,
 				indicatorDots: false,
 				autoplay: false,
-				previousMargin: '60px',
-				nextMargin: '60px',
+				previousMargin: '80px',
+				nextMargin: '80px',
 				circular: true,
-				zoomParam: 1.10,
+				zoomParam: 1.25,
 				swiperCurrentIndex: 0,
 				animationData: "",
 				animationDataDefault: ""
@@ -397,7 +397,7 @@
 	}
 	.gift-small-content-card-top{
 	    width: 100%;
-		padding-bottom: 30rpx;
+		padding-bottom: 0rpx;
 	}
 	.gift-card-img{
 		width: 40rpx;
@@ -437,7 +437,7 @@
 		box-sizing: border-box;
 	}
 	.gift-card-btn{
-		margin-top: 24rpx;
+		margin-top: 0rpx;
 		/* border: 1px solid #EDEDED; */
 		text-align: center;
 		/* padding: 20rpx; */
@@ -531,8 +531,8 @@
 		justify-content: center;
 		margin-left: auto;
 		margin-right: auto;
-		height: 274rpx;
-		width: 450rpx;
+		height: 272rpx;
+	    width: 340rpx;
 		text-align: center;
 		broder-radius: 6rpx;
 	}
