@@ -13,24 +13,41 @@
 
 		<view class="a-tea">
 			<view class="top">
-				<view class="a-img">
+				<view class="new-order-li-center">
+					<view class="new-order-left">
+						<view class="new-order-img">
+							<image lazy-load="true" class="new-order-commodity-img" :src="$utils.imageUrl(goodsinfo.head_img)" mode=""></image>
+						</view>
+					</view>
+					<view class="new-order-right">
+						<view class="new-order-item">
+							<view class="new-order-item-title">{{goodsinfo.goodsname}}</view>
+							<view class="new-order-item-money">¥{{goodsinfo.price}}</view>
+						</view>
+						<view class="new-order-item">
+							<view class="new-order-item-sku">规格：{{goodsinfo.goods_default_spec_item}}</view>
+							<view class="new-order-item-total">×1</view>
+						</view>
+					</view>
+				</view>
+				<!-- <view class="a-img">
 					<img :src="$utils.imageUrl(goodsinfo.head_img)" style="width:100%;height:100%;" mode="widthFix">
 				</view>
-				<view class="tree">
-					<view>
-						<text class="title">{{goodsinfo.goodsname}}</text>
+				<view class="tree flex-center">
+					<view class="uni flex-between-wrap">
+						<text class="title uni-ellipsis">{{goodsinfo.goodsname}}</text>
 						<text class="price">￥1080</text>
 					</view>
 					<view>
 						<text class="title1">规格：礼盒装</text>
 						<text class="num">×1</text>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="bottom">
 				<view class="z-time-wrap">
 					<text class="day">配送</text>
-					<text class="date">{{tea.day}}</text>
+					<text class="date">{{'预计3-5天送达'}}</text>
 				</view>
 				<view class="liuyan">
 					<text class="say">给商家留言</text>
@@ -44,10 +61,11 @@
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" v-if="showPop">
-			<view class="pop-center clearfix">
+			<view class="pop-center clearfix" style="padding: 52rpx;">
 				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
 				<view class="p">恭喜您，成功兑换礼品！</view>
-				<navigator class="n" hover-class="none" url="./change">立即查看</navigator>
+				<!-- <navigator class="n" hover-class="none" url="./change">立即查看</navigator> -->
+				<view class="n" hover-class="none" @click="clickHandler">立即查看</view>
 			</view>
 		</view>
 	</view>
@@ -98,6 +116,13 @@
 			close: function(){
 				this.showInput = true;
 				this.showPop = false;
+			},
+			clickHandler(){
+				this.showPop = false;
+				this.showInput = true;
+				uni.navigateTo({
+					url:"./ExchangeOrder"
+				});
 			},
 			
 			sub: function(e) {
@@ -203,7 +228,8 @@
 		box-sizing: border-box;
 		width: 100%;
 		display: flex;
-		padding: 40rpx 38rpx;
+		padding: 40rpx 38rpx 30rpx 38rpx;
+		border-bottom: 2rpx solid #EEEEEE;
 	}
 
 	.a-img {
@@ -218,9 +244,10 @@
 
 	.tree {
 		margin-left: 20rpx;
-		flex: 1;
+		width: 516rpx;
+		/* flex: 1;
 		width: 80%;
-		padding-top: 10rpx;
+		padding-top: 10rpx; */
 	}
 	.tree > view{
 		display: flex;
@@ -288,10 +315,11 @@
 		color: #999;
 		width: 80%;
 		flex: 1;
-		text-align: right;
+		/* text-align: right; */
 		display: inline-block;
 		align-items: baseline;
 		margin-left: 40rpx;
+		height: 40rpx;
 	}
 
 	.button {
@@ -305,4 +333,69 @@
 		border-radius: 0!important;
 		
 	}
+	
+	/**
+	 * 
+	 */
+	.new-order-li-center{
+		display: flex;
+		align-items: center;
+		position: relative;
+		justify-content: space-between;
+		/* padding: 28rpx 16rpx 25rpx 18rpx;
+		border-bottom: 2rpx solid #EEEEEE; */
+	}
+	.new-order-left{
+		width: 140rpx;
+		display: flex;
+		align-items: center;
+	}
+	.new-order-img{
+		width: 140rpx;
+		height: 140rpx;
+	}
+	.new-order-commodity-img{
+		width: 140rpx;
+		height: 140rpx;
+	}
+	.new-order-right{
+		display: flex;
+		flex-direction: column;
+		width: 516rpx;
+		margin-left: 20rpx;
+	}
+	.new-order-item{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.new-order-item-title{
+		font-size: 30rpx;
+		color: #333333;
+		line-height: 42rpx;
+		width: 500rpx;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.new-order-item-sku{
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 33rpx;
+		margin-top: 18rpx;
+	}
+	.new-order-item-money{
+		font-size: 24rpx;
+		color: #333333;
+		line-height: 33rpx;
+	}
+	.new-order-item-total{
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 33rpx;
+		margin-top: 18rpx;
+	}
+	/**
+	 * 
+	*/
 </style>

@@ -6,8 +6,8 @@
 					<image :src="$utils.imageUrl(post.head_img)" mode=""class="goods-head-img" ></image>
 					<!-- <image src="@/static/post-play-button.png" mode=""class="goods-head-label" ></image> -->
 				</view>
-				<view class="goods-text">{{post.goodsname}}</view>
-				<view class="goods-sub-text">{{post.goodstitle}}</view>
+				<view class="goods-text uni-ellipsis">{{post.goodsname}}</view>
+				<view class="goods-sub-text uni-ellipsis">{{post.goodstitle}}</view>
 				<view class="goods-bottom">
 					<view class="goods-bottom-money">¥<text style="font-size: 34rpx;">{{post.price}}</text><image class="goods-members-icon" v-if="post.level_sign == 1" src="../../static/icon_corporate_members.png"></image></view>
 					<view class="goods-number" v-if="post.buy_count">{{post.buy_count}}人已购</view>
@@ -97,16 +97,16 @@
 	
 	.goods-text {
 		margin: 18rpx 20rpx 0rpx;
-		font-size: 30rpx;
+		font-size: 28rpx;
 		color: #333333;
 		line-height: 42rpx;
-		overflow: hidden;
+		/* overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 		align-items: center;
-		justify-content: center;
+		justify-content: center; */
 	}
 	
 	.goods-sub-text{
@@ -115,13 +115,13 @@
 		color: #999999;
 		height: 33rpx;
 		line-height: 33rpx;
-		overflow: hidden;
+		/* overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 		align-items: center;
-		justify-content: center;
+		justify-content: center; */
 	}
 	
 	.goods-bottom{

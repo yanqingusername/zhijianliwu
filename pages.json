@@ -256,6 +256,22 @@
 			"style" : {
 				"navigationBarTitleText":"兑换订单"
 			}
+		},
+		{
+			"path" : "pages/index-coupon/ExchangeOrderInfo",
+			"style" : {
+				"navigationBarTitleText":"",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#FB503D"
+				
+			}
+		},
+		{
+			"path" : "pages/index-coupon/ExchangePackages",
+			"style" : {
+				"navigationBarTitleText":""
+				
+			}
 		}
         ,{
             "path" : "pages/search/search",

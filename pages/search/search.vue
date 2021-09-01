@@ -121,6 +121,7 @@
 					this.keynum = options.keynum;
 					this.Key = options.name;
 					this.isShowView = 2;
+					this.getProductList(1);
 				}
 			}
 			
@@ -175,6 +176,8 @@
 				uni.setStorageSync("historySearchList", this.historySearchList);
 				this.pricekey = "";
 				this.conditionkey = "1";
+				this.indexCurrent = 0;
+				this.keynum = "";
 				this.getProductList(1);
 				// uni.navigateTo({
 				// 	url:'../product-list/product-list?type=search&key=' + Key
@@ -193,6 +196,8 @@
 				uni.setStorageSync("historySearchList", this.historySearchList);
 				this.pricekey = "";
 				this.conditionkey = "1";
+				this.indexCurrent = 0;
+				this.keynum = "";
 				this.getProductList(1);
 				// uni.navigateTo({
 				// 	url:'../product-list/product-list?type=search&key=' + Key

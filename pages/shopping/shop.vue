@@ -8,7 +8,31 @@
 			<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
 		</view> -->
 		<view style="margin-top: -100rpx">
-			<view class="box">
+			<view class="box" v-if="statutype == 'exchange'">
+				<view class="box-content">
+					<view class="shop-gift-buys-top">
+						<img class="img shop-gift-buys-img" :src="orderInfo.cardtype_img">
+						<view class="top-right">
+							<view class="shop-gift-buys-title">{{$utils.cut_str(orderInfo.card_name,16)}}</view>
+							<view class="shop-gift-buys-ltitle">{{orderInfo.card_type_info}}</view>
+							<view class="price-bottom flex-between">
+								<view>
+									<text style="font-size: 24rpx; color: #FB4133;">￥<text class="shop-gift-buys-price">0.00</text></text>
+									<text style="font-size: 24rpx; color: #999999;">￥<text class="shop-gift-buys-price-text">{{orderInfo.price}}</text></text>
+								</view>
+								<view class="flex-vertically">
+									<view class="cart-count" style="background-color: #FFFFFF;text-align: right;">x1</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="shop-gift-buys-bottom">
+						<text class="shop-gift-buys-bottom-num">共1件礼物/份</text>
+						<view class="right"></view>
+					</view>
+				</view>
+			</view>
+			<view v-else class="box">
 				<view class="box-content" v-if="goodsinfo.length > 0">
 					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id" @click="goToDetails(item.goodsinfo.keynum)">
 						<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)">
@@ -178,13 +202,22 @@
 			   length:0,
 			   fenshu:1,
 			   setgiftssuccess: '2',
-			   setwishessuccess: '2'
+			   setwishessuccess: '2',
+			   statutype: '',
+			   ordernumber: '',
+			   orderInfo:''
 			}
 		
 		},
 		onLoad:function(e){
-				let type=e.type
-				this.type=type
+				let type=e.type;
+				this.type=type;
+				
+				if(e && e.statutype && e.ordernumber){
+					this.statutype = e.statutype;
+					this.ordernumber = e.ordernumber;
+				}
+				
 			 //    let memberid = uni.getStorageSync('id')
 				// this.memberid = memberid;
 				// var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
@@ -209,26 +242,41 @@
 			this.setgiftssuccess = uni.getStorageSync('setgiftssuccess');
 			this.setwishessuccess = uni.getStorageSync('setwishessuccess');
 			
-			let type=this.type
-			let memberid = uni.getStorageSync('id')
-			this.memberid = memberid;
-			var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
-			var action = 'get_giftbag_list';
-			 this.$utils.post(action,data).then(res=>{
-				 console.log('商品信息',res)
-				 if (res.sta ===1) {				   
-					uni.showToast({
-						icon: 'success',
-						title: res.msg,
-						duration: 1000
-					});
-				 }
-				this.goodsinfo = res.rs.giftbag
-				this.price_zhe=res.rs.price_zhe
-			})
-			
-			//计算总价
-			this.caltotalmoney()
+			if(this.statutype == 'exchange'){
+				let that = this;
+				let action = "get_exchange_order_info";
+				let controller = 'order';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					ordernumber: this.ordernumber,
+					memberid: memberid
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						that.orderInfo = res.rs;
+					} 
+				})
+			} else {
+				let type=this.type
+				let memberid = uni.getStorageSync('id')
+				this.memberid = memberid;
+				var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+				var action = 'get_giftbag_list';
+				this.$utils.post(action,data).then(res=>{
+					 console.log('商品信息',res)
+					 if (res.sta ===1) {				   
+						uni.showToast({
+							icon: 'success',
+							title: res.msg,
+							duration: 1000
+						});
+					 }
+					this.goodsinfo = res.rs.giftbag
+					this.price_zhe=res.rs.price_zhe
+				})
+				//计算总价
+				this.caltotalmoney()
+			}
 			
 			let zhufu_type = uni.getStorageSync('zhufu_type')
 			this.zhufu_type=zhufu_type
@@ -355,7 +403,11 @@
 		      this.$refs.popup.open('')
 		   },
 		   toggle:function(e) {
-		   		this.$refs.popup.open('')
+			   if(this.statutype == 'exchange'){
+				   
+			   }else{
+				   this.$refs.popup.open('')
+			   }
 		   	},
 		   	close:function(e) {
 		   		this.$refs.popup.close()
@@ -428,34 +480,40 @@
 				this.caltotalmoney()
 			},
 			packages:function(e){
-				if(this.show==='2'){
-					let type=e.type
-					let memberid = uni.getStorageSync('id')
-					this.memberid = memberid;
-					var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
-					var action = 'get_buy_shopping_cart';
-					this.$utils.post(action, data).then(res => {
-						console.log(res)
-							if(this.zhufu_type!=null && this.chooses!=null){
-								uni.navigateTo({
-									url:'../shopping/packages?type=1&fenshu='+this.fenshu+'&wanfa=1' 
-								})
-							}
+				if(this.statutype == 'exchange'){
+					uni.navigateTo({
+						url:'../index-coupon/ExchangePackages?ordernumber='+this.ordernumber
 					})
-				}else if(this.show==='1'){
-					let type=e.type
-					let memberid = uni.getStorageSync('id')
-					this.memberid = memberid;
-					var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
-					var action = 'get_buy_shopping_cart';
-					this.$utils.post(action, data).then(res => {
-						console.log(res)
-							if(this.zhufu_type!=null && this.chooses!=null){
-								uni.navigateTo({
-									url:'../shopping/packages?type=1&fenshu=1&wanfa=4' 
-								})
-							}
-					})
+				} else {
+					if(this.show==='2'){
+						let type=e.type
+						let memberid = uni.getStorageSync('id')
+						this.memberid = memberid;
+						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+						var action = 'get_buy_shopping_cart';
+						this.$utils.post(action, data).then(res => {
+							console.log(res)
+								if(this.zhufu_type!=null && this.chooses!=null){
+									uni.navigateTo({
+										url:'../shopping/packages?type=1&fenshu='+this.fenshu+'&wanfa=1' 
+									})
+								}
+						})
+					}else if(this.show==='1'){
+						let type=e.type
+						let memberid = uni.getStorageSync('id')
+						this.memberid = memberid;
+						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+						var action = 'get_buy_shopping_cart';
+						this.$utils.post(action, data).then(res => {
+							console.log(res)
+								if(this.zhufu_type!=null && this.chooses!=null){
+									uni.navigateTo({
+										url:'../shopping/packages?type=1&fenshu=1&wanfa=4' 
+									})
+								}
+						})
+					}
 				}
 			}
 		}
@@ -490,5 +548,11 @@
 	    color: #999999; */
 	    align-items: center;
 	    justify-content: center;
+	}
+	.shop-gift-buys-price-text{
+		font-size: 34rpx;
+	    color: #999999;
+		text-align: center;
+		text-decoration-line: line-through;
 	}
 </style>

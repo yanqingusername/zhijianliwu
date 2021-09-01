@@ -14,11 +14,11 @@
 		</form>
 		
 		<!-- 绑定成功提示 -->
-		<view class="success-pop" v-if="showPop">
+		<view class="success-pop" style="z-index: 33;" v-if="showPop">
 			<view class="pop-center clearfix">
 				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
 				<view class="p">恭喜您，绑定成功！</view>
-				<navigator class="n" hover-class="none" url="./change">立即查看</navigator>
+				<view class="n" hover-class="none" @click="clickHandler">立即查看</view>
 			</view>
 		</view>
 	</div>
@@ -45,6 +45,16 @@
 			close: function(){
 				this.showInput = true;
 				this.showPop = false;
+				this.formData.pass = '';
+			},
+			clickHandler(){
+				this.showPop = false;
+				this.showInput = true;
+				this.formData.pass = '';
+				uni.navigateTo({
+					// url:"./ExchangeOrder" //新需求 兑换订单列表页
+					url: './change'
+				});
 			},
 			submit: function(e) {
                console.log(e)

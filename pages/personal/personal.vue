@@ -511,6 +511,7 @@
 				
 					uni.navigateTo({
 						url:'../index-coupon/change'
+						// url: '../index-coupon/ExchangeOrder' //新增需求  兑换订单列表页
 					})
 			},
 			// 我的好友

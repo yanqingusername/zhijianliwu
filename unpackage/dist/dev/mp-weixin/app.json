@@ -38,6 +38,8 @@
     "pages/index-coupon/change",
     "pages/index-coupon/ExchangeIndex",
     "pages/index-coupon/ExchangeOrder",
+    "pages/index-coupon/ExchangeOrderInfo",
+    "pages/index-coupon/ExchangePackages",
     "pages/search/search",
     "pages/ordeDetails/ordeDetails",
     "pages/Add/Add",
@@ -150,6 +152,5 @@
   "usingComponents": {
     "navgation": "/wxcomponents/navgation/navgation",
     "address": "/components/simple-address/simple-address"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

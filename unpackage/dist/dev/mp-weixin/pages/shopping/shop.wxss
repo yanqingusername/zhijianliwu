@@ -376,4 +376,11 @@
     -webkit-justify-content: center;
             justify-content: center;
 }
+.shop-gift-buys-price-text{
+	font-size: 34rpx;
+    color: #999999;
+	text-align: center;
+	-webkit-text-decoration-line: line-through;
+	        text-decoration-line: line-through;
+}
 

@@ -27,15 +27,11 @@
 			<view class="empty-no-view">买礼物送好友</view>
 		</view> -->
 		<!-- 我购买的 -->
-		<view class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="no-btm" v-if="screenPurchase.length==0">
-				<image class="img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode=""></image>
-				暂无相关订单
-			</view>
-			<view class="new-order-li" @click="$buttonClick(receptionOrderInfo)">
+		<view v-if="screenPurchase.length > 0" class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
+			<view class="new-order-li" @click="handlerOrderInfo" :data-ordernumber="item.ordernumber">
 				<view class="new-order-li-top">
-					<view class="new-order-li-top-ordersn">{{'兑换编号：20210415615'}}</view>
-					<view class="new-order-li-top-orderstatus">运输中 ></view>
+					<view class="new-order-li-top-ordersn">兑换编号：{{item.ordernumber}}</view>
+					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} ></view>
 				</view>
 				<view class="new-order-li-center">
 					<view class="new-order-left">
@@ -43,22 +39,37 @@
 							<image lazy-load="true" class="new-order-commodity-img" :src="item.cardtype_img" mode=""></image>
 						</view>
 						<view class="new-order-item">
-							<view class="new-order-item-title">{{item.name}}</view>
-							<view class="new-order-item-sku">规格：礼盒装</view>
+							<view class="new-order-item-title">{{item.card_name}}</view>
+							<view class="new-order-item-sku" v-if="item.card_type_info">规格：{{item.card_type_info}}</view>
 						</view>
 					</view>
 					<view class="new-order-right">
 						<view class="new-order-item-total">共1件</view>
 					</view>
 				</view>
-				<view class="new-order-li-bottom">
+				<view class="new-order-li-bottom" v-if="item.order_status_type != 4">
 					<view class="new-order-nickname"></view>
-					<view class="new-order-botton-view">
-						<view class="new-order-botton-gray" @click="$buttonClick(refundHandler)">换货/售后</view>
-						<!-- <view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view> -->
+					<view class="new-order-botton-view" v-if="item.card_type == 0">
+						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="$buttonClick(goRecharge)" :data-cardid="item.cardid">去充值</view>
+						<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
+					</view>
+					<view class="new-order-botton-view" v-if="item.card_type == 1">
+						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
+						<view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view>
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="post-bottom" v-if="isAll && screenPurchase.length > 0">
+			<view class="post-bottom-line"></view>
+			<view class="post-bottom-text">我是有底线的</view>
+			<view class="post-bottom-line"></view>
+		</view>
+		<view class="apply-success-view" v-if="screenPurchase.length==0">
+			<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" class="apply-success-img"></image>
+			<view class="apply-success-text">当前兑换订单暂无数据～</view>
 		</view>
 		<view style="height: 40rpx;"></view>
 	</view>
@@ -69,70 +80,65 @@
 		components: {},
 		data() {
 			return {
-				current: 1,
-				cardlist2: [],
-				screenPurchase: [
-					{
-						"cardtype_img": "../../static/nono.jpg",
-						"name": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"cardtype_img": "../../static/nono.jpg",
-						"name": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"cardtype_img": "../../static/nono.jpg",
-						"name": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"cardtype_img": "../../static/nono.jpg",
-						"name": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				isAll: false,
+				pageSize: 10,
+				pageIndex: 1,
+				screenPurchase: []
 			}
 		},
 		onLoad: function(e) {
-			this.openid = uni.getStorageSync('openid');
 			uni.showToast({
 				icon: "loading",
 				title: "加载中"
 			})
-			let that = this;
-			var memberid = uni.getStorageSync('id')
-			this.memberid = memberid;
-
-			var action1 = 'get_bind_giftcard';
-			var data1 = JSON.stringify({
-				memberid: memberid,
-				status: 4
-			});
-
-			this.$utils.post(action1, data1).then(res => {
-				console.log('礼品卡列表2', res.cardlist)
-				that.cardlist2 = res.cardlist;
-				that.pageIndex++;
-			})
-
-
-
+			this.getProductList(1);
+		},
+		onPullDownRefresh:function(){
+			this.getProductList(1);
+			setTimeout(()=>{
+				uni.stopPullDownRefresh();
+			}, 500);
+		},
+		onReachBottom:function(){
+			this.getProductList(2);
 		},
 		methods: {
+			getProductList(typeNumber){
+				if(typeNumber == 1){
+					this.pageIndex = 1;
+				}
+				
+				let that = this;
+				let action = "get_exchange_order_list";
+				let controller = 'order';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
+					memberid: memberid
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(typeNumber == 1){
+						that.pageIndex++;
+						that.screenPurchase = res.rs;
+						that.isAll = false;
+					} else {
+						if(res.rs.length>0){
+							that.screenPurchase = that.screenPurchase.concat(res.rs);
+							that.pageIndex++;
+						}else{
+							that.isAll = true;
+						}
+					}
+				})
+			},
+			//转赠
+			goTransfer: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
+				})
+			},
 			//去兑换
 			go_exchange: function(e) {
 				console.log(e);
@@ -141,11 +147,26 @@
 					url: './redemption_center?cardid=' + cardid
 				})
 			},
+			//去充值
+			goRecharge: function(e) {
+				let cardid = e.currentTarget.dataset.cardid;
+				uni.navigateTo({
+					url: '../balance/RechargeStatus'
+				})
+			},
+			// 换货/售后
 			refundHandler: function(e){
 				uni.navigateTo({
 					url: '/pagesub/Refund/RefundAfterSale'
 				})
-			}
+			},
+			// 详情
+			handlerOrderInfo: function(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: './ExchangeOrderInfo?ordernumber=' + ordernumber
+				})
+			},
 		}
 	}
 </script>
@@ -349,12 +370,13 @@
 		align-items: center;
 		justify-content: center;
 		height: 48rpx;
+		width: 140rpx;
 		border-radius: 3rpx;
 		border: 1px solid #EB1615;
 		font-size: 24rpx;
 		color: #EB1615;
 		line-height: 33rpx;
-		padding: 0rpx 18rpx;
+		/* padding: 0rpx 18rpx; */
 		margin-left: 20rpx;
 	}
 	.new-order-botton-gray{
@@ -362,12 +384,13 @@
 		align-items: center;
 		justify-content: center;
 		height: 48rpx;
+		width: 140rpx;
 		border-radius: 3rpx;
 		border: 1px solid #979797;
 		font-size: 24rpx;
 		color: #999999;
 		line-height: 33rpx;
-		padding: 0rpx 18rpx;
+		/* padding: 0rpx 18rpx; */
 	}
 	.empty-no-btm{
 		margin-top: 184rpx;
@@ -397,5 +420,43 @@
 		margin-top: 75rpx;
 		font-size: 30rpx;
 		color: #FFFFFF;
+	}
+	
+	.post-bottom{
+		display: flex;
+		align-items: center;
+		color: #B3B3B3;
+		text-align: center;
+		padding-top: 24rpx;
+		padding-bottom: 48rpx;
+		justify-content: center;
+	}
+	.post-bottom-text{
+		font-size: 24rpx;
+		color: #B3B3B3;
+		line-height: 33rpx;
+		margin: 0rpx 18rpx;
+	}
+	.post-bottom-line{
+		width: 240rpx;
+		height: 1px;
+		background: #E0E0E0;
+	}
+	.apply-success-view{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.apply-success-img{
+		width: 255rpx;
+		height: 180rpx;
+		margin-top: 172rpx;
+	}
+	.apply-success-text{
+		padding: 60rpx 80rpx;
+		text-align: center;
+		font-size: 28rpx;
+		color: #666666;
+		line-height: 48rpx;
 	}
 </style>
