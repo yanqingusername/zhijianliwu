@@ -36,7 +36,7 @@
 							<view class="z-price">
 								<text style="font-size: 24rpx; color: #FB4133;">￥</text>
 								<text class="price">{{item.price}}</text>
-								<text class="look"v-if="item.buy_count">{{item.buy_count}}人已购</text>
+								<text class="look" >{{item.buy_count || 0}}人已购</text>
 							</view>
 						</view>
 					</view>
