@@ -51,7 +51,7 @@
 					<!-- 介绍 -->
 					<view class="order-purchase-top-introduce">
 						<!-- 名称,状态-->
-						<view class="order-purchase-top-header flex-between">
+						<view class="order-purchase-top-header flex-between" style="padding: 0rpx;">
 							<view class="order-commodity-name">{{item.goodsinfo_all[0].goodsname}}</view>
 							<view class="order-alt-title-right" v-if="item.has_order =='1' && item.has_exchange_order=='0'">已完成></view>
 							<view class="order-purchase-top-header-right" v-else-if="item.status=='0'">支付中></view>
@@ -90,7 +90,7 @@
 
 
 				<!-- 礼品 按钮 -->
-				<view class="order-purchase-li-btm flex-between">
+				<view class="new-order-purchase-li-btm flex-between">
 					<view class="order-purchase-li-btm-number" v-if="item.type=='1'">{{item.goodsnum_all}}件礼物/直接/共{{item.all_details_num}}份</view>
 					<view class="order-purchase-li-btm-number" v-else-if="item.type=='2'">{{item.goodsnum_all}}件礼物/批量/共{{item.all_details_num}}份</view>
 					<view class="order-purchase-li-btm-number" v-else-if="item.type=='3'">{{item.goodsnum_all}}件礼物/定时/共{{item.all_details_num}}份</view>
@@ -107,7 +107,7 @@
 
 					<!-- 订单全部生成 -->
 					<view class="flex-between" v-else-if="item.has_order =='1' && item.has_exchange_order=='0'">
-						<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="purchasedetails">查看详情</view>
+						<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="purchasedetails">查看详情</view>
 					</view>
 
 
@@ -123,8 +123,8 @@
 
 					<!-- 已生成订单并且还有可生成订单 -->
 					<!--  <view class="flex-between" v-else-if=" item.status=='2' && item.has_order =='1' && item.has_exchange_order=='1'" style="width: 354rpx;">
-<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="orderdetails">查看详情</view>
-<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="orderdetails">查看详情</view>
+<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
 </view>  -->
 
 					<!-- 赠送中 -->
@@ -202,7 +202,7 @@
 				</view>
 			</view>
 
-			<view class="order-purchase-li-btm  flex-between margin-auto">
+			<view class="new-order-purchase-li-btm  flex-between margin-auto" style="padding: 18rpx 30rpx;">
 				<!-- 赠送人信息 -->
 				<view class="flex" v-if="item.present_member.head_img&&item.present_member.name">
 					<image lazy-load="true" class="order-li-btm-touxiang" :src="$utils.imageUrl(item.present_member.head_img)" mode=""></image>
@@ -212,15 +212,15 @@
 				<!-- 按钮选择 -->
 				<!-- 已领取 -->
 				<!-- <view class="flex-between order-li-btn" v-if="item.status=='3'">
-<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
-<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="give">赠送好友</view>
+<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="give">赠送好友</view>
 </view> -->
 
 
 
 				<!-- 订单全部生成 -->
 				<view class="flex-between" v-if="item.has_order =='1' && item.has_exchange_order=='0'">
-					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="logistics">查看物流</view>
+					<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="logistics">查看物流</view>
 				</view>
 				<!-- 赠送中 -->
 				<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status=='2'">
@@ -234,21 +234,21 @@
 				</view>
 				<!--   已完成  已关闭 -->
 				<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status == '8' || item.status == '5'">
-					<view class="order-li-btn-right" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="dele">删除记录</view>
-					<view class="order-li-btn-right" :data-index="index" @click="shop">再次购买</view>
+					<view class="new-order-li-btn-right" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="dele">删除记录</view>
+					<view class="new-order-li-btn-right" :data-index="index" @click="shop">再次购买</view>
 				</view>
 				<!-- 未生成订单 -->
 				<view class="flex-between" v-else-if="item.has_order =='0'" style="width: 354rpx;">
-					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
+					<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
 					<!-- <view class="order-purchase-btm-li" v-if="item.pay_memberid==memberid" :data-index="index"  :data-cardbag_number="item.parent_cardbag" @click="refund">申请退款</view> -->
-					<!-- <view class="order-li-btn-right" v-else :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view> -->
-					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+					<!-- <view class="new-order-li-btn-right" v-else :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view> -->
+					<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
 				</view>
 				<!-- 已生成订单并且还有可生成订单 -->
 				<view class="flex-between" v-else-if=" item.has_order =='1' && item.has_exchange_order=='1'" style="width: 354rpx;">
 					<!-- <view class="order-purchase-btm-li" :data-index="index"  :data-cardbag_number="item.cardbag_number" @click="refund">申请退款</view> -->
-					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
-					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+					<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
+					<view class="new-order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
 				</view>
 
 
@@ -1651,5 +1651,18 @@
 		line-height: 64rpx;
 		color: #B4B4B4;
 		text-align: center;
+	}
+	
+	.new-order-purchase-li-btm{
+		padding: 18rpx 0;
+	}
+	
+	.new-order-li-btn-right {
+	    /* height: 23.61rpx; */
+	    font-size: 24rpx;
+	    padding: 18rpx 26rpx;
+	    border: 1px solid #808080;
+	    border-radius: 28rpx;
+	    font-weight: bold;
 	}
 </style>

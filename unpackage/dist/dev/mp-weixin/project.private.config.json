@@ -1,0 +1,42 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "首页",
+          "pathName": "pages/index/index",
+          "query": ""
+        },
+        {
+          "name": "pages/redEnvelopes/redEnvelopes",
+          "pathName": "pages/redEnvelopes/redEnvelopes",
+          "query": "cardbag_number=23202109021646537218847512&cardbag_detail_id=92014&head_img=https%3A%2F%2Fthirdwx.qlogo.cn%2Fmmopen%2Fvi_32%2FPOgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg%2F132&all_details_num=2&present_memberid_name=wind&old_cardbag_number=21202109021643331094800831",
+          "scene": null
+        },
+        {
+          "name": "pages/ordeDetails/ordeDetails",
+          "pathName": "pages/ordeDetails/ordeDetails",
+          "query": "cardbag_number=23202109030934026828420228",
+          "scene": null
+        },
+        {
+          "name": "pages/ordeDetails/ordeDetails",
+          "pathName": "pages/ordeDetails/ordeDetails",
+          "query": "cardbag_number=21202109031024182356209136",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

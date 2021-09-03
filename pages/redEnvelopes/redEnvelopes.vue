@@ -1,13 +1,14 @@
 <template>
-	<view class="bag">
-		<view class="">
+	<view class="bag" style="position: relative;">
+		<view class="" style="margin-top: 40px;display: flex;align-items: center;justify-content: center;">
 			<text class="bag-title">恭喜您，收到了一份礼物</text>
 		</view>
+		<image class="bag-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 		<view class="bag-con">
-			<image class="bag-head" :src="cardbag.present_memberid_headimg" mode=""></image>
+			
 			<text class="bag-font">{{cardbag.present_memberid_name}}送出一份礼物给你!</text>
 
-			<view class="" v-if="com==1">
+			<view class="many-com" v-if="com==1">
 				<view class="bag-tea" v-for="item in goodslist" :key="item.id">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png"
 						mode=""></image>
@@ -15,33 +16,55 @@
 					<text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}} x{{item.goodsnum}}</text>
 				</view>
 			</view>
-			<view class="many" v-else="com==2">
-				<view class="bag-tea1" v-for="item in goodslist" :key="item.id">
+			<view class="many" v-if="com==2">
+				<view class="gift2" v-for="item in goodslist" :key="item.id">
+					<view class='gift2-list' >
+						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+						<view class="gift-xq2">
+							<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,9)}}</view>
+							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
+						</view>
+					</view>
+				</view>
+				<!-- <view class="bag-tea1" v-for="item in goodslist" :key="item.id">
 					<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
 					<text class="bag-tea-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
 					<text class="bag-tea-fen">x{{item.goodsnum}}</text>
-				</view>
+				</view> -->
 			</view>
 
 
 			<view class="bag-gift">
 				<view class="bag-gift-title">
-					<text class="bag-gift-title-font">{{cardbag_in_people.length}}份礼物已被抢光</text>
+					<text class="bag-gift-title-font">{{receive_info}}</text>
 				</view>
 
-				<view class="bag-gift-title" v-for="item1 in cardbag_in_people" :key="item1.id">
-					<image class="bag-gift-title-head" :src="item1.head_img" mode=""></image>
-					<text>{{item1.member_name}}</text>
-					<text class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,6)}}</text>
+				<view class="bag-gift-title" style="height: 110rpx;" v-for="item1 in cardbag_in_people" :key="item1.id">
+					<view class="flex-between flex-vertically">
+						<view class="bag-gift-title-head">
+							<image class="bag-gift-title-head-img" :src="item1.head_img" mode=""></image>
+						</view>
+						<view style="flex-direction: column;">
+							<view class="flex-between flex-vertically" style="width: 450rpx;">
+								<view>{{item1.member_name}}</view>
+								<view class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,11)}}</view>
+							</view>
+							<view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{'2021/09/01 09:20:10'}}</view>
+						</view>
+					</view>
+					
+					
 				</view>
 
 			</view>
 
+			<view style="display: flex;">
+				<button type="default" class="transfer" @click="givee">转增礼物</button>
+				<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
+				
+			</view>
 
-
-			<button type="default" class="transfer" @click="givee">转增礼物</button>
-			<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
-
+			
 
 			<view class="bag-red" v-if="gift==='0'">
 				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_yuyin_z_2021_08_30.png"
@@ -95,6 +118,7 @@
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
 			</view>
 		</view>
+		<view style="height: 30rpx;width: 100%;"></view>
 	</view>
 </template>
 
@@ -138,6 +162,7 @@
 				zhufu_mp4: '',
 				zhufu_mp3:'',
 				radio: true,
+				receive_info: ''
 			}
 		},
 		onLoad: function(e) {
@@ -166,19 +191,22 @@
 			var data = '{"cardbag_number":"' + old_cardbag_number + '","cardbag_detail_id":"0"}';
 			var action = "get_cardbag_detail";
 			this.$utils.post(action, data).then(res => {
-				console.log('礼包信息')
-				console.log(res)
-				this.cardbag_in_people = res.cardbag_in_people
-				this.cardbag = res.cardbag
-				this.cardbag_theme = res.cardbag_theme
-				this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
-				this.price=res.cardbag.price
-				if (res.cardbag_theme.zhufu_type == "1") {
-					this.gift = '1'
-				} else if (res.cardbag_theme.zhufu_type == "0") {
-					this.gift = '0'
-				} else {
-					this.gift = '2'
+				if(res.sta == 1){
+					console.log('礼包信息')
+					console.log(res)
+					this.cardbag_in_people = res.cardbag_in_people
+					this.cardbag = res.cardbag
+					this.cardbag_theme = res.cardbag_theme
+					this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
+					this.price=res.cardbag.price
+					this.receive_info = res.receive_info
+					if (res.cardbag_theme.zhufu_type == "1") {
+						this.gift = '1'
+					} else if (res.cardbag_theme.zhufu_type == "0") {
+						this.gift = '0'
+					} else {
+						this.gift = '2'
+					}
 				}
 			})
 			
@@ -192,6 +220,7 @@
             	this.cardbag_theme = res.cardbag_theme
             	this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
             	this.price=res.cardbag.price
+				this.receive_info = res.receive_info
             	if (res.cardbag_theme.zhufu_type == "1") {
             		this.gift = '1'
             	} else if (res.cardbag_theme.zhufu_type == "0") {
@@ -406,43 +435,51 @@
 	.bag-title {
 		font-size: 20px;
 		color: #fff;
-		position: relative;
+		/* position: relative;
 		top: 50rpx;
-		left: 150rpx;
+		left: 150rpx; */
 	}
 
 	.bag-con {
-		width: 90%;
-		height: 2000rpx;
-		background-color: #fff;
-		position: relative;
-		top: 160rpx;
-		left: 35rpx;
-		border-radius: 10rpx;
+	    width: 90%;
+	    /* height: 2000rpx; */
+	    background-color: #fff;
+	    /* position: relative; */
+	    /* top: 160rpx; */
+	    /* left: 35rpx; */
+	    border-radius: 10rpx;
+	    margin: 100rpx auto 0rpx ;
+	    /* padding-top: 200rpx; */
+	    display: flex;
+	    flex-direction: column;
+		align-items: center;
+		padding-bottom: 30rpx;
 	}
 
 	.bag-head {
-		width: 120rpx;
-		height: 120rpx;
-		border-radius: 50%;
-		position: absolute;
-		top: -60rpx;
-		left: 288rpx;
+		    width: 120rpx;
+		    height: 120rpx;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 80rpx;
+		    left: 310rpx;
 	}
 
 	.bag-font {
-		position: absolute;
+		/* position: absolute;
 		top: 100rpx;
-		left: 195rpx;
+		left: 195rpx; */
+		    text-align: center;
+		        margin-top: 90rpx;
 	}
 
 	.bag-tea {
 		width: 320rpx;
 		height: 350rpx;
 		border: 1px solid #CCB586;
-		position: absolute;
+		/* position: absolute;
 		top: 100px;
-		left: 180rpx;
+		left: 180rpx; */
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -459,12 +496,14 @@
 	}
 
 	.bag-gift {
-		width: 90%;
-		height: 204rpx;
+		/* width: 90%; */
+		/* height: 204rpx; */
 		background-color: #F8F8F8;
-		position: absolute;
+		margin: 50rpx 0rpx;
+		    width: 90%;
+		/* position: absolute;
 		margin-top: 350px;
-		left: 35rpx;
+		left: 35rpx; */
 	}
 
 	.bag-gift-title {
@@ -480,25 +519,34 @@
 	}
 
 	.bag-gift-title-head {
-		width: 50rpx;
-		height: 50rpx;
-		border-radius: 50%;
+		width: 78rpx;
+		height: 78rpx;
+		/* border-radius: 50%; */
 		margin-left: 40rpx;
 		margin-right: 20rpx;
 	}
+	
+	.bag-gift-title-head-img{
+		width: 78rpx;
+		height: 78rpx;
+		border-radius: 50%;
+	}
 
 	.bag-gift-title-tea {
-		position: absolute;
-		right: 40rpx;
+		/* position: absolute;
+		right: 40rpx; */
 	}
 
 	.transfer {
-		width: 250rpx;
+		width: 270rpx;
+		height: 80rpx;
 		border-radius: 50rpx;
 		background-color: #EFEFEF;
-		position: absolute;
+		/* position: absolute;
 		margin-top: 490px;
-		left: 50rpx;
+		left: 50rpx; */
+		font-size: 30rpx;
+		margin-right: 30rpx;
 	}
 
 	button[type=default] {
@@ -506,20 +554,24 @@
 	}
 
 	.write {
-		width: 250rpx;
+		width: 270rpx;
+		height: 80rpx;
 		border-radius: 50rpx;
-		position: absolute;
+		/* position: absolute;
 		margin-top: 490px;
-		left: 350rpx;
+		left: 350rpx; */
+		font-size: 30rpx;
 	}
 
 	.bag-red {
 		width: 70%;
 		height: 700rpx;
-		/* background-color: #00BFFF; */
 		position: relative;
+		margin-top: 50rpx;
+		/* background-color: #00BFFF; */
+		/* position: relative;
 		top: 1200rpx;
-		margin-left: 100rpx;
+		margin-left: 100rpx; */
 	}
 
 	.bag-red-img {
@@ -570,16 +622,26 @@
 		justify-content: center;
 		flex-wrap: wrap;
 	}
+	
+	.many-com {
+	    display: flex;
+	    justify-content: center;
+	    flex-wrap: wrap;
+	        margin-top: 50rpx;
+	    /* height: 370rpx; */
+	    position: relative;
+	}
 
 	.many {
-		width: 100%;
-		height: 580rpx;
+		/* width: 100%; */
 		/* border: 1px solid #000000; */
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		position: absolute;
-		top: 80px;
+		    margin-top: 50rpx;
+		    height: 370rpx;
+		/* position: absolute;
+		top: 80px; */
 	}
 
 	.bag-tea1 {
@@ -673,4 +735,46 @@
 	    top: 142rpx;
 	    left: 240rpx;
 	}
+	
+	
+	.gift2{
+		padding: 0 70rpx;
+		    width: 100%;
+			height: 170rpx;
+	}
+	.gift2-list{
+		margin-bottom: 20rpx;
+		border: 1rpx solid #CCB586;
+		border-radius: 10rpx;
+		padding: 30rpx 30rpx;
+		display: flex;
+		align-items: center;
+	}
+	.gift2-list .gift-img2{
+		width: 100rpx;
+	}
+	.gift2-list .gift-xq2{
+		text-align: left;
+		flex: 1;
+		padding-left: 30rpx;
+	}
+	.gift2-list .gift-xq2{
+		margin-bottom: 20rpx;
+		font-size: 28rpx;
+		color: #333;
+	}
+	.gift2-list .gift-xq2{
+		font-size: 28rpx;
+		color: #666;
+	}
+	.gift-xq-title{
+	font-weight: bold;
+	font-size: 14px;
+}
+.gift-xq-num{
+	color: #666666;
+	font-size: 14px;
+	margin-top: 30rpx;
+}
+	
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="" v-if="isShowCheck == 0">
 		<!-- 文字祝福 -->
 		<view style="position: relative;width: 80%;margin: 100rpx auto;" v-if="gift==='0'">
 			<view class="">
@@ -83,9 +83,24 @@
            	<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
            	<text class="new-chai" @click="open"></text>
         </view>
-
-		
 	</view>
+	<view class="" v-else>
+		<!-- 文字祝福 -->
+		<view style="position: relative;width: 80%;margin: 100rpx auto;">
+			<view class="">
+				<image class="wishes-fu"
+					src="https://zhijianlw.com/static/web/img/libao_09_01.png" mode="widthFix">
+				</image>
+			</view>
+			<view class="infor">
+				<view class="img-infor">
+					<image class="wishes-fu-head" :src="$utils.imageUrl(head_img)" mode=""></image>
+					<text class="wishes-fu-head-title">{{name}}</text>
+				</view>
+				
+				<view class="wishes-name zhufu">{{zhufu_msg}}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -96,10 +111,13 @@
 	const audioCtx = uni.createAudioContext('')
 
 	innerAudioContext.autoplay = true;
+	
+	const recorderManager1 = uni.getRecorderManager();
+	const innerAudioContext1= uni.createInnerAudioContext();
 	export default {
 		data() {
 			return {
-				gift: '1',
+				gift: '0',
 				send_talk_msg: '',
 				zhufu_msg: '',
 				name: '',
@@ -120,10 +138,14 @@
 				zhufu_mp3:'',
 				radio: true,
 				present_memberid_headimg:'',
-				present_memberid_name:''
+				present_memberid_name:'',
+				isShowCheck: 0
 			}
 		},
-		onLoad: function(e) {
+		onLoad: function(e) {	
+			
+			innerAudioContext1.src = 'https://zhijianlw.com/static/web/img/kai_li_bao.wav';
+			
 			this.url = config.URL;
 			let that = this;
 			let merberid = uni.getStorageSync('id')
@@ -133,14 +155,12 @@
 			// 拿到传过来的礼包号
 			if (e.cardbag_number) {
 				this.cardbag_number = e.cardbag_number;
-				var cardbag_number = e.cardbag_number;
 			} else {
 				this.cardbag_number = e.scene;
-				var cardbag_number = e.scene;
 			}
 
 
-			let data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
+			let data = '{"cardbag_number":"' + this.cardbag_number + '","cardbag_detail_id":"0"}';
 			var action = 'get_cardbag_detail';
 			this.$utils.post(action, data).then(res => {
 				console.log('礼包详情', res)
@@ -163,7 +183,7 @@
 				}else{
 					this.gift = '2'
 				}
-				var data = '{"cardbag_number":"' + e.cardbag_number + '","memberid":"' + merberid + '"}';
+				var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + merberid + '"}';
 				var action = 'check_receive_cardbag';
 				this.$utils.post(action, data).then(re => {
 					console.log('判断礼包是否领取', re)
@@ -173,10 +193,10 @@
 						// 定时开奖未领取到礼包还能进去的
 						if (time > fixedtime) {
 							this.display = '0';
-							uni.navigateTo({
-								url: '../redEnvelopes/redEnvelopes?cardbag=' + cardbag_number +
+							uni.reLaunch({
+								url: '../redEnvelopes/redEnvelopes?cardbag=' + that.cardbag_number +
 									'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
-									cardbag_number,
+									that.cardbag_number,
 							})
 						} else {
 							this.display = '1';
@@ -188,22 +208,23 @@
 							this.number = re.cardbag_number;
 							this.cardbag_detail_id = re.cardbag_detail_id
 							this.display = '0';
-							uni.navigateTo({
+							uni.reLaunch({
 								url: '../redEnvelopes/redEnvelopes?cardbag_number=' + re
 									.cardbag_number + '&cardbag_detail_id=' + re
-									.cardbag_detail_id + '&cardbag=' + cardbag_number +
+									.cardbag_detail_id + '&cardbag=' + that.cardbag_number +
 									'&head_img=' + res.cardbag.present_memberid_headimg +
 									'&all_details_num=' + res.cardbag.all_details_num +
-									'&present_memberid_name=' + res.cardbag
-									.present_memberid_name,
+									'&present_memberid_name=' + res.cardbag.present_memberid_name
 							})
 						} else if (time < fixedtime) {
 
 						} else {
-							uni.showToast({
-								title: re.msg,
-								icon: 'none'
-							})
+							this.isShowCheck = 1;
+							this.zhufu_msg = re.msg;
+							// uni.showToast({
+							// 	title: re.msg,
+							// 	icon: 'none'
+							// })
 						}
 
 					} else {
@@ -245,6 +266,9 @@
 				// console.log('未登录')
 				this.sign = '0'
 			}
+		},
+		onUnload() {
+			innerAudioContext1.pause();
 		},
 		methods: {
 			// 播放录音
@@ -347,6 +371,12 @@
 					this.$utils.post(action, data).then(res => {
 						console.log('领取卡包', res)
 						if (res.sta == 1) {
+							
+							innerAudioContext1.play();
+							setTimeout(function(e) {
+								// console.log('停止')
+								innerAudioContext1.stop();
+							}, 1000)
 
 							// 存入本地缓存
 							uni.setStorageSync('new_cardbag_number', res)
@@ -408,7 +438,7 @@
 								innerAudioContext.play();
 
 								setTimeout(function(e) {
-									uni.navigateTo({
+									uni.reLaunch({
 										url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
 											res.cardbag_number + '&cardbag_detail_id=' + res
 											.cardbag_detail_id + '&head_img=' + that.head_img +

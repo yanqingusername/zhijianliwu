@@ -17,9 +17,9 @@
 				</scroll-view>
 				<view class="classifi-right">
 					<view class="classifi-list">
-						<block v-for="classifi in rightList" >
+						<block v-for="(classifi,index) in rightList" :key="index">
 							<view class="classifi-goods" @click="goToPost(classifi.keynum,classifi.name)">
-								<image :src="classifi.icon" mode=""class="classifi-bottom-img" ></image>
+								<image :src="classifi.icon" mode="" class="classifi-bottom-img" ></image>
 								<view class="classifi-number">{{classifi.name}}</view>
 							</view>
 						</block>

@@ -1,1 +1,1 @@
-page{background-color:#f8f7f5}.order-commodity-name{width:75%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.no-btm{line-height:64rpx;color:#b4b4b4;text-align:center}
+page{background-color:#f8f7f5}.order-commodity-name{width:75%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.no-btm{line-height:64rpx;color:#b4b4b4;text-align:center}.new-order-purchase-li-btm{padding:18rpx 0}.new-order-li-btn-right{font-size:24rpx;padding:18rpx 26rpx;border:1px solid grey;border-radius:28rpx;font-weight:700}

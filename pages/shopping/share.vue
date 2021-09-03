@@ -1,12 +1,13 @@
 <template>
-	<view class="share-bag">
-	
-			<r-canvas v-if="com==1" ref="rCanvas"></r-canvas>
-			<r-canvas v-else="com==2" ref="rCanvas"></r-canvas>
-			<image :src="$utils.imageUrl(posterUrl)" mode="" class="poster"></image>
-		
+	<view class="share-bag-view">
+		<view class="share-bag">
+				<r-canvas v-if="com==1" ref="rCanvas"></r-canvas>
+				<r-canvas v-else="com==2" ref="rCanvas"></r-canvas>
+				<image :src="$utils.imageUrl(posterUrl)" mode="" class="poster"></image>
+		</view>
+		<view class="share-view" @click="down">保存图片</view>
+		<view class="share-empty"></view>
 	</view>
-
 
 </template>
 
@@ -30,8 +31,11 @@
 				url: '',
 				com: 1,
 				length: 0,
-				bgUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/gift_hb.png',
-				flowUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png'
+				bgUrl:'https://zhijianlw.com/static/web/img/gift_hb_09_01.png',
+				flowUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png',
+				goodsname1:'',
+				imageUrl1: '',
+				goodsnum1: ''
 			}
 		},
 		onLoad(e) {
@@ -50,13 +54,23 @@
 					this.com=1
 				} else {
 					this.gifts = res.goods_list
+					
+					if (res.cardbag.type == 1) {
+						this.length = res.type1_goodslist.length
+					} else {
+						this.length = res.goods_list.length
+					}
+					
 					this.goodsname=res.goods_list[0].goodsname
 					this.goodsnum=res.goods_list[0].goodsnum
 					this.imageUrl=res.goods_list[0].head_img
-					this.length=res.goods_list.length
+					
+					this.goodsname1=res.goods_list[1].goodsname
+					this.goodsnum1=res.goods_list[1].goodsnum
+					this.imageUrl1=res.goods_list[1].head_img
+					
 					this.com=2
 				}
-				
 				
 				console.log(this);
 				uni.showToast({
@@ -70,7 +84,7 @@
 				});
 				this.$utils.post(action, data1).then(res => {
 					console.log(res)
-					this.QRcodeUrl = this.url + res.dir;
+					this.QRcodeUrl = res.dir;
 					console.log('QRcodeUrl:', this.QRcodeUrl);
 				}).then(
 					res => {
@@ -146,7 +160,7 @@
 								
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.goodsname.substr(0,6),
+									text: this.$utils.sub_str(this.goodsname,6),
 									x: 160,
 									y: 280,
 									max_width: 100,
@@ -191,7 +205,7 @@
 								})
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.goodsname.substr(0,6),
+									text: this.$utils.sub_str(this.goodsname,6),
 									x: 150,
 									y: 130,
 									max_width: 200,
@@ -237,7 +251,7 @@
 								});
 								// 画商品
 								await this.$refs.rCanvas.drawImage({
-									url: this.$utils.imageUrl(this.imageUrl),
+									url: this.$utils.imageUrl(this.imageUrl1),
 									x: 71,
 									y: 210,
 									w: 60,
@@ -250,7 +264,7 @@
 								})
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.goodsname.substr(0,6),
+									text: this.$utils.sub_str(this.goodsname1,6),
 									x: 150,
 									y: 230,
 									max_width: 200,
@@ -264,7 +278,7 @@
 								})
 								// 画件数
 								await this.$refs.rCanvas.drawText({
-									text: "共"+this.goodsnum+"件",
+									text: "共"+this.goodsnum1+"件",
 									x: 150,
 									y: 260,
 									font_color: "#666666",
@@ -311,11 +325,12 @@
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.$utils.imageUrl(this.QRcodeUrl),
-								x: 154,
-								y: 373,
-								w: 70,
-								h: 70,
-								radius: 16
+								x: 150,
+								y: 368,
+								w: 80,
+								h: 80,
+								radius: 16,
+								is_radius: true
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
@@ -326,9 +341,24 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序码领礼物\n           先到先得",
+								text: "长按小程序码领礼物",
 								x: 130,
 								y: 470,
+								max_width: 130,
+								font_color: "#FFF8F8",
+								font_size: 14
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							// 画 长按扫码即可送礼
+							await this.$refs.rCanvas.drawText({
+								text: "先到先得",
+								x: 160,
+								y: 490,
 								max_width: 130,
 								font_color: "#FFF8F8",
 								font_size: 14
@@ -348,10 +378,52 @@
 					})
 				})
 		},
+		methods:{
+			down: function(e) {
+				uni.saveImageToPhotosAlbum({
+					filePath: this.posterUrl,
+					success(res) {
+						// console.log(res)
+						uni.showToast({
+							title: "图片已保存",
+							icon: "none"
+						})
+					},
+					fail(err) {
+						if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
+							"saveImageToPhotosAlbum:fail auth deny" || err.errMsg === "saveImageToPhotosAlbum:fail authorize no response"
+						) {
+							uni.showModal({
+								title: '提示',
+								content: '需要您授权保存相册',
+								showCancel: false,
+								success: modalSuccess => {
+									uni.openSetting({
+										success(settingdata) {
+											if (settingdata.authSetting['scope.writePhotosAlbum']) {
+												// console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+											} else {
+												// console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+											}
+										}
+									})
+								}
+							})
+						}
+					}
+				})
+			}
+		}
 	}
 </script>
 
 <style>
+	.share-bag-view{
+		display: flex;
+		flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	}
 	.share-bag {
 		width: 750rpx;
 		height: 1180rpx;
@@ -366,5 +438,20 @@
 		height: 690px;
 		border-radius: 16rpx;
 		margin-top: -19rpx;
+	}
+	.share-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0rpx;
+		width: 200rpx;
+		height: 80rpx;
+		background: #EC1815;
+		border-radius: 40rpx;
+		font-size: 30rpx;
+		color: #FFFFFF;
+	}
+	.share-empty{
+		height: 30rpx;
 	}
 </style>

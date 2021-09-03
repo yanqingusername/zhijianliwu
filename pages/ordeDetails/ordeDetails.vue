@@ -35,7 +35,7 @@
 		<view class="order-purchase" v-for="(item,index) in purchase" :key="index" :class="[nav==0?'':'none']">
 			<view class="order-purchase-li">
 				<!-- 商品 介绍 -->
-				<view class="order-purchase-li-top flex" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="orderdetails">
+				<view class="order-purchase-li-top flex flex-vertically" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="orderdetails">
 					<!-- 商品图 -->
 					<view class="order-purchase-top-img">
 						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
@@ -52,22 +52,23 @@
 							<view class="order-purchase-top-header-right" v-else-if="item.status=='5'">已关闭></view>
 							<view class="order-purchase-top-header-right" v-else-if="item.status=='8'">已完成></view>
 						</view>
-						<!-- 规格 -->
-						<view class="order-purchase-top-specifications">规格:{{item.guige}}</view>
-						<!-- 数量 -->
-						<view class="order-purchase-top-number">数量:<span>x</span>{{item.goodsnum}}</view>
-
+						<view class="order-purchase-top-header flex-between">
+							<!-- 规格 -->
+							<view class="order-purchase-top-specifications">规格:{{item.goods_spec}}</view>
+							<!-- 数量 -->
+							<view class="order-purchase-top-number">数量:<span>x</span>{{item.goodsnum}}</view>
+						</view>
 
 
 						<!-- 价格 礼包数量 -->
-						<view class="order-purchase-right">
+						<view class="new-order-purchase-right">
 							<view class="order-purchase-right-price">¥{{item.price}}</view>
 							<!-- <view class="order-purchase-right-gift">礼包领取<span>{{item.goodsinfo[0].price}}</span>/{{item.all_details_num}}</view> -->
 						</view>
 					</view>
 				</view>
 				<!-- 礼品 按钮 -->
-				<view class="order-purchase-li-btm flex-between">
+				<view class="order-purchase-li-btm flex-between" v-if="status != 0">
 					<view class="order-purchase-li-btm-number" v-if="item.type=='1'">{{item.goodsnum_all}}件礼物/直接/共{{item.all_details_num}}份</view>
 					<view class="order-purchase-li-btm-number" v-else-if="item.type=='2'">{{item.goodsnum_all}}件礼物/批量/共{{item.all_details_num}}份</view>
 					<view class="order-purchase-li-btm-number" v-else-if="item.type=='3'">{{item.goodsnum_all}}件礼物/定时/共{{item.all_details_num}}份</view>
@@ -77,10 +78,10 @@
 
 					<!-- 待赠送 -->
 					<!-- <view class=" flex-between"  v-if="item.status=='1'"> -->
-					<view class="flex-between" v-if="status == 0">
+					<!-- <view class="flex-between" v-if="status == 0">
 						<view class="order-purchase-btm-li" :data-keynum="item.keynum" :data-index="index" @click="spec">选择规格</view>
 
-					</view>
+					</view> -->
 
 					<view class=" flex-between" v-if="status == 1">
 						<view class="order-purchase-btm-li" :data-keynum="item.keynum" :data-index="index" @click="spec">查看物流</view>
@@ -146,9 +147,11 @@
 			</view>
 		</view>
 		
-
-		<button class="balance-button" @click="generate">生成订单</button>
 		<view style="height:176rpx;width: 100%;"></view>
+		
+		<view class="new-balance-button-view">
+			<button class="new-balance-button" @click="generate">生成订单</button>
+		</view>
 	</view>
 </template>
 
@@ -583,46 +586,39 @@
 			// 生成订单
 			generate: function(e) {
 				let that = this;
-				let item = this.item;;
-				// 判断是否选择规格
-				if (item.length == 1) {
+				// let item = this.item;;
+				// // 判断是否选择规格
+				// if (item.length == 1) {
+				// 	if (item[0] == null || item[0] === undefined) {
+				// 		console.log('无')
+				// 		var num = 1;
+				// 	} else {
+				// 		console.log('有')
+				// 	}
+				// } else {
+				// 	console.log('这边??')
+				// 	console.log(item.length)
+				// 	for (let i = 0; i < item.length; i++) {
+				// 		console.log(i)
+				// 		console.log(item[i])
 
-					if (item[0] == null || item[0] === undefined) {
-						console.log('无')
-						var num = 1;
-					} else {
-						console.log('有')
-					}
+				// 		if (item[i] == undefined || item[i] == null) {
+				// 			console.log('无')
+				// 			var num = 1;
+				// 		} else {
+				// 			console.log('有')
+				// 		}
+				// 	}
+				// }
 
-				} else {
-					console.log('这边??')
-					console.log(item.length)
-
-					for (let i = 0; i < item.length; i++) {
-						console.log(i)
-						console.log(item[i])
-
-						if (item[i] == undefined || item[i] == null) {
-							console.log('无')
-							var num = 1;
-						} else {
-							console.log('有')
-						}
-
-
-
-					}
-
-				}
-
-				if (num == 1) {
-					console.log('存在未选择规格')
-					uni.showToast({
-						title: '请选择规格',
-						icon: 'none'
-					})
-				} else {
-					console.log('nice.没问题')
+				// if (num == 1) {
+				// 	console.log('存在未选择规格')
+				// 	uni.showToast({
+				// 		title: '请选择规格',
+				// 		icon: 'none'
+				// 	})
+				// } else {
+				// 	console.log('nice.没问题')
 
 
 
@@ -631,32 +627,27 @@
 					// goods_spec		    
 					// 商品规格json串 {goodsid:{model:”model1”,spec:”spec1”,item:”item1”},goodsid:{model:”model1”,spec:”spec1”,item:”item1”}}
 
-					let details = ''
-
-					let goods_spec = this.goods_spec;
-
-
-					if (this.length == 1) {
-						details = '{' + this.goods_spec[0] + '}'
-					} else {
-						for (let i in goods_spec) {
-
-							if (i == 0) {
-								details += '{' + goods_spec[i] + ','
-							} else if (i == this.length - 1) {
-								details += goods_spec[i] + '}'
-							} else {
-								details += goods_spec[i] + ','
-							}
-						}
-
-					}
+					// let details = ''
+					// let goods_spec = this.goods_spec;
+					// if (this.length == 1) {
+					// 	details = '{' + this.goods_spec[0] + '}'
+					// } else {
+					// 	for (let i in goods_spec) {
+					// 		if (i == 0) {
+					// 			details += '{' + goods_spec[i] + ','
+					// 		} else if (i == this.length - 1) {
+					// 			details += goods_spec[i] + '}'
+					// 		} else {
+					// 			details += goods_spec[i] + ','
+					// 		}
+					// 	}
+					// }
 
 
 					let navv = that.navv
 					var data = '{"memberid":"' + this.id + '","member_area_id":"' + this.member_area_id + '","cardbag_number":"' +
-						this.cardbag_number + '","cardbag_detail_id":"' + this.cardbag_detail_id + '","delivery_type":"' + this.delivery_type +
-						'","goods_spec":' + details.replace('#', '替换u35') + '}';
+						this.cardbag_number + '","cardbag_detail_id":"' + this.cardbag_detail_id + '","delivery_type":"' + this.delivery_type + '}';
+						// '","goods_spec":' + details.replace('#', '替换u35') + '}';
 					var action = 'create_order';
 					console.log(data)
 					this.$utils.post(action, data).then(res => {
@@ -722,7 +713,7 @@
 							})
 						}
 					})
-				}
+				// }
 			},
 			// 调用微信收货地址
 			chooseadd: function(e) {
@@ -987,7 +978,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 		background-color: white;
 		width: 70%;
@@ -995,5 +986,35 @@
 	
 	.order-purchase-li-btm {
 		height: auto!important;
+	}
+	
+	.new-order-purchase-right {
+	    position: absolute;
+	    right: 26rpx;
+	    bottom: -45rpx;
+	}
+	
+	.new-balance-button-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0rpx 30rpx;
+		position: fixed;
+	    bottom: 0;
+		width: 100%;
+		height: 88rpx;
+	}
+	
+	.new-balance-button {
+	    width: 100%;
+	    height: 88rpx;
+	    line-height: 88rpx;
+	    font-size: 32rpx;
+	    color: #FFF;
+	    background-color: #FF0137;
+	    text-align: center;
+	    /* position: fixed;
+	    bottom: 0; */
+	    border-radius: 40rpx;
 	}
 </style>

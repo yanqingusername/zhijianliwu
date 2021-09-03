@@ -7,7 +7,7 @@
 		</view>
 		<view class="z-box">
 			<view class="jie">
-				<view class="gift1" v-if="com==1" v-for="item in gift" :key="item.id">
+				<view class="gift1" v-if="com==1" v-for="(item, index) in gift" :key="index">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
 					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 					<view class="gift-xq1">
@@ -15,7 +15,7 @@
 					</view>
 				</view>
 				
-				<view class="gift2" v-else="com==2" v-for="item in gift" :key="item.id">
+				<view class="gift2" v-if="com==2" v-for="(item, index) in gift" :key="index">
 					<view class='gift2-list'>
 						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 						<view class="gift-xq2">
@@ -43,6 +43,7 @@
 
 
 		</view>
+		<view style="height: 30rpx;"></view>
 	</view>
 
 </template>
@@ -75,19 +76,19 @@
 				this.cardbag_theme = res.cardbag_theme
 				this.cardbag = res.cardbag
 				if (res.goods_list.length == 1) {
+					this.com = 1
 					this.gift = res.goods_list
 					this.cardbag_number = res.cardbag.cardbag_number
 					uni.setStorageSync("cardbag_number", res.cardbag.cardbag_number)
-					this.com = 1
 				} else {
 					if (res.cardbag.type == 1) {
+						this.com = 2
 						this.gift = res.type1_goodslist[0]
 						this.length = res.type1_goodslist.length
-						this.com = 2
 					} else {
+						this.com = 2
 						this.gift = res.goods_list
 						this.length = res.goods_list.length
-						this.com = 2
 					}
 
 				}
@@ -301,6 +302,10 @@
 		width: 100%;
 		margin-top: 25rpx;
 		text-align: center;
+		flex-direction: column;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
 	}
 	
 	.jiequ {
@@ -349,6 +354,15 @@
 	.gift2-list .gift-xq2{
 		font-size: 28rpx;
 		color: #666;
+	}
+	.gift-xq-title{
+		font-weight: bold;
+		font-size: 14px;
+	}
+	.gift-xq-num{
+		color: #666666;
+		font-size: 14px;
+		margin-top: 30rpx;
 	}
 	
 </style>

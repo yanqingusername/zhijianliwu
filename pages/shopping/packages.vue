@@ -149,7 +149,6 @@
 			this.wanfa=e.wanfa
 			
 			// 余额s
-			this.balance = uni.getStorageSync('balance');
 			this.use_balance = 0;
 			this.use_zj_balance = 1;
 			this.openid = uni.getStorageSync('openid');
@@ -282,7 +281,7 @@
 					}
 					//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
 					this.price_zhe=res.rs.price_zhe-money1
-
+					this.balance = res.rs.balance;
 					
 			
 				})					

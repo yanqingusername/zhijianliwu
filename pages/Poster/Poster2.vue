@@ -48,7 +48,7 @@
 			}
 		},
 		onLoad: function(e) {
-			this.url = config.URL;
+			this.url = '';
 			uni.showLoading({
 				title: '生成中',
 				mask: true
@@ -72,6 +72,7 @@
 			var action = 'get_webconfig_songli';
 			this.$utils.post(action, data).then(res => {
 				console.log('送礼页面配置',res)
+				uni.hideLoading();
 				this.background = res.rs.share_img;
 				this.msg();
 			})

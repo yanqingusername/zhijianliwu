@@ -94,7 +94,7 @@
 					
 					<view class="my-comtent-bottom-li"@click="$buttonClick(card)">
 						<view class="my-comtent-bottom-img"><image  class="img" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/icon_recharge.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">我的卡号</view>
+						<view class="my-comtent-bottom-text">兑换订单</view>
 					</view>		
 				</view>
 			</view>	
@@ -102,7 +102,7 @@
 				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
 					<view class="my-comtent-bottom-li" @click="$buttonClick(exchange)">
 						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-duihuan.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">兑换中心</view>
+						<view class="my-comtent-bottom-text">充值卡</view>
 					</view>
 					
 					<view class="my-comtent-bottom-li"@click="$buttonClick(opening)">

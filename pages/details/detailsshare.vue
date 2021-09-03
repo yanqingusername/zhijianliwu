@@ -1,8 +1,7 @@
 <template>
 	<view class="share-bag-view">
 		<view class="share-bag">
-				<r-canvas v-if="com==1" ref="rCanvas"></r-canvas>
-				<r-canvas v-else="com==2" ref="rCanvas"></r-canvas>
+				<r-canvas ref="rCanvas"></r-canvas>
 				<image :src="$utils.imageUrl(posterUrl)" mode="" class="poster"></image>
 		</view>
 		<view class="share-view" @click="down">保存图片</view>
@@ -25,7 +24,7 @@
 				goodsname: '',
 				posterUrl: '',
 				url: '',
-				bgUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/gift_hb.png',
+				bgUrl:'https://zhijianlw.com/static/web/img/gift_hb_09_01.png',
 				flowUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png'
 			}
 		},
@@ -47,7 +46,7 @@
 				});
 				this.$utils.post(action, data1).then(res => {
 					console.log(res)
-					this.QRcodeUrl = this.url + res.dir;
+					this.QRcodeUrl = res.dir;
 					console.log('QRcodeUrl:', this.QRcodeUrl);
 				}).then(
 					res => {
