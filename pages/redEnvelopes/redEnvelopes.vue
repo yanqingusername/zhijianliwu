@@ -49,7 +49,7 @@
 								<view>{{item1.member_name}}</view>
 								<view class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,11)}}</view>
 							</view>
-							<view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{'2021/09/01 09:20:10'}}</view>
+							<!-- <view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{'2021/09/01 09:20:10'}}</view> -->
 						</view>
 					</view>
 					
