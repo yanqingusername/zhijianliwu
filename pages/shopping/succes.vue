@@ -69,7 +69,12 @@
 			uni.setStorageSync('setwishessuccess', '2');
 			
 			let cardbag_number = e.cardbag_number;
-			let data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
+			let merberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				cardbag_number: cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: merberid
+			})
 			var action = 'get_cardbag_detail';
 			this.$utils.post(action, data).then(res => {
 
@@ -107,10 +112,12 @@
 				})
 			},
 			hidden:function(e){
+				let merberid = uni.getStorageSync('id')
 				var action = 'get_cardbag_detail';
 				var data = JSON.stringify({
 					cardbag_number: this.cardbag.cardbag_number,
-					cardbag_detail_id: 0
+					cardbag_detail_id: 0,
+					merberid: merberid
 				})
 				this.$utils.post(action, data).then(res => {
 					console.log('商品信息', res)
@@ -121,9 +128,12 @@
 				let cardbag_number = uni.getStorageSync("cardbag_number")
 				this.cardbag_number = cardbag_number
 				var action = 'get_cardbag_detail';
+
+				let merberid = uni.getStorageSync('id')
 				var data = JSON.stringify({
 					cardbag_number: this.cardbag.cardbag_number,
-					cardbag_detail_id: 0
+					cardbag_detail_id: 0,
+					merberid: merberid
 				})
 				this.$utils.post(action, data).then(res => {
 					console.log('商品信息', res)
@@ -149,10 +159,13 @@
 				console.log("cardbag_number")
 				console.log(this.cardbag_number)
 				var action = 'get_cardbag_detail';
+				let merberid = uni.getStorageSync('id')
 				var data = JSON.stringify({
 					cardbag_number: this.cardbag_number,
-					cardbag_detail_id: 0
+					cardbag_detail_id: 0,
+					merberid: merberid
 				})
+				
 				this.$utils.post(action, data).then(res => {
 					console.log('商品信息', res)
 					// this.gift=res.rs.goodslist

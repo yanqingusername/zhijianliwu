@@ -35,14 +35,23 @@
 				flowUrl:'https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png',
 				goodsname1:'',
 				imageUrl1: '',
-				goodsnum1: ''
+				goodsnum1: '',
+				nickname: ''
 			}
 		},
 		onLoad(e) {
+			
+			this.nickname = uni.getStorageSync('name')
+			
 			this.url = config.URL;
 			let cardbag_number = e.cardbag_number
 			var action = 'get_cardbag_detail';
-			let data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
+			let merberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				cardbag_number: cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: merberid
+			})
 			this.$utils.post(action, data).then(res => {
 				console.log('礼包', res)
 				if (res.goods_list.length == 1) {
@@ -160,10 +169,9 @@
 								
 								// 画名字
 								await this.$refs.rCanvas.drawText({
-									text: this.$utils.sub_str(this.goodsname,6),
-									x: 160,
+									text: this.$utils.sub_str(this.goodsname,9),
+									x: 130,
 									y: 280,
-									max_width: 100,
 									font_color: "#333333",
 									font_size: 14
 								}).catch(err_msg => {
@@ -307,7 +315,7 @@
 							
 							// 画熊猫为你挑选了{{length}}件礼物
 							await this.$refs.rCanvas.drawText({
-								text: "熊猫为你挑选了"+this.length+"件礼物",
+								text: this.nickname + "为你挑选了"+this.length+"件礼物",
 								x: 110,
 								y: 340,
 								font_color: "#FADEA5",

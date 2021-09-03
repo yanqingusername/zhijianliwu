@@ -60,8 +60,12 @@
 			  // uni.navigateTo({
 			  // 	url:'../redEnvelopes/redEnvelopes?cardbag_number=' + e.cardbag_number +'&name=' + sign.name + '&head_img=' + sign.head_img
 			  // })
-
-			 let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"0"}';
+				let merberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					cardbag_number: this.cardbag_number,
+					cardbag_detail_id: "0",
+					merberid: merberid
+				})
 			 let action = 'get_cardbag_detail';
 			 this.$utils.post(action,data).then(res=>{
 			 	console.log('订单详情',res)

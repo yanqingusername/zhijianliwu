@@ -16,23 +16,24 @@
 					<text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}} x{{item.goodsnum}}</text>
 				</view>
 			</view>
-			<view class="many" v-if="com==2">
-				<view class="gift2" v-for="item in goodslist" :key="item.id">
-					<view class='gift2-list' >
-						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
-						<view class="gift-xq2">
-							<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,9)}}</view>
-							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
+			<scroll-view scroll-y="true" class="scroll-x" v-if="com==2">
+				<view class="many">
+					<view class="gift2" v-for="item in goodslist" :key="item.id">
+						<view class='gift2-list' >
+							<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+							<view class="gift-xq2">
+								<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,9)}}</view>
+								<view class="gift-xq-num">共{{item.goodsnum}}件</view>
+							</view>
 						</view>
 					</view>
+					<!-- <view class="bag-tea1" v-for="item in goodslist" :key="item.id">
+						<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
+						<text class="bag-tea-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
+						<text class="bag-tea-fen">x{{item.goodsnum}}</text>
+					</view> -->
 				</view>
-				<!-- <view class="bag-tea1" v-for="item in goodslist" :key="item.id">
-					<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-					<text class="bag-tea-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
-					<text class="bag-tea-fen">x{{item.goodsnum}}</text>
-				</view> -->
-			</view>
-
+			</scroll-view>
 
 			<view class="bag-gift">
 				<view class="bag-gift-title">
@@ -49,7 +50,7 @@
 								<view>{{item1.member_name}}</view>
 								<view class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,11)}}</view>
 							</view>
-							<!-- <view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{'2021/09/01 09:20:10'}}</view> -->
+							<view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{item1.exchange_time}}</view>
 						</view>
 					</view>
 					
@@ -76,7 +77,7 @@
 					<!-- <text class="bag-red-con">{{cardbag_theme.send_talk_msg}}</text></text> -->
 				</view>
 			</view>
-			<view class="bag-red" style="width: 480rpx;" v-if="gift==='1'">
+			<view class="bag-red" v-if="gift==='1'">
 				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_recording_z_2021_08_30.png" mode="">
 				</image>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
@@ -91,6 +92,10 @@
 
 				<image class="sound-on" @click="audioPlay" :class="radio?'sound-on':'sound-on-rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')"
 					mode=""></image>
+					
+				<view class="wishes-line">
+					<text class="wishes-line-font">{{cardbag.present_memberid_name}}送了您一份礼物赶紧领取吧</text>
+				</view>
 					
 				<view class="slider" @click="audioPlay">
 					<!-- <movable-area class="progress" :style="'width:'+w+'px'">
@@ -116,6 +121,9 @@
 				</view>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
+				<view class="wishes-line">
+					<text class="wishes-line-font">{{cardbag.present_memberid_name}}送了您一份礼物赶紧领取吧</text>
+				</view>
 			</view>
 		</view>
 		<view style="height: 30rpx;width: 100%;"></view>
@@ -188,9 +196,13 @@
 
 			//获取旧的礼包信息，主要是获取领取人信息
 			let old_cardbag_number = e.old_cardbag_number
-			var data = '{"cardbag_number":"' + old_cardbag_number + '","cardbag_detail_id":"0"}';
-			var action = "get_cardbag_detail";
-			this.$utils.post(action, data).then(res => {
+			let data1 = JSON.stringify({
+				cardbag_number: old_cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: memberid
+			})
+			var action1 = "get_cardbag_detail";
+			this.$utils.post(action1, data1).then(res => {
 				if(res.sta == 1){
 					console.log('礼包信息')
 					console.log(res)
@@ -210,9 +222,13 @@
 				}
 			})
 			
-            var data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
-            var action = "get_cardbag_detail";
-            this.$utils.post(action, data).then(res => {
+			let data2 = JSON.stringify({
+				cardbag_number: cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: memberid
+			})
+            var action2 = "get_cardbag_detail";
+            this.$utils.post(action2, data2).then(res => {
             	console.log('礼包信息')
             	console.log(res)
             	this.cardbag_in_people = res.cardbag_in_people
@@ -564,8 +580,8 @@
 	}
 
 	.bag-red {
-		width: 70%;
-		height: 700rpx;
+		width: 612rpx;
+		height: 1025rpx;
 		position: relative;
 		margin-top: 50rpx;
 		/* background-color: #00BFFF; */
@@ -576,7 +592,7 @@
 
 	.bag-red-img {
 		width: 100%;
-		height: 700rpx;
+		height: 1025rpx;
 	}
 
 	.bag-red-head {
@@ -584,13 +600,13 @@
 		height: 100rpx;
 		border-radius: 50%;
 		position: absolute;
-		top: 30rpx;
-		left: 30rpx;
+		top: 40rpx;
+		left: 40rpx;
 	}
 
 	.bag-red-title {
 		position: absolute;
-		top: 60rpx;
+		top: 70rpx;
 		left: 150rpx;
 		color: #D3A97A;
 	}
@@ -612,12 +628,12 @@
 	}
 
 	.zhufu {
-		width: 425rpx;
+		width: 468rpx;
 		height: 150rpx;
-		line-height: 35rpx;
-		position: absolute;
-		top: 145rpx;
-		left: 30rpx;
+	    line-height: 35rpx;
+	    position: absolute;
+	    top: 200rpx;
+	    left: 72rpx;
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
@@ -673,34 +689,35 @@
 	}
 
 	.sound-cd {
-		width: 180rpx;
-		height: 180rpx;
-		position: absolute;
-		top: 160rpx;
-		left: 140rpx;
+		width: 390rpx;
+		    height: 390rpx;
+		    position: absolute;
+		    top: 178rpx;
+		    left: 120rpx;
 	}
 
 	.sound-san {
-		width: 80rpx;
-		height: 80rpx;
-		position: absolute;
-		top: 212rpx;
-		left: 190rpx;
+		width: 94rpx;
+		    height: 94rpx;
+		    position: absolute;
+		    top: 367rpx;
+		    left: 269rpx;
 	}
 
 	.sound-on {
-	    width: 100rpx;
-	    height: 60rpx;
-	    position: absolute;
-	    top: 100rpx;
-	    left: 240rpx;
+	    width: 196rpx;
+	        height: 90rpx;
+	        position: absolute;
+	        top: 100rpx;
+	        right: 110rpx;
+	    
 	}
 
 	.slider {
-		width: 400rpx;
-		position: absolute;
-		top: 400rpx;
-		left: 30rpx;
+		width: 570rpx;
+		    position: absolute;
+		    top: 580rpx;
+		    left: 30rpx;
 	}
 
 	.progress-one {
@@ -713,10 +730,10 @@
 	}
 
 	.template-btm-information-video {
-		width: 400rpx;
-		position: absolute;
-		top: 100rpx;
-		left: 6rpx;
+		width: 590rpx;
+		    position: absolute;
+		    top: 150rpx;
+		    left: 10rpx;
 	}
 	.b{
 		width: 410rpx;
@@ -724,16 +741,17 @@
 		margin-top: -26rpx;
 	}
 	.template-btm-information-video video{
-		width: 456rpx;
+		width: 590rpx;
+		height: 400rpx;
 	}
 	.sound-on-rotate{
 		transform: rotate(-45deg);
 		animation: 2s;
-	    width: 100rpx;
-	    height: 60rpx;
-	    position: absolute;
-	    top: 142rpx;
-	    left: 240rpx;
+		width: 196rpx;
+		    height: 90rpx;
+		    position: absolute;
+		    top: 142rpx;
+		    right: 110rpx;
 	}
 	
 	
@@ -741,9 +759,9 @@
 		padding: 0 70rpx;
 		    width: 100%;
 			height: 170rpx;
+			margin-bottom: 20rpx;
 	}
 	.gift2-list{
-		margin-bottom: 20rpx;
 		border: 1rpx solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 30rpx;
@@ -776,5 +794,25 @@
 	font-size: 14px;
 	margin-top: 30rpx;
 }
+
+.wishes-line {
+		line-height: 54rpx;
+		background-color: #000;
+		position: absolute;
+		bottom: 311rpx;
+		left: 4px;
+		opacity: 0.7;
+		padding: 0 20rpx;
+		border-radius: 0 26rpx 26rpx 0;
+	}
+	
+	.wishes-line-font {
+		color: #BD9365;
+		font-size: 24rpx;
+	}
+	
+	.scroll-x{
+	  height: 370rpx;
+	}
 	
 </style>

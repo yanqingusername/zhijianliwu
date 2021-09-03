@@ -115,6 +115,11 @@
 					  console.log(res.rs)
 					  this.balance = res.rs;
 					  this.id = res.rs[0].id;
+					  if(res.rs.length > 0){
+						  this.payMoney = parseInt(res.rs[0].recharge_money) - parseInt(res.rs[0].give_money)
+					  } else {
+						  this.payMoney = 0
+					  }
 				  })
 			  },
 			  // 支付

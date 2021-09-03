@@ -160,7 +160,11 @@
 			}
 
 
-			let data = '{"cardbag_number":"' + this.cardbag_number + '","cardbag_detail_id":"0"}';
+			let data = JSON.stringify({
+				cardbag_number: this.cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: merberid
+			})
 			var action = 'get_cardbag_detail';
 			this.$utils.post(action, data).then(res => {
 				console.log('礼包详情', res)
@@ -227,6 +231,12 @@
 							// })
 						}
 
+					} else if (re.sta == 101) {
+						uni.reLaunch({
+							url: '../redEnvelopes/redEnvelopes?cardbag=' + that.cardbag_number +
+								'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
+								that.cardbag_number,
+						})
 					} else {
 						this.display = '1';
 					}

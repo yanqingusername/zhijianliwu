@@ -108,9 +108,13 @@
 
 			//获取旧的礼包信息，主要是获取领取人信息
 			let old_cardbag_number = e.old_cardbag_number
-			var data = '{"cardbag_number":"' + old_cardbag_number + '","cardbag_detail_id":"0"}';
-			var action = "get_cardbag_detail";
-			this.$utils.post(action, data).then(res => {
+			let data1 = JSON.stringify({
+				cardbag_number: old_cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: memberid
+			})
+			var action1 = "get_cardbag_detail";
+			this.$utils.post(action1, data1).then(res => {
 				console.log('礼包信息')
 				console.log(res)
 				this.cardbag_in_people = res.cardbag_in_people
@@ -127,9 +131,13 @@
 				}
 			})
 			
-            var data = '{"cardbag_number":"' + cardbag_number + '","cardbag_detail_id":"0"}';
-            var action = "get_cardbag_detail";
-            this.$utils.post(action, data).then(res => {
+			let data2 = JSON.stringify({
+				cardbag_number: cardbag_number,
+				cardbag_detail_id: "0",
+				merberid: memberid
+			})
+            var action2 = "get_cardbag_detail";
+            this.$utils.post(action2, data2).then(res => {
             	console.log('礼包信息')
             	console.log(res)
             	this.cardbag_in_people = res.cardbag_in_people

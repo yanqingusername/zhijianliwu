@@ -135,8 +135,8 @@ button[type=default] {
 		font-size: 30rpx;
 }
 .bag-red {
-		width: 70%;
-		height: 700rpx;
+		width: 612rpx;
+		height: 1025rpx;
 		position: relative;
 		margin-top: 50rpx;
 		/* background-color: #00BFFF; */
@@ -146,19 +146,19 @@ button[type=default] {
 }
 .bag-red-img {
 		width: 100%;
-		height: 700rpx;
+		height: 1025rpx;
 }
 .bag-red-head {
 		width: 100rpx;
 		height: 100rpx;
 		border-radius: 50%;
 		position: absolute;
-		top: 30rpx;
-		left: 30rpx;
+		top: 40rpx;
+		left: 40rpx;
 }
 .bag-red-title {
 		position: absolute;
-		top: 60rpx;
+		top: 70rpx;
 		left: 150rpx;
 		color: #D3A97A;
 }
@@ -176,12 +176,12 @@ button[type=default] {
 		left: 70rpx;
 }
 .zhufu {
-		width: 425rpx;
+		width: 468rpx;
 		height: 150rpx;
-		line-height: 35rpx;
-		position: absolute;
-		top: 145rpx;
-		left: 30rpx;
+	    line-height: 35rpx;
+	    position: absolute;
+	    top: 200rpx;
+	    left: 72rpx;
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -251,31 +251,31 @@ button[type=default] {
 		top: -9px;
 }
 .sound-cd {
-		width: 180rpx;
-		height: 180rpx;
-		position: absolute;
-		top: 160rpx;
-		left: 140rpx;
+		width: 390rpx;
+		    height: 390rpx;
+		    position: absolute;
+		    top: 178rpx;
+		    left: 120rpx;
 }
 .sound-san {
-		width: 80rpx;
-		height: 80rpx;
-		position: absolute;
-		top: 212rpx;
-		left: 190rpx;
+		width: 94rpx;
+		    height: 94rpx;
+		    position: absolute;
+		    top: 367rpx;
+		    left: 269rpx;
 }
 .sound-on {
-	    width: 100rpx;
-	    height: 60rpx;
-	    position: absolute;
-	    top: 100rpx;
-	    left: 240rpx;
+	    width: 196rpx;
+	        height: 90rpx;
+	        position: absolute;
+	        top: 100rpx;
+	        right: 110rpx;
 }
 .slider {
-		width: 400rpx;
-		position: absolute;
-		top: 400rpx;
-		left: 30rpx;
+		width: 570rpx;
+		    position: absolute;
+		    top: 580rpx;
+		    left: 30rpx;
 }
 .progress-one {
 		width: 35rpx;
@@ -286,10 +286,10 @@ button[type=default] {
 		top: 130rpx;
 }
 .template-btm-information-video {
-		width: 400rpx;
-		position: absolute;
-		top: 100rpx;
-		left: 6rpx;
+		width: 590rpx;
+		    position: absolute;
+		    top: 150rpx;
+		    left: 10rpx;
 }
 .b{
 		width: 410rpx;
@@ -297,26 +297,27 @@ button[type=default] {
 		margin-top: -26rpx;
 }
 .template-btm-information-video video{
-		width: 456rpx;
+		width: 590rpx;
+		height: 400rpx;
 }
 .sound-on-rotate{
 		-webkit-transform: rotate(-45deg);
 		        transform: rotate(-45deg);
 		-webkit-animation: 2s;
 		        animation: 2s;
-	    width: 100rpx;
-	    height: 60rpx;
-	    position: absolute;
-	    top: 142rpx;
-	    left: 240rpx;
+		width: 196rpx;
+		    height: 90rpx;
+		    position: absolute;
+		    top: 142rpx;
+		    right: 110rpx;
 }
 .gift2{
 		padding: 0 70rpx;
 		    width: 100%;
 			height: 170rpx;
+			margin-bottom: 20rpx;
 }
 .gift2-list{
-		margin-bottom: 20rpx;
 		border: 1rpx solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 30rpx;
@@ -354,6 +355,23 @@ button[type=default] {
 	color: #666666;
 	font-size: 14px;
 	margin-top: 30rpx;
+}
+.wishes-line {
+		line-height: 54rpx;
+		background-color: #000;
+		position: absolute;
+		bottom: 311rpx;
+		left: 4px;
+		opacity: 0.7;
+		padding: 0 20rpx;
+		border-radius: 0 26rpx 26rpx 0;
+}
+.wishes-line-font {
+		color: #BD9365;
+		font-size: 24rpx;
+}
+.scroll-x{
+	  height: 370rpx;
 }
 	
 

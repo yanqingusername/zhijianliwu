@@ -327,9 +327,7 @@
 					return 
 					}
 					//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
-					this.price_zhe=res.rs.price_zhe-money1
-
-					console.log('---->:',res.rs.price_zhe,money1)
+					this.price_zhe=parseFloat(res.rs.price_zhe)-money1
 			
 				})					
 				

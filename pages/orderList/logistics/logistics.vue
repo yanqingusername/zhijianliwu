@@ -134,7 +134,12 @@
 			},
 			// 物流信息
 			logistics:function(e){
-				let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"'+this.cardbag_detail_id+'"}';
+				let merberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					cardbag_number: this.cardbag_number,
+					cardbag_detail_id: this.cardbag_detail_id,
+					merberid: merberid
+				})
 				console.log(data)
 				let action = 'get_cardbag_detail';
 							

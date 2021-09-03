@@ -440,8 +440,12 @@
  			this.level_name = uni.getStorageSync('level_name')  
  			let cardbag_number = e.cardbag_number;
  			this.cardbag_number = e.cardbag_number
- 
- 			let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"0"}';
+
+			let data = JSON.stringify({
+				cardbag_number: this.cardbag_number,
+				cardbag_detail_id: '0',
+				merberid: memberid
+			})
  			console.log(data)
  			let action = 'get_cardbag_detail';
  						
@@ -524,7 +528,11 @@
  						  
  						  
  						  
- 						 let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"'+ress.rs[0].id+'"}';
+						let data = JSON.stringify({
+							cardbag_number: this.cardbag_number,
+							cardbag_detail_id: ress.rs[0].id,
+							merberid: memberid
+						})
  						 console.log(data)
  						 let action = 'get_cardbag_detail';
  						 this.$utils.post(action,data).then(re=>{
@@ -642,7 +650,12 @@
  					console.log('刷新')
  					
  					
- 					let data = '{"cardbag_number":"'+cardbag_number+'","cardbag_detail_id":"0"}';
+					 let merberid = uni.getStorageSync('id')
+					 let data = JSON.stringify({
+							cardbag_number: cardbag_number,
+							cardbag_detail_id: "0",
+							merberid: merberid
+						})
  					let action = 'get_cardbag_detail';
  								
  					this.$utils.post(action,data).then(res=>{
@@ -695,7 +708,12 @@
  							console.log('礼包子份数',ress.rs)
  							
  			            if(ress.rs.length>0){
- 							let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"'+ress.rs[this.navv].id+'"}';
+							let merberid = uni.getStorageSync('id')
+							let data = JSON.stringify({
+									cardbag_number: this.cardbag_number,
+									cardbag_detail_id: ress.rs[this.navv].id,
+									merberid: merberid
+							})
  							console.log(data)
  							let action = 'get_cardbag_detail';
  							this.$utils.post(action,data).then(re=>{
@@ -787,8 +805,13 @@
  				this.cardbag_detail_id = e.currentTarget.dataset.id;
  				
  				this.clear()
- 				let data = '{"cardbag_number":"'+this.cardbag_number+'","cardbag_detail_id":"'+e.currentTarget.dataset.id+'"}';
- 				console.log(data)
+ 				let merberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					cardbag_number: this.cardbag_number,
+					cardbag_detail_id: e.currentTarget.dataset.id,
+					merberid: merberid
+				})
+				console.log(data)
  				let action = 'get_cardbag_detail';
  				this.$utils.post(action,data).then(re=>{
  					console.log('子礼包详情',re)
