@@ -38,7 +38,7 @@
 				<view class="order-purchase-li-top flex flex-vertically" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="orderdetails">
 					<!-- 商品图 -->
 					<view class="order-purchase-top-img">
-						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+						<image class="order-purchase-top-img-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
 					</view>
 					<!-- 介绍 -->
 					<view class="order-purchase-top-introduce">
@@ -646,7 +646,7 @@
 
 					let navv = that.navv
 					var data = '{"memberid":"' + this.id + '","member_area_id":"' + this.member_area_id + '","cardbag_number":"' +
-						this.cardbag_number + '","cardbag_detail_id":"' + this.cardbag_detail_id + '","delivery_type":"' + this.delivery_type + '}';
+						this.cardbag_number + '","cardbag_detail_id":"' + this.cardbag_detail_id + '","delivery_type":"' + this.delivery_type + '"}';
 						// '","goods_spec":' + details.replace('#', '替换u35') + '}';
 					var action = 'create_order';
 					console.log(data)
@@ -962,8 +962,13 @@
 		width: auto;
 	}
 	.order-purchase-top-img{
+		width: 140rpx;
 		margin-left: 26rpx;
 		height: auto;
+	}
+	.order-purchase-top-img-img{
+		width: 140rpx;
+		height: 140rpx;
 	}
 	.order-purchase-top-introduce{
 		flex: 1;

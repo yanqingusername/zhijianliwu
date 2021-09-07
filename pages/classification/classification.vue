@@ -226,8 +226,7 @@
 	    width: 180rpx;
 	    height: 120rpx;
 	    text-align: center;
-		font-size: 34rpx;
-		font-weight: bold;
+		font-size: 30rpx;
 		color: #333333;
 		display: flex;
 		align-items: center;
@@ -237,7 +236,7 @@
 	    width: 180rpx;
 	    height: 120rpx;
 	    text-align: center;
-		font-size: 34rpx;
+		font-size: 30rpx;
 		font-weight: bold;
 		color: #333333;
 		background: #FFFFFF;

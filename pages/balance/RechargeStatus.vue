@@ -7,34 +7,39 @@
 				<view class="personal-header-title">充值</view>
 			</view>
 			<view class="recharge-status-top">
-				<image class="recharge-status-img" src="../../static/recharge_success.png"></image>
-				<view class="recharge-status-text">充值成功</view>
+				<image v-if="isSuccess" class="recharge-status-img" src="../../static/recharge_success.png"></image>
+				<view v-if="isSuccess" class="recharge-status-text">充值成功</view>
+				<image v-if="!isSuccess" class="recharge-status-img" src="../../static/recharge_failed.png"></image>
+				<view v-if="!isSuccess" class="recharge-status-text">充值失败</view>
 			</view>
 		</view>
 		
-		<view class="recharge-flex">
-			<!-- <view class="recharge-center">
-				<view class="recharge-view">
-					<view class="recharge-money">¥100.00</view>
-					<view class="recharge-text">充值金额</view>
-					<view class="recharge-text" style="margin-top: 10rpx;">实付金额：¥95.00</view>
-				</view>
-				<view class="recharge-orderinfo">
-					<view class="recharge-orderinfo-time">充值时间：2021/04/25 14:29:42</view>
-					<view class="recharge-orderinfo-time" style="margin-top: 14rpx;">订 单 号 ：23344414456</view>
-				</view>
-				<view class="recharge-bottom-view">
-					<view class="recharge-bottom">查询余额</view>
-				</view>
-				<view class="recharge-bottom-text">如需开具发票请您联系在线客服处理</view>
-			</view> -->
-			
+		<view class="recharge-flex" v-if="!isSuccess">
 			<view class="recharge-failed">
 				<view class="recharge-failed-text">原因：订单支付异常</view>
-				<view class="recharge-bottom-view" style="margin-top: 60rpx;">
+				<view class="recharge-bottom-view" style="margin-top: 60rpx;" @click="$buttonClick(balanceRecharge)">
 					<view class="recharge-bottom">再次充值</view>
 				</view>
 			</view>
+		</view>
+		
+		<view class="recharge-flex" v-if="isSuccess">
+			<view class="recharge-center">
+				<view class="recharge-view">
+					<view class="recharge-money">¥{{orderInfo.recharge_price}}</view>
+					<view class="recharge-text">充值金额</view>
+					<view class="recharge-text" style="margin-top: 10rpx;">实付金额：¥{{orderInfo.pay_price}}</view>
+				</view>
+				<view class="recharge-orderinfo">
+					<view class="recharge-orderinfo-time">充值时间：{{orderInfo.recharge_time}}</view>
+					<view class="recharge-orderinfo-time" style="margin-top: 14rpx;">订 单 号 ：{{orderInfo.recharge_number}}</view>
+				</view>
+				<view class="recharge-bottom-view" @click="$buttonClick(balance)">
+					<view class="recharge-bottom">查询余额</view>
+				</view>
+				<view class="recharge-bottom-text" v-if="istype != 1">如需开具发票请您联系在线客服处理</view>
+			</view>
+			
 			
 		</view>
 		
@@ -47,15 +52,41 @@
 			return{
 				value:'',
 				nav:'20',
+				ordernumber: '',
+				istype: '',
+				orderInfo: '',
+				isSuccess: true
 			}
 		},
-		onLoad:function(e){
+		onLoad:function(options){
 			uni.getSystemInfo({
-				
 				success: res=>{
 					 // 导航高度
 					this.nav = res.statusBarHeight 
-					
+				}
+			})
+			this.istype = options.istype;
+			this.ordernumber = options.ordernumber;
+			
+			let mid = uni.getStorageSync('id');
+			let controller = 'order';
+			let action = 'select_recharge_status_info';
+			let data = JSON.stringify({
+				memberid: mid,
+				ordernumber: this.ordernumber
+			});
+			this.$utils.postNew(action, data, controller).then(res => {
+				console.log(res)
+				if (res.sta == 1) {
+					this.isSuccess = true;
+					this.orderInfo = res.rs;
+				} else {
+					this.isSuccess = false;
+					uni.showToast({
+					 	title:res.msg,
+					 	icon:"none",
+					 	mask:'true',
+					});
 				}
 			})
 		},
@@ -65,51 +96,16 @@
 					delta: 1
 				});
 			},
-			button:function(e){
-				
-				var value = this.value;
-				var id = uni.getStorageSync('id');
-				var data = '{"memberid":"'+id+'","exchange_code":"'+value+'"}';
-				var action = 'exchange_code';
-				
-				this.$utils.post(action,data).then(res=>{ 
-					if(res.sta == 1){
-						if(res.type == 0){
-						   uni.showToast({
-						    	title:'余额充值成功',
-						    	icon:"success",
-						    	mask:'true',  
-						    	success: (res) => {
-						    		setTimeout(function(e){
-						    			uni.reLaunch({
-						    				url:'../personal/personal'
-						    			})
-						    		}
-						    		,1500) 
-						    	}
-						   })	
-						}else if(res.type ==1){
-							uni.showToast({
-							 	title:'礼包领取成功',
-							 	icon:"success",
-							 	mask:'true',  
-							 	success: (res) => {
-							 		setTimeout(function(e){
-							 			uni.reLaunch({
-							 				url:'../order/order'
-							 			})
-							 		}
-							 		,1500) 
-							 	}
-							})
-						}   
-					}else{
-						uni.showToast({
-						 	title:res.msg,
-						 	icon:"none",
-						 	mask:'true',
-						})	
-					}
+			// 余额充值
+			balanceRecharge:function(e){
+				uni.redirectTo({
+					url:'../balance/Recharge'
+				})
+			},
+			// 余额
+			balance:function(e){
+				uni.redirectTo({
+					url:'../balance/balance'
 				})
 			}
 		}

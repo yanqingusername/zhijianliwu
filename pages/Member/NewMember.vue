@@ -12,10 +12,12 @@
 			</view>
 		</view>
 		
-		<!-- <swiper :indicator-dots="false" :autoplay="false"  :duration="1000" style="height: 1500rpx;margin-top: -214rpx;" :current ="current"> -->
-			<!-- <swiper-item v-for="(item,index) in list" :key="index"> -->
+		<swiper :indicator-dots="false" :autoplay="false"  :duration="1000" style="height: 1500rpx;margin-top: -214rpx;" :current ="current">
+			<swiper-item v-for="(item,index) in list" :key="index">
 				<!-- 普通会员-->
-				<!-- <view v-if="item.level == 1"> 
+				<view v-if="item.level == 1">
+				  <!-- <view> -->  
+					<!-- 内容 -->  
 					<view class="member-content" >
 					   <image class="member-content-background" src="../../static/putong.jpg" mode=""></image>
 					   <view class="member-content-header flex">
@@ -34,14 +36,20 @@
 						   <view class="member-content-btm-number">NO.{{no}}</view>
 					   </view>
 				   </view>
+				   <!-- 描述-->
 				    <view class="member-btm" style="margin: 56rpx auto 0rpx auto;height:524rpx;">
 				   			   <rich-text class="member-btm-li" :nodes="ordinary.desc"></rich-text> 
+				   			 <!--  <view class="member-btm-h2">普通会员权益</view>
+				   			   <view class="member-btm-li flex" v-for="(item,index) in ordinary" :key="index"><view class="member-btm-number">{{item.left}}</view><view class="member-btm-alt">{{item.right}}</view></view> -->
 				    </view>
+					<!-- 按钮 -->
 				    <view class="member-button" @click="button" :data-level_card_id = "ordinary.id"><button type="button">¥{{ordinary.money}}/元  购买会员权益</button></view>
-				</view> -->
+					
+				</view>
 				
 				<!-- 指间会员 -->
-				 <!-- <view v-else-if="item.level == 2">
+				 <view v-else-if="item.level == 2">
+				 <!-- <view> -->
 					 <view class="member-content" >
 				 			   <image class="member-content-background" src="../../static/zhijian.jpg" mode=""></image>
 				 			   <view class="member-content-header flex">
@@ -60,14 +68,21 @@
 				 				   <view class="member-content-btm-number fingertip-btm-number">NO.{{no}}</view>
 				 			   </view>
 				 </view>
+				 <!-- 描述 -->
 				 <view class="member-btm"  style="margin: 56rpx auto 0rpx auto;height:524rpx;" >
 					 <rich-text class="member-btm-li" :nodes="finger.desc"></rich-text> 
+				 		<!-- <view class="member-btm-h2">指间会员权益</view> -->
+				 		<!-- <view class="member-btm-li flex" v-for="(item,index) in finger" :key="index"><view class="member-btm-number">{{item.left}}</view><view class="member-btm-alt">{{item.right}}</view></view> -->
 				 </view>
+				 <!-- 按钮 -->
+				 <!-- <view class="member-button member-button-type orange"><button type="button">分享{{finger.people}}人获得会员权益</button></view> -->
 				 <view class="member-button member-button-type" @click="button"   v-if="level<2" :data-level_card_id = "finger.id"><button type="button">¥{{finger.money}}/元  购买会员权益</button></view>
-				</view>-->
+				</view>
+				
 				
 				<!-- plus会员 -->
-				 <!-- <view   v-else-if="item.level == 3">
+				 <view   v-else-if="item.level == 3">
+				 <!-- <view> -->
 					 <view class="member-content">
 				 			   <image class="member-content-background" src="../../static/plus.jpg" mode=""></image>
 				 			   <view class="member-content-header flex">
@@ -86,14 +101,18 @@
 				 				   <view class="member-content-btm-number plus-btm-name">NO.{{no}}</view>
 				 			   </view>
 				 </view>
+				 <!-- 描述 -->
 				 <view class="member-btm" style="margin: 56rpx auto 0rpx auto;height:524rpx;" >
 					 <rich-text class="member-btm-li" :nodes="plus.desc"></rich-text> 
+				 		<!-- <view class="member-btm-h2">plus会员权益</view> -->
+				 		<!-- <view class="member-btm-li flex" v-for="(item,index) in plus" :key="index"><view class="member-btm-number">{{item.left}}</view><view class="member-btm-alt">{{item.right}}</view></view> -->
 				 </view>
+				 <!-- 按钮 -->
 				 <view class="member-button member-button-type" @click="button"  v-if="level<3" :data-level_card_id = "plus.id"><button type="button">¥{{plus.money}}/元  购买会员权益</button></view>
-				</view> -->
+				</view>
 				
 				<!-- 企业会员 -->
-				 <view style="margin-top: -214rpx;">
+				 <view  v-else-if="item.level == 4" >
 				 <!-- <view> -->
 					 <view class="member-content">
 				 			   <image class="member-content-background" src="../../static/qiye.jpg" mode=""></image>
@@ -123,10 +142,10 @@
 				  <view class="member-button member-button-type orange"   v-if="level<4" @click="$buttonClick(apply)" ><button type="button">申请成为企业会员</button></view>
 				  <view class="member-button member-button-type"  v-if="level<4" @click="button" :data-level_card_id = "enterprise.id"><button type="button">¥{{enterprise.money}}/元  购买会员权益</button></view>
 				</view>
-			<!-- </swiper-item> -->
+			</swiper-item>
 	
 
-		<!-- </swiper> -->
+		</swiper>
 	   
 
 		 

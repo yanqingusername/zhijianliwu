@@ -21,8 +21,13 @@ page {
 	width: auto;
 }
 .order-purchase-top-img{
+	width: 140rpx;
 	margin-left: 26rpx;
 	height: auto;
+}
+.order-purchase-top-img-img{
+	width: 140rpx;
+	height: 140rpx;
 }
 .order-purchase-top-introduce{
 	-webkit-box-flex: 1;

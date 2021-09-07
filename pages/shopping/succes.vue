@@ -9,7 +9,7 @@
 			<view class="jie">
 				<view class="gift1" v-if="com==1" v-for="(item, index) in gift" :key="index">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
-					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode=""></image>
 					<view class="gift-xq1">
 						<text class="gift-xq-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
 					</view>
@@ -182,8 +182,8 @@
 		onShareAppMessage(res) {
 			let cardbag_number = this.cardbag.cardbag_number
 			this.cardbag_number = cardbag_number
-			let send_talk_msg = uni.getStorageSync("send_talk_msg")
-			this.send_talk_msg = send_talk_msg
+			// let send_talk_msg = uni.getStorageSync("send_talk_msg")
+			// this.send_talk_msg = send_talk_msg
 			
 			
 					//分享成功调用接口
@@ -286,7 +286,8 @@
 	}
 	
 	.gift-img1 {
-		width: 100%;
+		height: 246rpx;
+		width: 174rpx;
 	}
 	
 	.gift-xq1 {

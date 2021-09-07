@@ -198,7 +198,8 @@ page{
 	        transform: translateX(-50%);
 }
 .gift-img1 {
-	width: 100%;
+	height: 246rpx;
+	width: 174rpx;
 }
 .gift-xq1 {
 	text-align: center;

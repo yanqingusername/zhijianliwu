@@ -13,76 +13,231 @@
 				 @refresherrestore="onRestore" @refresherabort="onAbort"></scroll-view>
 			</view>
 			<!-- 我购买的,我收到的 -->
-			
-			<!-- 选项卡 -->
-			<view class="coupon-header">
-				<view class="coupon-header-content flex-between">
-					<view class="recharge-header-nav" data-index='-1' @click="top" :class="[nav==-1?'recharge-header-nav-active':'']">我购买的</view>
-					<view class="recharge-header-nav" data-index='1' @click="top" :class="[nav==1?'recharge-header-nav-active':'']">我送出的</view>
-					<view class="recharge-header-nav" data-index='2' @click="top" :class="[nav==2?'recharge-header-nav-active':'']">我收到的</view>
+			<view class="order-nav">
+				<view class="order-nav-content">
+					<!-- 0未审核1待发货2已发货3已签收99已取消4异常订单5未支付	 -->
+					<view class="order-nav-content-left" data-index="-1" @click="top" :class="[nav==-1?'order-nav-content-active':'']">全部</view>
+					<view class="order-nav-content-left" data-index="5" @click="top" :class="[nav==5?'order-nav-content-active':'']">待付款</view>
+					<!-- <view class="order-nav-content-left" data-index="0" @click="top" :class="[nav==0?'order-nav-content-active':'']">未审核</view> -->
+					<view class="order-nav-content-left" data-index="1" @click="top" :class="[nav==1?'order-nav-content-active':'']">待发货</view>
+					<view class="order-nav-content-left" data-index="2" @click="top" :class="[nav==2?'order-nav-content-active':'']">待收货</view>
+					<view class="order-nav-content-left" data-index="3" @click="top" :class="[nav==3?'order-nav-content-active':'']">已签收</view>
 				</view>
 			</view>
-			
 		</view>
 
-		<view class="empty-no-btm" v-if="sta==0">
-			<image class="empty-no-img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode=""></image>
-			<view class="empty-no-text">您还没有购买过礼物，快去挑选吧～</view>
-			<view class="empty-no-view">买礼物送好友</view>
+		<view class="no-btm" v-if="sta==0">
+			<image class="img" src="../../static/nobtm.jpg" mode=""></image>
 		</view>
 		<!-- 我购买的 -->
-		<view class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
+		<view class="order-purchase" v-for="(item,index) in screenPurchase" :key="index">
 			<view class="no-btm" v-if="screenPurchase.length==0">
-				<image class="img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode=""></image>
+				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
 				暂无相关订单
 			</view>
-			<view class="new-order-li" @click="$buttonClick(receptionOrderInfo)">
-				<view class="new-order-li-top">
-					<view class="new-order-li-top-ordersn">{{item.ordernumber}}</view>
-					<view class="new-order-li-top-orderstatus" v-if="item.has_order =='1' && item.has_exchange_order=='0'">已完成 ></view>
-					<!-- 0未审核1待发货2已发货3已签收99已取消4异常订单5未支付 -->
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='0'">待发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='1'">待发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='2'">已发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='3'">已领取 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='4'">订单异常</view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='5'">未支付 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='99'">已取消 ></view>
-				</view>
-				<view class="new-order-li-center">
-					<!-- <view class="new-order-left">
-						<view class="new-order-img">
-							<image lazy-load="true" class="new-order-commodity-img" src="../../static/nono.jpg" mode=""></image>
+			<view class="order-purchase-li">
+				<!-- 商品 介绍 -->
+				<view class="order-purchase-li-top flex" :data-index="index" :data-ordernumber="item.ordernumber" @click="purchasedetails">
+					<!-- 商品图 -->
+					<view class="order-purchase-top-img">
+						<image lazy-load="true" class="img" :src="$utils.imageUrl(item.goodsinfo[0].head_img)" v-if="item.goodsinfo[0].head_img"
+						 mode=""></image>
+						<image lazy-load="true" class="img" src="../../static/nono.jpg" v-else mode=""></image>
+					</view>
+
+					<!-- 介绍 -->
+					<view class="order-purchase-top-introduce">
+						<!-- 名称,状态-->
+						<view class="order-purchase-top-header flex-between">
+							<view class="order-commodity-name">{{item.goodsinfo[0].goodsname}}</view>
+							<view class="order-alt-title-right" v-if="item.has_order =='1' && item.has_exchange_order=='0'">已完成></view>
+							<!-- 0未审核1待发货2已发货3已签收99已取消4异常订单5未支付 -->
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='0'">待发货></view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='1'">待发货></view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='2'">已发货></view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='3'">已领取></view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='4'">订单异常</view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='5'">未支付></view>
+							<view class="order-purchase-top-header-right" v-else-if="item.status=='99'">已取消></view>
 						</view>
-						<view class="new-order-item">
-							<view class="new-order-item-title">{{item.goodsinfo[0].goodsname}}</view>
-							<view class="new-order-item-sku">规格：礼盒装</view>
-						</view>
-					</view> -->
-					<view class="new-order-left">
-						<scroll-view scroll-x="true" class="new-order-scroll">
+						<!-- 规格 -->
+						<view class="order-purchase-top-specifications"></view>
+						<!-- 数量 -->
+						<!-- <view class="order-purchase-top-number">数量:<span>x</span>{{item.goodsnum}}</view> -->
+
+						<!-- 其他商品 -->
+						<!-- v-if="item.goodsinfo.length>1" -->
+						<scroll-view scroll-x="true" class="order-purchase-top-scroll">
 							<view class="flex">
 								<view class="flex">
-									<image lazy-load="true" class="new-order-img" style="margin-right: 20rpx;" v-for="(it,index) in goodsList"
-									 :key="index" :src="$utils.imageUrl(it.img)" mode=""></image>
+									<image lazy-load="true" class="order-purchase-top-scroll-img" style="padding-right: 20rpx;" v-for="(it,index) in item.goodsinfo"
+									 :key="index" :src="$utils.imageUrl(it.head_img)" mode=""></image>
 								</view>
 							</view>
+							<!-- 立即支付 -->
 						</scroll-view>
-					</view>
-					<view class="new-order-right">
-						<view class="new-order-item-money">¥<text style="font-size: 34rpx;">{{1980}}</text></view>
-						<view class="new-order-item-total">共1件</view>
+
+						<!-- 价格 礼包数量 -->
+						<view class="order-purchase-right">
+							<!-- <view class="order-purchase-right-price">¥{{item.orderprice_discount}}</view> -->
+							<!-- <view class="order-purchase-right-gift">礼包领取<span>{{item.receive_details_num}}</span>/{{item.all_details_num}}</view> -->
+							<view class="order-purchase-right-gift">¥{{item.orderprice_discount}}</view>
+						</view>
 					</view>
 				</view>
-				<view class="new-order-li-bottom">
-					<view class="new-order-nickname">熊猫送出</view>
-					<view class="new-order-botton-view">
-						<view class="new-order-botton-gray" @click="$buttonClick(zengsong)">转赠</view>
-						<view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view>
+
+				<!-- 礼品 按钮 -->
+				<view class="order-purchase-li-btm flex-between" v-if="item.status == '5'||item.status == '2'">
+					<!-- <x></x>  已完成  已关闭 -->
+					<view class="z-order-purchase-li-btm-button" v-if="item.status == '5'">
+						<view class="order-purchase-btm-li" :data-index="index" :data-ordernumber="item.ordernumber" @click="cancel">取消订单</view>
+						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber"  style='display: inline-block;'>
+							<form @submit="submit" :data-ordernumber="item.ordernumber"><button :data-index="index" class="order-purchase-btm-li" :data-ordernumber="item.ordernumber" :data-id="item.id" form-type="submit">立即支付</button></form>
+						</view>
 					</view>
+
+					<!-- 订单全部生成 -->
+					<view class="" v-else-if="item.has_order =='1' && item.has_exchange_order=='0'">
+						<view class="order-li-btn-right" :data-ordernumber="item.ordernumber" @click="purchasedetails">查看详情</view>
+					</view>
+
+					<!-- 支付中 -->
+					<view class="z-order-purchase-li-btm-button" v-else-if="item.status=='5'">
+						<view class="order-purchase-btm-li" :data-index="index" :data-ordernumber="item.ordernumber" @click="cancel">取消订单</view>
+						<view class="" @click="immediately" :data-index="index" :data-ordernumber="item.ordernumber" style='display: inline-block;'>
+							<form @submit="submit"><button :data-index="index" class="order-purchase-btm-li" :data-ordernumber="item.ordernumber"
+								 :data-id="item.id" form-type="submit">立即支付</button>
+							</form>
+						</view>
+					</view>
+
+					<!-- 已生成订单并且还有可生成订单 -->
+					<!--  <view class="flex-between" v-else-if=" item.status=='2' && item.has_order =='1' && item.has_exchange_order=='1'" style="width: 354rpx;">
+<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="orderdetails">查看详情</view>
+<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+</view>  -->
+
+					<!-- 赠送中 -->
+					<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status=='2'">
+						<!-- <view class="order-purchase-btm-li" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="withdraw">撤回赠送</view> -->
+						<view class="order-purchase-btm-li" :data-index="index" :data-ordernumber="item.ordernumber" :data-status="item.status"
+						 :data-price="item.price_discount" @click="goToLoistics">查看物流</view>
+					</view>
+
+					<!-- 已退款  -->
+
+
+					<!-- 					<view class=" flex-between" v-else-if="item.status == '4'">
+<view class="order-purchase-btm-li" :data-index="index" @click="again">再次购买</view>
+</view>
+-->
+					<!-- 待赠送 -->
+					<!-- 					<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status=='1'">
+<view class="order-purchase-btm-li" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="refund">申请退款</view>
+<view class="order-purchase-btm-li" :data-index="index" :data-cardbag_number="item.cardbag_number" :data-price="item.price_discount"
+@click="give">赠送好友</view>
+</view> -->
 				</view>
 			</view>
-			
+		</view>
+
+
+		<view class="order-purchase" v-if="screenPurchase.length<=0" style="background: transparent;">
+			<view class="no-btm">
+				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+				暂无相关订单
+			</view>
+		</view>
+		<!-- 我收到的 -->
+		<view class="order-li " v-for="(item,index) in order" :key="index" :class="[nav==1?'':'none']">
+			<view class="no-btm" v-if="order.length==0">
+				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+			</view>
+			<view class="order-li-top flex-between margin-auto" :data-cardbag_number="item.cardbag_number" :data-index="index"
+			 @click="orderdetails">
+				<!-- 商品图 -->
+				<image lazy-load="true" class="order-commodity" :src="$utils.imageUrl(item.goodsinfo_all[0].head_img)" v-if="item.goodsinfo_all[0].head_img"
+				 mode=""></image>
+				<image lazy-load="true" class="order-commodity" src="../../static/nono.jpg" v-else mode=""></image>
+				<!-- 介绍 -->
+				<view class="order-alt">
+					<view class="order-alt-title flex-between">
+						<view class="order-commodity-name">{{item.goodsinfo_all[0].goodsname}}</view>
+						<view class="order-alt-title-right" v-if="item.has_order =='1' && item.has_exchange_order=='0'">已完成></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='0'">未支付></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='2'">赠送中></view>
+						<view class="order-alt-title-right" v-else-if="item.status =='1'">待赠送></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='3'">已领取></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='4'">已退款></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='5'">已关闭></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='6'">待发货></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='7'">已发货></view>
+						<view class="order-alt-title-right" v-else-if="item.status=='8'">已完成></view>
+						<!-- <view class="order-alt-title-right" v-else>已转增></view> -->
+					</view>
+					<view class="order-alt-number">礼物共{{item.goodsnum_all}}件</view>
+					<!-- 其他商品 -->
+					<scroll-view scroll-x="true" class="order-scroll">
+						<view class="flex">
+							<view class="flex">
+								<image lazy-load="true" class="order-scroll-img" style="margin-right: 20rpx;" v-for="(it,index) in item.goodsinfo_all"
+								 :key="index" :src="$utils.imageUrl(it.head_img)" mode=""></image>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+			</view>
+
+			<view class="order-purchase-li-btm  flex-between margin-auto">
+				<!-- 赠送人信息 -->
+				<view class="flex" v-if="item.present_member.head_img">
+					<image lazy-load="true" class="order-li-btm-touxiang" :src="$utils.imageUrl(item.present_member.head_img)" mode=""></image>
+					<view class="order-li-btm-name"> {{item.present_member.name}}</view>
+				</view>
+				<!-- <view class="flex" v-else></view> -->
+				<!-- 按钮选择 -->
+				<!-- 已领取 -->
+				<!-- <view class="flex-between order-li-btn" v-if="item.status=='3'">
+<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="give">赠送好友</view>
+</view> -->
+				<!-- 订单全部生成 -->
+				<view class="flex-between" v-if="item.has_order =='1' && item.has_exchange_order=='0'">
+					<view class="order-li-btn-right" :data-ordernumber="item.ordernumber" @click="logistics">查看物流</view>
+				</view>
+				<!-- 赠送中 -->
+				<!-- 				<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status=='2'">
+<view class="order-purchase-btm-li" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="withdraww">撤回赠送</view>
+<view class="order-purchase-btm-li" :data-index="index" :data-cardbag_number="item.cardbag_number" :data-status="item.status"
+:data-price="item.price_discount" @click="give">赠送好友</view>
+</view> -->
+				<!-- 已退款  -->
+				<!-- 				<view class=" flex-between" v-else-if="item.status == '4'">
+<view class="order-purchase-btm-li" :data-cardbag_number="item.cardbag_number" @click="again">再次购买</view>
+</view> -->
+				<!-- 待收货 -->
+				<!-- 				<view class=" flex-between" v-else-if="item.status == '4'">
+<view class="order-purchase-btm-li" :data-ordernumber="item.ordernumber" @click="again">查看物流</view>
+</view> -->
+				<!--   已完成  已关闭 -->
+				<!-- 				<view class="order-purchase-li-btm-button flex-between" v-else-if="item.status == '8' || item.status == '5'">
+<view class="order-li-btn-right" :data-index="index" :data-cardbag_number="item.cardbag_number" @click="dele">删除记录</view>
+<view class="order-li-btn-right" :data-index="index" @click="shop">再次购买</view>
+</view> -->
+				<!-- 未生成订单 -->
+				<view class="flex-between" v-else-if="item.has_order =='0'" style="width: 354rpx;">
+					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
+					<!-- <view class="order-purchase-btm-li" v-if="item.pay_memberid==memberid" :data-index="index"  :data-cardbag_number="item.parent_cardbag" @click="refund">申请退款</view> -->
+					<!-- <view class="order-li-btn-right" v-else :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view> -->
+					<!-- <view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view> -->
+				</view>
+				<!-- 已生成订单并且还有可生成订单 -->
+				<view class="flex-between" v-else-if=" item.has_order =='1' && item.has_exchange_order=='1'" style="width: 354rpx;">
+					<!-- <view class="order-purchase-btm-li" :data-index="index"  :data-cardbag_number="item.cardbag_number" @click="refund">申请退款</view> -->
+					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" :data-index="index" @click="orderdetails">查看详情</view>
+					<view class="order-li-btn-right" :data-cardbag_number="item.cardbag_number" @click="address">填写收货地址</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -121,24 +276,6 @@
 				pageSize: 10,
 				pageIndex: 1,
 				status: null,
-				goodsList: [
-					{
-						"img": '../../static/nono.jpg'
-					},
-					{
-						"img": '../../static/nono.jpg'
-					},
-					{
-						"img": '../../static/nono.jpg'
-					},
-					{
-						"img": '../../static/nono.jpg'
-					},
-					{
-						"img": '../../static/nono.jpg'
-					}
-				]
-				
 			}
 		},
 		onShow: function() {
@@ -1350,7 +1487,7 @@
 
 				this.$utils.post(action, data).then(res => {
 					console.log('订单列表', res)
-					this.purchase = res.rs;
+					that.purchase = res.rs;
 					this.purchase = purchase;
 					this.order = order;
 					uni.stopPullDownRefresh();
@@ -1400,35 +1537,6 @@
 					url: './logistics/logistics?ordernumber=' + e.target.dataset.ordernumber
 				})
 			},
-			receptiondetails: function(e) {
-				// uni.navigateTo({
-				// 	url: './ReceptionDetails' //收礼详情
-				// })
-				// uni.navigateTo({
-				// 	url: '../../pagesub/Refund/ApplyRefund' //申请退款
-				// })
-				// uni.navigateTo({
-				// 	url: '../../pagesub/Refund/RefundAfterSale' //退款/售后
-				// })
-				// uni.navigateTo({
-				// 	url: '../../pagesub/Refund/RefundExchangeInfo' //填写物流信息
-				// })
-				uni.navigateTo({
-					url: '../../pagesub/Refund/RefundExchangeDown' //审核通过-退货/换货物流  审核通过-退货详情/退货已完成
-				})
-				
-			},
-			receptionOrderInfo: function(e) {
-				// uni.navigateTo({
-				// 	url: './ReceptionOrderInfo' //我收到的
-				// })
-				// uni.navigateTo({
-				// 	url: './MyBuyOrderInfo' //我购买的
-				// })
-				uni.navigateTo({
-					url: './MySendOrderInfo' //我送出的
-				})
-			},
 		}
 	}
 </script>
@@ -1437,19 +1545,15 @@
 	page {
 		background-color: #F8F7F5;
 	}
-	
-	.recharge-header-nav {
-	    height: 52rpx;
-	    border-bottom: 4rpx solid #fff;
-	    color: #333333;
-		font-size: 28rpx;
+	.order-nav-content{
+		width: auto!important;
 	}
-	
-	.recharge-header-nav-active {
-	    border-bottom: 4rpx solid #EB1615;
-	    color: #EB1615;
+	.order-nav-content>view{
+		display: inline-block;
+		vertical-align: middle;
+		width: 20%;
+		text-align: center;
 	}
-
 	.order-commodity-name {
 		width: 75%;
 		white-space: nowrap;
@@ -1458,6 +1562,7 @@
 	}
 
 	.order-purchase-li-btm {
+		height: auto;
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -1471,170 +1576,14 @@
 	}
 
 	.order-purchase-btm-li {
+		display: inline-block;
 		margin-left: 20rpx;
+		vertical-align: middle;
 	}
 
 	.no-btm {
 		line-height: 64rpx;
 		color: #B4B4B4;
 		text-align: center;
-	}
-	
-	.order-purchase-view{
-		background-color: #FFF;
-	}
-	.new-order-li{
-		width: 100%;
-		margin-top: 20rpx;
-	}
-	.new-order-li-top{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 20rpx 45rpx 20rpx 38rpx;
-		border-bottom: 2rpx solid #EEEEEE;
-	}
-	.new-order-li-top-ordersn{
-		font-size: 24rpx;
-		color: #666666;
-		line-height: 33rpx;
-	}
-	.new-order-li-top-orderstatus{
-		font-size: 24rpx;
-		color: #333333;
-		line-height: 33rpx;
-	}
-	.new-order-li-center{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 25rpx 45rpx 25rpx 38rpx;
-		border-bottom: 2rpx solid #EEEEEE;
-	}
-	.new-order-left{
-		width: 540rpx;
-		display: flex;
-		align-items: center;
-	}
-	
-	.new-order-scroll {
-	    width: 540rpx;
-	    height: 140rpx;
-	}
-	
-	.new-order-img{
-		width: 140rpx;
-		height: 140rpx;
-	}
-	.new-order-commodity-img{
-		width: 140rpx;
-		height: 140rpx;
-	}
-	.new-order-item{
-		margin-left: 20rpx;
-		display: flex;
-		flex-direction: column;
-	}
-	.new-order-item-title{
-		font-size: 30rpx;
-		color: #333333;
-		line-height: 42rpx;
-		width: 380rpx;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.new-order-item-sku{
-		font-size: 24rpx;
-		color: #999999;
-		line-height: 33rpx;
-		margin-top: 18rpx;
-	}
-	.new-order-right{
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-	}
-	.new-order-item-money{
-		font-size: 24rpx;
-		color: #333333;
-		line-height: 33rpx;
-	}
-	.new-order-item-total{
-		font-size: 24rpx;
-		color: #999999;
-		line-height: 33rpx;
-		margin-top: 18rpx;
-	}
-	.new-order-nickname{
-		font-size: 24rpx;
-		color: #999999;
-		line-height: 33rpx;
-	}
-	.new-order-li-bottom{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 15rpx 45rpx 18rpx 38rpx;
-	}
-	
-	.new-order-botton-view{
-		display: flex;
-		align-items: center;
-	}
-	.new-order-botton{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 48rpx;
-		border-radius: 3rpx;
-		border: 1px solid #EB1615;
-		font-size: 24rpx;
-		color: #EB1615;
-		line-height: 33rpx;
-		padding: 0rpx 18rpx;
-		margin-left: 20rpx;
-	}
-	.new-order-botton-gray{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 48rpx;
-		border-radius: 3rpx;
-		border: 1px solid #979797;
-		font-size: 24rpx;
-		color: #999999;
-		line-height: 33rpx;
-		padding: 0rpx 18rpx;
-	}
-	
-	.empty-no-btm{
-		margin-top: 184rpx;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-	}
-	.empty-no-img{
-		width: 255rpx;
-		height: 180rpx;
-	}
-	.empty-no-text{
-		margin-top: 56rpx;
-		font-size: 28rpx;
-		color: #666666;
-		line-height: 40rpx;
-	}
-	.empty-no-view{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 468rpx;
-		height: 80rpx;
-		background: #EC1815;
-		border-radius: 40rpx;
-		margin-top: 75rpx;
-		font-size: 30rpx;
-		color: #FFFFFF;
 	}
 </style>

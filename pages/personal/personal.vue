@@ -1,154 +1,126 @@
 <template>
 	<view>
-		<view class="my-header">
-			<!-- <view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view> -->
-			<image class="my-background" src="http://zhijianlw.com//static/web/img/20200904161911.png" mode=""></image>
-			<!-- <view class="my-nav" :style="'height:'+nav+'px'"></view> -->
+		<view class="personal-header" :style="'height:' + (sign.level_name=='企业会员' ? '350': '424') + 'rpx;'">
+			<!-- <image class="my-background" src="http://zhijianlw.com//static/web/img/20200904161911.png" mode=""></image> -->
+			<image class="my-background" src="https://zhijianlw.com/static/web/img/icon_personal_bg.png" mode=""></image>
+			<view class="my-nav" :style="'height:'+nav+'px'" v-if="fixed==0"></view>
+			<view class="personal-header-interstall" v-if="fixed==0">
+				<view class="personal-header-title">我的</view>
+			</view>
+			
+			<view class="personal-header-fixed" v-if="fixed==1">
+				<view class="my-nav" :style="'height:'+nav+'px'"></view>
+				<view class="personal-header-interstall" >
+					<view class="personal-header-title">我的</view>
+				</view>
+			</view>
+			
 			<!-- 登录状态 -->
-			<view class="my-header-interstall-sign flex margin-auto" v-if="sign.id">
-				<image class="my-heade-sign-img" :src="sign.head_img" mode=""></image>
-				<view>
-				  <view class="flex my-header-introduce">
-				  	<view class="my-hedaer-name">{{sign.name}}</view>
-				  	<view class="my-header-grap"><image  class="my-crown" src="../../static/wangguan.jpg" mode=""></image>{{sign.level_name}}</view>
-				  	<view class="my-header-sign my-header-sign1" @click="$buttonClick(opening)">立即开通></view>
-				  </view>
-				  <view class="my-header-interstall-sign-alt">开通会员可享更多会员权益</view>	
+			<view class="personal-center" :style="'margin-top:' + (fixed==1 ? '-2' : '22') +'rpx'">
+				<view class="personal-center-left">
+					<view v-if="sign.id">
+						<view class="personal-sign-wangguan-view" v-if="sign.level_name=='企业会员'" @click="$buttonClick(openingMember)">
+							<image class="personal-sign-img" :src="sign.head_img" mode=""></image>
+							<image class="personal-sign-wangguan" src="../../static/personal-sign-wangguan.png" mode=""></image>
+						</view>
+						<view v-else>
+							<image class="personal-sign-img" :src="sign.head_img" mode=""></image>
+						</view>
+					</view>
+					<view v-else>
+						<image class="personal-sign-img" src="../../static/my-touxiang.jpg" mode=""></image>
+					</view>
+					
+					<view class="personal-center-name" v-if="sign.id">
+						<view class="personal-sign-name">{{sign.name}}</view>
+						<!-- <view class="personal-center-grap"><image class="personal-center-crown" src="../../static/wangguan.jpg" mode=""></image>{{sign.level_name}}</view> -->
+					</view>
+					<view class="personal-center-name" @click="$buttonClick(signIn)" v-else>
+						<view class="personal-sign-name">登录/注册</view>
+					</view>
+				</view>
+				
+				<view class="personal-center-right">
+					<view class="personal-center-right-li" @click="$buttonClick(balance)">
+						<view class="personal-center-right-price">¥{{sign.balance}}</view>
+						<view class="personal-center-right-type">余额</view>
+					</view>
+					<view class="personal-center-right-li" @click="$buttonClick(count)" >
+						<view class="personal-center-right-price">{{topp}}</view>
+						<view class="personal-center-right-type">优惠券</view>
+					</view>
+					<view class="personal-center-right-li" @click="$buttonClick(like)">
+						<view class="personal-center-right-price">2</view>
+						<view class="personal-center-right-type">喜欢</view>
+					</view>
 				</view>
 			</view>
-			<!-- 未登录状态 -->
-			<view class="my-header-interstall flex margin-auto" v-else>
-				<image class="my-header-img" src="../../static/my-touxiang.jpg" mode=""></image>
-				<view class="my-header-state">未登录</view>
-				<view class="my-header-sign" @click="$buttonClick(signIn)">立即登录></view>
-			</view>
-			<!-- 钱包 -->
-			<view class="my-header-wallet margin-auto  flex">
-				<view class="my-header-wallet-li">
-					<view class="my-header-wallet-price">¥{{sign.balance}}</view>
-					<view class="my-header-wallet-type">充值余额(元)</view>
-				</view>
-				<view class="my-line"></view>
-				<view class="my-header-wallet-li" >
-					<view class="my-header-wallet-price">{{sign.zj_balance}}</view>
-					<view class="my-header-wallet-type">指间币</view>
-				</view>
-				<view class="my-line"></view>
-				<view class="my-header-wallet-li" @click="$buttonClick(count)" >
-					<view class="my-header-wallet-price">{{topp}}</view>
-					<view class="my-header-wallet-type">我的优惠券</view>
-				</view>
+			
+			<view class="personal-bottom" @click="$buttonClick(opening)" v-if="sign.level_name!='企业会员'">
+				<image class="personal-bottom-img" src="../../static/vip_08_03.png" mode=""></image>
+			    <view class="personal-bottom-title">开通企业会员 预计省1263元/年</view>
+				<view class="personal-bottom-view">查看详情</view>	
 			</view>
 			<!-- 背景图 -->
 		</view>
 		
-		<view style="margin-top:-76rpx;">
-		
-			<!-- 第一层 -->
-			<view class="my-content flex-center margin-auto">
-				<!-- <view class="my-content-ul flex-between"> -->
-					<view class="my-content-li" @click="$buttonClick(balance)">
-						<view class="my-content-li-img"><image class="img" src="../../static/my-chongzhi.png"  mode=""></image></view>
-						<view class="my-content-li-text">充值中心</view>
-					</view>
-					<view class="my-content-li"  @click="$buttonClick(wallet)">
-						<view class="my-content-li-img"><image class="img" src="../../static/my-qianbao.png"  mode=""></image></view>
-						<view class="my-content-li-text">我的钱包</view>
-					</view>
-					<view class="my-content-li" >
-						<view class="my-content-li-img"><image class="img" src="../../static/my-kefu.png"  mode=""></image></view>
-						<view class="my-content-li-text">在线客服</view>
-					</view>
-					<view class="my-content-li" @click="$buttonClick(colloection)">
-						<view class="my-content-li-img" style="position: relative">
-							<image class="img" src="../../static/my-shoucang.png"  mode=""></image>
-						<view class="my-number-right" @click="$buttonClick(colloection)">{{coll}}</view>
-						</view>
-						<view class="my-content-li-text">礼物收藏</view>
-						
-					</view>
-					<button open-type="contact"></button>
-				<!-- </view> -->
-			</view>
-			<!-- 下三层 -->
-			
-			
-			<view class="my-comtent-bottom" style="margin-bottom: 28rpx;">
-				
-				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-					<view class="my-comtent-bottom-li" @click="$buttonClick(giftList)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">礼包</view>
-					</view>
-					
-					<view class="my-comtent-bottom-li" @click="$buttonClick(shopList)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shopping-cart.png" mode=""
-																	style="width: 130%;height: 130%;margin: -10%;"></image></view>
-						<view class="my-comtent-bottom-text">购物车</view>
-					</view>
-					
-					<view class="my-comtent-bottom-li"@click="$buttonClick(order)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">我的订单</view>
-					</view>
-					
-					<view class="my-comtent-bottom-li"@click="$buttonClick(card)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/icon_recharge.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">兑换订单</view>
-					</view>		
+		<view class="personal-item margin-auto">
+			<view class="personal-item-text">全部订单</view>
+			<view class="personal-item-ul flex-between">
+				<view class="personal-item-li" @click="order(1)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_01.png"  mode=""></image></view>
+					<view class="personal-item-li-text">我购买的</view>
 				</view>
-			</view>	
-			<view class="my-comtent-bottom">
-				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-					<view class="my-comtent-bottom-li" @click="$buttonClick(exchange)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-duihuan.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">充值卡</view>
-					</view>
-					
-					<view class="my-comtent-bottom-li"@click="$buttonClick(opening)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-huiyuan.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">会员中心</view>
-					</view>
-					
-					<view class="my-comtent-bottom-li" @click="$buttonClick(friend)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-my.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">我的好友</view>
-					</view>
-					<view class="my-comtent-bottom-li" @click="share">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-fenxiang.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">分享推荐</view>
-					</view>
-					
+				<view class="personal-item-li" @click="order(2)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_02.png"  mode=""></image></view>
+					<view class="personal-item-li-text">我送出的</view>
 				</view>
-				
-				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
-					<view class="my-comtent-bottom-li" @click="text" :data-index="0">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">求个礼物</view>
-					</view>
-					<view class="my-comtent-bottom-li" @click="text" :data-index="1">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-caozuo.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">操作指南</view>
-					</view>
-					<view class="my-comtent-bottom-li" @click="text" :data-index="2">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-shangwu.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">商务合作</view>
-					</view>
-					<view class="my-comtent-bottom-li" @click="text" :data-index="3">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-qiye.png" mode=""></image></view>
-						<view class="my-comtent-bottom-text">企业服务</view>
-					</view>
+				<view class="personal-item-li" @click="order(3)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_03.png"  mode=""></image></view>
+					<view class="personal-item-li-text">我收到的</view>
+				</view>
+				<view class="personal-item-li" @click="$buttonClick(colloection)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_04.png"  mode=""></image></view>
+					<view class="personal-item-li-text">兑换订单</view>
 				</view>
 			</view>
-			<view style="line-height:42px;font-size:18px;width:696.52rpx;height:42px;margin:0 auto;margin-top: 20rpx;padding-left: 16rpx;" v-if="commody.length>0">专属推荐</view>
-			<own-product-list :commody="commody" :state="none"></own-product-list>
 		</view>
+		
+		<view class="personal-item margin-auto">
+			<view class="personal-item-text">我的服务</view>
+			<view class="personal-item-ul flex-between">
+				<view class="personal-item-li" @click="$buttonClick(balanceRecharge)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_05.png"  mode=""></image></view>
+					<view class="personal-item-li-text">余额充值</view>
+				</view>
+				<view class="personal-item-li"  @click="$buttonClick(exchange)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_06.png"  mode=""></image></view>
+					<view class="personal-item-li-text">兑换中心</view>
+				</view>
+				<button class="personal-item-li" open-type="contact" @click="$buttonClick(trackClick)">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_07.png"  mode=""></image></view>
+					<view class="personal-item-li-text">我的客服</view>
+				</button>
+				<view class="personal-item-li" @click="share">
+					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_08.png"  mode=""></image></view>
+					<view class="personal-item-li-text">分享推荐</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="personal-product" v-if="commody.length>0">
+			<view class="personal-line"></view>
+			<view class="personal-product-title">专属推荐</view>
+			<view class="personal-line"></view>
+		</view>
+		<own-product-list :commody="commody" :state="none"></own-product-list>
 	</view>
 </template>
 
 <script>
 	import ownProductList from "@/components/own-components/own-product-list.vue";
 	import btn  from "@/common/btn.js";
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		components:{
 			"own-product-list": ownProductList
@@ -173,7 +145,8 @@
 				dir:'',
 				commody: [],
 				pageIndex: 1,
-				pageSize: 10
+				pageSize: 10,
+				fixed: 0
 			} 
 		},
 		onShow:function(e){  
@@ -257,7 +230,20 @@
 				}
 			})
 		},
+		onPageScroll: function(e) {
+			if (e.scrollTop > 70) {
+				this.fixed = 1
+			} else if (e.scrollTop < 70) {
+				this.fixed = 0
+			}
+		},
 		methods: {
+			trackClick:function(e){
+				//腾讯有数
+				sr.track('start_consult', {
+				  "action_type": "consult_online",
+				})
+			},
 	    // 引用
 		  // 海报
 		  haibao:function(e){
@@ -392,17 +378,27 @@
 				
 				
 			},
+			// 喜欢
+			like:function(e){
+				uni.navigateTo({
+					url:'../Post/PostLike'
+				})
+			},
 			// 礼物收藏
 			colloection:function(e){
 				uni.navigateTo({
-					url:'../Collection/Collection'
+					// url:'../Collection/Collection' // 礼物收藏
+					// url: '../index-coupon/ExchangeIndex' // 带有头部的兑换订单
+					url:"../index-coupon/ExchangeOrder" //新需求 兑换订单列表页
 				})
 			},
 		    // 立即开通  会员中心
 			opening:function(e){
 				if(this.sta == '200'){
 					uni.navigateTo({
-						url:'../Member/Member'
+						url:'../Member/Member?typestring=1'  //开通会员页面
+						// url: '../Apply/Apply'  //企业会员申请
+						// url: '../../pagesub/AllCovers/AllCovers' // 全部封面
 					})
 				}else{
 					uni.navigateTo({
@@ -410,7 +406,20 @@
 					})
 				}
 			},
-			// 充值中心
+			openingMember:function(e){
+				if(this.sta == '200'){
+					uni.navigateTo({
+						url:'../Member/Member?typestring=2'  //开通企业会员成功页面
+						// url: '../Apply/Apply'  //企业会员申请
+						// url: '../../pagesub/AllCovers/AllCovers' // 全部封面
+					})
+				}else{
+					uni.navigateTo({
+						url:'../signin/signin'
+					})
+				}
+			},
+			// 余额
 			balance:function(e){
 				if(this.sta == '200'){
 					uni.navigateTo({
@@ -418,6 +427,18 @@
 					})
 				}else{
                     uni.navigateTo({
+						url:'../signin/signin'
+					})
+				}
+			},
+			// 余额充值
+			balanceRecharge:function(e){
+				if(this.sta == '200'){
+					uni.navigateTo({
+						url:'../balance/Recharge'
+					})
+				}else{
+			        uni.navigateTo({
 						url:'../signin/signin'
 					})
 				}
@@ -450,7 +471,7 @@
 			exchange:function(e){
 				if(this.sta == '200'){
 					uni.navigateTo({
-						url:'../balance/Recharge'
+						url:'../index-coupon/index-coupon'
 					})
 				}else{
                    uni.navigateTo({
@@ -496,10 +517,10 @@
 					})
 				}
 			},
-			order: function(){
+			order: function(e){
 				if(this.sta == '200'){
 					uni.navigateTo({
-						url:'../orderList/orderList'
+						url:'../orderList/orderList?nav='+ e
 					})
 				}else{
 					uni.navigateTo({
@@ -511,7 +532,6 @@
 				
 					uni.navigateTo({
 						url:'../index-coupon/change'
-						// url: '../index-coupon/ExchangeOrder' //新增需求  兑换订单列表页
 					})
 			},
 			// 我的好友
@@ -599,11 +619,15 @@
  }
  .my-number-right{
 	 position: absolute;
-	 left: 50%;
-	 top: 50%;
+	 right: 21rpx;
+	 top: 5rpx;
 	 font-size: 24rpx;
+	 width: 50rpx;
+	 height: 46rpx;
+	 border-radius: 50%;
+	 line-height: 48rpx;
+	 text-align: center;
 	 color: #585657;
-	 transform: translateX(-50%) translateY(-50%);
 
  }
  .index-commodity-price{
@@ -614,6 +638,239 @@
 	 height: 2em;
 	 overflow: hidden;
  }
+ 
+ .personal-header{
+	 height: 424rpx;
+	 /* background: linear-gradient(133deg, #FFF500 0%, #EB2715 100%); */
+	 width: 100%;
+	 position: relative;
+ }
+ 
+ .personal-header-interstall{
+ 	    margin-top: 16rpx;
+ 	    height: 60rpx;
+ 	    position: relative;
+ 		display: flex;
+ 	    align-items: center;
+		justify-content: center;
+ }
+ .personal-header-title{
+ 	font-size: 36rpx;
+ 	color: #333333;
+	font-weight: bold;
+ }
+ 
+ .personal-center{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 22rpx 40rpx 0rpx 40rpx;
+	position: relative;
+ }
+ 
+ .personal-center-left{
+	display: flex;
+	align-items: center;
+	width: 50%;
+ }
+ 
+ .personal-sign-img{
+	width: 128rpx;
+	height: 128rpx;
+	border-radius: 50%;
+ }
+ 
+ .personal-center-name{
+	display: flex;
+	/* align-items: center; */
+	flex-direction: column;
+	margin-left: 12rpx;
+ }
+ 
+ .personal-sign-name{
+	font-size: 32rpx;
+	font-weight: bold;
+	color: #333333;
+ }
+ 
+ .personal-center-grap{
+	display: flex;
+	margin-top: 22rpx;
+ }
+ 
+ .personal-center-crown{
+	width: 20rpx;
+	height: 16rpx;
+	margin-left: 0rpx;
+	margin-top: 8rpx;
+	margin-right: 12rpx;
+ }
+ 
+ .personal-center-right{
+	display: flex;
+	align-items: center;
+	width: 50%;
+	justify-content: space-between;
+ }
+ 
+ .personal-center-right-li{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+ }
+ 
+ .personal-center-right-price{
+	 font-size: 32rpx;
+	 font-weight: bold;
+	 color: #333333;
+ }
+ 
+ .personal-center-right-type{
+ 	 font-size: 28rpx;
+ 	 color: #333333;
+	 margin-top: 20rpx;
+ }
+ 
+ .personal-bottom{
+	 position: absolute;
+	 bottom: 0;
+	 width: 684rpx;
+	 height: 86rpx;
+	 background: linear-gradient(270deg, #363A3A 0%, #151E1F 100%);
+	 border-radius: 16rpx 16rpx 0px 0px;
+	 display: flex;
+	 align-items: center;
+	 margin-left: 34rpx;
+ }
+ 
+ .personal-bottom-img{
+	 width: 38rpx;
+	 height: 38rpx;
+	 margin-left: 20rpx;
+ }
+ 
+ .personal-bottom-title{
+	 margin-left: 8rpx;
+	 font-size: 30rpx;
+	 font-weight: bold;
+	 color: #F5E5C9;
+	 background: angular-gradient(199deg, #FFE7C9 0%, #EFD298 100%);
+ }
+ 
+.personal-bottom-view{
+	 display: flex;
+	 align-items: center;
+	 width: 132rpx;
+	 height: 44rpx;
+	 background: linear-gradient(90deg, #F0D399 0%, #FFE7C9 100%);
+	 border-radius: 22rpx;
+	 font-size: 22rpx;
+	 font-weight: bold;
+	 color: #333333;
+	 line-height: 30rpx;
+	 position: absolute;
+	 right: 20rpx;
+	 justify-content: center
+ }
+ 
+ .personal-item{
+	 width: 700rpx;
+	 height: 224rpx;
+	 background: #FFFFFF;
+	 border-radius: 10rpx;
+	 margin-top: 20rpx;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+ }
+ 
+ .personal-item-text{
+	 font-size: 32rpx;
+	 font-weight: 500;
+	 color: #333333;
+	 line-height: 45rpx;
+	 padding: 15rpx 0rpx 30rpx 20rpx;
+	 text-align: left;
+	 text-align: left;
+	 width: 680rpx;
+ }
+ 
+ .personal-item-ul{
+	width: 580rpx;
+	position: relative;
+ }
+ 
+ .personal-item-li{
+	width: 96rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0rpx;
+	    padding: 0;
+	    background: #FFFFFF;
+ }
+ 
+ .personal-item-li-img{
+	width: 70rpx;
+	height: 70rpx;
+ }
+ 
+ .item-li-img{
+	width: 100%;
+	height: 100%;
+ }
+ 
+ .personal-item-li-text{
+	font-size: 24rpx;
+	color: #333333;
+	line-height: 33rpx;
+	margin-top: 10rpx;
+	text-align: center;
+ }
+ 
+ .personal-product{
+	 width:694rpx;
+	 height:60rpx;
+	 margin:0 auto;
+	 margin-top: 40rpx;
+	 display: flex;
+	 align-items: center;
+	 justify-content: center;
+ }
+ 
+ .personal-line{
+	 width: 242rpx;
+	 border: 1px solid #D2B782;
+ }
+ 
+ .personal-product-title{
+ 	 font-size: 30rpx;
+ 	 font-weight: bold;
+ 	 color: #D2B782;
+ 	 line-height: 42rpx;
+	 margin: 0 16rpx;
+ }
+ 
+ .personal-header-fixed{
+ 	background: #FFFFFF;
+ 	width: 100%;
+ 	position: fixed;
+     z-index: 200;
+     height: 140rpx;
+ }
+ 
+ .personal-sign-wangguan-view{
+	 position: relative;
+	 width: 140rpx;
+	 height: 140rpx;
+ }
+ 
+ .personal-sign-wangguan{
+	 width: 140rpx;
+	 height: 140rpx;
+	 position: absolute;
+	 top: -4px;
+	 left: -2px;
+ }
+ 
 </style>
-
-

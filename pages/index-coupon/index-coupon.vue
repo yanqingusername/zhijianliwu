@@ -52,8 +52,8 @@
 				this.showInput = true;
 				this.formData.pass = '';
 				uni.navigateTo({
-					// url:"./ExchangeOrder" //新需求 兑换订单列表页
-					url: './change'
+					url:"./ExchangeOrder" //新需求 兑换订单列表页
+					// url: './change'
 				});
 			},
 			submit: function(e) {

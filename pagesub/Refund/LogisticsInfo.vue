@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view class="logistics-info-view">
-			<view class="logistics-info-view-title">申通快递：9838273627782</view>
-			<view class="logistics-info-view-lable" @click="copy" data-ordernumber="34123412341234s">复制</view>
+			<view class="logistics-info-view-title">{{stepsInfo.express_name}}：{{stepsInfo.express_num}}</view>
+			<view class="logistics-info-view-lable" @click="copy" :data-ordernumber="stepsInfo.express_num">复制</view>
 		</view>
 		<!-- 签收信息 -->
 		<view class="Logistics_information">
-			<view class="Logistics_informationBox" v-for="(item,index) in steps" :key="index">
+			<view class="Logistics_informationBox" v-for="(item,index) in stepsInfo.wuliu_info" :key="index">
 				<view class="Logistics_information_left"></view>
 				<view class="Logistics_information_right">
 					<view class="imagesimg">
@@ -17,8 +17,8 @@
 					</view>
 					<view class="content">
 						<view class="content_title">{{item.text}}</view>
-						<view class="content_detail">{{item.desc}}</view>
-						<view class="content_data">{{item.spans}}</view>
+						<view class="content_detail">{{item.context}}</view>
+						<view class="content_data">{{item.time}}</view>
 						<view style="height: 40rpx;"></view>
 					</view>
 				</view>
@@ -31,6 +31,7 @@
 	export default {
 		data() {
 			return {
+				ordernumber: '',
 				steps: [
 					{
 						text: '',
@@ -96,8 +97,21 @@
 				],
 			}
 		},
-		onLoad: function(e) {
-			// this.logisticsData = changeAttribute(this.testStrList, setAttribute(this.logisticsData));
+		onLoad: function(options) {
+			this.ordernumber = options.ordernumber;
+			let that = this;
+			let action = "get_order_wuliu_info";
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				ordernumber: this.ordernumber,
+				memberid: memberid
+			});
+			this.$utils.postNew(action,data,controller).then(res=>{
+				if(res.sta == 1){
+					that.stepsInfo = res.rs;
+				} 
+			})
 		},
 		methods: {
 			copy: function(e) {

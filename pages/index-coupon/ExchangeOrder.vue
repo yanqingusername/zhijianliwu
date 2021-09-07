@@ -51,7 +51,7 @@
 					<view class="new-order-nickname"></view>
 					<view class="new-order-botton-view" v-if="item.card_type == 0">
 						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
-						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="$buttonClick(goRecharge)" :data-cardid="item.cardid">去充值</view>
+						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">去充值</view>
 						<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
 					</view>
 					<view class="new-order-botton-view" v-if="item.card_type == 1">
@@ -149,10 +149,29 @@
 			},
 			//去充值
 			goRecharge: function(e) {
-				let cardid = e.currentTarget.dataset.cardid;
-				uni.navigateTo({
-					url: '../balance/RechargeStatus'
-				})
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let action = 'recharge_giftcard';
+				let data = JSON.stringify({
+					memberid: memberid,
+					ordernumber: ordernumber
+				});
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: '../balance/RechargeStatus?istype=1&ordernumber=' + ordernumber
+							})
+						},500)
+					} else {
+						uni.showToast({
+						 	title:res.msg,
+						 	icon:"none",
+						 	mask:'true',
+						});
+					}
+				});
 			},
 			// 换货/售后
 			refundHandler: function(e){

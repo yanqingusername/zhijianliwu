@@ -13,7 +13,8 @@
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png"
 						mode=""></image>
 					<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-					<text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}} x{{item.goodsnum}}</text>
+					<text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}}</text>
+					<!-- <text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}} x{{item.goodsnum}}</text> -->
 				</view>
 			</view>
 			<scroll-view scroll-y="true" class="scroll-x" v-if="com==2">
@@ -499,16 +500,18 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex-direction: column;
 	}
 
 	.bag-tea-img {
-		width: 200rpx;
-		height: 200rpx;
+		height: 246rpx;
+		width: 174rpx;
 	}
 
 	.bag-tea-title {
-		position: absolute;
-		top: 300rpx;
+		/* position: absolute;
+		top: 300rpx; */
+		margin-top: 20rpx;
 	}
 
 	.bag-gift {

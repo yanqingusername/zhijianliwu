@@ -189,7 +189,7 @@
 		data() {
 		
 			return {
-				price_zhe:0,
+				price_zhe:"0.00",
 				goodsinfo:[],
 			   goodsid: "",
 			   checknum: '1',

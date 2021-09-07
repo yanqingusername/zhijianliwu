@@ -1,116 +1,133 @@
 <template>
 	<view>
 		<view class="personal-header">
-			<view class="recharge-status-top">
+			<view class="recharge-status-top" v-if="orderInfo.card_type == 1">
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==0 || orderInfo.order_status_type ==1">{{orderInfo.order_status_info}}</view>
+				<image class="recharge-status-img" v-if="orderInfo.order_status_type ==2" src="../../static/icon_transit_reception.png"></image>
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==2">{{orderInfo.order_status_info}}</view>
+				<image class="recharge-status-img" v-if="orderInfo.order_status_type ==3" src="../../static/icon_completed_reception.png"></image>
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==3">{{orderInfo.order_status_info}}</view>
+				<image class="recharge-status-img" v-if="orderInfo.order_status_type ==4" src="../../static/icon_completed_reception.png"></image>
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==4">{{orderInfo.order_status_info}}</view>
+				
+				
 				<!-- <image class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
 				<view class="recharge-status-text">已完成</view> -->
-				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
-				<view class="recharge-status-text">待支付</view>
+				<!-- <image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">待支付</view> -->
 				<!-- <image class="recharge-status-img" src="../../static/icon_giving_order.png"></image>
 				<view class="recharge-status-text">赠送中</view> -->
+			</view>
+			<view class="recharge-status-top" v-if="orderInfo.card_type == 0">
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==0 || orderInfo.order_status_type ==1">{{orderInfo.order_status_info}}</view>
+				<image class="recharge-status-img" v-if="orderInfo.order_status_type ==3" src="../../static/icon_completed_reception.png"></image>
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==3">{{orderInfo.order_status_info}}</view>
+				<image class="recharge-status-img" v-if="orderInfo.order_status_type ==4" src="../../static/icon_completed_reception.png"></image>
+				<view class="recharge-status-text" v-if="orderInfo.order_status_type ==4">{{orderInfo.order_status_info}}</view>
 			</view>
 		</view>
 		
 		<view class="recharge-flex">
-			<view class="reception-flex">
-				<view class="reception-address-view">
+			<view class="reception-flex" v-if="orderInfo.card_type == 1 && orderInfo.wuliu_info.length > 0">
+				<view class="reception-address-view" @click="logisticInfo" :data-ordernumber="orderInfo.ordernumber">
 					<view class="reception-address-view-left">
-						<view class="reception-distribution-value">您的订单已由本人签收。如有疑问您可联系 配送员【李阳，13728372378】确认。</view>
-						<view class="reception-distribution-time">2021-04-08 06:36:51</view>
+						<view class="reception-distribution-value">{{orderInfo.wuliu_info[0].context}}</view>
+						<view class="reception-distribution-time">{{orderInfo.wuliu_info[0].time}}</view>
 					</view>
 					<view class="reception-address-view-right" >
 						<image src="../../static/return_arrow_r_g.png" class="reception-address-arrow"></image>
 					</view>
-					<image src="../../static/icon_send_order.png" class="reception-send-icon"></image>
+					<!-- <image src="../../static/icon_send_order.png" class="reception-send-icon"></image> -->
 				</view>
 			</view>
-			<view class="reception-flex">
+			<view class="reception-flex" v-if="orderInfo.card_type == 1 && orderInfo.linkman">
 				<view class="reception-address-view" style="margin-top: 0rpx;padding-bottom: 30rpx;">
 					<view class="reception-address-view-left">
-						<view class="reception-address-name">王女士 18801182514</view>
-						<view class="reception-address-value">北京市北京市丰台区纪家庙村丰管路天丰大厦238室</view>
+						<view class="reception-address-name">{{orderInfo.linkman}} {{orderInfo.linktel}}</view>
+						<view class="reception-address-value">{{orderInfo.province}}{{orderInfo.city}}{{orderInfo.county}}{{orderInfo.address}}</view>
 					</view>
 					<view class="reception-address-view-right" ></view>
 				</view>
 				<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
 			</view>
 		
-			<view class="order-border"></view>
+			<view class="order-border" v-if="orderInfo.card_type == 1 && (orderInfo.wuliu_info.length > 0 || orderInfo.linkman)"></view>
 			
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index">
+					<view class="new-order-li-center">
 						<view class="new-order-left">
 							<view class="new-order-img">
-								<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+								<image lazy-load="true" class="new-order-commodity-img" :src="orderInfo.cardtype_img" mode=""></image>
 							</view>
 						</view>
 						<view class="new-order-right">
 							<view class="new-order-item">
-								<view class="new-order-item-title">{{item.title}}</view>
-								<view class="new-order-item-money">¥{{item.money}}</view>
+								<view class="new-order-item-title">{{orderInfo.card_name}}</view>
+								<!-- <view class="new-order-item-money">¥{{orderInfo.price}}</view> -->
 							</view>
 							<view class="new-order-item">
-								<view class="new-order-item-sku">规格：{{item.sku}}</view>
-								<view class="new-order-item-total">x{{item.number}}</view>
+								<view class="new-order-item-sku">规格：{{orderInfo.card_type_info}}</view>
+								<view class="new-order-item-total">x1</view>
 							</view>
 						</view>
-						<view class="conversion-details">{{item.desc}}</view>
+						<!-- <view class="conversion-details">{{item.desc}}</view> -->
+					</view>
+					<view v-if="orderInfo.card_type == 1 && orderInfo.detail_info.detail_son_info">
+						<view class="" style="padding: 15rpx 0rpx;font-size: 24rpx;color: #999999;width: 100%;">兑换商品</view>
+						<view class="new-order-li-center-item">
+							<view class="new-order-left" style="width: 112rpx;margin-left: 6rpx;">
+								<view class="new-order-img" style="width: 112rpx;height: 112rpx;">
+									<image lazy-load="true" class="new-order-commodity-img" :src="orderInfo.detail_info.detail_son_info.head_img" mode="" style="width: 112rpx;height: 112rpx;"></image>
+								</view>
+							</view>
+							<view class="new-order-right" style="margin-left: 0rpx;width: 530rpx;">
+								<view class="new-order-item">
+									<view class="new-order-item-title">{{orderInfo.detail_info.detail_son_info.goodsname}}</view>
+									<view class="new-order-item-money"></view>
+								</view>
+								<view class="new-order-item">
+									<view class="new-order-item-sku">规格：{{orderInfo.detail_info.detail_son_info.goods_spec_item}}</view>
+									<view class="new-order-item-total"></view>
+								</view>
+							</view>
+						</view>
 					</view>
 					<view class="new-order-li-bottom">
 						<view class="new-order-nickname"></view>
-						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="$buttonClick(applyHandler)">申请开票</view>
-							<view class="new-order-botton" @click="$buttonClick(receptiondetails)">再次赠送</view>
+						<view class="new-order-botton-view" v-if="orderInfo.card_type == 0">
+							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
+							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="goRecharge" :data-ordernumber="orderInfo.ordernumber">去充值</view>
+							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 4" @click.stop="goConversionDetails" :data-ordernumber="orderInfo.ordernumber">转赠详情</view>
+							<!-- <view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
+						</view>
+						<view class="new-order-botton-view" v-if="orderInfo.card_type == 1">
+							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
+							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="go_exchange" :data-cardid="orderInfo.cardid">去兑换</view>
+							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view>
+							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 4" @click.stop="goConversionDetails" :data-ordernumber="orderInfo.ordernumber">转赠详情</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="reception-order">
-			<view class="flex-between flex-between-padding">
-				<view class="reception-order-title">商品总价：</view>
-				<view class="reception-order-money">¥2160</view>
-			</view>
-			<view class="flex-between flex-between-padding">
-				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money">¥0</view>
-			</view>
-			<view class="flex-between flex-between-padding">
-				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money">¥0</view>
-			</view>
-			<view class="flex-between flex-between-padding order-line">
-				<view class="reception-order-money"></view>
-				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">2160</text></view>
-			</view>
-			<view class="reception-order-view" style="margin-top: 36rpx;">
+			<view class="reception-order-view" style="margin-top: 20rpx;">
 				<view class="reception-order-text">订单编号：</view>
-				<view class="reception-ordersn">2560819324121</view>
-				<view class="reception-order-copy" data-ordernumber="2560819324121" @click="copy">复制</view>
+				<view class="reception-ordersn">{{orderInfo.ordernumber}}</view>
+				<view class="reception-order-copy" :data-ordernumber="orderInfo.ordernumber" @click="copy">复制</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
-				<view class="reception-order-text">下单时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-text">绑卡时间：</view>
+				<view class="reception-order-time">{{orderInfo.bind_time}}</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
-				<view class="reception-order-text">支付时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
-			</view>
-		</view>
-		<view class="reception-order">
-			<view class="reception-order-view" style="margin-top: 36rpx;">
-				<view class="reception-order-text">礼包状态：</view>
-				<view class="reception-ordersn">直接送礼</view>
-			</view>
-			<view class="reception-order-view" style="margin-top: 12rpx;">
-				<view class="reception-order-text">礼包送法：</view>
-				<view class="reception-order-time">待领取  礼包领取 (件) 3/3</view>
-				<view class="reception-order-copy" style="width: 100rpx;margin-left: 60rpx;" data-ordernumber="2560819324121" @click="copy">查看详情</view>
-			</view>
-			<view class="reception-order-view-bootom" style="margin-top: 12rpx;">
-				<view class="reception-order-text">超时说明：</view>
-				<view class="reception-order-time">支付完成超过24小时，未成功领取的礼物系统将自动退款</view>
+				<view class="reception-order-text" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">兑换成功：</view>
+				<view class="reception-order-time" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">{{orderInfo.exchange_time }}</view>
+				<view class="reception-order-text" v-if="orderInfo.order_status_type == 4 ">转增成功：</view>
+				<view class="reception-order-time" v-if="orderInfo.order_status_type == 4 ">{{orderInfo.give_time }}</view>
+				<view class="reception-order-text" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">充值成功：</view>
+				<view class="reception-order-time" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">{{orderInfo.recharge_time  }}</view>
 			</view>
 		</view>
 		<view class="reception-empty"></view>
@@ -122,41 +139,7 @@
 		data(){
 			return{
 				ordernumber: '',
-				orderInfo: '',
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				orderInfo: ''
 			}
 		},
 		onLoad:function(options){
@@ -170,7 +153,7 @@
 				memberid: memberid
 			});
 			this.$utils.postNew(action,data,controller).then(res=>{
-				if(res.rs.sta == 1){
+				if(res.sta == 1){
 					that.orderInfo = res.rs;
 				} 
 			})
@@ -195,6 +178,62 @@
 			applyHandler(e){
 				uni.navigateTo({
 					url: "../Apply/ApplyInvoice"
+				});
+			},
+			//转赠
+			goTransfer: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
+				})
+			},
+			//去兑换
+			go_exchange: function(e) {
+				console.log(e);
+				let cardid = e.currentTarget.dataset.cardid;
+				uni.navigateTo({
+					url: './redemption_center?cardid=' + cardid
+				})
+			},
+			//转赠详情 我送出的
+			goConversionDetails: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: './ConversionDetails?cardbag=' + ordernumber +
+					'&cardbag_detail_id=' + '0' + '&cardbag_number=' + ordernumber
+				});
+			},
+			//物流
+			logisticInfo: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: "../../pagesub/Refund/LogisticsInfo?ordernumber=" + ordernumber
+				});
+			},
+			//去充值
+			goRecharge: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let action = 'recharge_giftcard';
+				let data = JSON.stringify({
+					memberid: memberid,
+					ordernumber: ordernumber
+				});
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: '../balance/RechargeStatus?istype=1&ordernumber=' + ordernumber
+							})
+						},500)
+					} else {
+						uni.showToast({
+						 	title:res.msg,
+						 	icon:"none",
+						 	mask:'true',
+						});
+					}
 				});
 			},
 		}
@@ -252,11 +291,12 @@
 		width: 100%;
 		display: flex;
 		position: relative;
+		margin-top: 20rpx;
 	}
 	
 	.reception-address-view{
 		background-color: #FFF;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */
 		padding: 30rpx 30rpx 10rpx 78rpx;
 		display: flex;
 		align-items: center;
@@ -329,6 +369,9 @@
 	.new-order-li{
 		width: 100%;
 		margin-top: 0rpx;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
 	}
 	.new-order-li-top{
 		display: flex;
@@ -366,6 +409,15 @@
 		justify-content: space-between;
 		padding: 25rpx 45rpx 25rpx 38rpx;
 		border-bottom: 2rpx solid #EEEEEE;
+	}
+	.new-order-li-center-item{
+		display: flex;
+		align-items: center;
+		position: relative;
+		justify-content: space-between;
+		width: 678rpx;
+		height: 135rpx;
+		background: #FAFAFA;
 	}
 	.conversion-details{
 		font-size: 24rpx;
@@ -454,7 +506,7 @@
 		display: flex;
 	}
 	.reception-order-text{
-		min-width: 140rpx;
+		min-width: 120rpx;
 		font-size: 24rpx;
 		color: #999999;
 	}
@@ -515,6 +567,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 15rpx 45rpx 18rpx 38rpx;
+		width: 100%;
 	}
 	
 	.new-order-botton-view{
@@ -531,7 +584,8 @@
 		font-size: 24rpx;
 		color: #EB1615;
 		line-height: 33rpx;
-		padding: 0rpx 18rpx;
+		width: 140rpx;
+		/* padding: 0rpx 18rpx; */
 		margin-left: 20rpx;
 	}
 	.new-order-botton-gray{
@@ -544,7 +598,8 @@
 		font-size: 24rpx;
 		color: #999999;
 		line-height: 33rpx;
-		padding: 0rpx 18rpx;
+		width: 140rpx;
+		/* padding: 0rpx 18rpx; */
 	}
 	.recharge-status-label{
 		font-size: 28rpx;

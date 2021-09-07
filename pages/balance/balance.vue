@@ -2,47 +2,36 @@
 	<view>
 	    <view class="balance-header">
 			<!-- 总金额 -->
-			<view class="balance-top">
-				<view class="balance-top-company">总金额(元)</view>
-				<view class="balance-top-price">{{balanc}}</view>
-			</view>
-			<view class="balance-query">
-			<!-- 充值查询  充值卡查询 -->
-				<view class="balance-query-content flex-between margin-auto flex-vertically">
-					<view class="balance-query-li flex-vertically" @click="$buttonClick(left)"><image src="../../static/balance-left.png" mode=""></image>收支明细</view>
-					<view class="balance-query-line"></view>
-					<view class="balance-query-li flex-vertically" @click="$buttonClick(right)"><image src="../../static/balance-right.png" mode=""></image>充值卡充值</view>
+			<view class="new-balance-top">
+				<view class="new-balance-top-left">
+					<view class="new-balance-top-text">总金额(元)</view>
+					<view class="new-balance-top-price">{{balanc}}</view>
 				</view>
-			</view> 
+				<view class="new-balance-top-right">
+					<view class="new-balance-top-text" @click="$buttonClick(left)">查看明细</view>
+					<view class="new-balance-top-view" @click="$buttonClick(right)">充值</view>
+				</view>
+			</view>
 		</view>	
 		<view class="balance-page">
-			<!-- 充值 -->
 			<view class="balance-content flex-between-wrap">
-				 
-				<view class="balance-content-li"  :class="[number==index?'balance-content-li-active':'']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala">
-					<!-- 充 --> 
-					<view class="balance-content-price">{{item.recharge_money}}元</view>
-					<!-- 送 -->
-					<view class="balance-content-give">送{{item.give_money}}</view>
-					<!-- 圆圈 -->
-					<view class="balance-content-circular" :class="[number==index?'balance-content-circular-active':'']"></view>
+				<view :class="[number==index?'new-balance-content-li-active':'new-balance-content-li']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala" :data-remoney="item.recharge_money" :data-gvmoney="item.give_money">
+					<image class="new-balance-center-img" :src="[number==index?'../../static/bala_decorate_bg.png':'../../static/bala_decorate_bg_def.png']"></image>
+					<view class="new-balance-content-give">{{item.give_money}}</view>
+					<view :class="[number==index?'new-balance-content-price-active':'new-balance-content-price']">{{item.recharge_money}}元</view>
+					<image class="new-balance-img" :src="[number==index?'../../static/bala_current_cz.png':'../../static/bala_default_cz.png']"></image>
 				</view>
 			</view>
-			<!-- 自定义充值 -->
-			<view class="balance-bottom flex-vertically">
-				<view class="balance-bottom-left">¥</view>
-				<input class="balance-bottom-input" @input="price" type="text" placeholder="请输入自定义充值金额">
+			<view class="new-balance-bottom">充值金额<text style="color: #999999;">(自定义)</text></view>
+			<view class="new-balance-input flex-vertically">
+				<view class="new-balance-input-left">¥</view>
+				<input class="new-balance-input-input" @input="price" v-model="inputmoney" type="text" placeholder="请输入自定义充值金额">
 			</view>
-			<!-- 说明 -->
-			<view class="balance-explain">说明:自定义充值金额不享受充值赠送活动</view>
-			<!-- 立即充值 -->
 		</view>
 		
-		
-		<button class="balance-button" @click="button">立即充值</button>
-		
-		
-		
+		<view class="balance-header">
+			<view class="balance-view" @click="button">去充值（需支付{{payMoney}}元）</view>
+		</view>
 	</view>
 </template> 
 
@@ -55,12 +44,7 @@
 			return {
 				ip:'',
 				balance:[
-					{price:'100',give:'5元'},
-					{price:'200',give:'15元'},
-					{price:'300',give:'20元'},
-					{price:'500',give:'50元'},
-					{price:'1000',give:'120元'},
-					{price:'2000',give:'300元'},
+					
 				],
 				number:0,
 				// appid
@@ -79,7 +63,9 @@
 				balanc:'',
 				id:'',
 				timeStamp:"",
-				nums:''
+				nums:'',
+				payMoney: '',
+				inputmoney: ''
 			}
 		},
 		onLoad:function(e){
@@ -117,9 +103,9 @@
 			this.login();
 		},
 		onShow:function(){
-			if(this.outTradeNo){
-				this.chaxun();
-			}
+			// if(this.outTradeNo){
+			// 	this.chaxun();
+			// }
 		},
 		methods: {
 			  // 充值类
@@ -130,6 +116,11 @@
 					  console.log(res.rs)
 					  this.balance = res.rs;
 					  this.id = res.rs[0].id;
+					  if(res.rs.length > 0){
+						  this.payMoney = parseFloat(res.rs[0].recharge_money) - parseFloat(res.rs[0].give_money)
+					  } else {
+						  this.payMoney = 0
+					  }
 				  })
 			  },
 			  // 支付
@@ -171,10 +162,7 @@
 							icon:"none"
 						})
 					}
-					
-					
 				})  
-				
 			  },
 			  // 微信支付
 			  wx:function(e){
@@ -249,10 +237,16 @@
 			  	      	// 成功回调
 			  	          success: (res) => {
 			  	      		console.log('微信成功回调',res)
-							uni.showToast({
-								title:'充值成功',
-							})
-							that.login();
+							// uni.showToast({
+							// 	title:'充值成功',
+							// })
+							// that.login();
+							that.inputmoney = ''
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'./RechargeStatus?istype=2&ordernumber=' + that.outTradeNo
+								})
+							},500)
 			  	          },
 			  	      })
 					  	
@@ -260,11 +254,17 @@
 			  	    fail (res) {
 			  			uni.hideLoading(); 
 			  	  	  console.log(res)
-			  	  	  uni.showToast({
-			  	  	  	title:'支付失败',
-			  	  		icon:'none'
-			  	  	  })
+			  	  	 //  uni.showToast({
+			  	  	 //  	title:'支付失败',
+			  	  		// icon:'none'
+			  	  	 //  })
 			  		  that.commodity = ''
+					  that.inputmoney = ''
+					  setTimeout(()=>{
+					  	uni.navigateTo({
+					  		url:'./RechargeStatus?istype=2&ordernumber=' + that.outTradeNo
+					  	})
+					  },500)
 			  	    }
 			  	  })
 			  	  
@@ -295,13 +295,19 @@
 			   bala:function(e){
 				 const index = e.currentTarget.dataset.index - 1;
 				 this.id = e.currentTarget.dataset.id;
+				 this.reMoney = e.currentTarget.dataset.remoney;
+				 this.gvMoney = e.currentTarget.dataset.gvmoney;
+				 this.payMoney = parseFloat(e.currentTarget.dataset.remoney) - parseFloat(e.currentTarget.dataset.gvmoney)
 				 this.number = index;
 				 this.money = 0;
+				 
 			   },
 			  // 选择框
 			 price:function(e){
 				 this.number = '1000'
+				 this.inputmoney = e.detail.value;
 				 this.money = e.detail.value;
+				 this.payMoney = e.detail.value;
 			 },
 			// 路由
 			 left:function(e){
@@ -494,9 +500,184 @@
 
 <style>
 page{
-	background-color: #F4F5F7;
+	background-color: #FFFFFF;
 }
 .right{
 	margin-right: 0;
+}
+
+.new-balance-top{
+	margin: 20rpx auto 0 auto;
+	width: 700rpx;
+	height: 208rpx;
+	background: #FB503D;
+	border-radius: 6rpx;
+	position: relative;
+}
+
+.new-balance-top-left{
+	position: absolute;
+	top: 50rpx;
+	left: 50rpx;
+}
+
+.new-balance-top-text{
+	font-size: 24rpx;
+	color: #FBE4E2;
+	margin-bottom: 12rpx;
+	line-height: 33rpx;
+}
+.new-balance-top-price{
+	font-size: 48rpx;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 67rpx;
+}
+
+.new-balance-top-right{
+	position: absolute;
+	top: 50rpx;
+	right: 50rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.new-balance-top-view{
+	width: 116rpx;
+	height: 46rpx;
+	border-radius: 3rpx;
+	border: 1px solid #FFFFFF;
+	font-size: 24rpx;
+	color: #FFFFFF;
+	line-height: 33rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10rpx;
+}
+
+.balance-content {
+    padding-top: 42rpx;
+    padding-bottom: 30rpx;
+}
+
+.new-balance-content-li{
+	width: 210rpx;
+	height: 272rpx;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 26rpx;
+}
+.new-balance-content-li-active {
+    border: 1px solid #EC1815;
+	width: 208rpx;
+	height: 272rpx;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 26rpx;
+}
+
+.new-balance-content-give {
+    padding-top: 50rpx;
+    text-align: center;
+	font-size: 30rpx;
+	font-weight: bold;
+	color: #666666;
+	line-height: 42rpx;
+	z-index: 10;
+	position: absolute;
+	right: 70rpx;
+}
+.new-balance-content-price-active{
+	color: #EC1815;
+	font-size: 36rpx;
+	font-weight: bold;
+	line-height: 50rpx;
+	z-index: 10;
+	position: absolute;
+	text-align: center;
+	width: 208rpx;
+	top: 125rpx;
+}
+
+.new-balance-content-price {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333333;
+    line-height: 50rpx;
+    z-index: 10;
+    position: absolute;
+    text-align: center;
+    width: 210rpx;
+    top: 125rpx;
+}
+
+.new-balance-center-img{
+	position: absolute;
+	text-align: center;
+	top: 50rpx;
+	right: 26rpx;
+	z-index: 9;
+	width: 86rpx;
+	height: 112rpx;
+}
+.new-balance-img{
+	position: absolute;
+	text-align: center;
+	bottom: 0rpx;
+	right: 0rpx;
+	z-index: 9;
+	width: 52rpx;
+	height: 50rpx;
+}
+
+.new-balance-bottom{
+	height: 42rpx;
+	font-size: 30rpx;
+	font-weight: bold;
+	color: #333333;
+	line-height: 42rpx;
+}
+
+.new-balance-input{
+    width: 682rpx;
+    height: 60rpx;
+    border-bottom: 2rpx solid #D2D2D2;
+    background-color: #FFF;
+    margin-bottom: 16rpx;
+	margin-top: 20rpx;
+}
+
+.new-balance-input-left {
+    font-size: 26rpx;
+    font-weight: bold;
+    margin: 4rpx 10rpx 0 0rpx;
+}
+
+.new-balance-input-input {
+    height: 50rpx;
+    font-size: 26rpx;
+    width: 592rpx;
+}
+
+.balance-view{
+	width: 660rpx;
+	height: 80rpx;
+	background: #EC1815;
+	border-radius: 40rpx;
+	font-size: 30rpx;
+	color: #FFFFFF;
+	line-height: 42rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 80rpx auto 0 auto;
 }
 </style>

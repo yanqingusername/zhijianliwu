@@ -233,7 +233,7 @@
 
 					} else if (re.sta == 101) {
 						uni.reLaunch({
-							url: '../redEnvelopes/redEnvelopes?cardbag=' + that.cardbag_number +
+							url: '../index-coupon/ConversionDetails?cardbag=' + that.cardbag_number +
 								'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
 								that.cardbag_number,
 						})

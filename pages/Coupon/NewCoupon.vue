@@ -1,37 +1,226 @@
 <template>
 	<view>
-		<view class="new-coupon-content">
-			<view class="new-coupon-content-li flex" v-for="(item,index) in couponList" :key="index">
-				<image src="../../static/coupon_bg.png" class="new-coupon-img"></image>
-				<view class="new-coupon-view">
-					<view class="new-coupon-left">
-						<view class="new-coupon-lable">¥<text class="new-coupon-money">{{item.money}}</text></view>
-						<view class="new-coupon-text">{{item.selecttext}}</view>
-					</view>
-					<view class="new-coupon-left" style="margin-left: 80rpx;">
-						<view class="new-coupon-desc">{{item.desc}}</view>
-						<view class="new-coupon-coupontype">{{item.coupontype}}</view>
-					</view>
-				</view>
-				<view class="new-coupon-right">
-					<view class="new-coupon-button" @click="$buttonClick(downNow)">立即使用</view>
-				</view>
-				<view class="new-coupon-time">{{item.timestring}}</view>
+		<!-- 选项卡 -->
+		<view class="coupon-header">
+			<view class="coupon-header-content flex-between">
+				<view class="coupon-header-nav" data-index='0' @click="nav" :class="[number==0?'coupon-header-nav-active':'']">未使用</view>
+				<view class="coupon-header-nav" data-index='1' @click="nav" :class="[number==1?'coupon-header-nav-active':'']">已使用</view>
+				<view class="coupon-header-nav" data-index='2' @click="nav" :class="[number==2?'coupon-header-nav-active':'']">已过期</view>
 			</view>
-			<view class="no-btm" v-if="couponList.length==0">
+		</view>
+		<!-- 领券中心 -->
+		<view class="coupon-core flex-vertically" @click="$buttonClick(receive)">
+			<view class="coupon-core-left">
+				<image class="img" src="../../static/coupon-core.png" mode=""></image>
+			</view>
+			<view class="coupon-core-alt">领券中心</view>
+			<view class="coupon-core-right">
+				<image class="img" src="../../static/core-right.png" mode=""></image>
+			</view>
+		</view>
+		<!-- 全场通用券 -->
+		<view class="coupon-h3">全场通用券</view>
+		<view class="coupon-content">
+			<!-- 未使用 -->
+			<view class="coupon-content-li flex" v-if="number==0" v-for="(item,index) in top" :key="index">
+				<view class="no-btm" v-if="top.length==0">
+					<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+				</view>
+				<view class="coupon-content-left">
+					<!-- 券 -->
+					<view class="coupon-content-alt">
+						<view class="coupon-content-coupon">指间券</view><span class="coupon-content-alt-left"></span>本券可购买任意礼物,不限产品满足消费金额支付即可时即可抵扣商品贷款
+					</view>
+					<!-- 时间 -->
+					<view class="coupon-content-time">{{item.time}}</view>
+					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
+							<image class="img" src="../../static/text-img.png" mode=""></image>
+						</view>
+					</view>
+				</view>
+				<view class="coupon-content-right">
+					<view class="coupon-content-price"><span>￥</span>{{item.money}}</view>
+					<view class="coupon-content-condition">{{item.coupon_type_info.coupon_name}}</view>
+					<view class="coupon-content-button" :data-coupon_number="item.coupon_number" :data-coupon_name="item.money" :data-keynum="item.goodsinfo.keynum"
+				 :data-money="item.money" :data-id="item.id" @click="use">立即使用</view>
+				</view>
+				<view class="coupon-content-circular-top"></view>
+				<view class="coupon-content-circular-btm"></view>
+			</view>
+			<!-- 已使用   -->
+			<view class="coupon-content-li flex" v-if="number==1" v-for="(item,index) in top1" :key="index">
+				<view class="no-btm" v-if="top1.length==0">
+					<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+				</view>
+				<view class="coupon-content-left">
+					<!-- 券 -->
+					<view class="coupon-content-alt coupon-no-alt">
+						<view class="coupon-content-coupon coupon-no">指间券</view><span class="coupon-content-alt-left"></span>{{item.coupon_type_info.remark}}
+					</view>
+					<!-- 时间 -->
+					<view class="coupon-content-time">{{item.time}}</view>
+					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
+							<image class="img" src="../../static/text-img.png" mode=""></image>
+						</view>
+					</view>
+				</view>
+				<view class="coupon-content-right coupon-no">
+					<view class="coupon-content-price coupon-no-price"><span>￥</span>{{item.money}}</view>
+					<view class="coupon-content-condition">{{item.coupon_type_info.coupon_name}}</view>
+				</view>
+				<view class="coupon-content-circular-top"></view>
+				<view class="coupon-content-circular-btm"></view>
+				<view class="coupon-bottom-state coupon-no-right-state">
+					<image class="img" src="../../static/shiyong.png" mode=""></image>
+				</view>
+			</view>
+			<!--  已过期 -->
+			<view class="coupon-content-li flex" v-if="number==2" v-for="(item,index) in top2" :key="index">
+				<view class="no-btm" v-if="top2.length==0">
+					<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+				</view>
+				<view class="coupon-content-left">
+					<!-- 券 -->
+					<view class="coupon-content-alt coupon-no-alt">
+						<view class="coupon-content-coupon coupon-no">指间券</view><span class="coupon-content-alt-left"></span>{{item.coupon_type_info.remark}}
+					</view>
+					<!-- 时间 -->
+					<view class="coupon-content-time">{{item.time}}</view>
+					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
+							<image class="img" src="../../static/text-img.png" mode=""></image>
+						</view>
+					</view>
+				</view>
+				<view class="coupon-content-right coupon-no">
+					<view class="coupon-content-price coupon-no-price"><span>￥</span>{{item.money}}</view>
+					<view class="coupon-content-condition">{{item.coupon_name}}</view>
+				</view>
+				<view class="coupon-content-circular-top"></view>
+				<view class="coupon-content-circular-btm"></view>
+				<view class="coupon-bottom-state coupon-no-right-state">
+					<image class="img" src="../../static/yiguoqi.png" mode=""></image>
+				</view>
+			</view>
+		</view>
+
+		<!-- 单品折扣券 -->
+		<view class="coupon-h3">单品折扣券</view>
+
+		<!-- 未使用 -->
+		<view class="coupon-bottom flex" v-if="number==0" v-for="(item,index) in btm" :key="index">
+			<view class="no-btm" v-if="btm.length==0">
 				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
 			</view>
+			<!-- 左侧图 -->
+			<view class="coupon-bottom-left">
+				<image :src="'http://zhijianlw.com/'+item.goodsinfo.head_img" mode=""></image>
+			</view>
+			<!-- 内容 -->
+			<view class="coupon-bottom-content">
+				<view class="coupon-bottom-alt">{{item.goodsinfo.goodsname}}</view>
+				<view class="coupon-bottom-price" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4}}</view>
+
+				<view class="coupon-bottom-after" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4-item.money}}</view>
+			</view>
+			<!-- 领券 -->
+			<view class="coupon-bottom-right">
+				<view class="coupon-right-price"><span>￥</span>{{item.money}}</view>
+				<view class="coupon-right-text">{{item.coupon_type_info.coupon_name}}</view>
+				<view class="coupon-right-btm" :data-coupon_number="item.coupon_number" :data-coupon_name="item.money" :data-keynum="item.goodsinfo.keynum"
+				 :data-money="item.money" :data-id="item.id" @click="Single">立即使用</view>
+				<view class="coupon-right-time" v-if="item.time=='已过期'">{{item.time}}</view>
+				<view class="coupon-right-time" v-else>仅剩{{item.time}}天</view>
+			</view>
+			<view class="coupon-content-circular-top"></view>
+			<view class="coupon-content-circular-btm"></view>
+			<view class="coupon-bottom-state">
+				<image class="img" src="../../static/yilingqu.png" mode=""></image>
+			</view>
 		</view>
-		<view class="new-coupon-bottom" @click="expiredCoupon">
-			<view class="new-coupon-bottom-text">没有更多可用优惠券 | </view>
-			<view class="new-coupon-bottom-text" style="color: #FC6853;margin-left: 6rpx;">查看已失效的优惠券></view>
+		<!-- 已使用 -->
+		<view class="coupon-bottom flex" v-if="number==1" v-for="(item,index) in btm1" :key="index">
+			<view class="no-btm" v-if="btm1.length==0">
+				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+			</view>
+			<!-- 左侧图 -->
+			<view class="coupon-bottom-left">
+				<image :src="$utils.imageUrl(item.goodsinfo.head_img)" mode=""></image>
+			</view>
+			<!-- 内容 -->
+			<view class="coupon-bottom-content coupon-no-content">
+				<view class="coupon-bottom-alt coupon-no-alt">{{item.goodsinfo.goodsname}}</view>
+				<view class="coupon-bottom-price" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4}}</view>
+
+				<view class="coupon-bottom-after" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4-item.money}}</view>
+			</view>
+			<!-- 领券 -->
+			<view class="coupon-bottom-right coupon-no">
+				<view class="coupon-right-price coupon-no-right-price whi"><span>￥</span>{{item.money}}</view>
+				<view class="coupon-right-text whi">{{item.coupon_type_info.coupon_name}}</view>
+			</view>
+			<view class="coupon-content-circular-top"></view>
+			<view class="coupon-content-circular-btm"></view>
+			<view class="coupon-bottom-state coupon-no-right-state">
+				<image class="img" src="../../static/shiyong.png" mode=""></image>
+			</view>
 		</view>
+		<!-- 已过期 -->
+		<view class="coupon-bottom flex" v-if="number==2" v-for="(item,index) in btm2" :key="index">
+			<view class="no-btm" v-if="btm2.length==0">
+				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
+			</view>
+			<!-- 左侧图 -->
+			<view class="coupon-bottom-left">
+				<image :src="$utils.imageUrl(item.goodsinfo.head_img)" mode=""></image>
+			</view>
+			<!-- 内容 -->
+			<view class="coupon-bottom-content coupon-no-content">
+				<view class="coupon-bottom-alt coupon-no-alt">{{item.goodsinfo.goodsname}}</view>
+				<view class="coupon-bottom-price" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3}}</view>
+				<view class="coupon-bottom-price" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4}}</view>
+
+				<view class="coupon-bottom-after" v-if="level_name=='普通会员'">券后价￥{{item.goodsinfo.price_level0-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='指尖会员'">券后价￥{{item.goodsinfo.price_level1-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='plus会员'">券后价￥{{item.goodsinfo.price_level2-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='企业会员'">券后价￥{{item.goodsinfo.price_level3-item.money}}</view>
+				<view class="coupon-bottom-after" v-else-if="level_name=='合作伙伴'">券后价￥{{item.goodsinfo.price_level4-item.money}}</view>
+			</view>
+			<!-- 领券 -->
+			<view class="coupon-bottom-right coupon-no">
+				<view class="coupon-right-price coupon-no-right-price whi"><span>￥</span>{{item.money}}</view>
+				<view class="coupon-right-text whi">{{item.coupon_type_info.coupon_name}}</view>
+			</view>
+			<view class="coupon-content-circular-top"></view>
+			<view class="coupon-content-circular-btm"></view>
+			<view class="coupon-bottom-state coupon-no-right-state">
+				<image class="img" src="../../static/yiguoqi.png" mode=""></image>
+			</view>
+		</view>
+
 	</view>
 </template>
 
 <script>
 	import config from '../../common/config.js';
-	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -45,41 +234,7 @@
 				level: '',
 				choose: '',
 				level_name: '',
-				url: "",
-				couponList: [
-					{
-						"id": 1,
-						"money":20,
-						"desc":"母亲节专享",
-						"selecttext":"满200元可用",
-						"coupontype":"（全品类类可用）",
-						"timestring":"有效期：2021/06/12~2021/06/14",
-					},
-					{
-						"id": 21,
-						"money":50,
-						"desc":"端午节优惠券",
-						"selecttext":"满300元可用",
-						"coupontype":"（限食品类可用）",
-						"timestring":"有效期：2021/06/12~2021/06/14",
-					},
-					{
-						"id": 12,
-						"money":20,
-						"desc":"母亲节专享",
-						"selecttext":"满200元可用",
-						"coupontype":"（全品类类可用）",
-						"timestring":"有效期：2021/06/12~2021/06/14",
-					},
-					{
-						"id": 14,
-						"money":50,
-						"desc":"端午节优惠券",
-						"selecttext":"满500元可用",
-						"coupontype":"（全品类类可用）",
-						"timestring":"有效期：2021/06/12~2021/06/14",
-					},
-				]
+				url: ""
 			}
 		},
 		onLoad: function(e) {
@@ -202,33 +357,8 @@
 					}
 				}
 			})
-			
-			//腾讯有数
-			sr.track('expose_coupon', {
-			  "coupon": {
-			    "coupon_id": "48390200020058042",
-			    "coupon_name": "母亲节大促10元代金券"
-			  },
-			  "coupon_batch": {
-			    "coupon_batch_id": "48390200020058042",
-			    "coupon_batch_name": "母亲节大促"
-			  },
-			})
 		},
 		methods: {
-			downNow: function(e){
-				//腾讯有数
-				sr.track('trigger_coupon', {
-				  "coupon": {
-				    "coupon_id": "48390200020058042",
-				    "coupon_name": "母亲节大促10元代金券"
-				  },
-				  "coupon_batch": {
-				    "coupon_batch_id": "48390200020058042",
-				    "coupon_batch_name": "母亲节大促"
-				  },
-				})
-			},
 			// 使用通用优惠券
 			use: function(e) {
 				let keynum = e.currentTarget.dataset.keynum;
@@ -316,113 +446,13 @@
 					url: '../index-coupon/index-coupon'
 				})
 			},
-			expiredCoupon: function(e) {
-				uni.navigateTo({
-					url: './ExpiredCoupon'
-				})
-			},
+
 		}
 	}
 </script>
 
 <style>
 	page {
-		background-color: #FAFAFA;
-	}
-	.new-coupon-content{
-		width: 708rpx;
-		margin: 0 auto 26rpx auto;
-	}
-	.new-coupon-content-li{
-		width: 708rpx;
-		height: 190rpx;
-		position: relative;
-		margin-top: 20rpx;
-	}
-	.new-coupon-img{
-		width: 708rpx;
-		height: 190rpx;
-	}
-	
-	.new-coupon-view{
-		/* position: absolute;
-		top: 40rpx;
-		left: 36prx; */
-		margin-top: 40rpx;
-	    margin-left: 36rpx;
-	    position: absolute;
-	    display: flex;
-	}
-	
-	.new-coupon-left{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-	}
-	.new-coupon-lable{
-		font-size: 33rpx;
-		color: #FB503D;
-	}
-	
-	.new-coupon-money{
-		font-size: 55rpx;
-		color: #FB503D;
-		font-weight: bold;
-	}
-	.new-coupon-text{
-		font-size: 20rpx;
-		color: #666666;
-		line-height: 28rpx;
-		margin-top: 10rpx;
-	}
-	.new-coupon-desc{
-		font-size: 28rpx;
-		font-weight: bold;
-		color: #333333;
-		line-height: 40rpx;
-	}
-	.new-coupon-coupontype{
-		font-size: 20rpx;
-		color: #666666;
-		line-height: 28rpx;
-		margin-top: 10rpx;
-	}
-	.new-coupon-right{
-		position: absolute;
-		top: 68rpx;
-		right: 38rpx;
-	}
-	.new-coupon-button{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 144rpx;
-		height: 50rpx;
-		background: linear-gradient(180deg, #FD8870 0%, #FB503D 100%);
-		border-radius: 28rpx;
-		font-size: 24rpx;
-		color: #FFFFFF;
-		line-height: 33rpx;
-	}
-	.new-coupon-time{
-		position: absolute;
-		bottom: 15rpx;
-		left: 36rpx;
-		font-size: 18rpx;
-		color: #999999;
-		line-height: 25rpx
-	}
-	
-	.new-coupon-bottom{
-		height: 60rpx;
-		display: flex;
-		align-items: center;
-	    justify-content: center;
-	}
-	.new-coupon-bottom-text{
-		font-size: 20rpx;
-		color: #999999;
-		line-height: 28rpx;
+		background-color: #F4F5F7;
 	}
 </style>

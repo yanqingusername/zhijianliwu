@@ -5,7 +5,7 @@
 		
 		<view class="wrapper">
 			<!-- 假数据 -->
-			<view v-for="item in goodslist" class="tea">
+			<view v-for="item in goodslist" class="tea" :data-keynum="item.keynum" @click="confirm_order">
 				<view>
 					<view class="tea-img">
 						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
@@ -13,7 +13,7 @@
 					<view style="padding: 16rpx 20rpx 26rpx">
 						<view class="t-title">{{item.goodsname}}</view>
 						<view class="l-title">{{item.goodstitle}}</view>
-						<button size="mini" class="sub" :data-keynum="item.keynum"   @click="confirm_order">去兑换</button>
+						<button size="mini" class="sub">去兑换</button>
 					</view>
 				</view>
 			</view>
@@ -79,9 +79,13 @@
 			confirm_order:function (e){
 				console.log(e);
 				let keynum = e.currentTarget.dataset.keynum;
+				// uni.navigateTo({
+				// 	url: './index-address?good_keynum=' + keynum
+				// })
 				uni.navigateTo({
-					url: './index-address?good_keynum=' + keynum
+					url: './ExchangeDetails?keynum=' + keynum
 				})
+				
 			}
 		}
 	}

@@ -13,8 +13,8 @@
 		    "path" : "pages/personal/personal",
 		    "style" : {
 		    	"navigationBarTitleText":"我的",
-				"enablePullDownRefresh":true
-				// "navigationStyle":"custom"
+				"enablePullDownRefresh":true,
+				"navigationStyle":"custom"
 		    }
 		},{
             "path" : "wxcomponents/navgation/navgation",
@@ -35,7 +35,8 @@
         ,{
             "path" : "pages/classification/classification",
             "style": {
-            	"navigationBarTitleText": "分类"
+            	"navigationBarTitleText": "分类",
+				"navigationBarBackgroundColor":"#F5F5F5"
             	// "navigationStyle":"custom"
             }
         },
@@ -132,7 +133,8 @@
 		{
 		    "path" : "pages/balance/Query",
 		    "style" : {
-				"navigationBarTitleText":"充值查询"
+				"navigationBarTitleText":"充值查询",
+				"enablePullDownRefresh":true
 			}
 		},
 		{
@@ -215,8 +217,9 @@
         ,{
             "path" : "pages/Member/Member",
             "style" : {
-				"navigationBarTitleText":"会员中心",
-				"navigationStyle":"custom"
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#1A2223",
+				"navigationBarTextStyle": "white"
 			}
         } 
         ,{
@@ -245,6 +248,12 @@
 			}
 		},
 		{
+		    "path" : "pages/index-coupon/ExchangeDetails",
+		    "style" : {
+				"navigationBarTitleText":"礼物详情"
+			}
+		},
+		{
 			"path" : "pages/index-coupon/ExchangeIndex",
 			"style" : {
 				"navigationBarTitleText":"兑换中心"
@@ -270,6 +279,14 @@
 			"style" : {
 				"navigationBarTitleText":""
 				
+			}
+		},
+		{
+		    "path" : "pages/index-coupon/ConversionDetails",
+		    "style" : {
+				"navigationBarTitleText":"",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#FB503D"
 			}
 		}
         ,{
