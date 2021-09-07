@@ -30,6 +30,7 @@
 		</view>
 		
 		<view class="balance-header">
+			<!-- <view class="balance-view" style="background: #EEEEEE;" v-if="payMoney < 1">去充值（需支付{{payMoney}}元）</view> -->
 			<view class="balance-view" @click="button">去充值（需支付{{payMoney}}元）</view>
 		</view>
 	</view>

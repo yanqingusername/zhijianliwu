@@ -505,7 +505,7 @@
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		    margin-top: 50rpx;
+		    margin-top: 0rpx;
 		    height: 370rpx;
 		/* position: absolute;
 		top: 80px; */
@@ -664,6 +664,7 @@
 	
 	.scroll-x{
 	  height: 370rpx;
+	  margin-top: 50rpx;
 	}
 	
 </style>
