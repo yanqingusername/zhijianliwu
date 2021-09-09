@@ -1370,7 +1370,7 @@
 				uni.setStorageSync('member', member)
 				btn.buttonClick(function(e) {
 					uni.navigateTo({
-						url: '../ordeeDetails/ordeeDetails?cardbag_number=' + cardbag_number
+						url: '../orderDetails/orderDetails?cardbag_number=' + cardbag_number
 					})
 				})
 			},

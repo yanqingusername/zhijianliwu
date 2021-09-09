@@ -64,7 +64,7 @@
 								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<!-- <view class="conversion-details">{{item.goods_spec_item}}</view> -->
+						<!-- <view class="conversion-details">{{item.cancel_type_info}}</view> -->
 					</view>
 					
 					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==5" >
@@ -103,7 +103,7 @@
 		<view class="reception-order">
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">商品总价：</view>
-				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.price}}</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.price || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
@@ -115,7 +115,7 @@
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
-				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderSendInfo.orderinfo.orderprice_discount}}</text></view>
+				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderSendInfo.orderinfo.orderprice_discount || '0.00'}}</text></view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 36rpx;">
 				<view class="reception-order-text">订单编号：</view>

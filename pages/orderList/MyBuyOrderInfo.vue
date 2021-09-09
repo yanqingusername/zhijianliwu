@@ -75,19 +75,19 @@
 		<view class="reception-order">
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">商品总价：</view>
-				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.price}}</view>
+				<view class="reception-order-money">¥{{orderBuyInfo.orderinfo.price || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view>
+				<view class="reception-order-money">¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.paycoupon}}</view>
+				<view class="reception-order-money">¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
-				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderSendInfo.orderinfo.orderprice_discount}}</text></view>
+				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderBuyInfo.orderinfo.orderprice_discount || '0.00'}}</text></view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 36rpx;">
 				<view class="reception-order-text">订单编号：</view>

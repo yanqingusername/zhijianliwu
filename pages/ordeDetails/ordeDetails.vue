@@ -150,7 +150,7 @@
 		<view style="height:176rpx;width: 100%;"></view>
 		
 		<view class="new-balance-button-view">
-			<button class="new-balance-button" @click="generate">生成订单</button>
+			<button class="new-balance-button" @click="generate">确认提交</button>
 		</view>
 	</view>
 </template>
