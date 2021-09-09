@@ -124,7 +124,7 @@
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">兑换成功：</view>
 				<view class="reception-order-time" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">{{orderInfo.exchange_time }}</view>
-				<view class="reception-order-text" v-if="orderInfo.order_status_type == 4 ">转增成功：</view>
+				<view class="reception-order-text" v-if="orderInfo.order_status_type == 4 ">转赠成功：</view>
 				<view class="reception-order-time" v-if="orderInfo.order_status_type == 4 ">{{orderInfo.give_time }}</view>
 				<view class="reception-order-text" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">充值成功：</view>
 				<view class="reception-order-time" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">{{orderInfo.recharge_time  }}</view>

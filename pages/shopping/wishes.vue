@@ -97,23 +97,28 @@
 									</view>
 									
 									<view class="uni-padding-wrap" @click="audioPlay">
-										<!-- <movable-area class="progress" :style="'width:'+w+'px'"> -->
-										<!-- <movable-area class="progress" style="width:100%">
-											<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star" @touchend="to" class="progress-one"
-											 :x="movable_x">
-												<view class="progress-view">
-													<view class="progress-circular"></view>
-												</view>
-											</movable-view>
-										</movable-area>
-										<progress :percent="schedule" class="b"  duration data-index="index" activeColor='#D8D8D8' backgroundColor='#767676'
-										 border-radius="50" stroke-width="8" /> -->
 										<view class="duration">
-											<!-- {{duration}} -->
 										</view> 
 										<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
 									</view>
 								</view>
+								<!-- <view class="audio-box-view">
+									<view class="audio-img-view">
+										<image class="sound-img-bg1" src="../../static/icon-cd-2021-09-08-01.png" mode=""></image>
+										<image v-if="begin==1" @longpress="start" @touchend="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-02.png" mode=""></image>
+										<image v-else-if="begin==3" @longpress="start" @touchend="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-02.png" mode=""></image>
+										<image v-else @tap="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-03.png" mode=""></image>
+										
+										<image @click="audioPlay" v-if="radio" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-04.png" mode=""></image>
+										<image @click="audioPlay" v-else class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-05.png" mode=""></image>
+									</view>
+									
+									<view class="uni-padding-wrap" @click="audioPlay">
+										<view class="duration">00:00</view> 
+										<view class="duration">开始录音</view> 
+										<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
+									</view>
+								</view> -->
 							</view>
 							
 							<view class="wishes-line">
@@ -1113,5 +1118,30 @@
 		background: #FFF;
 		transform: translate(-50%, -50%) scale(1);
 		border: none;
+	}
+	
+	/**
+	 * 
+	 */
+	.audio-box-view{
+		display: flex;
+		text-align: center;
+	    flex-direction: column;
+	    align-items: center;
+	}
+	.audio-img-view{
+		position: relative;
+		width: 280rpx;
+	}
+	.sound-img-bg1{
+		width: 280rpx;
+		height: 280rpx;
+	}
+	.sound-img-bg2{
+		width: 140rpx;
+		height: 140rpx;
+		position: absolute;
+	    top: 76rpx;
+	    left: 70rpx;
 	}
 </style>

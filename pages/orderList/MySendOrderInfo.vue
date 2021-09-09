@@ -7,14 +7,17 @@
 				<view class="personal-header-title"></view>
 			</view>
 			<view class="recharge-status-top">
-				<!-- <image class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
-				<view class="recharge-status-text">已完成</view> -->
-				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
-				<view class="recharge-status-text">待支付</view>
-				<!-- <image class="recharge-status-img" src="../../static/icon_giving_order.png"></image>
-				<view class="recharge-status-text">赠送中</view> -->
+				<image class="recharge-status-img" v-if="orderSendInfo.orderinfo.status ==5" src="../../static/icon_unpaid_order.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderSendInfo.orderinfo.status ==5">{{orderSendInfo.orderinfo.order_status_info}}</view> -->
+				<image class="recharge-status-img" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1 || orderSendInfo.orderinfo.status ==2" src="../../static/icon_giving_order.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1 || orderSendInfo.orderinfo.status ==2">{{orderSendInfo.orderinfo.order_status_info}}</view> -->
+				<image class="recharge-status-img" v-if="orderSendInfo.orderinfo.status ==3" src="../../static/icon_completed_reception.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderSendInfo.orderinfo.status ==3">{{orderSendInfo.orderinfo.order_status_info}}</view> -->
+				<view class="recharge-status-text" >{{orderSendInfo.orderinfo.order_status_info}}</view>
 			</view>
-			<view class="recharge-status-label">需付款：¥2160   剩余30分钟</view>
+			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==5">需付款：¥{{orderSendInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="true" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==2">剩余<uni-countdown :showColon="false" :show-day="true" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			
 		</view>
 		
 		<view class="recharge-flex">
@@ -45,29 +48,53 @@
 			
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index">
+					<view class="new-order-li-center" v-for="(item,index) in orderSendInfo.orderdetail" :key="index">
 						<view class="new-order-left">
 							<view class="new-order-img">
-								<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+								<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 							</view>
 						</view>
 						<view class="new-order-right">
 							<view class="new-order-item">
-								<view class="new-order-item-title">{{item.title}}</view>
-								<view class="new-order-item-money">¥{{item.money}}</view>
+								<view class="new-order-item-title">{{item.goodsname}}</view>
+								<view class="new-order-item-money">¥{{item.goods_price}}</view>
 							</view>
 							<view class="new-order-item">
-								<view class="new-order-item-sku">规格：{{item.sku}}</view>
-								<view class="new-order-item-total">x{{item.number}}</view>
+								<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
+								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<view class="conversion-details">{{item.desc}}</view>
+						<!-- <view class="conversion-details">{{item.goods_spec_item}}</view> -->
 					</view>
-					<view class="new-order-li-bottom">
+					
+					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==5" >
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="$buttonClick(applyHandler)">申请开票</view>
-							<view class="new-order-botton" @click="$buttonClick(receptiondetails)">再次赠送</view>
+							<view class="new-order-botton-gray" @click="cancel" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">取消订单</view>
+							<view class="new-order-botton" @click="submit" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">立即支付</view>
+						</view>
+					</view>
+					
+					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1">
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">申请退款</view>
+							<view class="new-order-botton" @click="PresentNow" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">立即赠送</view>
+						</view>
+					</view>
+					
+					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==2">
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" @click="GiveitAgain" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">再次赠送</view>
+						</view>
+					</view>
+					
+					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==3">
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" @click="ApplyInvoice" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">申请开票</view>
+							<view class="new-order-botton" @click="GiveitAgain" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">再次赠送</view>
 						</view>
 					</view>
 				</view>
@@ -76,43 +103,43 @@
 		<view class="reception-order">
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">商品总价：</view>
-				<view class="reception-order-money">¥2160</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.price}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money">¥0</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money">¥0</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.paycoupon || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
-				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">2160</text></view>
+				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderSendInfo.orderinfo.orderprice_discount}}</text></view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 36rpx;">
 				<view class="reception-order-text">订单编号：</view>
-				<view class="reception-ordersn">2560819324121</view>
-				<view class="reception-order-copy" data-ordernumber="2560819324121" @click="copy">复制</view>
+				<view class="reception-ordersn">{{orderSendInfo.orderinfo.ordernumber}}</view>
+				<view class="reception-order-copy" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="copy">复制</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text">下单时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-time">{{orderSendInfo.add_time}}</view>
 			</view>
-			<view class="reception-order-view" style="margin-top: 12rpx;">
+			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderSendInfo.paytime">
 				<view class="reception-order-text">支付时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-time">{{orderSendInfo.paytime}}</view>
 			</view>
 		</view>
 		<view class="reception-order">
 			<view class="reception-order-view" style="margin-top: 36rpx;">
 				<view class="reception-order-text">礼包状态：</view>
-				<view class="reception-ordersn">直接送礼</view>
+				<view class="reception-ordersn">{{orderSendInfo.cardbag_info.card_type_info}}</view>
 			</view>
-			<view class="reception-order-view" style="margin-top: 12rpx;">
+			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1 || orderSendInfo.orderinfo.status ==2 || orderSendInfo.orderinfo.status ==3">
 				<view class="reception-order-text">礼包送法：</view>
-				<view class="reception-order-time">待领取  礼包领取 (件) 3/3</view>
-				<view class="reception-order-copy" style="width: 100rpx;margin-left: 60rpx;" data-ordernumber="2560819324121" @click="copy">查看详情</view>
+				<view class="reception-order-time">{{orderSendInfo.orderinfo.order_status_info}}  {{orderSendInfo.receive_info}}</view>
+				<view class="reception-order-copy" style="width: 100rpx;margin-left: 60rpx;" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="goConversionDetails">查看详情</view>
 			</view>
 			<view class="reception-order-view-bootom" style="margin-top: 12rpx;">
 				<view class="reception-order-text">超时说明：</view>
@@ -124,58 +151,91 @@
 </template>
 
 <script>
+	var timer = null;
+	var times = 0;
 	export default{
 		data(){
 			return{
 				value:'',
 				nav:'20',
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				ordernumber: '',
+				orderSendInfo: '',
+				countdown: '',
+				teamEnd: false
 			}
 		},
-		onLoad:function(e){
+		onLoad:function(options){
+			this.ordernumber = options.ordernumber;
 			uni.getSystemInfo({
-				
 				success: res=>{
 					 // 导航高度
 					this.nav = res.statusBarHeight 
-					
 				}
 			})
+			let that = this;
+			let action = "get_order_giftgiving_info";
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				memberid: memberid,
+				ordernumber: this.ordernumber
+			});
+			this.$utils.postNew(action,data,controller).then(res=>{
+				if(res.sta == 1){
+					that.orderSendInfo = res.rs;
+					if(that.orderSendInfo.orderinfo.status ==5){
+						if(res.ra.wait_pay_time){
+							that.getCountdown(res.ra.wait_pay_time);
+						}
+					}else if(that.orderSendInfo.orderinfo.status ==2){
+						if(res.ra.wait_receive_time){
+							that.getCountdown(res.ra.wait_receive_time);
+						}
+					}
+				}
+			});
 		},
 		methods:{
+			getCountdown(endTime) {
+				var that = this;
+				var _endDateTime = new Date(endTime).getTime();
+				// timer = setInterval(function() {
+					var _newDateTime = new Date().getTime();
+						times = _endDateTime - _newDateTime;
+						if (times <= 0) {
+							return
+						}
+						that.setTime(times / 1000)
+					// }, 1000);
+			},
+				setTime(times) {
+						var that = this;
+						if (times <= 0) {
+							// clearInterval(timer);
+							return;
+						}
+						var day = 0,
+							hour = 0,
+							minute = 0,
+							second = 0; //时间默认值
+						day = Math.floor(times / (60 * 60 * 24));
+						hour = Math.floor(times / (60 * 60)) - (day * 24);
+						minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+						second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+						if (day <= 9) day = '0' + day;
+						if (hour <= 9) hour = '0' + hour;
+						if (minute <= 9) minute = '0' + minute;
+						if (second <= 9) second = '0' + second;
+						//
+						var countdown = {
+							day: day,
+							hour: hour,
+							minute: minute,
+							second: second,
+						}
+						that.countdown = countdown
+						// times--;
+					},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
@@ -192,7 +252,76 @@
 				    },
 				})	
 			},
+			//转赠详情 我送出的
+			goConversionDetails: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../index-coupon/ConversionDetails?cardbag=' + ordernumber +'&cardbag_detail_id=' + '0' + '&cardbag_number=' + ordernumber
+				});
+			},
 			applyHandler(e){
+				uni.navigateTo({
+					url: "../Apply/ApplyInvoice"
+				});
+			},
+			// 取消订单
+			cancel: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let data = JSON.stringify({
+					memberid: this.memberid,
+					ordernumber: ordernumber
+				});
+				let action = 'cancel_buy_order';
+			
+				this.$utils.post(action, data).then(res => {
+					console.log("取消订单", res);
+					if (res.sta == 1) {
+						uni.showToast({
+							title: "取消成功"
+						})
+						uni.startPullDownRefresh();
+					} else {
+						uni.showToast({
+							title: "操作失败",
+							icon: 'none'
+						})
+					}
+				})
+			},
+			//  微信支付
+			submit: function(e) {
+				let orderNumber = e.currentTarget.dataset.ordernumber;
+				// 接口地址
+				let action = 'get_buy_order_pay_info';
+				// 传入参数
+				let data = JSON.stringify({
+					ordernumber: orderNumber,
+				});
+				console.log(data);
+				// 请求
+				this.$utils.post(action, data).then(res => {
+					this.$utils.wxPay(res.rs.serial_number, "buy_order");
+				});
+			},
+			//申请退款
+			ApplyRefund: function(e) {
+				uni.navigateTo({
+					url: '../../pagesub/Refund/ApplyRefund' 
+				});
+			},
+			//立即赠送
+			PresentNow: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../shopping/succes?cardbag_number=' + ordernumber
+				})
+			},
+			//再次赠送
+			GiveitAgain: function(e) {
+				
+			},
+			//申请开票
+			ApplyInvoice(e){
 				uni.navigateTo({
 					url: "../Apply/ApplyInvoice"
 				});
@@ -574,5 +703,7 @@
 		line-height: 40rpx;
 		text-align: center;
 		margin-top: 10rpx;
+		display: flex;
+	    align-items: center;
 	}
 </style>

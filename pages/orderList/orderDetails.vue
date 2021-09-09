@@ -367,7 +367,7 @@
 			<view class="gift-button-give-top"></view>
 			<view class="gift-received-button flex-between">
 				<view class="gift-button-give gift-received-button-give" :data-cardbag_number="cardbag.cardbag_number" :data-price="cardbag.price_discount"
-				 @click="give">立即转增</view>
+				 @click="give">立即转赠</view>
 			</view>
 		</view>
 
@@ -392,7 +392,7 @@
 				<view class="gift-button-give gift-received-button-give" style="background-color: #E27F8C;" :data-cardbag_number="cardbag.cardbag_number"
 				 @click="address">填写收货地址</view>
 				<view class="gift-button-give gift-received-button-give" :data-cardbag_number="cardbag.cardbag_number" :data-price="cardbag.price_discount"
-				 @click="give">立即转增</view>
+				 @click="give">立即转赠</view>
 			</view>
 		</view> -->
 

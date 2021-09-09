@@ -10,8 +10,8 @@
 			</view>
 		</view>
 		
-		<!-- <view class="reception-address-add">
-			<view class="reception-address-left" @click="$buttonClick(receptiondetails)">
+		<view class="reception-address-add">
+			<view class="reception-address-left" @click="$buttonClick(chooseAddr)">
 				<image src="../../static/reception-address-location.png" class="reception-address-img"></image>
 				<view class="reception-address-text">获取微信地址</view>
 			</view>
@@ -19,7 +19,7 @@
 				<image src="../../static/reception-address-add.png" class="reception-address-img"></image>
 				<view class="reception-address-text">手动添加地址</view>
 			</view>
-		</view> -->
+		</view>
 		
 		<!-- v-for="(item,index) in screenPurchase" :key="index -->
 		<view class="order-purchase-view">
@@ -1318,6 +1318,29 @@
 				    },
 				})	
 			},
+			chooseAddr(){
+			    let that = this;
+				// 判断是否授权过地址
+				// uni.getSetting({
+				// 	success(res) {
+				// 		console.log('授权', res.authSetting['scope.address'])
+				// 		if (res.authSetting['scope.address'] == true) {} else {
+				// 			// 调起微信收货地址
+				// 			that.chooseadd()
+				// 		}
+				// 	}
+				// })
+										
+			    uni.chooseAddress({
+		            success(res){
+						console.log('---->:',res)
+						that.inputData.ToAddress = res.provinceName + res.cityName;     // 收件地址
+						that.inputData.addrDetail = res.countyName+res.detailInfo;    　// 详细地址
+						that.inputData.Recipient = res.userName;                    　　// 收货人
+						that.inputData.phoneNumber = res.telNumber;                    // 联系电话            
+					}
+				})
+			}
 		}
 	}
 </script>

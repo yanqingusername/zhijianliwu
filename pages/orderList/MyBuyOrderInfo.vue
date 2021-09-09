@@ -7,63 +7,100 @@
 				<view class="personal-header-title"></view>
 			</view>
 			<view class="recharge-status-top">
-				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
-				<view class="recharge-status-text">待发货</view>
+				<image v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<!-- <view  v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
+				<image v-if="orderBuyInfo.orderinfo.status ==2" class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
+				<!-- <view v-if="orderBuyInfo.orderinfo.status ==2" class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
+				<view class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view>
 			</view>
 		</view>
 		
 		<view class="recharge-flex">
+			<view class="reception-flex" v-if="orderBuyInfo.orderinfo.wuliu_info.length > 0">
+				<view class="reception-address-view" @click="logisticInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">
+					<view class="reception-address-view-left">
+						<view class="reception-distribution-value">{{orderBuyInfo.orderinfo.wuliu_info[0].context}}</view>
+						<view class="reception-distribution-time">{{orderBuyInfo.orderinfo.wuliu_info[0].time}}</view>
+					</view>
+					<view class="reception-address-view-right" >
+						<image src="../../static/return_arrow_r_g.png" class="reception-address-arrow"></image>
+					</view>
+					<image src="../../static/icon_send_order.png" class="reception-send-icon"></image>
+				</view>
+			</view>
+			<view class="reception-flex" v-if="orderBuyInfo.orderinfo.linkman">
+				<view class="reception-address-view" style="margin-top: 0rpx;padding-bottom: 30rpx;">
+					<view class="reception-address-view-left">
+						<view class="reception-address-name">{{orderBuyInfo.orderinfo.linkman}} {{orderBuyInfo.orderinfo.linktel}}</view>
+						<view class="reception-address-value">{{orderBuyInfo.orderinfo.province}}{{orderBuyInfo.orderinfo.city}}{{orderBuyInfo.orderinfo.county}}{{orderBuyInfo.orderinfo.address}}</view>
+					</view>
+					<view class="reception-address-view-right" ></view>
+				</view>
+				<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+			</view>
+					
+			<view class="order-border" v-if="(orderBuyInfo.orderinfo.wuliu_info.length > 0 || orderBuyInfo.orderinfo.linkman)"></view>
+			
+			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index">
+					<view class="new-order-li-center" v-for="(item,index) in orderBuyInfo.orderdetail" :key="index">
 						<view class="new-order-left">
 							<view class="new-order-img">
-								<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+								<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 							</view>
 						</view>
 						<view class="new-order-right">
 							<view class="new-order-item">
-								<view class="new-order-item-title">{{item.title}}</view>
-								<view class="new-order-item-money">¥{{item.money}}</view>
+								<view class="new-order-item-title">{{item.goodsname}}</view>
+								<view class="new-order-item-money">¥{{item.goods_price}}</view>
 							</view>
 							<view class="new-order-item">
-								<view class="new-order-item-sku">规格：{{item.sku}}</view>
-								<view class="new-order-item-total">x{{item.number}}</view>
+								<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
+								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<view class="conversion-details">{{item.desc}}</view>
+						<view class="conversion-details">{{item.cancel_type_info}}</view>
+					</view>
+					<view class="new-order-li-bottom" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" >
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">申请退款</view>
+							<!-- <view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view> -->
+						</view>
 					</view>
 				</view>
+			</view>
 		</view>
 		
 		<view class="reception-order">
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">商品总价：</view>
-				<view class="reception-order-money">¥2160</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.price}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money">¥0</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money">¥0</view>
+				<view class="reception-order-money">¥{{orderSendInfo.orderinfo.paycoupon}}</view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
-				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">2160</text></view>
+				<view class="reception-order-money">实付款：<text class="reception-order-label">¥</text><text class="reception-order-totalmoney">{{orderSendInfo.orderinfo.orderprice_discount}}</text></view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 36rpx;">
 				<view class="reception-order-text">订单编号：</view>
-				<view class="reception-ordersn">2560819324121</view>
-				<view class="reception-order-copy" data-ordernumber="2560819324121" @click="copy">复制</view>
+				<view class="reception-ordersn">{{orderBuyInfo.orderinfo.ordernumber}}</view>
+				<view class="reception-order-copy" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" @click="copy">复制</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text">下单时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-time">{{orderBuyInfo.add_time}}</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text">支付时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-time">{{orderBuyInfo.paytime}}</view>
 			</view>
 		</view>
 		<view class="reception-empty"></view>
@@ -76,51 +113,32 @@
 			return{
 				value:'',
 				nav:'20',
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				ordernumber: '',
+				orderBuyInfo: ''
 			}
 		},
-		onLoad:function(e){
+		onLoad:function(options){
+			this.ordernumber = options.ordernumber;
 			uni.getSystemInfo({
-				
 				success: res=>{
 					 // 导航高度
 					this.nav = res.statusBarHeight 
-					
 				}
 			})
+			
+			let that = this;
+			let action = "get_order_buy_info";
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				memberid: memberid,
+				ordernumber: this.ordernumber
+			});
+			this.$utils.postNew(action,data,controller).then(res=>{
+				if(res.sta == 1){
+					that.orderBuyInfo = res.rs;
+				}
+			});
 		},
 		methods:{
 			backbutton(e){
@@ -138,6 +156,19 @@
 				        });
 				    },
 				})	
+			},
+			//物流
+			logisticInfo: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: "../../pagesub/Refund/LogisticsInfo?ordernumber=" + ordernumber
+				});
+			},
+			//申请退款
+			ApplyRefund: function(e) {
+				uni.navigateTo({
+					url: '../../pagesub/Refund/ApplyRefund' 
+				});
 			},
 		}
 	}
@@ -206,15 +237,22 @@
 		position: relative;
 	}
 	
+	.order-border{
+		width: 100%;
+		height: 20rpx;
+		background: #FAFAFA;
+	}
+	
 	.reception-flex{
 		width: 100%;
 		display: flex;
 		position: relative;
+		margin-top: 20rpx;
 	}
 	
 	.reception-address-view{
 		background-color: #FFF;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */
 		padding: 30rpx 30rpx 10rpx 78rpx;
 		display: flex;
 		align-items: center;
@@ -265,6 +303,14 @@
 		height: 40rpx;
 	}
 	
+	.reception-send-icon {
+	    position: absolute;
+	    top: 50rpx;
+	    left: 26rpx;
+	    width: 44rpx;
+	    height: 44rpx;
+	}
+	
 	.reception-address-icon{
 		position: absolute;
 		top: 32rpx;
@@ -274,11 +320,14 @@
 	}
 	
 	.order-purchase-view{
-		background-color: #FFF;
+		/* background-color: #FFF; */
 	}
 	.new-order-li{
 		width: 100%;
 		margin-top: 0rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 	.new-order-li-top{
 		display: flex;
@@ -400,7 +449,11 @@
 		display: flex;
 		align-items: center;
 	}
+	.reception-order-view-bootom{
+		display: flex;
+	}
 	.reception-order-text{
+		min-width: 140rpx;
 		font-size: 24rpx;
 		color: #999999;
 	}
@@ -455,5 +508,43 @@
 		font-size: 30rpx;
 		color: #EB1615;
 		font-weight: bold;
+	}
+	
+	.new-order-li-bottom{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15rpx 45rpx 18rpx 38rpx;
+		width: 100%;
+	}
+	
+	.new-order-botton-view{
+		display: flex;
+		align-items: center;
+	}
+	.new-order-botton{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 48rpx;
+		border-radius: 3rpx;
+		border: 1px solid #EB1615;
+		font-size: 24rpx;
+		color: #EB1615;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
+		margin-left: 20rpx;
+	}
+	.new-order-botton-gray{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 48rpx;
+		border-radius: 3rpx;
+		border: 1px solid #979797;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
 	}
 </style>

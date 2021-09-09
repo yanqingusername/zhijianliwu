@@ -61,7 +61,7 @@
 			</view>
 
 			<view style="display: flex;">
-				<button type="default" class="transfer" @click="givee">转增礼物</button>
+				<button type="default" class="transfer" @click="givee">转赠礼物</button>
 				<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
 				
 			</view>
@@ -265,93 +265,90 @@
 				})
 			},
 			givee: function(e) {
-				// let cardbag_number = e.currentTarget.dataset.cardbag_number;
-				let cardbag_number = this.cardbag_number
-				let price = this.price;
-				let status = this.status;
-
-
-				uni.setStorageSync('cardbag_theme', this.cardbag_theme)
-
-
-				var data = '{"cardbag_number":"' + this.cardbag_number + '","zhufu_theme_id":"' + this
-					.cardbag_theme
-					.id + '","memberid":"' + this.cardbag.present_memberid + '"}';
-				console.log(data)
-				var action = 'save_shoudao_zhufu_theme';
-				this.$utils.post(action, data).then(res => {
-					console.log(res)
-					if (res.sta == 1) {
-						if (this.cardbag.type == 3) {
-
-							var data = '{"cardbag_number":"' + cardbag_number + '"}';
-							var action = 'save_cardbag_wanfa';
-							this.$utils.post(action, data).then(res => {
-								console.log('定时转成直接', res)
-								if (res.sta == 1) {
-
-									var data = '{"cardbag_number":"' + cardbag_number + '"}';
-									var action = 'share_cardbag';
-									console.log(data)
-
-									this.$utils.post(action, data).then(res => {
-										console.log('赠送好友', res)
-										if (res.sta == 1) {
-											uni.showToast({
-												title: res.msg,
-												icon: 'success',
-												mask: true,
-												success: (res) => {
-													setTimeout(function(e) {
-														uni.navigateTo({
-															url: '../success/success?cardbag_number=' +
-																cardbag_number +
-																'&price=' +
-																price
-														})
-													}, 1500)
-												}
-											})
-										}
-									})
-								}
-							})
-						} else {
-							// let cardbag_number = e.currentTarget.dataset.cardbag_number;
-							let cardbag_number = this.cardbag_number
-							let price = this.price;
-							let status = this.status;
-
-							var data = '{"cardbag_number":"' + this.cardbag_number + '"}';
-							var action = 'share_cardbag';
-							console.log(data)
-							this.$utils.post(action, data).then(res => {
-								console.log('赠送好友', res)
-								
-								if (res.sta == 1) {
-									uni.showToast({
-										title: res.msg,
-										icon: 'success',
-										mask: true,
-										success: (res) => {
-											setTimeout(function(e) {
-												uni.navigateTo({
-													url: '../success/success?cardbag_number=' +
-														cardbag_number +
-														'&price=' +
-														price
-												})
-											}, 1500)
-										}
-									})
-								}
-							})
-						}
-
-
-
-					}
+				let ordernumber = this.cardbag_number;
+				uni.navigateTo({
+					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
 				})
+				// // let cardbag_number = e.currentTarget.dataset.cardbag_number;
+				// let cardbag_number = this.cardbag_number
+				// let price = this.price;
+				// let status = this.status;
+				// uni.setStorageSync('cardbag_theme', this.cardbag_theme)
+				// var data = '{"cardbag_number":"' + this.cardbag_number + '","zhufu_theme_id":"' + this
+				// 	.cardbag_theme
+				// 	.id + '","memberid":"' + this.cardbag.present_memberid + '"}';
+				// console.log(data)
+				// var action = 'save_shoudao_zhufu_theme';
+				// this.$utils.post(action, data).then(res => {
+				// 	console.log(res)
+				// 	if (res.sta == 1) {
+				// 		if (this.cardbag.type == 3) {
+
+				// 			var data = '{"cardbag_number":"' + cardbag_number + '"}';
+				// 			var action = 'save_cardbag_wanfa';
+				// 			this.$utils.post(action, data).then(res => {
+				// 				console.log('定时转成直接', res)
+				// 				if (res.sta == 1) {
+
+				// 					var data = '{"cardbag_number":"' + cardbag_number + '"}';
+				// 					var action = 'share_cardbag';
+				// 					console.log(data)
+
+				// 					this.$utils.post(action, data).then(res => {
+				// 						console.log('赠送好友', res)
+				// 						if (res.sta == 1) {
+				// 							uni.showToast({
+				// 								title: res.msg,
+				// 								icon: 'success',
+				// 								mask: true,
+				// 								success: (res) => {
+				// 									setTimeout(function(e) {
+				// 										uni.navigateTo({
+				// 											url: '../success/success?cardbag_number=' +
+				// 												cardbag_number +
+				// 												'&price=' +
+				// 												price
+				// 										})
+				// 									}, 1500)
+				// 								}
+				// 							})
+				// 						}
+				// 					})
+				// 				}
+				// 			})
+				// 		} else {
+				// 			// let cardbag_number = e.currentTarget.dataset.cardbag_number;
+				// 			let cardbag_number = this.cardbag_number
+				// 			let price = this.price;
+				// 			let status = this.status;
+
+				// 			var data = '{"cardbag_number":"' + this.cardbag_number + '"}';
+				// 			var action = 'share_cardbag';
+				// 			console.log(data)
+				// 			this.$utils.post(action, data).then(res => {
+				// 				console.log('赠送好友', res)
+								
+				// 				if (res.sta == 1) {
+				// 					uni.showToast({
+				// 						title: res.msg,
+				// 						icon: 'success',
+				// 						mask: true,
+				// 						success: (res) => {
+				// 							setTimeout(function(e) {
+				// 								uni.navigateTo({
+				// 									url: '../success/success?cardbag_number=' +
+				// 										cardbag_number +
+				// 										'&price=' +
+				// 										price
+				// 								})
+				// 							}, 1500)
+				// 						}
+				// 					})
+				// 				}
+				// 			})
+				// 		}
+				// 	}
+				// })
 			},
 			// 播放录音
 			audioPlay: function() {

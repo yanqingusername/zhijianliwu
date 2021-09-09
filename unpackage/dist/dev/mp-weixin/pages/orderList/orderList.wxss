@@ -169,6 +169,7 @@ page {
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
 	padding: 15rpx 45rpx 18rpx 38rpx;
+	height: 40px;
 }
 .new-order-botton-view{
 	display: -webkit-box;

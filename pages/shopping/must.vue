@@ -64,8 +64,12 @@
 					<text class="message-title">余额：</text>
 					<text class="message-price">¥{{balance}}</text>
 					<!-- <view class="" > -->
-					<text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
-					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text>
+					<!-- <text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
+					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text> -->
+					
+					<text class="circle iconfont icon-ico2" @click="switch2Change" v-if="balance != 0" v-show="use_balance==0"></text>
+					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="balance != 0" v-show="use_balance==1"></text>
+					
 					<!-- </view> -->
 				</view>
 			</view>
@@ -124,13 +128,13 @@
 			<!-- 合计 -->
 			<view class="hj">
 				<text class="jiage">合计：</text>
-				<text class="jiage sum-price">￥{{price_zhe}}</text>
+				<text class="jiage sum-price">￥{{use_balance == 0 ? price_zhe : '0.00'}}</text>
 			</view>
 		</view>
 		<!-- 底部合计 -->
 		<view class="must-bottom heji">
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
-			<text class="must-bottom-price">{{price_zhe}}</text>
+			<text class="must-bottom-price">{{use_balance == 0 ? price_zhe : '0.00'}}</text>
 			<view class="pay clearfix">
 				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
 			</view>
@@ -157,7 +161,7 @@
 				coupon_name: '',
 				coupon_money: '',
 				showa: '',
-				use_balance: true, //余额的选中
+				use_balance: 0, //余额的选中
 				balance: 0,
 				showa: 1,
 				openid: '',
@@ -327,7 +331,7 @@
 					return 
 					}
 					//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
-					this.price_zhe=parseFloat(res.rs.price_zhe)-money1
+					this.price_zhe=parseFloat(res.rs.price_zhe)- parseFloat(money1)
 			
 				})					
 				

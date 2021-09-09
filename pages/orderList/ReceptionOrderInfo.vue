@@ -7,30 +7,31 @@
 				<view class="personal-header-title"></view>
 			</view>
 			<view class="recharge-status-top">
-				<!-- <image class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
-				<view class="recharge-status-text">已完成</view> -->
-				<image class="recharge-status-img" src="../../static/icon_transit_reception.png"></image>
-				<view class="recharge-status-text">运输中</view>
+				<image class="recharge-status-img" v-if="orderReceptionInfo.orderinfo.status ==2" src="../../static/icon_transit_reception.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderReceptionInfo.orderinfo.status ==2">{{orderReceptionInfo.orderinfo.order_status_info}}</view> -->
+				<image class="recharge-status-img" v-if="orderReceptionInfo.orderinfo.status ==3" src="../../static/icon_completed_reception.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderReceptionInfo.orderinfo.status ==3">{{orderReceptionInfo.orderinfo.order_status_info}}</view> -->
+				<view class="recharge-status-text">{{orderReceptionInfo.orderinfo.order_status_info}}</view>
 			</view>
 		</view>
 		
 		<view class="recharge-flex">
-			<view class="reception-flex">
-				<view class="reception-address-view">
+			<view class="reception-flex" v-if="orderReceptionInfo.orderinfo.wuliu_info.length > 0">
+				<view class="reception-address-view" @click="logisticInfo" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber">
 					<view class="reception-address-view-left">
-						<view class="reception-distribution-value">您的订单已由本人签收。如有疑问您可联系 配送员【李阳，13728372378】确认。</view>
-						<view class="reception-distribution-time">2021-04-08 06:36:51</view>
+						<view class="reception-distribution-value">{{orderReceptionInfo.orderinfo.wuliu_info[0].context}}</view>
+						<view class="reception-distribution-time">{{orderReceptionInfo.orderinfo.wuliu_info[0].time}}</view>
 					</view>
 					<view class="reception-address-view-right" >
 						<image src="../../static/return_arrow_r_g.png" class="reception-address-arrow"></image>
 					</view>
 				</view>
 			</view>
-			<view class="reception-flex">
+			<view class="reception-flex" v-if="orderReceptionInfo.orderinfo.linkman">
 				<view class="reception-address-view" style="margin-top: 0rpx;padding-bottom: 30rpx;">
 					<view class="reception-address-view-left">
-						<view class="reception-address-name">王女士 18801182514</view>
-						<view class="reception-address-value">北京市北京市丰台区纪家庙村丰管路天丰大厦238室</view>
+						<view class="reception-address-name">{{orderReceptionInfo.orderinfo.linkman}} {{orderReceptionInfo.orderinfo.linktel}}</view>
+						<view class="reception-address-value">{{orderReceptionInfo.orderinfo.province}}{{orderReceptionInfo.orderinfo.city}}{{orderReceptionInfo.orderinfo.county}}{{orderReceptionInfo.orderinfo.address}}</view>
 					</view>
 					<view class="reception-address-view-right" ></view>
 				</view>
@@ -38,42 +39,50 @@
 			</view>
 		</view>
 		
+		<view class="order-border" v-if="(orderReceptionInfo.orderinfo.wuliu_info.length > 0 || orderReceptionInfo.orderinfo.linkman)"></view>
+		
 		<view class="order-purchase-view">
 			<view class="new-order-li">
 				<view class="new-order-li-top">
-					<image lazy-load="true" class="new-order-header-img" src="../../static/nono.jpg" mode=""></image>
-					<view class="new-order-nickname">熊猫</view>
+					<image lazy-load="true" class="new-order-header-img" :src="orderReceptionInfo.orderinfo.give_head_img" mode=""></image>
+					<view class="new-order-nickname">{{orderReceptionInfo.orderinfo.give_name}}</view>
 					<view class="new-order-li-top-ordersn">送出的</view>
 				</view>
-				<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index">
+				<view class="new-order-li-center" v-for="(item,index) in orderReceptionInfo.orderdetail" :key="index">
 					<view class="new-order-left">
 						<view class="new-order-img">
-							<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+							<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 						</view>
 					</view>
 					<view class="new-order-right">
 						<view class="new-order-item">
-							<view class="new-order-item-title">{{item.title}}</view>
-							<view class="new-order-item-money">¥{{item.money}}</view>
+							<view class="new-order-item-title">{{item.goodsname}}</view>
+							<view class="new-order-item-money">¥{{item.goods_price}}</view>
 						</view>
 						<view class="new-order-item">
-							<view class="new-order-item-sku">规格：{{item.sku}}</view>
-							<view class="new-order-item-total">x{{item.number}}</view>
+							<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
+							<view class="new-order-item-total">x{{item.goodsnum}}</view>
 						</view>
 					</view>
-					<view class="conversion-details">{{item.desc}}</view>
+					<view class="conversion-details">{{item.cancel_type_info}}</view>
+				</view>
+				<view class="new-order-li-bottom" v-if="orderReceptionInfo.orderinfo.status ==3" >
+					<view class="new-order-nickname"></view>
+					<view class="new-order-botton-view">
+						<view class="new-order-botton-gray" @click="RefundAfterSale" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber">退换/售后</view>
+					</view>
 				</view>
 			</view>
 		</view>
 		<view class="reception-order">
 			<view class="reception-order-view">
 				<view class="reception-order-text">领取编号：</view>
-				<view class="reception-ordersn">2560819324121</view>
-				<view class="reception-order-copy" data-ordernumber="2560819324121" @click="copy">复制</view>
+				<view class="reception-ordersn">{{orderReceptionInfo.orderinfo.ordernumber}}</view>
+				<view class="reception-order-copy" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber" @click="copy">复制</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text">领取时间：</view>
-				<view class="reception-order-time">2021/04/08 16:12:27</view>
+				<view class="reception-order-time">{{orderReceptionInfo.add_time}}</view>
 			</view>
 		</view>
 		<view class="reception-empty"></view>
@@ -86,57 +95,44 @@
 			return{
 				value:'',
 				nav:'20',
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				ordernumber: '',
+				orderReceptionInfo: ''
 			}
 		},
-		onLoad:function(e){
+		onLoad:function(options){
 			uni.getSystemInfo({
-				
 				success: res=>{
 					 // 导航高度
 					this.nav = res.statusBarHeight 
-					
 				}
 			})
+			
+			this.ordernumber = options.ordernumber;
+			let that = this;
+			let action = "get_order_receivegifts_info";
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				memberid: memberid,
+				ordernumber: this.ordernumber
+			});
+			this.$utils.postNew(action,data,controller).then(res=>{
+				if(res.sta == 1){
+					that.orderReceptionInfo = res.rs;
+				}
+			});
 		},
 		methods:{
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			//退换/售后
+			RefundAfterSale: function(e) {
+				uni.navigateTo({
+					url: '../../pagesub/Refund/RefundAfterSale' //退换/售后
+				})
 			},
 			copy: function(e) {
 				let orderNumber = e.currentTarget.dataset.ordernumber;
@@ -216,15 +212,22 @@
 		position: relative;
 	}
 	
+	.order-border{
+		width: 100%;
+		height: 20rpx;
+		background: #FAFAFA;
+	}
+	
 	.reception-flex{
 		width: 100%;
 		display: flex;
 		position: relative;
+		margin-top: 20rpx;
 	}
 	
 	.reception-address-view{
 		background-color: #FFF;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */
 		padding: 30rpx 30rpx 10rpx 78rpx;
 		display: flex;
 		align-items: center;
@@ -288,7 +291,10 @@
 	}
 	.new-order-li{
 		width: 100%;
-		margin-top: 20rpx;
+		margin-top: 0rpx;
+		/* display: flex;
+		flex-direction: column;
+		align-items: center; */
 	}
 	.new-order-li-top{
 		display: flex;
@@ -410,7 +416,11 @@
 		display: flex;
 		align-items: center;
 	}
+	.reception-order-view-bootom{
+		display: flex;
+	}
 	.reception-order-text{
+		min-width: 140rpx;
 		font-size: 24rpx;
 		color: #999999;
 	}
@@ -437,6 +447,72 @@
 	
 	.reception-empty{
 		height: 100rpx;
+	}
+	
+	.flex-between-padding{
+		padding: 20rpx 0rpx;
+	}
+	.order-line{
+		padding: 26rpx 0rpx;
+		border-top: 1px solid #EEEEEE;
+		border-bottom: 1px solid #EEEEEE;
+	}
+	.reception-order-title{
+		font-size: 30rpx;
+		color: #999999;
+		line-height: 42rpx;
+	}
+	.reception-order-money{
+		font-size: 30rpx;
+		color: #333333;
+		line-height: 42rpx;
+	}
+	.reception-order-label{
+		font-size: 30rpx;
+		color: #EB1615;
+	}
+	.reception-order-totalmoney{
+		font-size: 30rpx;
+		color: #EB1615;
+		font-weight: bold;
+	}
+	
+	.new-order-li-bottom{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15rpx 45rpx 18rpx 38rpx;
+		width: 100%;
+	}
+	
+	.new-order-botton-view{
+		display: flex;
+		align-items: center;
+	}
+	.new-order-botton{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 48rpx;
+		border-radius: 3rpx;
+		border: 1px solid #EB1615;
+		font-size: 24rpx;
+		color: #EB1615;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
+		margin-left: 20rpx;
+	}
+	.new-order-botton-gray{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 48rpx;
+		border-radius: 3rpx;
+		border: 1px solid #979797;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
 	}
 	
 </style>

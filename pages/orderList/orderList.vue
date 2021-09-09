@@ -27,23 +27,21 @@
 
 		<view class="empty-no-btm" v-if="screenPurchase.length==0">
 			<image class="empty-no-img" src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode=""></image>
-			<view class="empty-no-text">您还没有购买过礼物，快去挑选吧～</view>
-			<view class="empty-no-view">买礼物送好友</view>
+			<view class="empty-no-text" v-if="nav==1">您还没有购买过礼物，快去挑选吧～</view>
+			<view class="empty-no-view" v-if="nav==1" @click="$buttonClick(selectliwu)">买礼物送好友</view>
+			
+			<view class="empty-no-text" v-if="nav==2">您还没有购买过礼物，快去挑选吧～</view>
+			<view class="empty-no-view" v-if="nav==2" @click="$buttonClick(selectliwu)">挑礼物</view>
+			
+			<view class="empty-no-text" v-if="nav==3">您还没有领取礼物～</view>
+			<view class="empty-no-view" v-if="nav==3" @click="$buttonClick(selectliwu)">买礼物送好友</view>
 		</view>
 		<!-- 我购买的 -->
 		<view v-if="screenPurchase.length > 0" class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="new-order-li" @click="$buttonClick(receptionOrderInfo)">
+			<view class="new-order-li" @click="receptiondetails" :data-ordernumber="item.ordernumber" :data-status="item.status" :data-cardtype="item.card_type">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">订单号：{{item.ordernumber}}</view>
-					<view class="new-order-li-top-orderstatus">{{item.status_info}} ></view>
-					<!-- 0未审核1待发货2已发货3已签收99已取消4异常订单5未支付 -->
-					<!-- <view class="new-order-li-top-orderstatus" v-else-if="item.status=='0'">待发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='1'">待发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='2'">已发货 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='3'">已领取 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='4'">订单异常</view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='5'">未支付 ></view>
-					<view class="new-order-li-top-orderstatus" v-else-if="item.status=='99'">已取消 ></view> -->
+					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} ></view>
 				</view>
 				<view class="new-order-li-center">
 					<view class="new-order-left" v-if="item.goods_info_list.length == 1">
@@ -71,10 +69,34 @@
 					</view>
 				</view>
 				<view class="new-order-li-bottom">
-					<view class="new-order-nickname">{{nav==3 ? "熊猫送出": ''}}</view>
-					<view class="new-order-botton-view">
-						<view class="new-order-botton-gray" @click="$buttonClick(zengsong)">转赠</view>
-						<view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view>
+					<view class="new-order-nickname">
+						<view v-if="nav==3">{{item.give_name}}送出</view>
+						<view v-else></view>
+					</view>
+					<view class="new-order-botton-view" v-if="nav==1">
+						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
+						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
+						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber">申请退款</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber">退款/售后</view>
+						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="againProduct" :data-ordernumber="item.ordernumber">再次购买</view>
+					</view>
+					
+					<view class="new-order-botton-view" v-if="nav==2">
+						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
+						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
+						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber">申请退款</view>
+						<view class="new-order-botton" v-if="item.status == 0 || item.status == 1" @click.stop="PresentNow" :data-ordernumber="item.ordernumber">立即赠送</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="GiveitAgain" :data-ordernumber="item.ordernumber">再次赠送</view>
+					</view>
+					
+					<view class="new-order-botton-view" v-if="nav==3">
+						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3)" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
+						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
+						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber">退换/售后</view>
 					</view>
 				</view>
 			</view>
@@ -1268,7 +1290,119 @@
 					url: './logistics/logistics?ordernumber=' + e.target.dataset.ordernumber
 				})
 			},
+			//买礼物送好友
+			selectliwu: function(e) {
+				uni.reLaunch({
+					url: '../index/index'
+				})
+			},
+			//申请退款
+			ApplyRefund: function(e) {
+				uni.navigateTo({
+					url: '../../pagesub/Refund/ApplyRefund' 
+				});
+			},
+			//申请开票
+			ApplyInvoice(e){
+				uni.navigateTo({
+					url: "../Apply/ApplyInvoice"
+				});
+			},
+			//退款/售后
+			RefundAfterSale: function(e) {
+				uni.navigateTo({
+					url: '../../pagesub/Refund/RefundAfterSale' //退款/售后
+				})
+			},
+			//再次购买
+			againProduct: function(e) {
+				
+			},
+			//立即赠送
+			PresentNow: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../shopping/succes?cardbag_number=' + ordernumber
+				})
+			},
+			//再次赠送
+			GiveitAgain: function(e) {
+				
+			},
+			//去兑换
+			go_exchange: function(e) {
+				console.log(e);
+				let cardid = e.currentTarget.dataset.cardid;
+				uni.navigateTo({
+					url: '../index-coupon/redemption_center?cardid=' + cardid
+				})
+			},
+			//去充值
+			goRecharge: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let action = 'recharge_giftcard';
+				let data = JSON.stringify({
+					memberid: memberid,
+					ordernumber: ordernumber
+				});
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: '../balance/RechargeStatus?istype=1&ordernumber=' + ordernumber
+							})
+						},500)
+					} else {
+						uni.showToast({
+						 	title:res.msg,
+						 	icon:"none",
+						 	mask:'true',
+						});
+					}
+				});
+			},
+			//转赠
+			goTransfer: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
+				})
+			},
+			//填写收货地址
+			ReceptionAddress: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: './ReceptionAddress?ordernumber=' + ordernumber
+				})
+			},
+			//收礼详情
 			receptiondetails: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let status = e.currentTarget.dataset.status;
+				let cardtype = e.currentTarget.dataset.cardtype;
+				if(ordernumber){
+					if(this.nav == 1){
+						uni.navigateTo({
+							url: './MyBuyOrderInfo?ordernumber='+ ordernumber //我购买的
+						})
+					} else if(this.nav == 2){
+						uni.navigateTo({
+							url: './MySendOrderInfo?ordernumber='+ ordernumber //我送出的
+						})
+					} else {
+						if((status == 0 || status == 1) &&cardtype==2) {
+							uni.navigateTo({
+								url: './ReceptionDetails?ordernumber='+ ordernumber //收礼详情
+							})
+						} else {
+							uni.navigateTo({
+								url: './ReceptionOrderInfo?ordernumber='+ ordernumber //我收到的
+							})
+						}
+					}
+				}
 				// uni.navigateTo({
 				// 	url: './ReceptionDetails' //收礼详情
 				// })
@@ -1281,9 +1415,9 @@
 				// uni.navigateTo({
 				// 	url: '../../pagesub/Refund/RefundExchangeInfo' //填写物流信息
 				// })
-				uni.navigateTo({
-					url: '../../pagesub/Refund/RefundExchangeDown' //审核通过-退货/换货物流  审核通过-退货详情/退货已完成
-				})
+				// uni.navigateTo({
+				// 	url: '../../pagesub/Refund/RefundExchangeDown' //审核通过-退货/换货物流  审核通过-退货详情/退货已完成
+				// })
 				
 			},
 			receptionOrderInfo: function(e) {
@@ -1444,6 +1578,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 15rpx 45rpx 18rpx 38rpx;
+		height: 40px;
 	}
 	
 	.new-order-botton-view{

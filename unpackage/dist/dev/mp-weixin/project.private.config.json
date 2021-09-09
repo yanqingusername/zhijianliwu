@@ -35,6 +35,12 @@
           "pathName": "pages/ordeDetails/ordeDetails",
           "query": "cardbag_number=21202109031024182356209136",
           "scene": null
+        },
+        {
+          "name": "pages/shopping/wishes",
+          "pathName": "pages/shopping/wishes",
+          "query": "type=0",
+          "scene": null
         }
       ]
     }

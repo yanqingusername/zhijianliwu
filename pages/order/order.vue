@@ -187,7 +187,7 @@
 						<view class="order-alt-title-right" v-else-if="item.status=='6'">待发货></view>
 						<view class="order-alt-title-right" v-else-if="item.status=='7'">已发货></view>
 						<view class="order-alt-title-right" v-else-if="item.status=='8'">已完成></view>
-						<!-- <view class="order-alt-title-right" v-else>已转增></view> -->
+						<!-- <view class="order-alt-title-right" v-else>已转赠></view> -->
 					</view>
 					<view class="order-alt-number">礼物共{{item.goodsnum_all}}件</view>
 					<!-- 其他商品 -->

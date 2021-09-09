@@ -39,7 +39,7 @@
 
 
 
-			<button type="default" class="transfer" @click="givee">转增礼物</button>
+			<button type="default" class="transfer" @click="givee">转赠礼物</button>
 			<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
 
 			

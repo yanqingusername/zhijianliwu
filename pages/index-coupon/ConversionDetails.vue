@@ -1,7 +1,7 @@
 <template>
 	<view class="bag" style="position: relative;">
 		<view class="" style="margin-top: 40px;display: flex;align-items: center;justify-content: center;">
-			<text class="bag-title">该礼包已全部被领取</text>
+			<text class="bag-title">{{cardbag.receive_status_info}}</text>
 		</view>
 		<image class="bag-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 		<view class="bag-con">
@@ -37,10 +37,10 @@
 
 			<view class="bag-gift">
 				<view class="bag-gift-title">
-					<text class="bag-gift-title-font">{{receive_info}}</text>
+					<text class="bag-gift-title-font">{{cardbag.receive_status_info_buttom}}</text>
 				</view>
 
-				<view class="bag-gift-title" style="height: 110rpx;" v-for="item1 in cardbag_in_people" :key="item1.id">
+				<view class="bag-gift-title" style="height: 110rpx;border-top: 1px solid #E6E6E6;" v-for="item1 in cardbag_in_people" :key="item1.id">
 					<view class="flex-between flex-vertically">
 						<view class="bag-gift-title-head">
 							<image class="bag-gift-title-head-img" :src="item1.head_img" mode=""></image>
@@ -58,7 +58,11 @@
 				</view>
 
 			</view>
-
+			
+			<view style="display: flex;margin-bottom: 60rpx;" v-if="cardbag.receive_status == 0">
+				<button class="gray-view" open-type="share">提醒好友领取</button>
+			</view>
+			
 			<view style="display: flex;">
 				<button type="warn" class="write" @click="resend">再送一份</button>
 			</view>
@@ -128,32 +132,32 @@
 			})
 
 			//获取旧的礼包信息，主要是获取领取人信息
-			let old_cardbag_number = e.old_cardbag_number
-			let data1 = JSON.stringify({
-				cardbag_number: old_cardbag_number,
-				cardbag_detail_id: "0",
-				merberid: memberid
-			})
-			var action1 = "get_cardbag_detail";
-			this.$utils.post(action1, data1).then(res => {
-				if(res.sta == 1){
-					console.log('礼包信息')
-					console.log(res)
-					this.cardbag_in_people = res.cardbag_in_people
-					this.cardbag = res.cardbag
-					this.cardbag_theme = res.cardbag_theme
-					this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
-					this.price=res.cardbag.price
-					this.receive_info = res.receive_info
-					if (res.cardbag_theme.zhufu_type == "1") {
-						this.gift = '1'
-					} else if (res.cardbag_theme.zhufu_type == "0") {
-						this.gift = '0'
-					} else {
-						this.gift = '2'
-					}
-				}
-			})
+			// let old_cardbag_number = e.old_cardbag_number
+			// let data1 = JSON.stringify({
+			// 	cardbag_number: old_cardbag_number,
+			// 	cardbag_detail_id: "0",
+			// 	merberid: memberid
+			// })
+			// var action1 = "get_cardbag_detail";
+			// this.$utils.post(action1, data1).then(res => {
+			// 	if(res.sta == 1){
+			// 		console.log('礼包信息')
+			// 		console.log(res)
+			// 		this.cardbag_in_people = res.cardbag_in_people
+			// 		this.cardbag = res.cardbag
+			// 		this.cardbag_theme = res.cardbag_theme
+			// 		this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
+			// 		this.price=res.cardbag.price
+			// 		this.receive_info = res.receive_info
+			// 		if (res.cardbag_theme.zhufu_type == "1") {
+			// 			this.gift = '1'
+			// 		} else if (res.cardbag_theme.zhufu_type == "0") {
+			// 			this.gift = '0'
+			// 		} else {
+			// 			this.gift = '2'
+			// 		}
+			// 	}
+			// })
 			
 			let data2 = JSON.stringify({
 				cardbag_number: cardbag_number,
@@ -288,6 +292,48 @@
 					url: '../index/index'
 				})
 			},
+		},
+		onShareAppMessage(res) {
+			let cardbag_number = this.cardbag.cardbag_number
+			
+					//分享成功调用接口
+					console.log(cardbag_number)
+					var action1 = 'share_cardbag';
+					var data1 = JSON.stringify({
+						cardbag_number: cardbag_number,
+					})
+					this.$utils.post(action1, data1).then(res => {
+						console.log('结果', res)
+		
+					})			
+			
+			
+			return {
+				title: this.cardbag_theme.send_talk_msg,
+				provider: "weixin",
+				scene: "WXSceneSession",
+				path: "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number,
+				type: 0,
+				imageUrl: this.cardbag_theme.background,
+				success(res) {
+					console.log(456)
+					
+					uni.showToast({
+						title: '分享成功'
+					})
+				
+				},
+				fail(res) {
+					uni.showToast({
+						title: '分享失败',
+						icon: 'none'
+					})
+				},
+				complete(res){
+					console.log(289)
+					
+				}
+			}
 		}
 	}
 </script>
@@ -376,7 +422,7 @@
 	.bag-gift-title {
 		width: 100%;
 		height: 100rpx;
-		border-bottom: 1px solid #E6E6E6;
+		/* border-bottom: 1px solid #E6E6E6; */
 		display: flex;
 		align-items: center;
 	}
@@ -418,6 +464,15 @@
 
 	button[type=default] {
 		color: #F33E2B;
+	}
+	
+	.gray-view{
+		width: 220rpx;
+		height: 60rpx;
+		background: #E6E6E6;
+		border-radius: 3rpx;
+		font-size: 25rpx;
+		color: #666666;
 	}
 
 	.write {
