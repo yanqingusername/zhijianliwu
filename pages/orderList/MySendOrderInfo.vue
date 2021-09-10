@@ -266,9 +266,10 @@
 			},
 			// 取消订单
 			cancel: function(e) {
+				let memberid = uni.getStorageSync('id')
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let data = JSON.stringify({
-					memberid: this.memberid,
+					memberid: memberid,
 					ordernumber: ordernumber
 				});
 				let action = 'cancel_buy_order';
