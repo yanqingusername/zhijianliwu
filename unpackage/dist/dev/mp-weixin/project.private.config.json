@@ -41,6 +41,12 @@
           "pathName": "pages/shopping/wishes",
           "query": "type=0",
           "scene": null
+        },
+        {
+          "name": "pages/Apply/ApplyInvoice",
+          "pathName": "pages/Apply/ApplyInvoice",
+          "query": "ordernumber=21210908102746621147",
+          "scene": null
         }
       ]
     }

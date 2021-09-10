@@ -186,110 +186,25 @@
 	     
 		},
 		methods: {
-			address: function(e) {
-				//let cardbag_number = e.currentTarget.dataset.cardbag_number;
-				let cardbag_number = this.cardbag_number
-				uni.navigateTo({
-					url: '../ordeDetails/ordeDetails?cardbag_number=' + cardbag_number
-				})
-			},
-			givee: function(e) {
-				// let cardbag_number = e.currentTarget.dataset.cardbag_number;
-				let cardbag_number = this.cardbag_number
-				let price = this.price;
-				let status = this.status;
-
-
-				uni.setStorageSync('cardbag_theme', this.cardbag_theme)
-
-
-				var data = '{"cardbag_number":"' + this.cardbag_number + '","zhufu_theme_id":"' + this
-					.cardbag_theme
-					.id + '","memberid":"' + this.cardbag.present_memberid + '"}';
-				console.log(data)
-				var action = 'save_shoudao_zhufu_theme';
-				this.$utils.post(action, data).then(res => {
-					console.log(res)
-					if (res.sta == 1) {
-						if (this.cardbag.type == 3) {
-
-							var data = '{"cardbag_number":"' + cardbag_number + '"}';
-							var action = 'save_cardbag_wanfa';
-							this.$utils.post(action, data).then(res => {
-								console.log('定时转成直接', res)
-								if (res.sta == 1) {
-
-									var data = '{"cardbag_number":"' + cardbag_number + '"}';
-									var action = 'share_cardbag';
-									console.log(data)
-
-									this.$utils.post(action, data).then(res => {
-										console.log('赠送好友', res)
-										if (res.sta == 1) {
-											uni.showToast({
-												title: res.msg,
-												icon: 'success',
-												mask: true,
-												success: (res) => {
-													setTimeout(function(e) {
-														uni.navigateTo({
-															url: '../success/success?cardbag_number=' +
-																cardbag_number +
-																'&price=' +
-																price
-														})
-													}, 1500)
-												}
-											})
-										}
-									})
-								}
-							})
-						} else {
-							// let cardbag_number = e.currentTarget.dataset.cardbag_number;
-							let cardbag_number = this.cardbag_number
-							let price = this.price;
-							let status = this.status;
-
-							var data = '{"cardbag_number":"' + this.cardbag_number + '"}';
-							var action = 'share_cardbag';
-							console.log(data)
-							this.$utils.post(action, data).then(res => {
-								console.log('赠送好友', res)
-								
-								if (res.sta == 1) {
-									uni.showToast({
-										title: res.msg,
-										icon: 'success',
-										mask: true,
-										success: (res) => {
-											setTimeout(function(e) {
-												uni.navigateTo({
-													url: '../success/success?cardbag_number=' +
-														cardbag_number +
-														'&price=' +
-														price
-												})
-											}, 1500)
-										}
-									})
-								}
-							})
-						}
-
-
-
-					}
-				})
-			},
 			// 滑动
 			scroll: function(e) {
 				console.log(e)
 				this.distance = e.detail.x
 			},
 			resend() {
-				uni.reLaunch({
-					url: '../index/index'
+				let action = 'order_add_shopping_cart';
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let data = JSON.stringify({
+					ordernumber: this.cardbag.cardbag_number,
+					memberid: memberid
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta == 1){
+						uni.reLaunch({
+							url:'../shopping/shopping?type=0'
+						})
+					}
 				})
 			},
 		},

@@ -260,8 +260,11 @@
 			address: function(e) {
 				//let cardbag_number = e.currentTarget.dataset.cardbag_number;
 				let cardbag_number = this.cardbag_number
+				// uni.navigateTo({
+				// 	url: '../ordeDetails/ordeDetails?cardbag_number=' + cardbag_number
+				// })
 				uni.navigateTo({
-					url: '../ordeDetails/ordeDetails?cardbag_number=' + cardbag_number
+					url: '../orderList/ReceptionAddress?ordernumber=' + cardbag_number
 				})
 			},
 			givee: function(e) {

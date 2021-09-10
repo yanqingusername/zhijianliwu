@@ -166,7 +166,11 @@
 			}
 		},
 		onShow: function() {
-
+			uni.showToast({
+				icon: "loading",
+				title: "加载中"
+			})
+			this.getOrderList(1);
 		},
 		// 下拉刷新
 		onLoad: function(e) {
@@ -174,12 +178,7 @@
 			if (e.nav) {
 				this.nav = e.nav
 			}
-			uni.showToast({
-				icon: "loading",
-				title: "加载中"
-			})
 			
-			this.getOrderList(1);
 		},
 		onPullDownRefresh:function(){
 			this.getOrderList(1);
@@ -594,13 +593,6 @@
 					}
 				}
 
-			},
-			// 填写地址
-			address: function(e) {
-				let cardbag_number = e.currentTarget.dataset.cardbag_number;
-				uni.navigateTo({
-					url: '../ordeDetails/ordeDetails?cardbag_number=' + cardbag_number
-				})
 			},
 			// 查看物流
 			logistics: function(e) {
@@ -1305,8 +1297,9 @@
 			},
 			//申请开票
 			ApplyInvoice(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: "../Apply/ApplyInvoice"
+					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
 				});
 			},
 			//退款/售后
@@ -1317,7 +1310,22 @@
 			},
 			//再次购买
 			againProduct: function(e) {
-				
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let action = 'order_add_shopping_cart';
+                let memberid = uni.getStorageSync('id')
+                let controller = 'order';
+                let data = JSON.stringify({
+                    ordernumber: ordernumber,
+                    memberid: memberid
+                })
+                this.$utils.postNew(action, data, controller).then(res => {
+					
+                    if(res.sta == 1){
+                        uni.reLaunch({
+                            url:'../shopping/shopping?type=0'
+                        })
+                    }
+                })
 			},
 			//立即赠送
 			PresentNow: function(e) {
@@ -1328,7 +1336,21 @@
 			},
 			//再次赠送
 			GiveitAgain: function(e) {
-				
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let action = 'order_add_shopping_cart';
+                let memberid = uni.getStorageSync('id')
+                let controller = 'order';
+                let data = JSON.stringify({
+                    ordernumber: ordernumber,
+                    memberid: memberid
+                })
+                this.$utils.postNew(action, data, controller).then(res => {
+                    if(res.sta == 1){
+                        uni.reLaunch({
+                            url:'../shopping/shopping?type=0'
+                        })
+                    }
+                })
 			},
 			//去兑换
 			go_exchange: function(e) {

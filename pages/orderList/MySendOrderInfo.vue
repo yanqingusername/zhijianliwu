@@ -259,11 +259,6 @@
 					url: '../index-coupon/ConversionDetails?cardbag=' + ordernumber +'&cardbag_detail_id=' + '0' + '&cardbag_number=' + ordernumber
 				});
 			},
-			applyHandler(e){
-				uni.navigateTo({
-					url: "../Apply/ApplyInvoice"
-				});
-			},
 			// 取消订单
 			cancel: function(e) {
 				let memberid = uni.getStorageSync('id')
@@ -319,12 +314,28 @@
 			},
 			//再次赠送
 			GiveitAgain: function(e) {
-				
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let action = 'order_add_shopping_cart';
+                let memberid = uni.getStorageSync('id')
+                let controller = 'order';
+                let data = JSON.stringify({
+                    ordernumber: ordernumber,
+                    memberid: memberid
+                })
+                this.$utils.postNew(action, data, controller).then(res => {
+                    if(res.sta == 1){
+                        uni.reLaunch({
+                            url:'../shopping/shopping?type=0'
+                        })
+                    }
+                })
+
 			},
 			//申请开票
 			ApplyInvoice(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: "../Apply/ApplyInvoice"
+					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
 				});
 			},
 		}

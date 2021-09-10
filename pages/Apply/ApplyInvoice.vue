@@ -1,51 +1,53 @@
 <template>
 	<view>
-		<form @submit="forsubmit1">
-			<view class="apply-order-number">订单编号：20212321326</view>
-			<view class="apply-order-money">开票金额：¥2160</view>
+		<form @submit="forsubmit">
+			<view class="apply-order-number">订单编号：{{billInfo.orderinfo.ordernumber}}</view>
+			<view class="apply-order-money">开票金额：{{billInfo.orderinfo.orderprice_discount}}</view>
 			
 			<view class="apply-order-info">
 				<view class="apply-type">
 					<view class="apply-type-text">发票类型</view>
-					<view class="apply-type-normal">增值税普通发票</view>
-					<view class="apply-type-normal apply-type-normal-active">增值税专用发票</view>
+					<view class="apply-type-normal" :class="type==0 ? 'apply-type-normal-active': ''" @click="typeHandler" data-typen="0">电子普通发票</view>
+					<view class="apply-type-normal" :class="type==1 ? 'apply-type-normal-active': ''" @click="typeHandler" data-typen="1">增值税专用发票</view>
 				</view>
 			</view>
 			
 			<view class="apply-order-info">
 				<view class="apply-type">
 					<view class="apply-type-text">发票抬头</view>
-					<view class="apply-status-normal">个人</view>
-					<view class="apply-status-normal apply-status-normal-active">公司</view>
+					<view v-if="type==0" :class="company_type==0 ? 'apply-status-normal-active': 'apply-status-normal'" @click="companytypeHandler" data-typen="0">个人</view>
+					<view :class="company_type==1 ? 'apply-status-normal-active': 'apply-status-normal'" @click="companytypeHandler" data-typen="1">公司</view>
 				</view>
 			</view>
 			<view class="apply-flex">
 				<view class="apply-flex-title"><span>*</span>抬头名称</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入公司名称" type="text"></view>
+				<view class="apply-flex-input flex-vertically" v-if="type==0 && company_type==0"><input name="name" v-model="name" placeholder="请输入需要开具发票的姓名" type="text"></view>
+				<view class="apply-flex-input flex-vertically" v-else><input name="name" v-model="name" placeholder="请输入公司名称" type="text"></view>
+				
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="company_type==1">
 				<view class="apply-flex-title"><span>*</span>单位税号</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入税号" type="text"></view>
+				<view class="apply-flex-input flex-vertically"><input name="shuihao" v-model="shuihao" placeholder="请输入税号" type="text"></view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="type==1">
 				<view class="apply-flex-title"><span>*</span>开户行</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入开户行" type="text"></view>
+				<view class="apply-flex-input flex-vertically"><input name="bank_deposit" v-model="bank_deposit" placeholder="请输入开户行" type="text"></view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="type==1">
 				<view class="apply-flex-title"><span>*</span>账号</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入开户账号" type="text"></view>
+				<view class="apply-flex-input flex-vertically"><input name="bank_num" v-model="bank_num" placeholder="请输入开户账号" type="text"></view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="type==1">
 				<view class="apply-flex-title"><span>*</span>地址</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入地址" type="text"></view>
+				<view class="apply-flex-input flex-vertically"><input name="address" v-model="address" placeholder="请输入地址" type="text"></view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="type==1">
 				<view class="apply-flex-title"><span>*</span>电话</view>
-				<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入电话" type="text"></view>
+				<view class="apply-flex-input flex-vertically"><input name="linkphone" v-model="linkphone" placeholder="请输入电话" type="text"></view>
 			</view>
-			<view class="apply-flex" style="height: 110rpx;">
+			<view class="apply-flex" style="height: 110rpx;" @click="defaultHandler">
 				<view class="apply-flex-set">设置为默认抬头</view>
-				<image class="apply-flex-default-img" src="../../static/icon_apply_default.png"></image>
+				<image class="apply-flex-default-img" :src="[is_default ? '../../static/icon_apply_checked.png':'../../static/icon_apply_default.png']"></image>
 				<!-- <image class="apply-flex-default-img" src="../../static/icon_apply_checked.png"></image> -->
 			</view>
 			
@@ -56,11 +58,11 @@
 				<view class="line-height"></view>
 				<view class="apply-flex">
 					<view class="apply-flex-title"><span>*</span>手机号码</view>
-					<view class="apply-flex-input flex-vertically"><input name="company_name" placeholder="请输入收票人手机号码" type="text"></view>
+					<view class="apply-flex-input flex-vertically"><input name="phone" v-model="phone" placeholder="请输入收票人手机号码" type="text"></view>
 				</view>
 				<view class="apply-flex">
-					<view class="apply-flex-title"><span>*</span>收票地址</view>
-					<view class="apply-flex-input flex-vertically" style="border-bottom: none;"><input name="company_name" placeholder="请输入收票地址" type="text"></view>
+					<view class="apply-flex-title"><span>*</span>邮箱地址</view>
+					<view class="apply-flex-input flex-vertically" style="border-bottom: none;"><input name="email" v-model="email" placeholder="请输入邮箱地址" type="text"></view>
 				</view>
 			</view>
 			
@@ -103,105 +105,217 @@
 	export default {
 		data() {
 			return {
-				id:'',
-				apply_level:'',
+				ordernumber: '',
+				billInfo: '',
+				type: 0, //发票类型 0普通发票 1专业发票
+				company_type: 0, //开票人 0 个人 1公司
+				is_default: false,
+				name: '', //抬头
+				shuihao: '', //税号
+				bank_deposit: '', //银行开户行
+				bank_num: '', //银行卡号
+				address: '', //地址
+				linkphone: '', //电话
+				phone: '', //手机号码
+				email: '', //邮箱地址
+				member_bill_info: []
 			} 
 		},
-		onLoad:function(e){
-			this.id = uni.getStorageSync('id');
-			let level = uni.getStorageSync('level');
-			if(this.id==""||this.id==null||this.id==undefined){
-				uni.navigateTo({
-					url: '../signin/signin'
-				})
-			}
-			this.apply_level = 4
+		onLoad:function(options){
+			let that = this;
+			this.ordernumber = options.ordernumber;
+			let action = 'get_order_bill_info';
+			let memberid = uni.getStorageSync('id')
+			let controller = 'order';
+			let data = JSON.stringify({
+				ordernumber: this.ordernumber,
+				memberid: memberid
+			})
+			this.$utils.postNew(action, data, controller).then(res => {
+				if(res.sta == 1){
+					this.billInfo = res.rs;
+					this.member_bill_info = res.rs.member_bill_info;
+					if(this.member_bill_info.length>0){
+						let member_bill_info = this.member_bill_info;
+						let item = member_bill_info.filter((ite)=>{
+							 if(ite.type == that.type && ite.company_type == that.company_type){
+								that.name = ite.name;
+							 }
+						})
+					}
+				}
+			})
 			
 		},
 		methods: {
-			forsubmit1(e){
-				uni.navigateTo({
-					url: "./ApplySuccess"
-				});
-			},
-			forsubmit(e){
-				console.log("点击按钮")
-				const apply_level = this.apply_level;
-				// 企业名称
-				const company_name = e.detail.value.company_name;
-				// 联系人姓名
-				const linkman = e.detail.value.linkman;
-				// 手机号
-				const linkphone = e.detail.value.linkphone;
-				// 串码
-				const linkcode = e.detail.value.linkcode;
-				// 意见简述
-				const remark = e.detail.value.remark;
+			typeHandler(e){
+				let type = e.currentTarget.dataset.typen;
+				if(type == 1){
+					this.company_type = 1;
+				}
+				this.type = type;
 				
-				// 企业名称不能为空
-				if(company_name==''||company_name==undefined){
-				   uni.showToast({
-					   title:'企业名称不能为空',
-					   mask:true,
-					   icon:'none'
-				   })	
-				// 联系人不能为空
-				}else if(linkman==''||linkman==undefined){
-					uni.showToast({
-						title:'联系人不能为空',
-						 mask:true,
-						 icon:'none'
-					})	
-			    //  手机号不能为空 
-				}else if(linkphone==''||linkphone==undefined){
-					uni.showToast({
-						title:'手机号不能为空',
-						 mask:true,
-						 icon:'none'
-					})	
-				// 长度等于11位	
-				}else if(linkphone.lenght < 11){
-					uni.showToast({
-						title:'手机号有误',
-						 mask:true,
-						 icon:'none'
-					})	
-				}else if(!(/^1[3|4|5|8|7][0-9]\d{8}$/.test(linkphone))){
-					uni.showToast({
-						title:'手机号有误',
-						 mask:true,
-						 icon:'none'
-					})
-				}else{
-				 var data = '{"memberid":"'+this.id+'","shuihao":"1","apply_level":"'+apply_level+'","company_name":"'+company_name+'","linkman":"'+linkman+'","linkphone":"'+linkphone+'","remark":"'+remark+'"}';
-				 
-				 var action = 'apply_for_member';
-					  	  
-				  this.$utils.post(action,data).then(res=>{
-					     console.log('企业会员申请请求数据',data)
-						  // console.log('企业会员申请',res)					  
-					  
-							if(res.sta!='1'){
-									   uni.showToast({
-											title:res.msg,
-											icon:'none',
-									 	  mask:true})		
-							}else{
-									   uni.showToast({
-										  title:'提交成功!',
-										  icon:'success',
-										  mask:true,
-										  success: (res) =>{
-											  setTimeout(function(e){
-												  uni.reLaunch({
-													url:'../personal/personal'
-												  })
-											  },1500)
-										  }
-									   })								
-							}	 
+				let that = this;
+				if(this.member_bill_info.length>0){
+					let member_bill_info = this.member_bill_info;
+					let item = member_bill_info.filter((ite)=>{
+						if(ite.type == that.type && ite.company_type == that.company_type){
+							that.name = ite.name;
+							that.shuihao = ite.shuihao;
+							that.bank_deposit = ite.bank_deposit;
+							that.bank_num = ite.bank_num;
+							that.address = ite.address;
+							that.linkphone = ite.linkphone;
+							that.type = ite.type;
+							that.company_type = ite.company_type;
+						}else{
+							that.name = '';
+							that.shuihao = '';
+							that.bank_deposit = '';
+							that.bank_num = '';
+							that.address = '';
+							that.linkphone = '';
+						}
 					})
 				}
+			},
+			companytypeHandler(e){
+				let company_type = e.currentTarget.dataset.typen;
+				this.company_type = company_type;
+				
+				let that = this;
+				if(this.member_bill_info.length>0){
+					let member_bill_info = this.member_bill_info;
+					let item = member_bill_info.filter((ite)=>{
+						if(ite.type == that.type && ite.company_type == that.company_type){
+							that.name = ite.name;
+							that.shuihao = ite.shuihao;
+							that.bank_deposit = ite.bank_deposit;
+							that.bank_num = ite.bank_num;
+							that.address = ite.address;
+							that.linkphone = ite.linkphone;
+							that.type = ite.type;
+							that.company_type = ite.company_type;
+						}else{
+							that.name = '';
+							that.shuihao = '';
+							that.bank_deposit = '';
+							that.bank_num = '';
+							that.address = '';
+							that.linkphone = '';
+						}
+					})
+				}
+			},
+			defaultHandler(e){
+				this.is_default = !this.is_default;
+			},
+			forsubmit(e){
+				let name = e.detail.value.name;
+				let shuihao = e.detail.value.shuihao;
+				let bank_deposit = e.detail.value.bank_deposit;
+				let bank_num = e.detail.value.bank_num;
+				let address = e.detail.value.address;
+				let linkphone = e.detail.value.linkphone;
+				let phone = e.detail.value.phone;
+				let email = e.detail.value.email;
+				let memberid = uni.getStorageSync('id');
+				var data = JSON.stringify({
+					memberid: memberid,
+					type: this.type,
+					ordernumber: this.ordernumber,
+					name: name,
+					shuihao: shuihao,
+					money: this.billInfo.orderinfo.orderprice_discount,
+					linkphone: linkphone,
+					email: email,
+					address: address,
+					phone: phone,
+					company_type: this.company_type,
+					is_default: this.is_default,
+					bank_num: bank_num,
+					bank_deposit: bank_deposit
+				});
+				 
+				var action = 'create_bill';
+				this.$utils.post(action,data).then(res=>{
+					if(res.sta==1){
+						uni.redirectTo({
+							url: "./ApplySuccess"
+						});
+					}else{
+						uni.showToast({
+							title:res.msg,
+							icon:'none',
+							mask:true,
+						})	
+					}	 
+				})
+				
+				// // 企业名称不能为空
+				// if(company_name==''||company_name==undefined){
+				//    uni.showToast({
+				// 	   title:'企业名称不能为空',
+				// 	   mask:true,
+				// 	   icon:'none'
+				//    })	
+				// // 联系人不能为空
+				// }else if(linkman==''||linkman==undefined){
+				// 	uni.showToast({
+				// 		title:'联系人不能为空',
+				// 		 mask:true,
+				// 		 icon:'none'
+				// 	})	
+			 //    //  手机号不能为空 
+				// }else if(linkphone==''||linkphone==undefined){
+				// 	uni.showToast({
+				// 		title:'手机号不能为空',
+				// 		 mask:true,
+				// 		 icon:'none'
+				// 	})	
+				// // 长度等于11位	
+				// }else if(linkphone.lenght < 11){
+				// 	uni.showToast({
+				// 		title:'手机号有误',
+				// 		 mask:true,
+				// 		 icon:'none'
+				// 	})	
+				// }else if(!(/^1[3|4|5|8|7][0-9]\d{8}$/.test(linkphone))){
+				// 	uni.showToast({
+				// 		title:'手机号有误',
+				// 		 mask:true,
+				// 		 icon:'none'
+				// 	})
+				// }else{
+				//  var data = '{"memberid":"'+this.id+'","shuihao":"1","apply_level":"'+apply_level+'","company_name":"'+company_name+'","linkman":"'+linkman+'","linkphone":"'+linkphone+'","remark":"'+remark+'"}';
+				 
+				//  var action = 'create_bill';
+					  	  
+				//   this.$utils.post(action,data).then(res=>{
+				// 	     console.log('企业会员申请请求数据',data)
+				// 		  // console.log('企业会员申请',res)					  
+					  
+				// 			if(res.sta!='1'){
+				// 					   uni.showToast({
+				// 							title:res.msg,
+				// 							icon:'none',
+				// 					 	  mask:true})		
+				// 			}else{
+				// 					   uni.showToast({
+				// 						  title:'提交成功!',
+				// 						  icon:'success',
+				// 						  mask:true,
+				// 						  success: (res) =>{
+				// 							  setTimeout(function(e){
+				// 								  uni.reLaunch({
+				// 									url:'../personal/personal'
+				// 								  })
+				// 							  },1500)
+				// 						  }
+				// 					   })								
+				// 			}	 
+				// 	})
+				// }
 			 
 			},
 		}
@@ -275,6 +389,14 @@ page{
 	margin-right: 30rpx;
 }
 .apply-status-normal-active{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 112rpx;
+	height: 48rpx;
+	border-radius: 25rpx;
+	font-size: 22rpx;
+	margin-right: 30rpx;
 	background: #FFEAEA;
 	border: 1px solid #EC1815;
 	color: #EC1815;
@@ -306,6 +428,11 @@ page{
 	line-height: 40rpx;
 	height: 110rpx;
 	border-bottom: 2rpx solid #EEEEEE;
+}
+.apply-flex-input input {
+    font-size: 28rpx;
+    height: 110rpx;
+    width: 505rpx;
 }
 .apply-flex-set{
 	font-size: 26rpx;

@@ -123,7 +123,7 @@
 				 
 				<!-- 直接送礼 -->
 				<view class="" v-else-if="show==='2'">
-					<view class="shop-list shop-ways">
+					<view class="shop-list shop-ways" v-if="statutype != 'exchange'">
 						<text class="shop-gift-title">送礼方式</text>
 						<view class="right">
 							<text class="shop-gift-buy" @click="toggle">直接送礼</text>
@@ -131,7 +131,7 @@
 						</view>
 					</view>
 					
-					<view class="shop-gift-address shop-list">
+					<view class="shop-gift-address shop-list" v-if="statutype != 'exchange'">
 						<text class="">每个人最多可领取1份礼物</text>
 						<view class="right">
 							<text class="shop-gift-cheng">x</text>

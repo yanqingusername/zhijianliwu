@@ -158,11 +158,6 @@
 				    },
 				})	
 			},
-			applyHandler(e){
-				uni.navigateTo({
-					url: "../Apply/Apply"
-				});
-			},
 			logisticInfo(e){
 				uni.navigateTo({
 					url: "./LogisticsInfo"

@@ -149,8 +149,19 @@
 			},
 
 			resend() {
-				uni.reLaunch({
-					url: '../index/index'
+				let action = 'order_add_shopping_cart';
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let data = JSON.stringify({
+					ordernumber: this.cardbag.cardbag_number,
+					memberid: memberid
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta == 1){
+						uni.reLaunch({
+							url:'../shopping/shopping?type=0'
+						})
+					}
 				})
 			},
 			shou: function(e) {

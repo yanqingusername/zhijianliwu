@@ -175,11 +175,6 @@
 				    },
 				})	
 			},
-			applyHandler(e){
-				uni.navigateTo({
-					url: "../Apply/ApplyInvoice"
-				});
-			},
 			//转赠
 			goTransfer: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
