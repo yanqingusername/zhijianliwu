@@ -36,10 +36,12 @@
     "pages/index-coupon/redemption_center",
     "pages/index-coupon/index-address",
     "pages/index-coupon/change",
+    "pages/index-coupon/ExchangeDetails",
     "pages/index-coupon/ExchangeIndex",
     "pages/index-coupon/ExchangeOrder",
     "pages/index-coupon/ExchangeOrderInfo",
     "pages/index-coupon/ExchangePackages",
+    "pages/index-coupon/ConversionDetails",
     "pages/search/search",
     "pages/ordeDetails/ordeDetails",
     "pages/Add/Add",
@@ -92,9 +94,7 @@
         "Refund/RefundExchangeInfo",
         "Refund/RefundExchangeDown",
         "Refund/LogisticsInfo",
-        "AllCovers/AllCovers",
-        "AllCovers/ExchangeDetails",
-        "AllCovers/ExchangeOrderInfo"
+        "AllCovers/AllCovers"
       ]
     }
   ],

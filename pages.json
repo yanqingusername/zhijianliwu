@@ -650,18 +650,6 @@
 					"style" : {
 						"navigationBarTitleText":"全部封面"
 					}
-				},
-				{
-					"path" : "AllCovers/ExchangeDetails",// 待兑换详情
-					"style" : {
-						"navigationBarTitleText":"订单详情"
-					}
-				},
-				{
-					"path" : "AllCovers/ExchangeOrderInfo",// 已兑换详情
-					"style" : {
-						"navigationBarTitleText":""
-					}
 				}
 				
 				

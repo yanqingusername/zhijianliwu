@@ -8,7 +8,7 @@
 		<!-- 企业会员 -->
 		<view v-if="typestring == 1" style="margin-top: -180rpx;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 			<view class="member-content" @click="$buttonClick(apply)">
-				<image class="member-content-background" src="../../static/qiye.png" mode=""></image>
+				<image class="member-content-background" src="https://zhijianlw.com/static/web/img/qiye.png" mode="" lazy-load="true"></image>
 				<view class="member-content-header flex">
 					<view class="member-portrait">
 						<image class="img" :src="$utils.imageUrl(head_img)" mode=""></image>
@@ -18,16 +18,16 @@
 					</view>
 				</view>
 			</view>
-			<image class="member-content-img" src="../../static/qiye-2021-09-07-01.png" mode=""></image>
+			<image class="member-content-img" src="https://zhijianlw.com/static/web/img/qiye-2021-09-07-01.png" mode="" lazy-load="true"></image>
 		</view>
 		
 		<view v-if="typestring == 2" style="margin-top: -180rpx;display: flex;flex-direction: column;align-items: center;justify-content: center;">
 			<view class="member-content">
-				<image class="member-content-background" src="../../static/qiye_vip.png" mode=""></image>
+				<image class="member-content-background" src="https://zhijianlw.com/static/web/img/qiye_vip.png" mode="" lazy-load="true"></image>
 				<view class="member-content-header flex">
 					<view class="personal-sign-wangguan-view">
 						<image class="personal-sign-img" :src="$utils.imageUrl(head_img)" mode=""></image>
-						<image class="personal-sign-wangguan" src="../../static/personal-sign-wangguan-1.png" mode=""></image>
+						<image class="personal-sign-wangguan" src="https://zhijianlw.com/static/web/img/personal-sign-wangguan-1.png" mode="" lazy-load="true"></image>
 					</view>
 					<view style="display: flex;flex-direction: column;margin-top: 10rpx;">
 						<view class="member-name" style="color: #383E4C;font-size: 26rpx;">{{name}}<image src="../../static/qiye_vip_icon.png" style="width: 30rpx;height: 25rpx;margin-left: 8rpx;"/></image></view>
@@ -40,7 +40,7 @@
 				</view>
 			</view>
 			
-			<image class="member-content-img" src="../../static/qiye-2021-09-07-02.png" mode=""></image>
+			<image class="member-content-img" src="https://zhijianlw.com/static/web/img/qiye-2021-09-07-02.png" mode="" lazy-load="true"></image>
 		</view>
 	</view>
 </template>

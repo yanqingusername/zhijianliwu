@@ -94,9 +94,7 @@
         "Refund/RefundExchangeInfo",
         "Refund/RefundExchangeDown",
         "Refund/LogisticsInfo",
-        "AllCovers/AllCovers",
-        "AllCovers/ExchangeDetails",
-        "AllCovers/ExchangeOrderInfo"
+        "AllCovers/AllCovers"
       ]
     }
   ],

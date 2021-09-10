@@ -132,12 +132,6 @@
 				},
 				sta:'',
 				nav:'20',
-				content:[
-					{src:'../../static/my-chongzhi.png',text:'充值中心',},
-					{src:'../../static/my-qianbao.png',text:'我的钱包'},
-					{src:'../../static/my-kefu.png',text:'在线客服'},
-					{src:'../../static/my-shoucang.png',text:'礼物收藏'},
-				],
 				bottom:[],
 				topp:'0', 
 				coll:'0',
