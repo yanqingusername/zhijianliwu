@@ -32,6 +32,7 @@
 		data() {
 			return {
 				ordernumber: '',
+				stepsInfo: '',
 				steps: [
 					{
 						text: '',
