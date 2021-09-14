@@ -179,7 +179,7 @@
 			goTransfer: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
+					url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=1`
 				})
 			},
 			//去兑换

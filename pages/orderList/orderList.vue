@@ -95,7 +95,7 @@
 					</view>
 					
 					<view class="new-order-botton-view" v-if="nav==3">
-						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3)" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3)" @click.stop="goTransfer" :data-ordernumber="item.ordernumber" :data-isexchangetype="item.is_exchange_type">转赠</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
@@ -1410,8 +1410,9 @@
 			//转赠
 			goTransfer: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let isexchangetype = e.currentTarget.dataset.isexchangetype;
 				uni.navigateTo({
-					url: '../shopping/shop?type=1&statutype=exchange&ordernumber=' + ordernumber
+					url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
 				})
 			},
 			//填写收货地址
@@ -1653,6 +1654,7 @@
 		color: #999999;
 		line-height: 33rpx;
 		padding: 0rpx 18rpx;
+		margin-left: 20rpx;
 	}
 	
 	.empty-no-btm{

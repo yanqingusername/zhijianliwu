@@ -8,7 +8,7 @@
 			<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
 		</view> -->
 		<view style="margin-top: -100rpx">
-			<view class="box" v-if="statutype == 'exchange'">
+			<view class="box" v-if="statutype == 'exchange' && is_exchange_type == 1">
 				<view class="box-content">
 					<view class="shop-gift-buys-top">
 						<img class="img shop-gift-buys-img" :src="orderInfo.cardtype_img">
@@ -209,7 +209,8 @@
 			   statutype: '',
 			   ordernumber: '',
 			   orderInfo:'',
-			   is_exchange_type: 0
+			   is_exchange_type: 0,
+			   numberss: 0,
 			}
 		
 		},
@@ -278,6 +279,11 @@
 					 }
 					this.goodsinfo = res.rs.giftbag
 					this.price_zhe=res.rs.price_zhe
+					let numberss = 0
+					for (let i in res.rs.giftbag) {
+						numberss += Number(res.rs.giftbag[i].goodsnum)
+					}
+					this.numberss = numberss
 				})
 				//计算总价
 				this.caltotalmoney()
