@@ -331,7 +331,7 @@ button[type=default] {
 			margin-bottom: 20rpx;
 }
 .gift2-list{
-		border: 1rpx solid #CCB586;
+		border: 1px solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 30rpx;
 		display: -webkit-box;

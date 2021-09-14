@@ -36,7 +36,8 @@
 				goodsname1:'',
 				imageUrl1: '',
 				goodsnum1: '',
-				nickname: ''
+				nickname: '',
+				goods_count_num: 0
 			}
 		},
 		onLoad(e) {
@@ -81,6 +82,8 @@
 					this.com=2
 				}
 				
+				this.goods_count_num = res.cardbag.goods_count_num;
+				
 				console.log(this);
 				uni.showToast({
 					title: "生成中",
@@ -102,7 +105,7 @@
 							await this.$refs.rCanvas.init({
 								canvas_id: "rCanvas",
 								canvas_width: 375,
-								canvas_height: 636,
+								canvas_height: 560,
 								hidden: true
 							})
 							// 画背景图
@@ -111,7 +114,7 @@
 								x: 15,
 								y: 10,
 								w: 350,
-								h: 520
+								h: 540
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
@@ -315,7 +318,7 @@
 							
 							// 画熊猫为你挑选了{{length}}件礼物
 							await this.$refs.rCanvas.drawText({
-								text: this.nickname + "为你挑选了"+this.length+"件礼物",
+								text: this.nickname + "为你挑选了"+this.goods_count_num+"件礼物",
 								x: 110,
 								y: 340,
 								font_color: "#FADEA5",
@@ -333,11 +336,11 @@
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.$utils.imageUrl(this.QRcodeUrl),
-								x: 150,
-								y: 368,
-								w: 80,
-								h: 80,
-								radius: 16,
+								x: 148,
+								y: 380,
+								w: 85,
+								h: 85,
+								radius: 12,
 								is_radius: true
 							}).catch(err_msg => {
 								uni.showToast({
@@ -349,10 +352,9 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序码领礼物",
-								x: 130,
-								y: 470,
-								max_width: 130,
+								text: "长按小程序二维码领识别",
+								x: 120,
+								y: 510,
 								font_color: "#FFF8F8",
 								font_size: 14
 							}).catch(err_msg => {
@@ -363,19 +365,19 @@
 							})
 							
 							// 画 长按扫码即可送礼
-							await this.$refs.rCanvas.drawText({
-								text: "先到先得",
-								x: 160,
-								y: 490,
-								max_width: 130,
-								font_color: "#FFF8F8",
-								font_size: 14
-							}).catch(err_msg => {
-								uni.showToast({
-									title: err_msg,
-									icon: "none"
-								})
-							})
+							// await this.$refs.rCanvas.drawText({
+							// 	text: "先到先得",
+							// 	x: 160,
+							// 	y: 495,
+							// 	max_width: 130,
+							// 	font_color: "#FFF8F8",
+							// 	font_size: 14
+							// }).catch(err_msg => {
+							// 	uni.showToast({
+							// 		title: err_msg,
+							// 		icon: "none"
+							// 	})
+							// })
 							// 生成海报
 							await this.$refs.rCanvas.draw((res) => {
 								//res.tempFilePath：生成成功，返回base64图片
@@ -426,6 +428,9 @@
 </script>
 
 <style>
+	page{
+		background: #FFFFFF;
+	}
 	.share-bag-view{
 		display: flex;
 		flex-direction: column;
@@ -434,7 +439,7 @@
 	}
 	.share-bag {
 		width: 750rpx;
-		height: 1180rpx;
+		height: 1140rpx;
 		display: flex;
 		justify-content: center;
 		margin: auto;
@@ -442,8 +447,8 @@
 	.poster {
 		display: block;
 		margin: 0rpx auto;
-		width: 440px;
-		height: 690px;
+		width: 375px;
+		height: 540px;
 		border-radius: 16rpx;
 		margin-top: -19rpx;
 	}

@@ -6,7 +6,7 @@
 			<text class="packages-font-ltitle">记得提醒对方填写地址哦</text>
 		</view>
 		<view class="z-box">
-			<view class="jie">
+			<view class="jie" v-if="com==1">
 				<view class="gift1" v-if="com==1" v-for="(item, index) in gift" :key="index">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
 					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode=""></image>
@@ -14,12 +14,26 @@
 						<text class="gift-xq-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
 					</view>
 				</view>
-				
-				<view class="gift2" v-if="com==2" v-for="(item, index) in gift" :key="index">
+			</view>
+			
+			<view class="jie" v-if="com==2 && isShowAll">
+				<view class="gift2" v-for="(item, index) in gift" :key="index">
 					<view class='gift2-list'>
 						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 						<view class="gift-xq2">
-							<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,11)}}</view>
+							<view class="gift-xq-title uni-ellipsis">{{item.goodsname}}</view>
+							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="jie" v-if="com==2 && !isShowAll">
+				<view class="gift2" v-if="index < 3" v-for="(item, index) in gift" :key="index">
+					<view class='gift2-list'>
+						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+						<view class="gift-xq2">
+							<view class="gift-xq-title uni-ellipsis">{{item.goodsname}}</view>
 							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
 						</view>
 					</view>
@@ -27,7 +41,7 @@
 			</view>
 			
 			<view class="bot" v-if="com==2">
-				<image @click="hidden" class="jiequ" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/expand_button.png"
+				<image @click="hidden" v-if="gift.length > 3" class="jiequ" src="https://zhijianlw.com/static/web/img/expand_button.png"
 					mode="widthFix"></image>
 				<text class="zong">共{{length}}份</text>
 			</view>
@@ -59,7 +73,8 @@
 				current: 0,
 				dataList: [],
 				cardbag_theme: {},
-				cardbag: {}
+				cardbag: {},
+				isShowAll: false
 			}
 		},
 		onLoad: function(e) {
@@ -121,7 +136,8 @@
 				})
 				this.$utils.post(action, data).then(res => {
 					console.log('商品信息', res)
-					this.gift = res.type1_goodslist[0]
+					this.gift = res.type1_goodslist[0];
+					this.isShowAll = !this.isShowAll;
 				})
 			},	
 			firend: function(e) {
@@ -354,10 +370,12 @@
 	
 	.gift2{
 		padding: 0 70rpx;
+		height: 170rpx;
+		margin-bottom: 20rpx;
 	}
 	.gift2-list{
-		margin-bottom: 20rpx;
-		border: 1rpx solid #CCB586;
+		/* margin-bottom: 20rpx; */
+		border: 1px solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 50rpx;
 		display: flex;
@@ -383,6 +401,7 @@
 	.gift-xq-title{
 		font-weight: bold;
 		font-size: 14px;
+		width: 320rpx;
 	}
 	.gift-xq-num{
 		color: #666666;

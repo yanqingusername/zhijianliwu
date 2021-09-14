@@ -46,18 +46,7 @@ page {
 .reception-address-add{
 	background-color: #FFF;
 	margin-top: 20rpx;
-	padding: 58rpx 62rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-}
-.reception-address-left{
+	/* padding: 58rpx 62rpx; */
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -67,10 +56,26 @@ page {
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+}
+.reception-address-left{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	/* justify-content: center;
 	width: 296rpx;
 	height: 70rpx;
 	border-radius: 35rpx;
-	border: 2rpx solid #FB5142;
+	border: 2rpx solid #FB5142; */
+	width: 100%;
+	border-bottom: 2rpx solid #EEEEEE;
+	padding: 30rpx 0rpx 28rpx 36rpx;
 }
 .reception-address-img{
 	width: 40rpx;
@@ -78,9 +83,13 @@ page {
 }
 .reception-address-text{
 	font-size: 30rpx;
-	color: #DE3225;
+	color: #333333;
 	line-height: 42rpx;
 	margin-left: 6rpx;
+}
+.reception-address-line{
+	width: 100%;
+	height: 6rpx;
 }
 .order-purchase-view{
 	background-color: #FFF;

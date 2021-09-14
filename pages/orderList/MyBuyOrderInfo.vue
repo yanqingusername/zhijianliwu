@@ -59,12 +59,12 @@
 								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<view class="conversion-details">{{item.cancel_type_info}}</view>
+						<view class="conversion-details" @click="RefundInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
 					</view>
 					<view class="new-order-li-bottom" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" >
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">申请退款</view>
+							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
 							<!-- <view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view> -->
 						</view>
 					</view>
@@ -79,11 +79,15 @@
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money">¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">+</view><view>¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money">¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view></view>
+			</view>
+			<view class="flex-between flex-between-padding" v-if="orderBuyInfo.orderinfo.balance_price">
+				<view class="reception-order-title">余额抵扣：</view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderBuyInfo.orderinfo.balance_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
@@ -166,8 +170,30 @@
 			},
 			//申请退款
 			ApplyRefund: function(e) {
-				uni.navigateTo({
-					url: '../../pagesub/Refund/ApplyRefund' 
+				// uni.navigateTo({
+				// 	url: '../../pagesub/Refund/ApplyRefund' 
+				// });
+
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let typerefund = e.currentTarget.dataset.typerefund;
+				let goodslength = e.currentTarget.dataset.goodslength;
+				let detailid = e.currentTarget.dataset.detailid;
+				if(goodslength > 1){
+					uni.navigateTo({
+						url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
+					})
+				}else{
+					uni.navigateTo({
+						url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+					});
+				}
+			},
+			RefundInfo(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let typerefund = e.currentTarget.dataset.typerefund;
+				let detailid = e.currentTarget.dataset.detailid;
+				uni.redirectTo({
+					url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
 				});
 			},
 		}

@@ -1,34 +1,45 @@
 <template>
 	<view class="refund-view">
 		<view class="apply-refund">
-			<view class="new-order-li-center">
+			<view class="new-order-li-center" v-if="goods_list.length == 1">
 				<view class="new-order-left">
 					<view class="new-order-img">
-						<image lazy-load="true" class="new-order-commodity-img" src="../../static/nono.jpg" mode=""></image>
+						<image lazy-load="true" class="new-order-commodity-img" :src="goods_list[0].head_img" mode=""></image>
 					</view>
 				</view>
 				<view class="new-order-right">
-					<view class="new-order-item-title">云南古树茶叶</view>
+					<view class="new-order-item-title">{{goods_list[0].goodsname}}</view>
 					<view class="new-order-item">
-						<view class="new-order-item-sku">规格：礼盒装</view>
-						<view class="new-order-item-total">x1</view>
+						<view class="new-order-item-sku">规格：{{goods_list[0].goods_spec_item}}</view>
+						<view class="new-order-item-total">x{{goods_list[0].goodsnum}}</view>
 					</view>
 				</view>
 			</view>
+			<view class="all-order-left" v-if="goods_list.length > 1">
+				<scroll-view scroll-x="true" class="all-order-scroll">
+					<view class="flex">
+						<view class="flex">
+							<image lazy-load="true" class="all-order-img" style="margin-right: 20rpx;" v-for="(it,index) in goods_list"
+							 :key="index" :src="it.head_img" mode=""></image>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			
 			<view class="apply-flex">
 				<view class="apply-flex-title">申请原因</view>
 				<view class="apply-flex-input flex-vertically" @click="toggle('bottom')">
-					<view>请选择</view>
+					<view>{{refund_reason || '请选择'}}</view>
 					<image lazy-load="true" class="apply-flex-input-img" src="../../static/drop_down_arrow.png" mode=""></image>
 				</view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="goods_list.length == 1 && (typerefund ==2 || typerefund ==3)">
 				<view class="apply-flex-title">换货数量</view>
 				<view class="apply-flex-view-number flex-vertically">1件</view>
 			</view>
-			<view class="apply-flex">
+			<view class="apply-flex" v-if="typerefund ==1 || typerefund ==3">
 				<view class="apply-flex-title">退款金额</view>
-				<view class="apply-flex-view flex-vertically">¥1080</view>
+				<view class="apply-flex-view flex-vertically">¥{{orderGood.goods_count_price}}</view>
 			</view>
 		</view>
 		<view class="apply-refund padding-refund">
@@ -36,7 +47,7 @@
 				<view class="apply-flex-title">补充描述和凭证</view>
 			</view>
 			<view class="apply-refund-view">
-				<view class="apply-refund-text"><textarea value="" name="remark" maxlength='100' placeholder="补充描述，有助于更好的处理售后问题" /></view>	
+				<view class="apply-refund-text"><textarea v-model="remark" name="remark" maxlength='100' placeholder="补充描述，有助于更好的处理售后问题" /></view>	
 				<view class='imglist'>
 					<view v-for="(item,index) in IMG_DATA" :key="index" class='imglist-view'>
 						<view class="img" @click="delImages" :data-id="index"><image src="../../static/icon_describe_close.png" style="width:24rpx;height:24rpx" /></view>
@@ -57,18 +68,20 @@
 		
 		<!-- 退款原因 -->
 		<uni-popup ref="popup" type="bottom" :animation="false" :maskClick="true" @change="change">
-			<view class="popup-view">
-				<view class="popup-view-top">
-					<view class="popup-view-title">申请原因</view>
-					<image class="popup-view-img" src="../../static/icon_close_reason.png" @click="$buttonClick(closepopup)"></image>
-				</view>
-				<view @click="bindPickerChange" v-for="(item, index) in items" :key="index" :data-index="index">
-				    <view class="picker-view">
-						<view class="picker-view-title">{{item.value}}</view>
-						<image class="picker-view-img" :src="[indexPicker == index ? '../../static/icon_reason_d.png' : '../../static/icon_reason_m.png']"></image>
+				<view class="popup-view">
+					<view class="popup-view-top">
+						<view class="popup-view-title">申请原因</view>
+						<image class="popup-view-img" src="../../static/icon_close_reason.png" @click="$buttonClick(closepopup)"></image>
 					</view>
+					<scroll-view scroll-y="true" class="scroll-x">
+						<view @click="bindPickerChange" v-for="(item, index) in items" :key="index" :data-index="index" :data-refundreason="item">
+							<view class="picker-view">
+								<view class="picker-view-title">{{item}}</view>
+								<image class="picker-view-img" :src="[indexPicker == index ? '../../static/icon_reason_d.png' : '../../static/icon_reason_m.png']"></image>
+							</view>
+						</view>
+					</scroll-view>
 				</view>
-			</view>
 		</uni-popup>
 		
 		<!-- 退款提交成功 -->
@@ -95,47 +108,59 @@
 </template>
 
 <script>
+	var imgBase = [];
 	export default {
 		data() {
 			return {
-				IMG_DATA: [
-					"https://zhijianlw.com/static/web/img/empty_page_xm.png",
-					"https://zhijianlw.com/static/web/img/empty_page_xm.png"
-				],
+				IMG_DATA: [],
 				count: 6,
-				indexPicker: 0,
-				items: [
-					{
-				        name: 'TUR',
-				        value: '不想要了'
-				    },
-					{
-					    name: 'TUR',
-					    value: '商品无货'
-					},
-					{
-					    name: 'TUR',
-					    value: '发货时间问题'
-					},
-					{
-					    name: 'TUR',
-					    value: '没用/少用优惠'
-					},
-					{
-					    name: 'TUR',
-					    value: '其他'
-					}
-				]
+				indexPicker: -1,
+				items: [],
+				ordernumber: '',
+				typerefund: 1,
+				detailid: '',
+				orderGood:'',
+				goods_list: [],
+				refund_reason: '',
+				imgArr: []
 			}
 		},
 		onShow:function(e){
+			let action = 'refund_reason_info';
+			let controller = 'order';
+			let data = JSON.stringify({
+				type: this.typerefund == 1 ? 1 : 2
+			})
+			this.$utils.postNew(action, data, controller).then(res => {
+			    if(res.sta == 1){
+			        this.items = res.rs;
+			    }
+			})
 			
-			 
 		},
-		onLoad:function(e){	
+		onLoad:function(options){	
+			this.ordernumber=options.ordernumber;
+			this.typerefund=options.typerefund;
+			this.detailid=options.detailid;
+			
+			let action = 'get_refund_order_goods_list';
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				type: this.typerefund,
+				ordernumber: this.ordernumber,
+				memberid: memberid,
+				order_detail_id: this.detailid
+			})
+			this.$utils.postNew(action, data, controller).then(res => {
+			    if(res.sta == 1){
+			        this.orderGood = res.rs;
+					this.goods_list= res.rs.goods_list;
+			    }
+			})
 			
 		},
-		methods: { 
+		methods: {
 			// 删除选中的图片
 			delImages(e) {
 				console.log('---->:',e.currentTarget.dataset.id)
@@ -149,6 +174,7 @@
 			    count = count - DATA.length;
 			    this.IMG_DATA = DATA;
 			    this.count = count;
+				console.log(this.IMG_DATA,this.count)
 			},
 			toggle(type) {
 				this.$refs['popup'].open();
@@ -157,19 +183,119 @@
 				this.$refs['popup'].close();
 			},
 			togglecenter(type) {
-				this.$refs['popupcenter'].open();
+				
+				let action = 'refund_order';
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let data = JSON.stringify({
+					type: this.typerefund,
+				    ordernumber: this.ordernumber,
+				    memberid: memberid,
+					order_detail_id: this.detailid,
+					refund_reason: this.refund_reason,
+					remark: this.remark,
+					refund_img: this.IMG_DATA
+				})
+				console.log('---->:',data)
+				this.$utils.postNew(action, data, controller).then(res => {
+				    if(res.sta == 1){
+						this.$refs['popupcenter'].open();
+				        // uni.navigateTo({
+				        // 	url:'./RefundInfo'
+				        // })
+				    }else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none',
+							mask: true,
+						})
+					}
+				})
 			},
 			submitrefund(){
 				this.$refs['popupcenter'].close();
-				uni.navigateTo({
-					url:'./RefundInfo'
+				// uni.redirectTo({
+				// 	url: `./RefundInfo?ordernumber=${this.ordernumber}&typerefund=${this.typerefund}&detailid=${this.detailid}`
+				// });
+				
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			uploadSub(){
-				this.$refs['popuppic'].open();
+				const _this = this;
+				    if (this.IMG_DATA.length > 6) {
+					  uni.showToast({
+					  	title: '最多只能上传6张图片',
+					  	icon: 'none',
+					  	mask: true,
+					  })
+				    } else {
+				//       let count = parseInt(this.count) - this.IMG_DATA.length
+				//       wx.chooseImage({
+				//         count: count,
+				//         sizeType: ['compressed'],
+				//         sourceType: ['album', 'camera'],
+				//         success(res) {
+				//           // tempFilePath可以作为img标签的src属性显示图片
+				//           console.log(res)
+				//           _this.base(res)
+				//         },
+				//         fail: (src) => {
+				//           if (src.errMsg == 'chooseImage:fail') {
+				// 			uni.showToast({
+				// 				title: '当前不支持该图片',
+				// 				icon: 'none',
+				// 				mask: true,
+				// 			})
+				//           }
+				//         }
+				//       })
+					this.$refs['popuppic'].open();
+				    }
+					
+				
 			},
+			base(val) {
+			    let _this = this
+			    let DATA = _this.IMG_DATA;
+			    let FSM = wx.getFileSystemManager();
+			    let tempFiles = val.tempFiles;
+			    uni.showLoading({
+			      title: '加载中',
+			    })
+			    tempFiles.map((src) => {
+			      let arr = [];
+			      // console.log(src)
+			      if (1048576 > Number(src.size)) {
+			
+			        imgBase.push({
+			          img: FSM.readFileSync(src.path, "base64"),
+			          ext: src.path.substring((src.path).lastIndexOf(".") + 1, src.path.length)
+			        })
+			        if (imgBase.length == DATA.length) {
+			          uni.hideLoading();
+			        }
+			        // }
+			        DATA.push(src.path)
+			      } else {
+			
+			        uni.showToast({
+			        	title: '上传图片不得超过1M',
+			        	icon: 'none',
+			        	mask: true,
+			        })
+			        return;
+			      }
+			    })
+			    uni.hideLoading()
+			    _this.IMG_DATA = DATA;
+			
+			  },
 			cameraPic(){
 				this.closepic();
+				let _this = this;
+				let DATA = _this.IMG_DATA;
 				uni.chooseImage({
 				  	count: 1,
 				    sizeType: ['original', 'compressed'],
@@ -177,11 +303,44 @@
 				    success: (res)=> {
 						console.log(res);
 						const tempFilePaths = res.tempFilePaths;
+						
+						uni.uploadFile({
+							url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'file',
+							formData: {
+								'user': 'test'
+							},
+							success: (uploadFileRes) => {
+								let file = JSON.parse(uploadFileRes.data)
+								if (file.sta == 1) {
+									uni.hideLoading()
+										DATA.push(file.filename)
+										_this.IMG_DATA = DATA;
+										console.log('上传成功', file)
+								} else {
+									uni.showToast({
+										title: '上传失败',
+										icon: 'none',
+										mask: 'true',
+									})
+								}
+							},
+							fail: (res) => {
+								uni.showToast({
+									title: '上传失败',
+									icon: 'none',
+									mask: true,
+								})
+							}
+						});
 				    }
 				});
 			},
 			albumPic(){
 				this.closepic();
+				let _this = this;
+				let DATA = _this.IMG_DATA;
 				uni.chooseImage({
 				  	count: 6,
 				    sizeType: ['original', 'compressed'],
@@ -189,6 +348,43 @@
 				    success: (res)=> {
 						console.log(res);
 						const tempFilePaths = res.tempFilePaths;
+						this.imgArr.push(res.tempFilePaths)
+						
+						 this.imgArr.forEach(ele => {
+						        ele.forEach(item => {
+						            uni.uploadFile({
+						            	url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+						            	filePath: item,
+						            	name: 'file',
+						            	formData: {
+						            		'user': 'test'
+						            	},
+						            	success: (uploadFileRes) => {
+						            						
+						            		let file = JSON.parse(uploadFileRes.data)
+						            		if (file.sta == 1) {
+						            			uni.hideLoading()
+						            				DATA.push(file.filename)
+						            				_this.IMG_DATA = DATA;
+						            				console.log('上传成功', file)
+						            		} else {
+						            			uni.showToast({
+						            				title: '上传失败',
+						            				icon: 'none',
+						            				mask: 'true',
+						            			})
+						            		}
+						            	},
+						            	fail: (res) => {
+						            		uni.showToast({
+						            			title: '上传失败',
+						            			icon: 'none',
+						            			mask: true,
+						            		})
+						            	}
+						            });
+						        })
+						    })
 				    }
 				});
 			},
@@ -199,8 +395,9 @@
 			
 			},
 			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.currentTarget.dataset.index)
-				this.indexPicker = e.currentTarget.dataset.index
+				this.indexPicker = e.currentTarget.dataset.index;
+				this.refund_reason = e.currentTarget.dataset.refundreason;
+				this.closepopup();
 			},
 		}
 	}
@@ -407,11 +604,14 @@
 		color: #FFFFFF;
 		line-height: 42rpx;
 	}
+	.scroll-x{
+	  height: 420rpx;
+	}
 	.popup-view{
 		display: flex;
 		flex-direction: column;
 		width: 750rpx;
-		/* height: 660rpx; */
+		/* height: 530rpx; */
 		background: #FFFFFF;
 		border-radius: 10rpx 10rpx 3rpx 3rpx;
 	}
@@ -521,5 +721,21 @@
 		color: #333333;
 		padding: 30rpx 0rpx 22rpx 0rpx;
 		text-align: center;
+	}
+	
+	.all-order-left{
+		width: 664rpx;
+		display: flex;
+		align-items: center;
+	}
+	
+	.all-order-scroll {
+	    width: 664rpx;
+	    height: 140rpx;
+	}
+	
+	.all-order-img{
+		width: 140rpx;
+		height: 140rpx;
 	}
 </style>

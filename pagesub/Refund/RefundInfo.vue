@@ -6,71 +6,234 @@
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title"></view>
 			</view>
-			<!-- <view class="recharge-status-top">
+			<view class="recharge-status-top" v-if="typerefund == 1 && cancel_info.status == 1">
 				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
 				<view class="recharge-status-text">待审核</view>
 			</view>
-			<view class="recharge-status-label">退款申请已提交，请等待客服处理</view> -->
-			
-			<view class="refund-info-content">
+			<view class="recharge-status-label" v-if="typerefund == 1 && cancel_info.status == 1">退款申请已提交，请等待客服处理</view>
+			<view class="refund-info-content" v-if="typerefund == 1 && cancel_info.status == 6">
 				<view class="refund-info-text">退款完成</view>
-				<view class="refund-info-text margin-text">退款金额 ¥1080</view>
+				<view class="refund-info-text margin-text">退款金额 ¥{{cancel_info.refund_price}}</view>
 			</view>
+			
+			<view class="recharge-status-top" v-if="typerefund == 2 && cancel_info.status == 1">
+				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">待审核</view>
+			</view>
+			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 1">您已提交换货申请，待审核</view>
+			
+			<view class="refund-info-content" v-if="typerefund == 2 && cancel_info.status == 2">
+				<view class="refund-info-text">审核通过，请尽快寄出换货商品并填写物流单号</view>
+				<view class="refund-info-text margin-text">剩余2天21小时12分钟</view>
+			</view>
+			
+			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 4">退回商品入库后，我们将为您寄出换货商品</view>
+			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 5">已为您寄出换货商品</view>
+			
+			
+			<view class="recharge-status-top" v-if="typerefund == 3 && cancel_info.status == 1">
+				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">待审核</view>
+			</view>
+			<view class="recharge-status-label" v-if="typerefund == 3 && cancel_info.status == 1">您已提交退货申请，待审核</view>
+			
+			<view class="refund-info-content" v-if="typerefund == 3 && cancel_info.status == 2">
+				<view class="refund-info-text">审核通过，请尽快寄出退货商品并填写物流单号</view>
+				<view class="refund-info-text margin-text">剩余2天21小时12分钟</view>
+			</view>
+			
+			<view class="recharge-status-label" v-if="typerefund == 3 && cancel_info.status == 4">退回商品入库后，我们将为您处理退款事宜</view>
+			
+			<view class="refund-info-content" v-if="typerefund == 3 && cancel_info.status == 6">
+				<view class="refund-info-text">退款完成</view>
+				<view class="refund-info-text margin-text">退款金额 ¥{{cancel_info.refund_price}}</view>
+			</view>
+			
 		</view>
 		
 		<view class="recharge-flex">
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="refund-info-top">
+					<view class="refund-info-top" v-if="typerefund == 1 && cancel_info.status == 6">
 						<view class="refund-text">退款金额</view>
-						<view class="refund-money">¥1080</view>
+						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
 					</view>
-					<view class="line-gray"></view>
-					<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index">
+					<view class="line-gray" v-if="typerefund == 1 && cancel_info.status == 6"></view>
+					
+					<view class="refund-info-top" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2">
+						<view class="refund-text">退回地址</view>
+						<view class="refund-money"></view>
+					</view>
+					<view class="line-gray" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"></view>
+					<view class="recharge-address-text" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"><text>cancel_info.refund_address</text><text class="reception-order-copy" :data-ordernumber="cancel_info.refund_address" @click="copy">复制</text></view>
+					<view class="line-bottom" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"></view>
+					
+					<view class="refund-info-top" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 4">
+						<view class="refund-text">退货物流</view>
+						<view class="refund-money"></view>
+					</view>
+					<view class="line-gray" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 4"></view>
+					
+					<view class="refund-info-top" v-if="typerefund == 2 && cancel_info.status == 5">
+						<view class="refund-text">换货物流</view>
+						<view class="refund-money"></view>
+					</view>
+					<view class="line-gray" v-if="typerefund == 2 && cancel_info.status == 5"></view>
+					
+					<view class="refund-info-top" v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)">
+						<view class="refund-text">退款金额</view>
+						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
+					</view>
+					<view class="line-gray" v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)"></view>
+					
+					
+					<view class="reception-flex" v-if="typerefund == 2 && (cancel_info.status == 4 || cancel_info.status == 5) && cancel_info.wuliu_info.length > 0"  @click="logisticInfo" :data-ordernumber="cancel_info.ordernumber">
+						<view class="reception-address-view">
+							<view class="reception-address-view-left" style="margin-right: 30rpx;">
+								<view class="reception-distribution-value">{{cancel_info.wuliu_info[0].context}}</view>
+								<view class="reception-distribution-time">{{cancel_info.wuliu_info[0].time}}</view>
+							</view>
+							<view class="reception-address-view-right" >
+								<image src="../../static/return_arrow_r_g.png" class="reception-address-arrow"></image>
+							</view>
+						</view>
+					</view>
+					<view class="reception-flex" v-if="typerefund == 2 && (cancel_info.status == 4 || cancel_info.status == 5) && cancel_info.linkman">
+						<view class="reception-address-view" style="margin-top: 0rpx;padding-bottom: 10rpx;">
+							<view class="reception-address-view-left">
+								<view class="reception-address-name">{{cancel_info.linkman}} {{cancel_info.linktel}}</view>
+								<view class="reception-address-value">{{cancel_info.province}}{{cancel_info.city}}{{cancel_info.county}}{{cancel_info.address}}</view>
+							</view>
+							<view class="reception-address-view-right" ></view>
+						</view>
+						<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+					</view>
+					<view class="line-bottom" v-if="typerefund == 2 && (cancel_info.status == 4 || cancel_info.status == 5)"></view>
+					
+					<view class="reception-flex" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6) && cancel_info.wuliu_info.length > 0"  @click="logisticInfo" :data-ordernumber="cancel_info.ordernumber">
+						<view class="reception-address-view">
+							<view class="reception-address-view-left" style="margin-right: 30rpx;">
+								<view class="reception-distribution-value">{{cancel_info.wuliu_info[0].context}}</view>
+								<view class="reception-distribution-time">{{cancel_info.wuliu_info[0].time}}</view>
+							</view>
+							<view class="reception-address-view-right" >
+								<image src="../../static/return_arrow_r_g.png" class="reception-address-arrow"></image>
+							</view>
+						</view>
+					</view>
+					<view class="reception-flex" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 5) && cancel_info.linkman">
+						<view class="reception-address-view" style="margin-top: 0rpx;padding-bottom: 10rpx;">
+							<view class="reception-address-view-left">
+								<view class="reception-address-name">{{cancel_info.linkman}} {{cancel_info.linktel}}</view>
+								<view class="reception-address-value">{{cancel_info.province}}{{cancel_info.city}}{{cancel_info.county}}{{cancel_info.address}}</view>
+							</view>
+							<view class="reception-address-view-right" ></view>
+						</view>
+						<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+					</view>
+					<view class="line-bottom" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)"></view>
+					
+					<view class="refund-info-top" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)">
+						<view class="refund-text">退款金额</view>
+						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
+					</view>
+					<view class="line-gray" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)"></view>
+					
+					
+					<!-- v-for="(item,index) in screenPurchase" :key="index" -->
+					<view class="new-order-li-center">
 						<view class="new-order-left">
 							<view class="new-order-img">
-								<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+								<image lazy-load="true" class="new-order-commodity-img" :src="cancel_info.head_img" mode=""></image>
 							</view>
 						</view>
 						<view class="new-order-right">
 							<view class="new-order-item">
-								<view class="new-order-item-title">{{item.title}}</view>
+								<view class="new-order-item-title">{{cancel_info.goodsname}}</view>
 								<view class="new-order-item-money"></view>
 							</view>
 							<view class="new-order-item">
-								<view class="new-order-item-sku">规格：{{item.sku}}</view>
-								<view class="new-order-item-total">x{{item.number}}</view>
+								<view class="new-order-item-sku">规格：{{cancel_info.goods_spec_item}}</view>
+								<view class="new-order-item-total">x{{cancel_info.goodsnum}}</view>
 							</view>
 						</view>
 					</view>
-					<!-- <view class="new-order-li-bottom">
+					<view class="new-order-li-bottom" v-if="typerefund == 1 && cancel_info.status == 1">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
 							<view class="new-order-botton-gray" @click="$buttonClick(applyHandler)">撤销申请</view>
 						</view>
-					</view> -->
+					</view>
+					
+					<view class="new-order-li-bottom" v-if="typerefund == 2 && (cancel_info.status == 1 || cancel_info.status == 2)">
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" v-if="typerefund == 2 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
+							<view class="new-order-botton-gray" v-if="typerefund == 2 && cancel_info.status == 2" @click="$buttonClick(logisticsHandler)">填写物流单号</view>
+						</view>
+					</view>
+					
+					<view class="new-order-li-bottom" v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)">
+						<view class="new-order-nickname"></view>
+						<view class="new-order-botton-view">
+							<view class="new-order-botton-gray" v-if="typerefund == 3 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
+							<view class="new-order-botton-gray" v-if="typerefund == 3 && cancel_info.status == 2" @click="$buttonClick(logisticsHandler)">填写物流单号</view>
+						</view>
+					</view>
+					
 				</view>
 			</view>
 		</view>
 		<view class="reception-order">
 			<view class="flex-between-padding">
 				<view class="reception-order-title">服务单号：</view>
-				<view class="reception-order-money">2560819324121</view>
+				<view class="reception-order-money">{{cancel_info.service_order_no}}</view>
 			</view>
 			<view class="flex-between-padding">
 				<view class="reception-order-title">申请时间：</view>
-				<view class="reception-order-money">2021/04/08 15:50:12</view>
+				<view class="reception-order-money">{{cancel_info.add_time}}</view>
 			</view>
 			<view class="flex-between-padding">
 				<view class="reception-order-title">申请类型：</view>
-				<view class="reception-order-money">退款</view>
+				<view class="reception-order-money">{{cancel_info.type == 1 ? '退款' : cancel_info.type == 2 ? '换货' : '退货'}}</view>
 			</view>
 			<view class="flex-between-padding">
 				<view class="reception-order-title">申请原因：</view>
-				<view class="reception-order-money">其他</view>
+				<view class="reception-order-money">{{cancel_info.refund_reason}}</view>
 			</view>
 		</view>
 		
+		<!-- 填写物流单号 -->
+		<uni-popup ref="popuplogistics" type="center" :animation="false" :maskClick="true" @change="change">
+			<view class="popup-order" :style="'height:'+boxHeight+'rpx'">
+				<view class="popup-order-text">填写物流单号</view>
+				<view class="popup-order-content" style="position: relative;">
+					<view class="popup-order-title">快递公司：</view>
+					<view class="popup-order-input flex-vertically" style="padding-left: 20rpx;" @click="expressHandler">{{ express_name || '请选择快递公司'}}</view>
+					<image class="sale-content-ar" src="../../static/drop_down_arrow.png"></image>
+					<view class="all-order-left" v-if="isShow">
+						<scroll-view scroll-y="true" class="all-order-scroll" :style="'height:'+bHeight+'rpx'">
+								<view class="flex" style="flex-direction: column;background: #FFFFFF;width: 348rpx;">
+									<view class="all-order-text" v-for="(it,index) in expressInfoList" @click="expressClick" :data-expressname="it.express_name" :data-id="it.id"
+									 :key="index" >{{it.express_name}}</view>
+								</view>
+						</scroll-view>
+					</view>
+				</view>
+				<view class="popup-order-content" v-if="isShowAll">
+					<view class="popup-order-title">快递公司：</view>
+					<view class="popup-order-input flex-vertically"><input v-if="!isShow" v-model="company_name" name="company_name" placeholder="请输入快递公司" type="text"></view>
+				</view>
+				<view class="popup-order-content-two">
+					<view class="popup-order-title">快递单号：</view>
+					<view class="popup-order-input flex-vertically"><input v-if="!isShow" v-model="express_num" name="express_num" placeholder="请输入快递单号" type="text"></view>
+				</view>
+				
+				<view class="popup-order-bottom" @click="$buttonClick(submitlogistics)">
+					<view class="popup-order-button">确定提交</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -80,50 +243,54 @@
 			return{
 				value:'',
 				nav:'20',
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				screenPurchase: [],
+				ordernumber: '',
+				typerefund: 1,
+				detailid: '',
+				cancel_info: '',
+				expressInfoList: [],
+				express_name: '',
+				company_name: '',
+				express_num: '',
+				isShow: false,
+				boxHeight: 475,
+				isShowAll: false,
+				bHeight: 260
 			}
 		},
-		onLoad:function(e){
+		onLoad:function(options){
 			uni.getSystemInfo({
-				
 				success: res=>{
-					 // 导航高度
 					this.nav = res.statusBarHeight 
-					
 				}
+			})
+			this.ordernumber=options.ordernumber;
+			this.typerefund=options.typerefund;
+			this.detailid=options.detailid;
+			
+			let action = 'get_order_cancel_info';
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				ordernumber: this.ordernumber,
+				memberid: memberid,
+				order_detail_id: this.detailid
+			})
+			this.$utils.postNew(action, data, controller).then(res => {
+			    if(res.sta == 1){
+			        this.cancel_info = res.rs.cancel_info;
+			    }
+			})
+			
+			let action1 = 'get_express_info_list';
+			let controller1 = 'order';
+			let data1 = JSON.stringify({
+			
+			})
+			this.$utils.postNew(action1, data1, controller1).then(res => {
+			    if(res.sta == 1){
+			        this.expressInfoList = res.rs;
+			    }
 			})
 		},
 		methods:{
@@ -143,10 +310,80 @@
 				    },
 				})	
 			},
+			//撤销申请
 			applyHandler(e){
+				let action = 'revoke_refund_order';
+				let controller = 'order';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					ordernumber: this.ordernumber,
+					memberid: memberid,
+					order_detail_id: this.detailid
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+				    if(res.sta == 1){
+				        uni.navigateBack({
+				        	delta:1
+				        })
+				    }
+				})
+			},
+			//物流
+			logisticInfo: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: "../Apply/Apply"
+					url: "./LogisticsInfo?ordernumber=" + ordernumber
 				});
+			},
+			logisticsHandler() {
+				this.$refs['popuplogistics'].open();
+			},
+			expressHandler(){
+				this.isShow = !this.isShow;
+			},
+			expressClick(e){
+				this.isShow = false;
+				let expressname = e.currentTarget.dataset.expressname;
+				this.express_name = expressname;
+				let id = e.currentTarget.dataset.id;
+				if(id == 0){
+					this.boxHeight = 560;
+					this.bHeight = 450;
+					this.isShowAll = true;
+				}else{
+					this.boxHeight = 475;
+					this.bHeight = 260;
+					this.isShowAll = false;
+				}
+			},
+			submitlogistics() {
+				
+				let action = 'set_refund_order_express';
+				let controller = 'order';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					ordernumber: this.ordernumber,
+					memberid: memberid,
+					express_num: this.express_num,
+					express_name: this.isShowAll ? this.company_name : this.express_name
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+				    if(res.sta == 1){
+				        this.$refs['popuplogistics'].close();
+						this.isShowAll = false;
+						this.isShow = false;
+						uni.navigateBack({
+							delta:1
+						})
+						this.express_name = ''
+						this.company_name = ''
+						this.express_num = ''
+				    }
+				})
+				
+			},
+			change(e) {
+			
 			},
 		}
 	}
@@ -460,12 +697,10 @@
 		height: 30rpx;
 		background: #E6E6E6;
 		border-radius: 3rpx;
-		margin-left: 15rpx;
+		margin-left: 20rpx;
 		font-size: 20rpx;
 		color: #666666;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		padding: 0rpx 10rpx;
 	}
 	.reception-order-time{
 		font-size: 24rpx;
@@ -564,5 +799,112 @@
 		height: 1px;
 		background: #EEEEEE;
 		margin: 0 25rpx;
+	}
+	
+	.recharge-address-text{
+		padding: 18rpx 23rpx 0rpx 11rpx;
+		font-size: 26rpx;
+		color: #666666;
+		line-height: 52rpx;
+	}
+	.line-bottom{
+		height: 20rpx;
+		background: #EEEEEE;
+	}
+	
+	.popup-order{
+		display: flex;
+		align-items: center;
+		width: 644rpx;
+		height: 475rpx;
+		background: #FFFFFF;
+		border-radius: 10rpx;
+		flex-direction: column;
+	}
+	.popup-order-text{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 90rpx;
+		background: #EC1815;
+		border-radius: 10rpx 10rpx 0px 0px;
+		font-size: 32rpx;
+		color: #FFFFFF;
+		width: 100%;
+	}
+	.popup-order-content{
+		display: flex;
+		align-items: center;
+		margin-top: 50rpx;
+	}
+	.popup-order-content-two{
+		display: flex;
+		align-items: center;
+		margin-top: 30rpx;
+	}
+	.popup-order-title{
+		width: 150rpx;
+		font-size: 30rpx;
+		color: #333333;
+		line-height: 42rpx;
+	}
+	.popup-order-input{
+		width: 348rpx;
+		height: 60rpx;
+		border-radius: 3rpx;
+		border: 1px solid #AAAAAA;
+	}
+	.popup-order-input input{
+		padding-left: 21rpx;
+		font-size: 26rpx;
+		height: 37rpx;
+		width: 348rpx;
+		color: #AAAAAA;
+	}
+	.popup-order-bottom{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 58rpx;
+	}
+	.popup-order-button{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #EC1815;
+		border-radius: 36rpx;
+		font-size: 30rpx;
+		color: #FFFFFF;
+		line-height: 42rpx;
+		width: 220rpx;
+		height: 72rpx;;
+	}
+	
+	.all-order-left{
+		width: 174px;
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 60rpx;
+		left: 150rpx;
+	}
+	
+	.sale-content-ar{
+			width: 30rpx;
+			height: 30rpx;
+			position: absolute;
+			top: 15rpx;
+			right: 14rpx;
+		}
+	
+	.all-order-scroll {
+	    width: 174px;
+	    height: 260rpx;
+	}
+	.all-order-text{
+		padding: 20rpx 20rpx;
+		font-size: 24rpx;
+		    width: 174px;
+		    background: #EEEEEE;
 	}
 </style>

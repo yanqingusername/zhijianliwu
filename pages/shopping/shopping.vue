@@ -13,10 +13,10 @@
 			
 			<view class="box" v-else>
 				<view class="box-content">
-					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id" @click="goToDetails(item.goodsinfo.keynum)">
-						<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="widthFix">
+					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id">
+						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="widthFix">
 						<view class="top-right">
-							<view class="shop-gift-buys-title">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
+							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>
 							<view class="price-bottom flex-between">
 								<view>
@@ -36,7 +36,8 @@
 						</view>
 					</view>
 					<view class="shop-gift-buys-bottom">
-						<text class="shop-gift-buys-bottom-num">共{{numberss}}件礼物/份</text>
+						<text class="shop-gift-buys-bottom-num" v-if="show==='1'">共{{numberss}}件礼物</text>
+						<text class="shop-gift-buys-bottom-num" v-else>共{{numberss}}件礼物/份</text>
 						<view class="right">
 							<text class="shop-gift-buys-bottom-add" @click="add">继续添加</text>
 							<text class="icon icon-z-right"></text>
@@ -73,7 +74,7 @@
 					</view>
 					
 					<view class="shop-gift-address shop-list">
-						<text class="">随机领取一件礼物</text>
+						<text class="">{{numberss == 1 ? '手慢无':'每人随机领取一件礼物'}}</text>
 					</view>
 					<view class="shop-gift-pin shop-list" @click="chooseGift">
 						<text>选择礼物封面</text>
@@ -109,7 +110,7 @@
 						<text class="">每个人最多可领取1份礼物</text>
 						<view class="right">
 							<text class="shop-gift-cheng">x</text>
-							<input class="shop-gift-input" type="text" value="1"  v-model="fenshu"   @change="changefenshu"     />
+							<input class="shop-gift-input" type="number" value="1"  v-model="fenshu"   @change="changefenshu"     />
 							<text class="shop-gift-person">人</text>
 						</view>
 					</view>
@@ -299,6 +300,7 @@
 						} else {
 							this.com = false
 						}
+						this.numberss = acount;
 						//计算总价
 						this.caltotalmoney()
 					})

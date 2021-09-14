@@ -57,7 +57,7 @@
 					<view class="new-order-botton-view" v-if="item.card_type == 1">
 						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
 						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
-						<view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view>
+						<view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="refundHandler" :data-ordernumber="item.ordernumber">换货/售后</view>
 					</view>
 				</view>
 			</view>
@@ -175,8 +175,9 @@
 			},
 			// 换货/售后
 			refundHandler: function(e){
-				uni.navigateTo({
-					url: '/pagesub/Refund/RefundAfterSale'
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.redirectTo({
+					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
 				})
 			},
 			// 详情

@@ -130,8 +130,9 @@
 			},
 			//退换/售后
 			RefundAfterSale: function(e) {
-				uni.navigateTo({
-					url: '../../pagesub/Refund/RefundAfterSale' //退换/售后
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.redirectTo({
+					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
 				})
 			},
 			copy: function(e) {

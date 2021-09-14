@@ -68,19 +68,19 @@
 			<view class="personal-item-text">全部订单</view>
 			<view class="personal-item-ul flex-between">
 				<view class="personal-item-li" @click="order(1)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_01.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_01.png"  mode=""></image></view>
 					<view class="personal-item-li-text">我购买的</view>
 				</view>
 				<view class="personal-item-li" @click="order(2)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_02.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_02.png"  mode=""></image></view>
 					<view class="personal-item-li-text">我送出的</view>
 				</view>
 				<view class="personal-item-li" @click="order(3)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_03.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_03.png"  mode=""></image></view>
 					<view class="personal-item-li-text">我收到的</view>
 				</view>
 				<view class="personal-item-li" @click="$buttonClick(colloection)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_04.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_04.png"  mode=""></image></view>
 					<view class="personal-item-li-text">兑换订单</view>
 				</view>
 			</view>
@@ -90,19 +90,19 @@
 			<view class="personal-item-text">我的服务</view>
 			<view class="personal-item-ul flex-between">
 				<view class="personal-item-li" @click="$buttonClick(balanceRecharge)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_05.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_05.png"  mode=""></image></view>
 					<view class="personal-item-li-text">余额充值</view>
 				</view>
 				<view class="personal-item-li"  @click="$buttonClick(exchange)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_06.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_06.png"  mode=""></image></view>
 					<view class="personal-item-li-text">兑换中心</view>
 				</view>
 				<button class="personal-item-li" open-type="contact" @click="$buttonClick(trackClick)">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_07.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_07.png"  mode=""></image></view>
 					<view class="personal-item-li-text">我的客服</view>
 				</button>
 				<view class="personal-item-li" @click="share">
-					<view class="personal-item-li-img"><image class="item-li-img" src="../../static/icon_personal_08.png"  mode=""></image></view>
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_08.png"  mode=""></image></view>
 					<view class="personal-item-li-text">分享推荐</view>
 				</view>
 			</view>

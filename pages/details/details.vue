@@ -105,9 +105,9 @@
 			<view class="details-alt-title flex-between">
 				<!-- 商品介绍 -->
 				<view class="details-alt-text">{{alt.goodsname}}</view>
-				<text class="details-alt-xq">{{alt.goodstitle}}</text>
+				
 			</view>
-
+				<view class="details-alt-xq">{{alt.goodstitle}}</view>
 			<!-- 价格 -->
 			<view class="details-alt-left">
 				<view class="details-alt-btm flex">
@@ -1366,7 +1366,6 @@
 		font-size: 26rpx;
 		margin-top: 10rpx;
 		margin-bottom: 10rpx;
-		line-height: 1.5em;
 	}
 
 	.details-icon {

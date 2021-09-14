@@ -30,7 +30,7 @@ page{
 .new-balance-img{
 		position: absolute;
 		text-align: center;
-		bottom: 0rpx;
+		bottom: -34rpx;
 		right: 0rpx;
 		z-index: 9;
 		width: 52rpx;

@@ -1,7 +1,12 @@
 <template>
-	<view class="apply-success-view">
+	<view class="apply-success-view" v-if="types ==2">
 		<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" class="apply-success-img"></image>
-		<view class="apply-success-text">您已成功提交发票申请，我们将在1-3个工作日\n处理并开具发票，请耐心等待。</view>
+		<view class="apply-success-text">您已成功提交发票申请，我们将在1-3个工作日处理并开具发票，请耐心等待。</view>
+	</view>
+	<view class="apply-success-view" v-else>
+		<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" class="apply-success-img"></image>
+		<view class="apply-success-text" v-if="billInfo.order_bill_info.type == 0">发票已开具，请查看您的邮箱"提交资料的邮箱地址"查看并下载发票。</view>
+		<view class="apply-success-text" v-if="billInfo.order_bill_info.type == 1">发票已开具，并已安排寄出，请您注意查收快递。</view>
 	</view>
 </template>
 
@@ -9,102 +14,44 @@
 	export default {
 		data() {
 			return {
-				id:'',
-				apply_level:'',
+				ordernumber: '',
+				types: 2,
+				billInfo: ''
 			} 
 		},
 		onLoad:function(e){
-			this.id = uni.getStorageSync('id');
-			let level = uni.getStorageSync('level');
-			if(this.id==""||this.id==null||this.id==undefined){
-				uni.navigateTo({
-					url: '../signin/signin'
+			if(e && e.ordernumber && e.types){
+				this.ordernumber = e.ordernumber;
+				this.types = e.types;
+				
+				let that = this;
+				let action = 'get_order_bill_info';
+				let memberid = uni.getStorageSync('id')
+				let controller = 'order';
+				let data = JSON.stringify({
+					ordernumber: this.ordernumber,
+					memberid: memberid
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta == 1){
+						this.billInfo = res.rs;
+						
+					}
 				})
 			}
-			this.apply_level = 4
 			
+			if(this.types == 1){
+				uni.setNavigationBarTitle({
+					title:'发票详情'
+				})
+			}else{
+				uni.setNavigationBarTitle({
+					title:'申请成功'
+				})
+			}
 		},
 		methods: {
-			forsubmit(e){
-				console.log("点击按钮")
-				const apply_level = this.apply_level;
-				// 企业名称
-				const company_name = e.detail.value.company_name;
-				// 联系人姓名
-				const linkman = e.detail.value.linkman;
-				// 手机号
-				const linkphone = e.detail.value.linkphone;
-				// 串码
-				const linkcode = e.detail.value.linkcode;
-				// 意见简述
-				const remark = e.detail.value.remark;
-				
-				// 企业名称不能为空
-				if(company_name==''||company_name==undefined){
-				   uni.showToast({
-					   title:'企业名称不能为空',
-					   mask:true,
-					   icon:'none'
-				   })	
-				// 联系人不能为空
-				}else if(linkman==''||linkman==undefined){
-					uni.showToast({
-						title:'联系人不能为空',
-						 mask:true,
-						 icon:'none'
-					})	
-			    //  手机号不能为空 
-				}else if(linkphone==''||linkphone==undefined){
-					uni.showToast({
-						title:'手机号不能为空',
-						 mask:true,
-						 icon:'none'
-					})	
-				// 长度等于11位	
-				}else if(linkphone.lenght < 11){
-					uni.showToast({
-						title:'手机号有误',
-						 mask:true,
-						 icon:'none'
-					})	
-				}else if(!(/^1[3|4|5|8|7][0-9]\d{8}$/.test(linkphone))){
-					uni.showToast({
-						title:'手机号有误',
-						 mask:true,
-						 icon:'none'
-					})
-				}else{
-				 var data = '{"memberid":"'+this.id+'","shuihao":"1","apply_level":"'+apply_level+'","company_name":"'+company_name+'","linkman":"'+linkman+'","linkphone":"'+linkphone+'","remark":"'+remark+'"}';
-				 
-				 var action = 'apply_for_member';
-					  	  
-				  this.$utils.post(action,data).then(res=>{
-					     console.log('企业会员申请请求数据',data)
-						  // console.log('企业会员申请',res)					  
-					  
-							if(res.sta!='1'){
-									   uni.showToast({
-											title:res.msg,
-											icon:'none',
-									 	  mask:true})		
-							}else{
-									   uni.showToast({
-										  title:'提交成功!',
-										  icon:'success',
-										  mask:true,
-										  success: (res) =>{
-											  setTimeout(function(e){
-												  uni.reLaunch({
-													url:'../personal/personal'
-												  })
-											  },1500)
-										  }
-									   })								
-							}	 
-					})
-				}
-			 
-			},
+			
 		}
 	}
 </script>

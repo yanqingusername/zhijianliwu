@@ -2,7 +2,7 @@
 	<view class="imgslist">
 		<!-- <block v-for="imgData in imgsList" :key="index" > -->
 			<view class="imgs" v-for="item in imgsList" :key="index" @click="submitrefund" :data-id="item.id" :data-background="item.background">
-				<image :src="$utils.imageUrl(item.background)" mode=""class="imgs-head-img" ></image>
+				<image :src="$utils.imageUrl(item.background)" mode="widthFix"class="imgs-head-img" ></image>
 				<image class="new-balance-img" :src="[number==item.id?'../../static/bala_current_cz.png':'']"></image>
 			</view>
 		<!-- </block> -->
@@ -85,7 +85,7 @@ page{
 	.new-balance-img{
 		position: absolute;
 		text-align: center;
-		bottom: 0rpx;
+		bottom: -34rpx;
 		right: 0rpx;
 		z-index: 9;
 		width: 52rpx;

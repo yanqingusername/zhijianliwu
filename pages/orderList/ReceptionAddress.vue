@@ -11,14 +11,15 @@
 		</view>
 		
 		<view class="reception-address-add" v-else>
-			<view class="reception-address-left" @click="$buttonClick(chooseaddbutton)">
-				<image src="../../static/reception-address-location.png" class="reception-address-img"></image>
-				<view class="reception-address-text">获取微信地址</view>
-			</view>
-			<view class="reception-address-left" @click="$buttonClick(address)">
+			<view class="reception-address-left" @click="address">
 				<image src="../../static/reception-address-add.png" class="reception-address-img"></image>
 				<view class="reception-address-text">手动添加地址</view>
 			</view>
+			<view class="reception-address-left" @click="chooseaddbutton">
+				<image src="../../static/reception-address-location.png" class="reception-address-img"></image>
+				<view class="reception-address-text">获取微信地址</view>
+			</view>
+			<image src="../../static/reception-address-line.png" class="reception-address-line"></image>
 		</view>
 		
 		<!--  -->
@@ -588,12 +589,15 @@
 				})
 			},
 			chooseaddbutton: function(e){
+				let that = this;
 				uni.getSetting({
 					success(res) {
 						console.log('授权', res.authSetting['scope.address'])
-						if (res.authSetting['scope.address'] == true) {} else {
+						if (res.authSetting['scope.address'] == true) {
 							// 调起微信收货地址
 							that.chooseadd()
+						} else {
+							
 						}
 					}
 				})
@@ -645,20 +649,24 @@
 	.reception-address-add{
 		background-color: #FFF;
 		margin-top: 20rpx;
-		padding: 58rpx 62rpx;
+		/* padding: 58rpx 62rpx; */
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
+		flex-direction: column;
 	}
 	
 	.reception-address-left{
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		/* justify-content: center;
 		width: 296rpx;
 		height: 70rpx;
 		border-radius: 35rpx;
-		border: 2rpx solid #FB5142;
+		border: 2rpx solid #FB5142; */
+		width: 100%;
+		border-bottom: 2rpx solid #EEEEEE;
+		padding: 30rpx 0rpx 28rpx 36rpx;
 	}
 	.reception-address-img{
 		width: 40rpx;
@@ -666,11 +674,14 @@
 	}
 	.reception-address-text{
 		font-size: 30rpx;
-		color: #DE3225;
+		color: #333333;
 		line-height: 42rpx;
 		margin-left: 6rpx;
 	}
-	
+	.reception-address-line{
+		width: 100%;
+		height: 6rpx;
+	}
 	.order-purchase-view{
 		background-color: #FFF;
 	}

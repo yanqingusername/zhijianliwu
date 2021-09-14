@@ -490,6 +490,7 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 	    -webkit-box-align: center;
 	    -webkit-align-items: center;
 	            align-items: center;
+		margin-top: 80rpx;
 }
 .audio-img-view{
 		position: relative;
@@ -499,6 +500,11 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 		width: 280rpx;
 		height: 280rpx;
 }
+.sound-img-arprogress{
+		position: absolute;
+		top: -2rpx;
+		left: -2rpx;
+}
 .sound-img-bg2{
 		width: 140rpx;
 		height: 140rpx;
@@ -506,4 +512,107 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 	    top: 76rpx;
 	    left: 70rpx;
 }
+.audio-box-view-wrap{
+}
+.audio-box-view-tiem{
+		font-size: 28rpx;
+		font-weight: 500;
+		color: #E0E0E0;
+		margin-top: 30rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.audio-box-view-text{
+		font-size: 30rpx;
+		font-weight: 500;
+		color: #FFFFFF;
+		margin-top: 26rpx;
+}
+
+/* 语音音阶------------- */
+.prompt-loader {
+			width: 96px;
+			height: 20px;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			        justify-content: space-between;
+			margin-bottom: 6px;
+}
+.em {
+			display: block;
+			background: #D8D8D8;
+			width: 1px;
+			height: 20rpx;
+			margin-right: 3px;
+			float: left;
+}
+.em:last-child {
+			margin-right: 0px;
+}
+.em:nth-child(1) {
+		 -webkit-animation:  2.5s 1.4s infinite linear;
+		         animation:  2.5s 1.4s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(2) {
+		 -webkit-animation:  2.5s 1.2s infinite linear;
+		         animation:  2.5s 1.2s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(3) {
+		 -webkit-animation:  2.5s 1s infinite linear;
+		         animation:  2.5s 1s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(4) {
+		 -webkit-animation:  2.5s 0.8s infinite linear;
+		         animation:  2.5s 0.8s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(5) {
+		 -webkit-animation:  2.5s 0.6s infinite linear;
+		         animation:  2.5s 0.6s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(6) {
+		 -webkit-animation:  2.5s 0.4s infinite linear;
+		         animation:  2.5s 0.4s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(7) {
+		 -webkit-animation:  2.5s 0.2s infinite linear;
+		         animation:  2.5s 0.2s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(8) {
+		 -webkit-animation:  2.5s 0s infinite linear;
+		         animation:  2.5s 0s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(9) {
+		 -webkit-animation:  2.5s 0.2s infinite linear;
+		         animation:  2.5s 0.2s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(10) {
+		 -webkit-animation:  2.5s 0.4s infinite linear;
+		         animation:  2.5s 0.4s infinite linear;
+		 background: #FFFFFF;
+}
+.em:nth-child(11) {
+		 -webkit-animation: 2.5s 0.6s infinite linear;
+		         animation: 2.5s 0.6s infinite linear;
+		 background: #FFFFFF;
+}
+		
 

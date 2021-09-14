@@ -166,10 +166,9 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序码领礼物",
-								x: 130,
+								text: "长按小程序二维码领识别",
+								x: 120,
 								y: 470,
-								max_width: 130,
 								font_color: "#FFF8F8",
 								font_size: 14
 							}).catch(err_msg => {
@@ -180,19 +179,19 @@
 							})
 							
 							// 画 长按扫码即可送礼
-							await this.$refs.rCanvas.drawText({
-								text: "先到先得",
-								x: 160,
-								y: 490,
-								max_width: 130,
-								font_color: "#FFF8F8",
-								font_size: 14
-							}).catch(err_msg => {
-								uni.showToast({
-									title: err_msg,
-									icon: "none"
-								})
-							})
+							// await this.$refs.rCanvas.drawText({
+							// 	text: "先到先得",
+							// 	x: 160,
+							// 	y: 490,
+							// 	max_width: 130,
+							// 	font_color: "#FFF8F8",
+							// 	font_size: 14
+							// }).catch(err_msg => {
+							// 	uni.showToast({
+							// 		title: err_msg,
+							// 		icon: "none"
+							// 	})
+							// })
 							// 生成海报
 							await this.$refs.rCanvas.draw((res) => {
 								//res.tempFilePath：生成成功，返回base64图片
@@ -243,6 +242,9 @@
 </script>
 
 <style>
+	page{
+		background: #FFFFFF;
+	}
 	.share-bag-view{
 		display: flex;
 		flex-direction: column;

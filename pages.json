@@ -59,6 +59,12 @@
 			"style" : {
 				"navigationBarTitleText":"礼物列表"
 			}
+		},
+		{
+			"path" : "pages/shopping/shoppingCardList",
+			"style" : {
+				"navigationBarTitleText":"礼品卡册"
+			}
 		}
 		,{
 		    "path" : "pages/shopping/share",

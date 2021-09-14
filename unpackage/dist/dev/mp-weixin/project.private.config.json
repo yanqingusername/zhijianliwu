@@ -47,6 +47,30 @@
           "pathName": "pages/Apply/ApplyInvoice",
           "query": "ordernumber=21210908102746621147",
           "scene": null
+        },
+        {
+          "name": "pages/shopping/share",
+          "pathName": "pages/shopping/share",
+          "query": "cardbag_number=21210913091258200945",
+          "scene": null
+        },
+        {
+          "name": "pages/shopping/succes",
+          "pathName": "pages/shopping/succes",
+          "query": "cardbag_number=21210913091956896127",
+          "scene": null
+        },
+        {
+          "name": "pages/orderList/ReceptionAddress",
+          "pathName": "pages/orderList/ReceptionAddress",
+          "query": "ordernumber=23202109021646537218847512",
+          "scene": null
+        },
+        {
+          "name": "pagesub/Refund/RefundInfo",
+          "pathName": "pagesub/Refund/RefundInfo",
+          "query": "ordernumber=21210913155620357047&typerefund=1&detailid=1095",
+          "scene": null
         }
       ]
     }

@@ -1,26 +1,26 @@
 <template>
 	<view class="sale-view">
-		<view class="new-order-li-center" v-for="(item,index) in screenPurchase" :key="index" @click="bindPickerChange" :data-index="index">
+		<view class="new-order-li-center" v-for="(item,index) in goods_list" :key="index" @click="bindPickerChange" :data-index="index" :data-detailsid="item.id">
 			<view class="exchange-view-item">
 				<view class="exchange-view exchange-view-width">
 					<view class="new-order-left">
 						<view class="new-order-img">
-							<image lazy-load="true" class="new-order-commodity-img" :src="item.img" mode=""></image>
+							<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 						</view>
 					</view>
 					<view class="new-order-right">
 						<view class="new-order-item">
-							<view class="new-order-item-title">{{item.title}}</view>
+							<view class="new-order-item-title">{{item.goodsname}}</view>
 							<view class="new-order-item-money"></view>
 						</view>
 						<view class="new-order-item">
-							<view class="new-order-item-sku">规格：{{item.sku}}</view>
-							<view class="new-order-item-total">x{{item.number}}</view>
+							<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
+							<view class="new-order-item-total">x{{item.goodsnum}}</view>
 						</view>
 					</view>
 				</view>
 				<view class="exchange-view-right">
-					<image class="picker-view-img" :src="[indexPicker == index ? '../../static/icon_reason_d.png' : '../../static/icon_reason_m.png']"></image>
+					<image class="picker-view-img" :src="[item.isShow ? '../../static/icon_reason_d.png' : '../../static/icon_reason_m.png']"></image>
 				</view>
 			</view>
 		</view>
@@ -37,82 +37,72 @@
 		data() {
 			return {
 				indexPicker: 0,
-				screenPurchase: [
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 180,
-						"sku": "礼盒装",
-						"number": 3,
-						"desc": "退货成功"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 980,
-						"sku": "礼盒装",
-						"number": 5,
-						"desc": "换货中"
-					},
-					{
-						"img": "../../static/nono.jpg",
-						"title": "云南古树茶叶",
-						"money": 1080,
-						"sku": "礼盒装",
-						"number": 1,
-						"desc": "退货中"
-					}
-				]
+				ordernumber: '',
+				typerefund: 1,
+				orderGood:'',
+				goods_list: [],
+				detailIdsList:[]
 			}
 		},
 		onShow:function(e){
 			
 			 
 		},
-		onLoad:function(e){	
+		onLoad:function(options){	
+			this.ordernumber=options.ordernumber;
+			this.typerefund=options.typerefund;
 			
+			let action = 'get_refund_order_goods_list';
+			let controller = 'order';
+			let memberid = uni.getStorageSync('id')
+			let data = JSON.stringify({
+				type: this.typerefund,
+				ordernumber: this.ordernumber,
+				memberid: memberid
+			})
+			this.$utils.postNew(action, data, controller).then(res => {
+			    if(res.sta == 1){
+			        this.orderGood = res.rs;
+					this.goods_list= res.rs.goods_list;
+					for(let i in this.goods_list){
+						this.goods_list[i].isShow = false;
+					}
+					console.log('this.goods_list---->:',this.goods_list)
+			    }
+			})
 		},
 		methods: { 
 			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.currentTarget.dataset.index)
-				this.indexPicker = e.currentTarget.dataset.index
+				let index = e.currentTarget.dataset.index;
+				this.indexPicker = e.currentTarget.dataset.index;
+				let detailId = e.currentTarget.dataset.detailsid;
+				console.log('---->:',)
+				
+				let selectedData = this.detailIdsList || [];
+				let item = this.goods_list[index];
+				if(item.isShow){
+				    item.isShow = false;
+				    for (let i = 0; i < selectedData.length; i++) {
+				        if(selectedData[i] == detailId){
+				          selectedData.splice(i, 1);
+				        }
+				    }
+				} else {
+				    item.isShow = true;
+				    selectedData.push(detailId);
+				}
+				this.detailIdsList = selectedData
+				
 			},
 			routeHandler: function(e) {
-				uni.navigateTo({
-					url: './ApplyRefund'
-				})
+				let detailid = this.detailIdsList.join(",");
+				console.log('--detailid-->:',detailid)
+				uni.redirectTo({
+					url: `../../pagesub/Refund/ApplyRefund?ordernumber=${this.ordernumber}&typerefund=${this.typerefund}&detailid=${detailid}`
+				});
+				// uni.navigateTo({
+				// 	url: './ApplyRefund'
+				// })
 			},
 		}
 	}

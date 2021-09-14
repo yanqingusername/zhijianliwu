@@ -1,4 +1,7 @@
 
+page{
+	background: #FFFFFF;
+}
 .share-bag-view{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -16,7 +19,7 @@
 }
 .share-bag {
 	width: 750rpx;
-	height: 1180rpx;
+	height: 1140rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -28,8 +31,8 @@
 .poster {
 	display: block;
 	margin: 0rpx auto;
-	width: 440px;
-	height: 690px;
+	width: 375px;
+	height: 540px;
 	border-radius: 16rpx;
 	margin-top: -19rpx;
 }

@@ -1,6 +1,6 @@
 <template>
 	<view class="sale-view">
-		<view class="sale-content flex-between" @click="routeHandler">
+		<view class="sale-content flex-between" @click="routeHandler" data-typerefund="2">
 			<view class="sale-content-left">
 				<image class="sale-content-img" src="../../static/icon_exchange_goods.png"></image>
 				<view class="sale-content-title">换货</view>
@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="sale-line"></view>
-		<view class="sale-content flex-between">
+		<view class="sale-content flex-between" @click="routeHandler" data-typerefund="3">
 			<view class="sale-content-left">
 				<image class="sale-content-img" src="../../static/icon_return_goods.png"></image>
 				<view class="sale-content-title">退货</view>
@@ -29,7 +29,7 @@
 	export default {
 		data() {
 			return {
-				
+				ordernumber: ''
 			}
 		},
 		onShow:function(e){
@@ -37,12 +37,13 @@
 			 
 		},
 		onLoad:function(e){	
-			
+			this.ordernumber = e.ordernumber;
 		},
 		methods: { 
 			routeHandler: function(e) {
-				uni.navigateTo({
-					url: './ExchangeGoods'
+				let typerefund = e.currentTarget.dataset.typerefund;
+				uni.redirectTo({
+					url: `./ExchangeGoods?ordernumber=${this.ordernumber}&typerefund=${typerefund}`
 				})
 			},
 		}

@@ -60,9 +60,13 @@
 					<view class="apply-flex-title"><span>*</span>手机号码</view>
 					<view class="apply-flex-input flex-vertically"><input name="phone" v-model="phone" placeholder="请输入收票人手机号码" type="text"></view>
 				</view>
-				<view class="apply-flex">
+				<view class="apply-flex" v-if="type==0">
 					<view class="apply-flex-title"><span>*</span>邮箱地址</view>
 					<view class="apply-flex-input flex-vertically" style="border-bottom: none;"><input name="email" v-model="email" placeholder="请输入邮箱地址" type="text"></view>
+				</view>
+				<view class="apply-flex" v-if="type==1">
+					<view class="apply-flex-title"><span>*</span>收票地址</view>
+					<view class="apply-flex-input flex-vertically" style="border-bottom: none;"><input name="shoupiao_address" v-model="shoupiao_address" placeholder="请输入收票地址" type="text"></view>
 				</view>
 			</view>
 			
@@ -118,6 +122,7 @@
 				linkphone: '', //电话
 				phone: '', //手机号码
 				email: '', //邮箱地址
+				shoupiao_address: '', //收票地址
 				member_bill_info: []
 			} 
 		},
@@ -219,6 +224,7 @@
 				let linkphone = e.detail.value.linkphone;
 				let phone = e.detail.value.phone;
 				let email = e.detail.value.email;
+				let shoupiao_address = e.detail.value.shoupiao_address;
 				let memberid = uni.getStorageSync('id');
 				var data = JSON.stringify({
 					memberid: memberid,
@@ -234,7 +240,8 @@
 					company_type: this.company_type,
 					is_default: this.is_default,
 					bank_num: bank_num,
-					bank_deposit: bank_deposit
+					bank_deposit: bank_deposit,
+					shoupiao_address: shoupiao_address
 				});
 				 
 				var action = 'create_bill';

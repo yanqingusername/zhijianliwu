@@ -48,7 +48,7 @@
 						<view style="flex-direction: column;">
 							<view class="flex-between flex-vertically" style="width: 450rpx;">
 								<view>{{item1.member_name}}</view>
-								<view class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,11)}}</view>
+								<view class="bag-gift-title-tea" v-if="cardbag.type != 1">{{$utils.cut_str(item1.goods_name,11)}}</view>
 							</view>
 							<view style="font-size: 22rpx;color: #999999;margin-top: 12rpx;">{{item1.exchange_time}}</view>
 						</view>
@@ -583,7 +583,7 @@
 			margin-bottom: 20rpx;
 	}
 	.gift2-list{
-		border: 1rpx solid #CCB586;
+		border: 1px solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 30rpx;
 		display: flex;

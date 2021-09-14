@@ -249,6 +249,9 @@ page{
 	color: #FFFFFF;
 	line-height: 42rpx;
 }
+.scroll-x{
+  height: 420rpx;
+}
 .popup-view{
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -258,7 +261,7 @@ page{
 	-webkit-flex-direction: column;
 	        flex-direction: column;
 	width: 750rpx;
-	/* height: 660rpx; */
+	/* height: 530rpx; */
 	background: #FFFFFF;
 	border-radius: 10rpx 10rpx 3rpx 3rpx;
 }
@@ -409,5 +412,22 @@ page{
 	color: #333333;
 	padding: 30rpx 0rpx 22rpx 0rpx;
 	text-align: center;
+}
+.all-order-left{
+	width: 664rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.all-order-scroll {
+    width: 664rpx;
+    height: 140rpx;
+}
+.all-order-img{
+	width: 140rpx;
+	height: 140rpx;
 }
 

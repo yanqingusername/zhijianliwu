@@ -43,29 +43,32 @@
 			<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode=""></image>
 			<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
 			<text class="sound-name">{{present_memberid_name}}</text>
-			<image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
-             
+			<!-- <image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
 			 <image class="sound-san" @click="audioPlay" v-if="radio"
 			 	:src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
 			 <image class="sound-san" @click="audioPlay" v-else
 			 	:src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
-			
 			<image class="sound-on" @click="audioPlay" :class="radio?'sound-on':'sound-on-rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')" mode=""></image>
-
-
 			<view class="slider" @click="audioPlay">
-				<!-- <movable-area class="progress" :style="'width:'+w+'px'">
-					<movable-view direction="horizontal" damping="1000" @change="scroll" @touchstart="star"
-						@touchend="to" class="progress-one" :x="movable_x">
-						<view class="progress-view">
-							<view class="progress-circular"></view>
-						</view>
-					</movable-view>
-				</movable-area>
-				<progress :percent="schedule" class="b" data-index="index" activeColor='#D8D8D8'
-					backgroundColor='#767676' border-radius="10" stroke-width="8" /> -->
 				<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
+			</view> -->
+			
+			<view class="audio-box-view">
+				<view class="audio-img-view">
+					<image class="sound-img-bg1" src="https://zhijianlw.com/static/web/img/icon-cd-2021-09-08-01.png" mode=""></image>
+					<arprogress class="sound-img-arprogress" :percent="schedule" inactiveColor='#EEEEEE' activeColor="#F32C14" borderWidth='6' width="284" bgColor="transparent"></arprogress>
+					<image v-if="radio" class="sound-img-bg2" @click="audioPlay" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-04.png" mode=""></image>
+					<image v-else class="sound-img-bg2" @click="audioStop" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-05.png" mode=""></image>
+				</view>
+				<view class="audio-box-view-wrap">
+					<view class="audio-box-view-tiem">
+					    <view>{{timecount}}</view><view>/{{totalDuration}}</view>
+					</view> 
+					<view class="audio-box-view-text" style="color: EEEEEE;">播放录音</view>
+					
+				</view>
 			</view>
+			
 			<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
 			<text class="new-chai" @click="open"></text>
 		</view>
@@ -105,6 +108,7 @@
 </template>
 
 <script>
+	import arprogress from '@/components/ar-circle-progress/ar-circle-progress.vue';
 	import config from '../../common/config.js';
 	const recorderManager = uni.getRecorderManager();
 	const innerAudioContext = uni.createInnerAudioContext();
@@ -115,6 +119,9 @@
 	const recorderManager1 = uni.getRecorderManager();
 	const innerAudioContext1= uni.createInnerAudioContext();
 	export default {
+		components:{
+			"arprogress": arprogress,
+		},
 		data() {
 			return {
 				gift: '0',
@@ -123,7 +130,7 @@
 				name: '',
 				w: '',
 				// 进度条位置
-				schedule: '0',
+				schedule: 0,
 				// 按钮位置
 				movable_x: '0',
 				// 按钮移动距离
@@ -139,7 +146,13 @@
 				radio: true,
 				present_memberid_headimg:'',
 				present_memberid_name:'',
-				isShowCheck: 0
+				isShowCheck: 0,
+				timecount: '00:00:00',
+				hour: 0,
+				minute: 0,
+				second: 0,
+				timer:'',
+				totalDuration: ''
 			}
 		},
 		onLoad: function(e) {	
@@ -281,8 +294,45 @@
 			innerAudioContext1.pause();
 		},
 		methods: {
+			// 计时器
+						getTimeInterval(){
+							clearInterval(this.timer);
+							this.timer = setInterval(()=> {
+								this.second += 1;
+								if(this.second >= 60){
+									this.minute += 1;
+									this.second = 0;
+								}
+								if(this.minute >= 60 && this.second >= 60){
+									this.minute += 0;
+									this.hour += 1;
+								}
+								this.timecount = this.showNum(this.hour)+":"+this.showNum(this.minute)+":"+this.showNum(this.second);
+								console.log("this.timecount",this.timecount)
+							},1000);
+						},
+						showNum(num) {
+							if (num < 10) {
+								return '0' + num
+							}
+							return num
+						},
+						format(seconds) {
+									let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
+									seconds -= 3600 * hour;
+									let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
+									seconds -= 60 * min;
+									let sec = seconds >= 10 ? seconds : '0' + seconds;
+									return hour + ':' + min + ':' + sec;
+								},
 			// 播放录音
 			audioPlay: function() {
+				this.timecount = '00:00:00';
+				this.hour = 0;
+				this.minute = 0;
+				this.second = 0;
+				this.getTimeInterval();
+				
 				this.schedule = 0;
 				// 开始播放
 				this.stop = 1;
@@ -304,8 +354,15 @@
 						console.log('当前播放进度', innerAudioContext.currentTime)
 
 						// 已播放进度条
-						let schedule = innerAudioContext.currentTime / innerAudioContext.duration *
-							100;
+						let duration1 = parseInt(innerAudioContext.duration);
+						let currentTime1 = parseInt(innerAudioContext.currentTime);
+						
+						let schedule1 = (currentTime1/duration1*100);
+						
+						that.schedule = parseInt(schedule1);
+						
+						that.totalDuration = that.format(duration1);
+						
 						// 白色圆点
 						let x = (that.width * 0.57 - that.width * 0.57 * 0.07) * schedule / 100;
 
@@ -315,7 +372,7 @@
 							// 白色圆点
 							this.movable_x = x;
 							// 进度条
-							this.schedule = schedule;
+							// this.schedule = schedule;
 							this.duration = innerAudioContext.duration;
 							console.log(innerAudioContext.duration / innerAudioContext.currentTime)
 						}
@@ -331,6 +388,13 @@
 							that.schedule = 0
 							that.stop=0
 							innerAudioContext.stop();
+							
+							that.schedule = 0;
+							that.timecount = '00:00:00';
+							that.hour = 0;
+							that.minute = 0;
+							that.second = 0;
+							clearInterval(that.timer);
 						})
 
 
@@ -339,7 +403,17 @@
 
 
 			},
-
+			audioStop: function(e) {
+				this.radio = true;
+				this.schedule = 0;
+				this.stop = 0;
+				this.click = 0;
+				clearInterval(this.timer);
+				innerAudioContext.stop();
+				innerAudioContext.offTimeUpdate((res) => {
+					console.log('取消监听进度条', res)
+				})
+			},
             // 滑动
             scroll: function(e) {
             	console.log(e)
@@ -468,10 +542,10 @@
 							}
 						} else {
 							uni.hideLoading()
-							uni.showToast({
-								title: res.msg,
-								icon: 'none',
-							})
+							// uni.showToast({
+							// 	title: res.msg,
+							// 	icon: 'none',
+							// })
 						}
 					})
 				} else {
@@ -651,6 +725,55 @@
 	    left: 220rpx;
 	    width: 160rpx;
 	    height: 160rpx;
+	}
+	
+	/**
+	 * 
+	 */
+	.audio-box-view{
+		display: flex;
+		text-align: center;
+	    flex-direction: column;
+	    align-items: center;
+		position: absolute;
+	    top: 220rpx;
+	}
+	.audio-img-view{
+		position: relative;
+		width: 280rpx;
+	}
+	.sound-img-bg1{
+		width: 280rpx;
+		height: 280rpx;
+	}
+	.sound-img-arprogress{
+		position: absolute;
+		top: -2rpx;
+		left: -2rpx;
+	}
+	.sound-img-bg2{
+		width: 140rpx;
+		height: 140rpx;
+		position: absolute;
+	    top: 76rpx;
+	    left: 70rpx;
+	}
+	.audio-box-view-wrap{
+		
+	}
+	.audio-box-view-tiem{
+		font-size: 28rpx;
+		font-weight: 500;
+		color: #E0E0E0;
+		margin-top: 30rpx;
+		display: flex;
+		align-items: center;
+	}
+	.audio-box-view-text{
+		font-size: 30rpx;
+		font-weight: 500;
+		color: #FFFFFF;
+		margin-top: 26rpx;
 	}
 	
 </style>

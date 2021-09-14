@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "指间礼物",
-  "usingComponents": {}
+  "usingComponents": {
+    "arprogress": "/components/ar-circle-progress/ar-circle-progress"
+  }
 }

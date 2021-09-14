@@ -368,18 +368,10 @@ page{
 	height: 30rpx;
 	background: #E6E6E6;
 	border-radius: 3rpx;
-	margin-left: 15rpx;
+	margin-left: 20rpx;
 	font-size: 20rpx;
 	color: #666666;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	padding: 0rpx 10rpx;
 }
 .reception-order-time{
 	font-size: 24rpx;
@@ -505,5 +497,144 @@ page{
 	height: 1px;
 	background: #EEEEEE;
 	margin: 0 25rpx;
+}
+.recharge-address-text{
+	padding: 18rpx 23rpx 0rpx 11rpx;
+	font-size: 26rpx;
+	color: #666666;
+	line-height: 52rpx;
+}
+.line-bottom{
+	height: 20rpx;
+	background: #EEEEEE;
+}
+.popup-order{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	width: 644rpx;
+	height: 475rpx;
+	background: #FFFFFF;
+	border-radius: 10rpx;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+}
+.popup-order-text{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	height: 90rpx;
+	background: #EC1815;
+	border-radius: 10rpx 10rpx 0px 0px;
+	font-size: 32rpx;
+	color: #FFFFFF;
+	width: 100%;
+}
+.popup-order-content{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 50rpx;
+}
+.popup-order-content-two{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 30rpx;
+}
+.popup-order-title{
+	width: 150rpx;
+	font-size: 30rpx;
+	color: #333333;
+	line-height: 42rpx;
+}
+.popup-order-input{
+	width: 348rpx;
+	height: 60rpx;
+	border-radius: 3rpx;
+	border: 1px solid #AAAAAA;
+}
+.popup-order-input input{
+	padding-left: 21rpx;
+	font-size: 26rpx;
+	height: 37rpx;
+	width: 348rpx;
+	color: #AAAAAA;
+}
+.popup-order-bottom{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 58rpx;
+}
+.popup-order-button{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	background: #EC1815;
+	border-radius: 36rpx;
+	font-size: 30rpx;
+	color: #FFFFFF;
+	line-height: 42rpx;
+	width: 220rpx;
+	height: 72rpx;
+}
+.all-order-left{
+	width: 174px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	position: absolute;
+	top: 60rpx;
+	left: 150rpx;
+}
+.sale-content-ar{
+		width: 30rpx;
+		height: 30rpx;
+		position: absolute;
+		top: 15rpx;
+		right: 14rpx;
+}
+.all-order-scroll {
+    width: 174px;
+    height: 260rpx;
+}
+.all-order-text{
+	padding: 20rpx 20rpx;
+	font-size: 24rpx;
+	    width: 174px;
+	    background: #EEEEEE;
 }
 

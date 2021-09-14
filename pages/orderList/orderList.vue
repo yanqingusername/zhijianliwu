@@ -76,18 +76,21 @@
 					<view class="new-order-botton-view" v-if="nav==1">
 						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
-						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber">申请退款</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber">退款/售后</view>
+						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id">申请退款</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length">退换/售后</view>
 						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="againProduct" :data-ordernumber="item.ordernumber">再次购买</view>
 					</view>
 					
 					<view class="new-order-botton-view" v-if="nav==2">
 						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
-						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber">申请退款</view>
+						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id">申请退款</view>
 						<view class="new-order-botton" v-if="item.status == 0 || item.status == 1" @click.stop="PresentNow" :data-ordernumber="item.ordernumber">立即赠送</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
+						
 						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="GiveitAgain" :data-ordernumber="item.ordernumber">再次赠送</view>
 					</view>
 					
@@ -96,7 +99,7 @@
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber">退换/售后</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length">退换/售后</view>
 					</view>
 				</view>
 			</view>
@@ -1291,9 +1294,19 @@
 			},
 			//申请退款
 			ApplyRefund: function(e) {
-				uni.navigateTo({
-					url: '../../pagesub/Refund/ApplyRefund' 
-				});
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let typerefund = e.currentTarget.dataset.typerefund;
+				let goodslength = e.currentTarget.dataset.goodslength;
+				let detailid = e.currentTarget.dataset.detailid;
+				if(goodslength > 1){
+					uni.navigateTo({
+						url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
+					})
+				}else{
+					uni.navigateTo({
+						url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+					});
+				}
 			},
 			//申请开票
 			ApplyInvoice(e){
@@ -1302,10 +1315,18 @@
 					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
 				});
 			},
-			//退款/售后
-			RefundAfterSale: function(e) {
+			//发票详情
+			ApplyInfo(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: '../../pagesub/Refund/RefundAfterSale' //退款/售后
+					url: `../Apply/ApplySuccess?ordernumber=${ordernumber}&types=1`
+				});
+			},
+			//退换/售后
+			RefundAfterSale: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
 				})
 			},
 			//再次购买
@@ -1433,7 +1454,7 @@
 				// 	url: '../../pagesub/Refund/ApplyRefund' //申请退款
 				// })
 				// uni.navigateTo({
-				// 	url: '../../pagesub/Refund/RefundAfterSale' //退款/售后
+				// 	url: '../../pagesub/Refund/RefundAfterSale' //退换/售后
 				// })
 				// uni.navigateTo({
 				// 	url: '../../pagesub/Refund/RefundExchangeInfo' //填写物流信息

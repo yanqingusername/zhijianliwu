@@ -10,7 +10,8 @@
 				<view class="goods-sub-text uni-ellipsis">{{post.goodstitle}}</view>
 				<view class="goods-bottom">
 					<view class="goods-bottom-money">¥<text style="font-size: 34rpx;">{{post.price}}</text><image class="goods-members-icon" v-if="post.level_sign == 1" src="../../static/icon_corporate_members.png"></image></view>
-					<view class="goods-number">{{post.buy_count || 0}}人已购</view>
+					<view class="goods-number" v-if="state == 99">已售{{post.buy_count || 0}}件</view>
+					<view class="goods-number" v-else>{{post.buy_count || 0}}人已购</view>
 				</view>
 			</view>
 	</view>

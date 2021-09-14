@@ -34,11 +34,11 @@
 					
 					<view class="wishes-card1"  v-show="Inv == 0">
 						<view class="wishes-font">
-							<input type="text" @input="alt" maxlength="20" :value="zhufu_msg">
+							<input type="text" @input="alt" maxlength="20" :focus="isFocus" @blur="isFocus = false" :value="zhufu_msg">
 							<view class="bottom-icon">
 								<text class="icon icon-refresh"></text>
 								<text @click="getShowZhufuList">换一换</text>
-								<text class="icon icon-edit wishes-font-edit"></text>
+								<text class="icon icon-edit wishes-font-edit" @click="editText"></text>
 							</view>
 						</view>
 						
@@ -63,21 +63,16 @@
 						</view>
 					</view>
 					<view class="wishes-card1" v-show="Inv == 1">
-						<view class="" v-if="begin==3" @longpress="start" @touchend="stopp">
-							<!-- <text class="iconfont icon-luyin yin"></text>
-							<view class="wishes-chongxin" type="warn">重新录音</view> -->
+						<!-- <view class="" v-if="begin==3" @longpress="start" @touchend="stopp">
 							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>重新录音</view>
 						</view>
 
 						<view class="" v-else-if="begin==1" @longpress="start" @touchend="stopp">
 							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>按住录音</view>
 						</view>
-
 						<view class="" v-else @tap="stopp">
-							<!-- <text class="iconfont icon-luyin yin"></text>
-							<view class="wishes-say-btn">停止 录音</view> -->
 							<view class="wishes-say-btn" type="warn"><text style="color: #fff; " class="iconfont icon-luyin"></text>停止录音</view>
-						</view>
+						</view> -->
 
 						<view class="say-img">
 							<image class="say-img-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode="widthFix"></image>
@@ -86,7 +81,7 @@
 									<image class="wishes-fu-head says" :src="sign.head_img" mode=""></image>
 									<text class="wishes-fu-head-title">{{sign.name}}</text>
 								</view>
-								<view class="audio-box">
+								<!-- <view class="audio-box">
 									<view class="audio-img">
 										<image class="say-img-open" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode="widthFix"></image>
 										
@@ -101,24 +96,31 @@
 										</view> 
 										<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
 									</view>
-								</view>
-								<!-- <view class="audio-box-view">
+								</view> -->
+								<view class="audio-box-view">
 									<view class="audio-img-view">
-										<image class="sound-img-bg1" src="../../static/icon-cd-2021-09-08-01.png" mode=""></image>
-										<image v-if="begin==1" @longpress="start" @touchend="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-02.png" mode=""></image>
-										<image v-else-if="begin==3" @longpress="start" @touchend="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-02.png" mode=""></image>
-										<image v-else @tap="stopp" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-03.png" mode=""></image>
+										<image class="sound-img-bg1" src="https://zhijianlw.com/static/web/img/icon-cd-2021-09-08-01.png" mode=""></image>
+										<arprogress v-if="begin==5" class="sound-img-arprogress" :percent="schedule" inactiveColor='#EEEEEE' activeColor="#F32C14" borderWidth='7' width="284" bgColor="transparent"></arprogress>
+										<image v-if="begin==1" @click="start" class="sound-img-bg2" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-02.png" mode=""></image>
+										<!-- <image v-else-if="begin==3" class="sound-img-bg2" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-02.png" mode=""></image> -->
+										<image v-else-if="begin==2" @click="stopp" class="sound-img-bg2" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-03.png" mode=""></image>
 										
-										<image @click="audioPlay" v-if="radio" class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-04.png" mode=""></image>
-										<image @click="audioPlay" v-else class="sound-img-bg2" @click="audioPlay" src="../../static/icon-play-2021-09-08-05.png" mode=""></image>
+										<image v-else-if="begin==4" class="sound-img-bg2" @click="audioPlay" :data-begin="4" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-04.png" mode=""></image>
+										<image v-else-if="begin==5" class="sound-img-bg2" @click="audioStop" :data-begin="5" src="https://zhijianlw.com/static/web/img/icon-play-2021-09-08-05.png" mode=""></image>
 									</view>
 									
-									<view class="uni-padding-wrap" @click="audioPlay">
-										<view class="duration">00:00</view> 
-										<view class="duration">开始录音</view> 
-										<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
+									<view class="audio-box-view-wrap">
+										<view class="audio-box-view-tiem" v-if="begin==1 || begin==2">
+										    <view class="em" v-for="(item,index) in 11" :key="index" v-if="begin==2"></view><view style="margin: 0rpx 20rpx;">{{timecount}}</view><view v-if="begin==2" class="em" v-for="(item,index) in 11" :key="index"></view>
+										</view> 
+										<view class="audio-box-view-tiem" v-if="begin==5 || begin==4">
+										    <view>{{timecount}}</view><view v-if="begin==5">/{{totalDuration}}</view>
+										</view> 
+										<view class="audio-box-view-text" v-if="begin==1 || begin==2">开始录音</view> 
+										<view class="audio-box-view-text" style="color: EEEEEE;" @click="start" v-if="begin==4 || begin==5">重新录音</view>
+										
 									</view>
-								</view> -->
+								</view>
 							</view>
 							
 							<view class="wishes-line">
@@ -176,12 +178,16 @@
 </template>
 
 <script>
+	import arprogress from '@/components/ar-circle-progress/ar-circle-progress.vue';
 	import config from '../../common/config.js';
 	const recorderManager = uni.getRecorderManager()
 	const innerAudioContext = uni.createInnerAudioContext()
 	
 	innerAudioContext.autoplay = true;
 	export default {
+		components:{
+			"arprogress": arprogress,
+		},
 		data() {
 			return {
 				Inv: 0,
@@ -213,7 +219,14 @@
 				zhufu_mp4:'',   // 视频url
 				showvideoPlayBtn: true,   // 视频播放按钮
 				videoTime: 0,   // 视频总时长
-				innerVideoContext: null   // 视频
+				innerVideoContext: null,   // 视频
+				isFocus: false,
+				timecount: '00:00:00',
+				hour: 0,
+				minute: 0,
+				second: 0,
+				timer:'',
+				totalDuration: ''
 			}
 		},
 		onLoad: function(e) {
@@ -256,7 +269,8 @@
 						'user': 'test'
 					},
 					success: (uploadFileRes) => {
-						self.begin = 3
+						self.begin = 4
+						self.schedule = 0;
 						console.log('上传音频', uploadFileRes)
 						let file = JSON.parse(uploadFileRes.data)
 						if (file.sta == 1) {
@@ -284,12 +298,18 @@
 					},
 					fail: (res) => {
 						self.begin = 1;
+						self.schedule = 0;
 					}
 				});
 			});
 
 		},
 		methods: {
+			editText(){
+				setTimeout(()=>{
+					this.isFocus = true;
+				},0);
+			},
 			getShowZhufuList(){
 				var data = JSON.stringify({});
 				var action = 'show_zhufu_list';
@@ -315,7 +335,8 @@
 						this.voicePath = res.rs.zhufu_mp3;
 						this.zhufu_mp4 = res.rs.zhufu_mp4;
 						if(res.rs.zhufu_mp3){
-							this.begin = 3
+							this.begin = 4
+							this.schedule = 0;
 						}else{
 							this.begin = 1
 						}
@@ -348,35 +369,84 @@
 			        }
 			    })
 			},
+			// 计时器
+						getTimeInterval(){
+							clearInterval(this.timer);
+							this.timer = setInterval(()=> {
+								this.second += 1;
+								if(this.second >= 60){
+									this.minute += 1;
+									this.second = 0;
+								}
+								if(this.minute >= 60 && this.second >= 60){
+									this.minute += 0;
+									this.hour += 1;
+								}
+								this.timecount = this.showNum(this.hour)+":"+this.showNum(this.minute)+":"+this.showNum(this.second);
+								console.log("this.timecount",this.timecount)
+							},1000);
+						},
+						showNum(num) {
+							if (num < 10) {
+								return '0' + num
+							}
+							return num
+						},
+						format(seconds) {
+									let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
+									seconds -= 3600 * hour;
+									let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
+									seconds -= 60 * min;
+									let sec = seconds >= 10 ? seconds : '0' + seconds;
+									return hour + ':' + min + ':' + sec;
+								},
 			//开始录音
 			start: function() {
-				let that = this;
-				uni.authorize({
-				    scope:'scope.record',
-				    success:function(){
-						that.radio = true
-						// this.begin = 0;
-						console.log('开始录音');
-						recorderManager.start();
-						uni.showLoading({
-							title: '正在录音中'
-						});
-				    },
-				    fail:function(){
-				        that.openSetting("录音功能");
-				    }
-				});
+				recorderManager.stop();
+				innerAudioContext.offTimeUpdate((res) => {
+					console.log('取消监听进度条', res)
+				})
+				clearInterval(this.timer);
+				
+				
+					let that = this;
+					uni.authorize({
+					    scope:'scope.record',
+					    success:function(){
+							that.timecount = '00:00:00';
+							that.hour = 0;
+							that.minute = 0;
+							that.second = 0;
+							that.getTimeInterval();
+							that.radio = true
+							that.begin = 2;
+							that.schedule = 0;
+							console.log('开始录音');
+							recorderManager.start();
+							// uni.showLoading({
+							// 	title: '正在录音中'
+							// });
+					    },
+					    fail:function(){
+					        that.openSetting("录音功能");
+					    }
+					});
 			},		
 			//结束录音  
 			stopp: function() {
-				// this.begin = 1;
+				this.begin = 4;
+				this.schedule = 0;
 				uni.hideLoading();
 				this.radio = true
 				console.log('结束录音')
 				recorderManager.stop();
+				innerAudioContext.offTimeUpdate((res) => {
+					console.log('取消监听进度条', res)
+				})
+				clearInterval(this.timer);
 			},
 			// 播放录音
-			audioPlay: function() {
+			audioPlay: function(e) {
 				if(!this.voicePath){
 					uni.showToast({
 						title:'请先完成录音',
@@ -386,6 +456,19 @@
 					return
 				}
 				
+				recorderManager.stop();
+				innerAudioContext.offTimeUpdate((res) => {
+					console.log('取消监听进度条', res)
+				})
+				clearInterval(this.timer);
+				
+				this.timecount = '00:00:00';
+				this.hour = 0;
+				this.minute = 0;
+				this.second = 0;
+				this.getTimeInterval();
+				
+				this.begin = 5;
 				this.schedule = 0;
 				// 开始播放
 				this.stop = 1;
@@ -408,10 +491,17 @@
 						console.log('当前播放进度', innerAudioContext.currentTime)
 
 						// 已播放进度条
-						let schedule = innerAudioContext.currentTime / innerAudioContext.duration *
-						100;
+						let duration1 = parseInt(innerAudioContext.duration);
+						let currentTime1 = parseInt(innerAudioContext.currentTime);
+						
+						let schedule1 = (currentTime1/duration1*100);
+						
+						that.schedule = parseInt(schedule1);
+						
+						that.totalDuration = that.format(duration1);
+						
 						// 白色圆点
-						let x = (that.width * 0.5 - that.width * 0.5 * 0.07) * schedule / 100;
+						let x = (that.width * 0.5 - that.width * 0.5 * 0.07) * schedule1 / 100;
 
 						if (that.stop == 0) {
 
@@ -419,7 +509,7 @@
 							// 白色圆点
 							that.movable_x = x;
 							// 进度条
-							that.schedule = schedule;
+							// that.schedule = schedule;
 							that.duration = innerAudioContext.duration;
 							console.log(innerAudioContext.duration / innerAudioContext.currentTime)
 						}
@@ -435,10 +525,37 @@
 							that.schedule = 0
 							that.stop=0
 							innerAudioContext.stop();
+							innerAudioContext.offTimeUpdate((res) => {
+								console.log('取消监听进度条', res)
+							})
+							
+							that.begin = 4;
+							that.schedule = 100;
+							that.timecount = '00:00:00';
+							that.hour = 0;
+							that.minute = 0;
+							that.second = 0;
+							clearInterval(that.timer);
 						})
 					})
-				},500)
+				},200)
 
+			},
+			audioStop: function(e) {
+				this.timecount = '00:00:00';
+				this.hour = 0;
+				this.minute = 0;
+				this.second = 0;
+				
+				this.begin = 4;
+				this.schedule = 0;
+				this.stop = 0;
+				this.click = 0;
+				clearInterval(this.timer);
+				innerAudioContext.stop();
+				innerAudioContext.offTimeUpdate((res) => {
+					console.log('取消监听进度条', res)
+				})
 			},
 			// 暂停录音
 			audioPause: function(e) {
@@ -1128,6 +1245,7 @@
 		text-align: center;
 	    flex-direction: column;
 	    align-items: center;
+		margin-top: 80rpx;
 	}
 	.audio-img-view{
 		position: relative;
@@ -1137,6 +1255,11 @@
 		width: 280rpx;
 		height: 280rpx;
 	}
+	.sound-img-arprogress{
+		position: absolute;
+		top: -2rpx;
+		left: -2rpx;
+	}
 	.sound-img-bg2{
 		width: 140rpx;
 		height: 140rpx;
@@ -1144,4 +1267,87 @@
 	    top: 76rpx;
 	    left: 70rpx;
 	}
+	.audio-box-view-wrap{
+		
+	}
+	.audio-box-view-tiem{
+		font-size: 28rpx;
+		font-weight: 500;
+		color: #E0E0E0;
+		margin-top: 30rpx;
+		display: flex;
+		align-items: center;
+	}
+	.audio-box-view-text{
+		font-size: 30rpx;
+		font-weight: 500;
+		color: #FFFFFF;
+		margin-top: 26rpx;
+	}
+	
+	/* 语音音阶------------- */
+		.prompt-loader {
+			width: 96px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 6px;
+		}
+		.em {
+			display: block;
+			background: #D8D8D8;
+			width: 1px;
+			height: 20rpx;
+			margin-right: 3px;
+			float: left;
+		}
+		.em:last-child {
+			margin-right: 0px;
+		}
+		.em:nth-child(1) {
+		 animation:  2.5s 1.4s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(2) {
+		 animation:  2.5s 1.2s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(3) {
+		 animation:  2.5s 1s infinite linear;
+		 background: #FFFFFF;
+		}
+	    .em:nth-child(4) {
+		 animation:  2.5s 0.8s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(5) {
+		 animation:  2.5s 0.6s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(6) {
+		 animation:  2.5s 0.4s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(7) {
+		 animation:  2.5s 0.2s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(8) {
+		 animation:  2.5s 0s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(9) {
+		 animation:  2.5s 0.2s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(10) {
+		 animation:  2.5s 0.4s infinite linear;
+		 background: #FFFFFF;
+		}
+		.em:nth-child(11) {
+		 animation: 2.5s 0.6s infinite linear;
+		 background: #FFFFFF;
+		}
+		
 </style>

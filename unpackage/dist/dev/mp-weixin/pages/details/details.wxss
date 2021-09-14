@@ -418,7 +418,6 @@
 		font-size: 26rpx;
 		margin-top: 10rpx;
 		margin-bottom: 10rpx;
-		line-height: 1.5em;
 }
 .details-icon {
 		/* width: 140rpx; */

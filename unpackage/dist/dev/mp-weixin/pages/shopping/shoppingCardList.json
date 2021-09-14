@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "礼品卡册",
+  "usingComponents": {
+    "search-product": "/components/own-components/search-product"
+  }
+}

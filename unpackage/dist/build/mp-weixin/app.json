@@ -9,6 +9,7 @@
     "pages/classification/classificationSearch",
     "pages/shopping/shopping",
     "pages/shopping/shoppingList",
+    "pages/shopping/shoppingCardList",
     "pages/shopping/share",
     "pages/order/order",
     "pages/success/success",

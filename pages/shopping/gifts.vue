@@ -17,7 +17,7 @@
 								<text class="gift-card-title">指间礼物|送礼有温度</text>
 							</view>
 							<view class="gift-card-con">
-								<view><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text" focus="isFocus"></textarea></view>
+								<view><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text" :focus="isFocus" @blur="isFocus = false"></textarea></view>
 								<text class="icon icon-edit gift-card-edit" @click="showTxt"></text>
 								<!-- <image class="gift-card-edit" :src="$utils.osspath_url('/xcx-static/gift/edit_icon.png')" mode=""></image> -->
 							</view>
@@ -95,7 +95,8 @@
 				zoomParam: 1.25,
 				swiperCurrentIndex: 0,
 				animationData: "",
-				animationDataDefault: ""
+				animationDataDefault: "",
+				isFocus: false
 			}
 		},
 		computed:{
@@ -215,7 +216,10 @@
 				this.showPop = false;
 			},
 			showTxt: function(){
-				this.isFocus = true
+				setTimeout(()=>{
+					this.isFocus = true;
+				},0);
+				// this.isFocus = true
 				// this.showPop = true;
 			},
 			txt: function(e) {
