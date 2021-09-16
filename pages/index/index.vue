@@ -58,6 +58,35 @@
 				</view>
 			</view>
 		</uni-popup>
+		
+		<!-- 优惠券 -->
+		<uni-popup ref="couponcenter" type="center" :animation="false" :maskClick="true" @change="changePop">
+			<view class="coupon-view" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length == 1">
+				<image class="coupon-bg-img" v-if="regCouponInfo[0].scene == 1" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_01-1.png"></image>
+				<image class="coupon-bg-img" v-else src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_01-2.png"></image>
+				<view class="coupon-content">
+					<view class="coupon-content-title">{{regCouponInfo[0].money}}元</view>
+					<view class="coupon-content-text">{{regCouponInfo[0].type_info}} | 满{{regCouponInfo[0].full_money}}元可用</view>
+				</view>
+			</view>
+			
+			<view class="coupon-view-two" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length > 1">
+				<image class="coupon-bg-img-two" v-if="regCouponInfo[0].scene == 1" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-1.png"></image>
+				<image class="coupon-bg-img-two" v-else src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-2.png"></image>
+				<view style="height: 400rpx;width: 515rpx;margin-top: 88px;position: absolute;">
+					<scroll-view scroll-y="true" class="scroll-x-coupon">
+						<view class="coupon-content-two" v-for="item in regCouponInfo" :key="item.id">
+							<image class="coupon-bg-img-two_bg" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_03.png"></image>
+							<view class="coupon-content-title-two"><view style="color: #DB3C3A;font-size: 35rpx;">¥</view><view style="font-weight: bold;left: 30rpx;font-size: 67rpx;color: #DB3C3A;line-height: 94rpx;">{{item.money}}</view></view>
+							<view class="coupon-content-view">
+								<view class="coupon-content-text-two">{{item.type_info}}</view>
+								<view class="coupon-content-time-two">{{item.begin_time}}-{{item.end_time}}</view>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -104,7 +133,8 @@
 				nameTop: 400,
 				rect: 0,
 				statusBarHeight: 20,
-				poptitle: ''
+				poptitle: '',
+				regCouponInfo: []
 			}
 		},
 		onLoad() {
@@ -191,9 +221,6 @@
 				}
 			});
 			
-			//用户登录后判断企业会员是否通过
-			this.getMemberAuditStatus();
-			
 			var zthat = this;
 			var query = wx.createSelectorQuery();
 			query.select('#scrollId').boundingClientRect();
@@ -206,6 +233,15 @@
 					console.log(zthat.nameTop)
 				}
 			})
+		},
+		onShow() {
+			let memberid = uni.getStorageSync('id')
+			if(memberid){
+				//用户登录后判断企业会员是否通过
+				this.getMemberAuditStatus();
+				
+				this.getMemberRegCoupon();
+			}
 		},
 		onPageScroll(e){
 			this.rect = e.scrollTop;
@@ -366,6 +402,30 @@
 			changeClassifi(){ //分类跳转
 				uni.navigateTo({
 					url:'../classification/classification'
+				})
+			},
+			getMemberRegCoupon(){
+				let that = this;
+				let action = "get_member_reg_coupon";
+				let controller = 'coupon';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					memberid: memberid
+				});
+				
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						that.regCouponInfo = res.rs;
+						if(that.regCouponInfo.length > 0){
+							that.$refs['couponcenter'].open();
+						}
+					}
+				})
+			},
+			submitcoupon(){
+				this.$refs['couponcenter'].close();
+				uni.navigateTo({
+					url:'../Coupon/Coupon'
 				})
 			}
 		},
@@ -561,4 +621,96 @@
 			width: 31rpx;
 			height: 20rpx;
 		}
+		
+		/**
+		 * 优惠卷
+		 */
+		.coupon-view{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 711rpx;
+			height: 716rpx;
+			position: relative;
+		}
+		.coupon-bg-img{
+			width: 711rpx;
+			height: 716rpx;
+		}
+		.coupon-content{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			position: absolute;
+			top: 95rpx;
+		}
+		.coupon-content-title{
+			font-size: 65rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 91rpx;
+		}
+		.coupon-content-text{
+			font-size: 27rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 38rpx;
+			margin-top: 4rpx;
+			text-align: center;
+		}
+		
+		.coupon-view-two{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 700rpx;
+			height: 905rpx;
+			position: relative;
+		}
+		.coupon-bg-img-two{
+			width: 700rpx;
+			height: 905rpx;
+		}
+		.scroll-x-coupon{
+			  height: 410rpx;
+			  /* margin-top: 348rpx; */
+			  width: 515rpx;
+			  position: relative;
+			}
+		.coupon-content-two{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			width: 515rpx;
+			height: 124rpx;
+			margin-top: 13rpx;
+		}
+		.coupon-bg-img-two_bg{
+			width: 515rpx;
+			height: 124rpx;
+		}
+		.coupon-content-title-two{
+			position: absolute;
+			left: 30rpx;
+			display: flex;
+			align-items: baseline;
+		}
+		.coupon-content-view{
+			position: absolute;
+			left: 200rpx;
+		}
+		.coupon-content-text-two{
+			font-size: 34rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 47rpx;
+		}
+		.coupon-content-time-two{
+			font-size: 22rpx;
+			color: #999999;
+			line-height: 30rpx;
+		}
+		
 </style>

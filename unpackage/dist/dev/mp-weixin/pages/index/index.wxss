@@ -213,4 +213,125 @@
 			width: 31rpx;
 			height: 20rpx;
 }
+	/**
+		 * 优惠卷
+		 */
+.coupon-view{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			width: 711rpx;
+			height: 716rpx;
+			position: relative;
+}
+.coupon-bg-img{
+			width: 711rpx;
+			height: 716rpx;
+}
+.coupon-content{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			        flex-direction: column;
+			position: absolute;
+			top: 95rpx;
+}
+.coupon-content-title{
+			font-size: 65rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 91rpx;
+}
+.coupon-content-text{
+			font-size: 27rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 38rpx;
+			margin-top: 4rpx;
+			text-align: center;
+}
+.coupon-view-two{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			width: 700rpx;
+			height: 905rpx;
+			position: relative;
+}
+.coupon-bg-img-two{
+			width: 700rpx;
+			height: 905rpx;
+}
+.scroll-x-coupon{
+			  height: 410rpx;
+			  /* margin-top: 348rpx; */
+			  width: 515rpx;
+			  position: relative;
+}
+.coupon-content-two{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			position: relative;
+			width: 515rpx;
+			height: 124rpx;
+			margin-top: 13rpx;
+}
+.coupon-bg-img-two_bg{
+			width: 515rpx;
+			height: 124rpx;
+}
+.coupon-content-title-two{
+			position: absolute;
+			left: 30rpx;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: baseline;
+			-webkit-align-items: baseline;
+			        align-items: baseline;
+}
+.coupon-content-view{
+			position: absolute;
+			left: 200rpx;
+}
+.coupon-content-text-two{
+			font-size: 34rpx;
+			font-weight: bold;
+			color: #DB3C3A;
+			line-height: 47rpx;
+}
+.coupon-content-time-two{
+			font-size: 22rpx;
+			color: #999999;
+			line-height: 30rpx;
+}
+		
 

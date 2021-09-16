@@ -110,14 +110,17 @@
 				conditionkey: '1',
 				pricekey: '',
 				keynum: "",
-				isShowView: 1
+				isShowView: 1,
+				coupon_type: ''
 			} 
 		},
 		onLoad(options) {
 			this.historySearchList = uni.getStorageSync("historySearchList")||[];
 			console.log(options)
 			if(options){
-				if(options.keynum && options.name){
+				if((options.coupon_type || options.keynum) && options.name){
+					this.coupon_type = options.coupon_type;
+					
 					this.keynum = options.keynum;
 					this.Key = options.name;
 					this.isShowView = 2;
@@ -178,6 +181,7 @@
 				this.conditionkey = "1";
 				this.indexCurrent = 0;
 				this.keynum = "";
+				this.coupon_type = "";
 				this.getProductList(1);
 				// uni.navigateTo({
 				// 	url:'../product-list/product-list?type=search&key=' + Key
@@ -198,6 +202,7 @@
 				this.conditionkey = "1";
 				this.indexCurrent = 0;
 				this.keynum = "";
+				this.coupon_type = "";
 				this.getProductList(1);
 				// uni.navigateTo({
 				// 	url:'../product-list/product-list?type=search&key=' + Key
@@ -250,7 +255,8 @@
 					member_level: level,
 					pageSize: this.pageSize,
 					pageIndex: this.pageIndex,
-					goodsclassify: this.keynum
+					goodsclassify: this.keynum,
+					coupon_type: this.coupon_type
 				});
 				this.$utils.postNew(action,data,controller).then(res=>{
 					if(typeNumber == 1){

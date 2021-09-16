@@ -254,36 +254,49 @@
 		  },
 		  // 优惠券
 		  coupon:function(e){ 	
-			  let that = this;
-			  	this.level = uni.getStorageSync('level')
-			  	let id = uni.getStorageSync('id');
-			  	var data = '{"memberid":"'+id+'"}';
-			  	var action = 'get_coupon_number_list';
-			  	let top = [];
-			  	this.$utils.post(action,data).then(res=>{
-			  		console.log('我的优惠券',res)
+			  // let that = this;
+			  // 	this.level = uni.getStorageSync('level')
+			  // 	let id = uni.getStorageSync('id');
+			  // 	var data = '{"memberid":"'+id+'"}';
+			  // 	var action = 'get_coupon_number_list';
+			  // 	let top = [];
+			  // 	this.$utils.post(action,data).then(res=>{
+			  // 		console.log('我的优惠券',res)
 			  		
-			  		let times = new Date().getTime()
+			  // 		let times = new Date().getTime()
 			  		
 					
-			  		for(let i in res.rs){
+			  // 		for(let i in res.rs){
 			  			
 
-			  				// 开始时间  res.rs[i].coupon_type_info.begin_time
-			  				// 结束时间  res.rs[i].coupon_type_info.end_time  
-			  				// 当前时间  new Date().getTime()   times
+			  // 				// 开始时间  res.rs[i].coupon_type_info.begin_time
+			  // 				// 结束时间  res.rs[i].coupon_type_info.end_time  
+			  // 				// 当前时间  new Date().getTime()   times
 			  				
-			  				 if(res.rs[i].coupon_type_info.end_time*1000 - times>0){
-			  					top.push(res.rs[i])
-			  				}
+			  // 				 if(res.rs[i].coupon_type_info.end_time*1000 - times>0){
+			  // 					top.push(res.rs[i])
+			  // 				}
 			  				 
 			  				
-			  		} 
+			  // 		} 
 			  		
-						that.topp = top.length;
+					// 	that.topp = top.length;
 					
-			  	})
+			  // 	})
 				
+				let that = this;
+				let action = "get_coupon_number_list";
+				let controller = 'coupon';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					memberid: memberid,
+					status: 1
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						that.topp = res.rs.length;
+					}
+				})
 				
 			  
 		  },
