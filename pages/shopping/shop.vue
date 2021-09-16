@@ -376,12 +376,14 @@
 		 	let goodsid = e.goodsid;
 		 	this.goodsid = goodsid;
 		 	let acount=e.goodsnum+1
+			this.numberss +=1;
 		 	this.give(e,acount);
 		 },
 		 reduce(e) {
 			 let goodsid = e.goodsid;
 			 let acount=e.goodsnum-1
 			 this.goodsid = goodsid;
+			 this.numberss -= 1;
 			 this.give(e,acount);
 			 
 		 	// this.checknum = parseInt(num) + parseInt(type);
@@ -405,7 +407,6 @@
 		 		this.$utils.post(action, data).then(res => {
 		 			console.log('更改价格', res)
 		 			this.goodsinfo = res.rs.giftbag
-					 this.numberss = acount;
 					//计算总价
 					this.caltotalmoney()
 		 		})

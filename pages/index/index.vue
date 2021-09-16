@@ -51,7 +51,7 @@
 		<!-- 提交成功 -->
 		<uni-popup ref="popupcenter" type="center" :animation="false" :maskClick="true" @change="changePop">
 			<view class="popup-center-view">
-				<image class="popup-center-view-img" src="../../static/icon_adopt_apply_in.png"></image>
+				<image class="popup-center-view-img" src="https://zhijianlw.com/static/web/img/icon_adopt_apply_in.png"></image>
 				<view class="popup-center-view-text">{{poptitle}}</view>
 				<view class="popup-center-view-bottom" @click="$buttonClick(submitrefund)">
 					<view class="popup-center-view-button">确定</view>

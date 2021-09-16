@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="personal-header">
+		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
@@ -79,15 +79,15 @@
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">+</view><view>¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;">+</view><view style="font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding" v-if="orderBuyInfo.orderinfo.balance_price">
 				<view class="reception-order-title">余额抵扣：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderBuyInfo.orderinfo.balance_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.balance_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
@@ -118,7 +118,8 @@
 				value:'',
 				nav:'20',
 				ordernumber: '',
-				orderBuyInfo: ''
+				orderBuyInfo: '',
+				isSystemInfo: false
 			}
 		},
 		onLoad:function(options){
@@ -129,6 +130,8 @@
 					this.nav = res.statusBarHeight 
 				}
 			})
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
 			
 			let that = this;
 			let action = "get_order_buy_info";
@@ -206,7 +209,7 @@
 	}
 	
 	.personal-header{
-		 height: 140px;
+		 height: 160px;
 		 background: #FB503D;
 		 width: 100%;
 		 position: relative;

@@ -1,6 +1,6 @@
 <template>
 	<view @click="toggle" class="evan-switch" :class="{'evan-switch--disabled':disabled}" :style="{width:2*size+'px',height:switchHeight,borderRadius:size+'px',backgroundColor:currentValue===activeValue?activeColor:inactiveColor}">
-		<view class="evan-switch__circle" :style="{width:size+'px',height:size+'px',transform:currentValue===activeValue?`translateX(${size}px)`:`translateX(0)`}"></view>
+		<view class="evan-switch__circle" :style="{width:size+'px',height:size+'px',transform:currentValue===activeValue?`translateX(${size}px)`:`translateX(0)`,backgroundColor:currentValue===activeValue?'#F55856':'#FFFFFF'}"></view>
 	</view>
 </template>
 

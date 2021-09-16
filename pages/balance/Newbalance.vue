@@ -9,9 +9,9 @@
 			<view class="balance-query">
 			<!-- 充值查询  充值卡查询 -->
 				<view class="balance-query-content flex-between margin-auto flex-vertically">
-					<view class="balance-query-li flex-vertically" @click="$buttonClick(left)"><image src="../../static/balance-left.png" mode=""></image>收支明细</view>
+					<view class="balance-query-li flex-vertically" @click="$buttonClick(left)"><image src="https://zhijianlw.com/static/web/img/balance-left.png" mode=""></image>收支明细</view>
 					<view class="balance-query-line"></view>
-					<view class="balance-query-li flex-vertically" @click="$buttonClick(right)"><image src="../../static/balance-right.png" mode=""></image>充值卡充值</view>
+					<view class="balance-query-li flex-vertically" @click="$buttonClick(right)"><image src="https://zhijianlw.com/static/web/img/balance-right.png" mode=""></image>充值卡充值</view>
 				</view>
 			</view> 
 		</view>	

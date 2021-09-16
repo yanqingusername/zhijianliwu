@@ -264,6 +264,7 @@
 				let goodsid = e.goodsid;
 				this.goodsid = goodsid;
 				this.goodsnum = 1;
+				this.numberss +=1;
 				let acount=e.goodsnum+1
 				this.give(e,acount);
 			},
@@ -271,6 +272,7 @@
 			reduce: function(e) {
 				let goodsid = e.goodsid;
 				this.goodsnum=-1
+				this.numberss -=1;
 				let acount=e.goodsnum-1
 				this.goodsid = goodsid;
 				this.give(e,acount);
@@ -300,7 +302,6 @@
 						} else {
 							this.com = false
 						}
-						this.numberss = acount;
 						//计算总价
 						this.caltotalmoney()
 					})

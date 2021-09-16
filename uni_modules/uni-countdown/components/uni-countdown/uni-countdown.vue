@@ -250,7 +250,7 @@
 		/* #endif */
 		justify-content: center;
 		align-items: center;
-		width: $countdown-width;
+		// width: $countdown-width;
 		height: $countdown-height;
 		line-height: $countdown-height;
 		margin: 5rpx;

@@ -3,7 +3,7 @@ page{
 	background-color: #F9F9F9;
 }
 .personal-header{
-	 height: 140px;
+	 height: 160px;
 	 background: #FB503D;
 	 width: 100%;
 	 position: relative;

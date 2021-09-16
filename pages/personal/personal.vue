@@ -21,7 +21,7 @@
 					<view v-if="sign.id">
 						<view class="personal-sign-wangguan-view" v-if="sign.level_name=='企业会员'" @click="$buttonClick(openingMember)">
 							<image class="personal-sign-img" :src="sign.head_img" mode=""></image>
-							<image class="personal-sign-wangguan" src="../../static/personal-sign-wangguan.png" mode=""></image>
+							<image class="personal-sign-wangguan" src="https://zhijianlw.com/static/web/img/personal-sign-wangguan.png" mode=""></image>
 						</view>
 						<view v-else>
 							<image class="personal-sign-img" :src="sign.head_img" mode=""></image>

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="personal-header">
+		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
@@ -96,7 +96,8 @@
 				value:'',
 				nav:'20',
 				ordernumber: '',
-				orderReceptionInfo: ''
+				orderReceptionInfo: '',
+				isSystemInfo: false
 			}
 		},
 		onLoad:function(options){
@@ -106,6 +107,8 @@
 					this.nav = res.statusBarHeight 
 				}
 			})
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
 			
 			this.ordernumber = options.ordernumber;
 			let that = this;

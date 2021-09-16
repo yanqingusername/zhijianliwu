@@ -1,31 +1,35 @@
 <template>
-	<view>
+	<view style="border-top: 1px solid #EEEEEE;">
 		<form @submit="submit">
 			<view class="add-ul">
-				<view class="add-li flex-vertically">
+				<view class="add-li flex-vertically" style="border-bottom: 2rpx solid #E6E6E6;">
 					<view class="add-left">收货人</view>
-					<input type="text" name="name" :value="add.linkman" :placeholder="addr.linkman" />
+					<input type="text" name="name" @input="onNameInput" :value="add.linkman" :placeholder="addr.linkman || '姓名'" />
 					<view class="add-img">
 					</view>
 				</view>
-				<view class="add-li flex-vertically">
+				<view class="add-li flex-vertically" style="border-bottom: 2rpx solid #E6E6E6;">
 					<view class="add-left">手机</view>
-					<input type="text" name="phone" :value="add.linktel" :placeholder="addr.linktel" />
-				</view>
-				<view class="add-li flex-vertically">
-					<view class="add-left">地区</view>
-					<input type="text" name="add" :value="add.prov" disabled=true @tap="openAddres2" :placeholder="addr.province" />
+					<input type="text" name="phone" @input="onPhoneInput" :value="add.linktel" :placeholder="addr.linktel || '11位手机号'" />
 					<view class="add-img">
-						<image class="img" src="../../static/add-add.png" mode=""></image>
 					</view>
 				</view>
-				<view class="add-li flex-vertically">
-					<view class="add-left">详细地址</view>
-					<input type="text" name="address" :value="add.address" :placeholder="addr.address" />
+				<view class="add-li flex-vertically" style="border-bottom: 2rpx solid #E6E6E6;">
+					<view class="add-left">地区</view>
+					<input type="text" name="add" :value="add.prov" disabled=true @tap="openAddres2" :placeholder="addr.province || '地区信息'" />
+					<view class="add-img">
+						<image class="add-img" src="https://zhijianlw.com/static/web/img/location-add-add.png" mode=""></image>
+					</view>
 				</view>
-				<view class="add-li flex-vertically">
-					<view class="add-left chec">设置为默认地址</view>
-					<evan-switch class="evan" v-model="checked"></evan-switch>
+				<view class="add-li flex-vertically" style="border-bottom: 2rpx solid #E6E6E6;">
+					<view class="add-left">详细地址</view>
+					<input type="text" name="address" @input="onAddressInput" :value="add.address" :placeholder="addr.address || '街道门牌信息'" />
+					<view class="add-img">
+					</view>
+				</view>
+				<view class="new-add-li flex-vertically">
+					<view class="add-left chec" style="color: #666666;">设置为默认地址</view>
+					<evan-switch class="evan" v-model="checked" activeColor="#FFD7D7 "></evan-switch>
 				</view>
 				
 			</view>
@@ -35,9 +39,9 @@
 				<simple-address ref="simpleAddress" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirm" themeColor="#007AFF"></simple-address>
 			</view>
 
-
-			<button form-type="submit" class="apply-bottom">保存地址</button>
-
+			<view class="flex-vertically" style="margin-top: 400rpx;">
+				<button form-type="submit" :disabled="isDisabled" class="new-apply-bottom">保存地址</button>
+			</view>
 
 		</form>
 
@@ -74,7 +78,8 @@
 				county: '',
 				index: '',
 				addto: '',
-				ordernumber: ''
+				ordernumber: '',
+				checked: false
 			}
 		},
 		components: {
@@ -86,6 +91,10 @@
 
 			// 修改地址
 			let addr = uni.getStorageSync('add');
+			
+			uni.setNavigationBarTitle({
+				title: e.modify == 1 ? '编辑收货地址' : '新增地址'
+			})
 
 			// 修改地址
 			if (e.modify == 1) {
@@ -107,6 +116,15 @@
 
 
 		},
+		computed:{
+			isDisabled: function(){
+				let disabled = true;
+				if(this.add.linkman && this.add.linktel && this.province && this.city && this.county && this.add.address){
+					disabled = false;
+				}
+				return disabled;
+			}
+		},
 		onUnload: function(){
 			if(this.addto==1){
 				uni.setStorageSync('member_area_id',index);
@@ -117,6 +135,15 @@
 			console.log("页面卸载");
 		},
 		methods: {
+			onNameInput(e){
+				this.add.linkman = e.detail.value;
+			},
+			onPhoneInput(e){
+				this.add.linktel = e.detail.value;
+			},
+			onAddressInput(e){
+				this.add.address = e.detail.value;
+			},
 			bindPickerChange: function(e) {
 				// console.log(e.target.value)
 			},
@@ -179,15 +206,16 @@
 					let province = this.province;
 					let city = this.city;
 					let county = this.county;
+					let is_default = this.checked ? 1 : 0
 					
 					// 如果是修改地址的话
-					if (this.add.id) {
+					if (this.add.id) {is_default
 						var data = '{"memberid":"' + this.id + '","member_area_id":"' + this.add.id + '","linkman":"' + name +
 							'","linktel":"' + phone + '","province":"' + province + '","city":"' + city + '","county":"' + county +
-							'","address":"' + address + '"}';
+							'","address":"' + address + '","is_default":"' + is_default +'"}';
 					} else {
 						var data = '{"memberid":"' + this.id + '","linkman":"' + name + '","linktel":"' + phone + '","province":"' +
-							province + '","city":"' + city + '","county":"' + county + '","address":"' + address + '"}';
+							province + '","city":"' + city + '","county":"' + county + '","address":"' + address + '","is_default":"' + is_default + '"}';
 					}
 					// console.log(data)
 					var action = 'add_member_area';
@@ -304,7 +332,29 @@
 		position: absolute;
 		right: 30rpx;
 	}
-	.apply-bottom{
-		border-radius: 0;
+	.new-apply-bottom{
+		width: 384rpx;
+		height: 80rpx;
+		background: #F55856;
+		border-radius: 10rpx;
+		line-height: 80rpx;
+	    color: #FFF;
+	    font-size: 32rpx;
+	    text-align: center;
+		  
+	}
+	.new-add-li {
+	    width: 100%;
+	    height: 103rpx;
+	}
+	
+	button[disabled]:not([type]) {
+	    background-color: #F55856;
+	    color: #FFF;
+		opacity: .3;
+	}
+	.add-img{
+		width: 50rpx;
+		height: 50rpx;
 	}
 </style>

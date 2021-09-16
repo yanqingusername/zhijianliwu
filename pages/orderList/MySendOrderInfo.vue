@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="personal-header">
+		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
@@ -15,8 +15,8 @@
 				<!-- <view class="recharge-status-text" v-if="orderSendInfo.orderinfo.status ==3">{{orderSendInfo.orderinfo.order_status_info}}</view> -->
 				<view class="recharge-status-text" >{{orderSendInfo.orderinfo.order_status_info}}</view>
 			</view>
-			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==5">需付款：¥{{orderSendInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="true" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
-			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==2">剩余<uni-countdown :showColon="false" :show-day="true" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==5">需付款：¥{{orderSendInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==2">剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			
 		</view>
 		
@@ -108,15 +108,15 @@
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">+</view><view>¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;">+</view><view style="font-size: 30rpx;">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderSendInfo.orderinfo.paycoupon || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.paycoupon || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding" v-if="orderSendInfo.orderinfo.balance_price">
 				<view class="reception-order-title">余额抵扣：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 34rpx;color: #EC1815;margin-right: 10rpx;">-</view><view>¥{{orderSendInfo.orderinfo.balance_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.balance_price || '0.00'}}</view></view>
 			</view>
 			
 			<view class="flex-between flex-between-padding order-line">
@@ -167,7 +167,8 @@
 				ordernumber: '',
 				orderSendInfo: '',
 				countdown: '',
-				teamEnd: false
+				teamEnd: false,
+				isSystemInfo: false
 			}
 		},
 		onLoad:function(options){
@@ -178,6 +179,9 @@
 					this.nav = res.statusBarHeight 
 				}
 			})
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
+			
 			let that = this;
 			let action = "get_order_giftgiving_info";
 			let controller = 'order';
@@ -204,15 +208,19 @@
 		methods:{
 			getCountdown(endTime) {
 				var that = this;
-				var _endDateTime = new Date(endTime).getTime();
-				// timer = setInterval(function() {
-					var _newDateTime = new Date().getTime();
-						times = _endDateTime - _newDateTime;
-						if (times <= 0) {
-							return
-						}
-						that.setTime(times / 1000)
-					// }, 1000);
+				// var _endDateTime = new Date(endTime).getTime();
+				// // timer = setInterval(function() {
+				// 	var _newDateTime = new Date().getTime();
+				// 		times = _endDateTime - _newDateTime;
+				// 		if (times <= 0) {
+				// 			return
+				// 		}
+				// 		that.setTime(times / 1000)
+				// 	// }, 1000);
+				if (endTime <= 0) {
+					return
+				}
+				that.setTime(endTime)
 			},
 				setTime(times) {
 						var that = this;

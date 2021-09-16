@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="personal-header">
+		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
@@ -24,7 +24,7 @@
 			
 			<view class="refund-info-content" v-if="typerefund == 2 && cancel_info.status == 2">
 				<view class="refund-info-text">审核通过，请尽快寄出换货商品并填写物流单号</view>
-				<view class="refund-info-text margin-text">剩余2天21小时12分钟</view>
+				<view class="refund-info-text margin-text" style="display: flex;align-items: center;">剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			</view>
 			
 			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 4">退回商品入库后，我们将为您寄出换货商品</view>
@@ -39,7 +39,7 @@
 			
 			<view class="refund-info-content" v-if="typerefund == 3 && cancel_info.status == 2">
 				<view class="refund-info-text">审核通过，请尽快寄出退货商品并填写物流单号</view>
-				<view class="refund-info-text margin-text">剩余2天21小时12分钟</view>
+				<view class="refund-info-text margin-text" style="display: flex;align-items: center;">剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			</view>
 			
 			<view class="recharge-status-label" v-if="typerefund == 3 && cancel_info.status == 4">退回商品入库后，我们将为您处理退款事宜</view>
@@ -65,7 +65,7 @@
 						<view class="refund-money"></view>
 					</view>
 					<view class="line-gray" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"></view>
-					<view class="recharge-address-text" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"><text>cancel_info.refund_address</text><text class="reception-order-copy" :data-ordernumber="cancel_info.refund_address" @click="copy">复制</text></view>
+					<view class="recharge-address-text" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"><text>{{cancel_info.refund_address}}</text><text class="reception-order-copy" :data-ordernumber="cancel_info.refund_address" @click="copy">复制</text></view>
 					<view class="line-bottom" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2"></view>
 					
 					<view class="refund-info-top" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 4">
@@ -238,6 +238,8 @@
 </template>
 
 <script>
+	var timer = null;
+	var times = 0;
 	export default{
 		data(){
 			return{
@@ -255,7 +257,9 @@
 				isShow: false,
 				boxHeight: 475,
 				isShowAll: false,
-				bHeight: 260
+				bHeight: 260,
+				countdown: '',
+				isSystemInfo: false
 			}
 		},
 		onLoad:function(options){
@@ -264,6 +268,9 @@
 					this.nav = res.statusBarHeight 
 				}
 			})
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
+			
 			this.ordernumber=options.ordernumber;
 			this.typerefund=options.typerefund;
 			this.detailid=options.detailid;
@@ -279,6 +286,10 @@
 			this.$utils.postNew(action, data, controller).then(res => {
 			    if(res.sta == 1){
 			        this.cancel_info = res.rs.cancel_info;
+					this.typerefund = res.rs.cancel_info.type;
+					if((this.typerefund == 2 || this.typerefund == 3) && this.cancel_info.status == 2){
+						this.getCountdown(this.cancel_info.express_surplus_time);
+					}
 			    }
 			})
 			
@@ -294,6 +305,51 @@
 			})
 		},
 		methods:{
+			getCountdown(endTime) {
+				var that = this;
+				// var _endDateTime = new Date(endTime).getTime();
+				// // timer = setInterval(function() {
+				// 	var _newDateTime = new Date().getTime();
+				// 		times = _endDateTime - _newDateTime;
+				// 		if (times <= 0) {
+				// 			return
+				// 		}
+				// 		that.setTime(times / 1000)
+				// 	// }, 1000);
+				if (endTime <= 0) {
+					return
+				}
+				that.setTime(endTime)
+			},
+				setTime(times) {
+						var that = this;
+						if (times <= 0) {
+							// clearInterval(timer);
+							return;
+						}
+						var day = 0,
+							hour = 0,
+							minute = 0,
+							second = 0; //时间默认值
+						day = Math.floor(times / (60 * 60 * 24));
+						hour = Math.floor(times / (60 * 60)) - (day * 24);
+						minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+						second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+						if (day <= 9) day = '0' + day;
+						if (hour <= 9) hour = '0' + hour;
+						if (minute <= 9) minute = '0' + minute;
+						if (second <= 9) second = '0' + second;
+						//
+						var countdown = {
+							day: day,
+							hour: hour,
+							minute: minute,
+							second: second,
+						}
+						that.countdown = countdown
+						console.log('---->:',that.countdown)
+						// times--;
+					},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
@@ -627,10 +683,12 @@
 	.new-order-img{
 		width: 140rpx;
 		height: 140rpx;
+		border-radius: 4rpx;
 	}
 	.new-order-commodity-img{
 		width: 140rpx;
 		height: 140rpx;
+		border-radius: 4rpx;
 	}
 	.new-order-item{
 		display: flex;
@@ -802,7 +860,7 @@
 	}
 	
 	.recharge-address-text{
-		padding: 18rpx 23rpx 0rpx 11rpx;
+		padding: 18rpx 23rpx 0rpx 36rpx;
 		font-size: 26rpx;
 		color: #666666;
 		line-height: 52rpx;

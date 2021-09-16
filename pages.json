@@ -311,7 +311,7 @@
         ,{
             "path" : "pages/Add/Add",
             "style" : {
-				"navigationBarTitleText":"地址列表"
+				"navigationBarTitleText":"我的收货地址"
 			}
         }
         ,{

@@ -30,13 +30,13 @@
 						<image class="personal-sign-wangguan" src="https://zhijianlw.com/static/web/img/personal-sign-wangguan-1.png" mode="" lazy-load="true"></image>
 					</view>
 					<view style="display: flex;flex-direction: column;margin-top: 10rpx;">
-						<view class="member-name" style="color: #383E4C;font-size: 26rpx;">{{name}}<image src="../../static/qiye_vip_icon.png" style="width: 30rpx;height: 25rpx;margin-left: 8rpx;"/></image></view>
-						<view class="member-name" style="color: #383E4C;font-size: 22rpx;margin-top: 6rpx;">北京购实惠电子商务有限公司</view>
+						<view class="member-name" style="color: #383E4C;font-size: 26rpx;">{{name}}<image src="https://zhijianlw.com/static/web/img/qiye_vip_icon.png" style="width: 30rpx;height: 25rpx;margin-left: 8rpx;"/></image></view>
+						<view class="member-name" style="color: #383E4C;font-size: 22rpx;margin-top: 6rpx;">{{membeInfo.company_name}}</view>
 					</view>
 				</view>
 				<view class="position-bottom">
-					<view class="position-bottom-text">有效期：2021/09/06 ～ 宇宙爆炸</view>
-					<view class="position-bottom-text">NO.1000001</view>
+					<view class="position-bottom-text">有效期：{{membeInfo.audit_time}} ～ 宇宙爆炸</view>
+					<view class="position-bottom-text"></view>
 				</view>
 			</view>
 			
@@ -71,7 +71,8 @@
 				timeStamp: "",
 				nums: '',
 				outTradeNo: '',
-				typestring: '1'
+				typestring: '1',
+				membeInfo: ''
 			}
 		},
 		onLoad: function(options) {
@@ -188,8 +189,28 @@
 			if (this.outTradeNo) {
 				// this.chaxun();
 			}
+			this.memberInfo();
 		},
 		methods: {
+			memberInfo(){
+				let memberid = uni.getStorageSync('id')
+				let action = 'get_member_audit_info';
+				let controller = "member";
+				let data = JSON.stringify({
+					memberid: memberid
+				});
+				
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						this.membeInfo = res.rs;
+					} else {
+						uni.showToast({
+							title: res.img,
+							icon: 'none'
+						})
+					}
+				})
+			},
 			// 二维码
 			code: function(e) {
 				this.display = false

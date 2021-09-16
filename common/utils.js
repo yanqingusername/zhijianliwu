@@ -708,6 +708,22 @@ async function wxPay(orderNumber, type) {
 	}
 }
 
+function isSystemInfo(){
+	let isSystemInfo = false;
+	uni.getSystemInfo({
+		success:  (res)=> {
+ 			if(res.model.indexOf('iPhone X') != -1 || res.model.indexOf("iPhone XR") != -1  || res.model.indexOf("iPhone XS Max") != -1){
+				isSystemInfo =  true;
+			}else{
+ 				isSystemInfo =  false;
+ 			}
+ 		}
+ 	});
+	return isSystemInfo;
+}
+
+
+
 module.exports = {
 	post: post,
 	formatTime: formatTime,
@@ -718,5 +734,6 @@ module.exports = {
 	wxPay: wxPay,
 	formatPrice: formatPrice,
 	postNew: postNew,
-	sub_str: sub_str
+	sub_str: sub_str,
+	isSystemInfo: isSystemInfo
 }

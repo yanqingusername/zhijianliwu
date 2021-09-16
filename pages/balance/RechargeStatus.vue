@@ -6,7 +6,7 @@
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title">充值</view>
 			</view>
-			<view class="recharge-status-top">
+			<view class="recharge-status-top" :style="'margin-top:'+ (isSystemInfo ? '20' : '40')+'px'">
 				<image v-if="isSuccess" class="recharge-status-img" src="../../static/recharge_success.png"></image>
 				<view v-if="isSuccess" class="recharge-status-text">充值成功</view>
 				<image v-if="!isSuccess" class="recharge-status-img" src="../../static/recharge_failed.png"></image>
@@ -55,7 +55,8 @@
 				ordernumber: '',
 				istype: '',
 				orderInfo: '',
-				isSuccess: true
+				isSuccess: true,
+				isSystemInfo: false
 			}
 		},
 		onLoad:function(options){
@@ -65,6 +66,9 @@
 					this.nav = res.statusBarHeight 
 				}
 			})
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
+			
 			this.istype = options.istype;
 			this.ordernumber = options.ordernumber;
 			

@@ -13,7 +13,7 @@
 					<view class="gift-small-content-card">
 					    <view class="gift-small-content-card-top">
 					    	<view style="margin-bottom: 14rpx;">
-								<image class="gift-card-img" :src="$utils.osspath_url('/xcx-static/gift/ICON-xm.png')" mode=""></image>
+								<image class="gift-card-img" src="https://zhijianlw.com/static/web/img/icon_xm_09_15_01.png" mode=""></image>
 								<text class="gift-card-title">指间礼物|送礼有温度</text>
 							</view>
 							<view class="gift-card-con">
@@ -151,16 +151,16 @@
 				this.text = res.send_talk_msg;
 			
 			
-				if (res.zhufu_type == 0) {
-					this.Inv = 0;
-					this.img = 0;
-				}else if (res.zhufu_type == 1) {
-					this.Inv = 1;
-					this.img = 1;
-				} else if (res.zhufu_type == 2) {
-					this.Inv = 2;
-					this.img = 2;
-				} 
+				// if (res.zhufu_type == 0) {
+				// 	this.Inv = 0;
+				// 	this.img = 0;
+				// }else if (res.zhufu_type == 1) {
+				// 	this.Inv = 1;
+				// 	this.img = 1;
+				// } else if (res.zhufu_type == 2) {
+				// 	this.Inv = 2;
+				// 	this.img = 2;
+				// } 
 			} else {
 			
 				var data = '{}';
@@ -259,10 +259,10 @@
 			   	theme_background: this.theme_background,
 				update_type:0
 			   };
-			   if (this.Inv == 0) {
-			   	data['zhufu_type']=0;
-			   	data['zhufu_msg'] = this.text;
-			   } 
+			   // if (this.Inv == 0) {
+			   // 	data['zhufu_type']=0;
+			   // 	data['zhufu_msg'] = this.text;
+			   // } 
 			   
 			   var action = 'save_zhufu_theme';
 			   

@@ -276,10 +276,12 @@ page{
 .new-order-img{
 	width: 140rpx;
 	height: 140rpx;
+	border-radius: 4rpx;
 }
 .new-order-commodity-img{
 	width: 140rpx;
 	height: 140rpx;
+	border-radius: 4rpx;
 }
 .new-order-item{
 	display: -webkit-box;
@@ -499,7 +501,7 @@ page{
 	margin: 0 25rpx;
 }
 .recharge-address-text{
-	padding: 18rpx 23rpx 0rpx 11rpx;
+	padding: 18rpx 23rpx 0rpx 36rpx;
 	font-size: 26rpx;
 	color: #666666;
 	line-height: 52rpx;

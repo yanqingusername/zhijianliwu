@@ -88,7 +88,7 @@
 		<uni-popup ref="popupcenter" type="center" :animation="false" :maskClick="true" @change="change">
 			<view class="popup-center-view">
 				<image class="picker-center-view-img" src="../../static/icon_refund_success.png"></image>
-				<view class="popup-center-view-text">退款申请已提交，请等待客服处理</view>
+				<view class="popup-center-view-text">{{title}}已提交，请等待客服处理</view>
 				<view class="popup-center-view-bottom" @click="$buttonClick(submitrefund)">
 					<view class="popup-center-view-button">确定</view>
 				</view>
@@ -122,7 +122,8 @@
 				orderGood:'',
 				goods_list: [],
 				refund_reason: '',
-				imgArr: []
+				imgArr: [],
+				title: '申请退款'
 			}
 		},
 		onShow:function(e){
@@ -142,6 +143,18 @@
 			this.ordernumber=options.ordernumber;
 			this.typerefund=options.typerefund;
 			this.detailid=options.detailid;
+			
+			if(this.typerefund == 1){
+				this.title = '申请退款'
+			}else if(this.typerefund == 2){
+				this.title = '换货申请'
+			}else{
+				this.title = '退货申请'
+			}
+			
+			uni.setNavigationBarTitle({
+				title: this.title
+			})
 			
 			let action = 'get_refund_order_goods_list';
 			let controller = 'order';

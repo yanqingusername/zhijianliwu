@@ -82,8 +82,13 @@
 						})
 					
 				})*/
+				let level_name = uni.getStorageSync("level_name");
+				let typestring = 1;
+				if(level_name=='企业会员'){
+					typestring = 2;
+				}
 				uni.navigateTo({
-					url:'../Member/Member'
+					url:`../Member/Member?typestring=${typestring}`
 				})
 			}
 		},

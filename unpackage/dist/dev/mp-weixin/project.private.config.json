@@ -71,6 +71,12 @@
           "pathName": "pagesub/Refund/RefundInfo",
           "query": "ordernumber=21210913155620357047&typerefund=1&detailid=1095",
           "scene": null
+        },
+        {
+          "name": "pages/balance/RechargeStatus",
+          "pathName": "pages/balance/RechargeStatus",
+          "query": "istype=2&ordernumber=41210915812118",
+          "scene": null
         }
       ]
     }
