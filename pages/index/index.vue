@@ -4,20 +4,32 @@
 		<own-index-header @change="change" :List="List" :index="tabBarIndex" :loginUrl="logoUrl"></own-index-header>
 		<!-- 轮播图 -->
 		<!-- <own-swiper v-if="tabBarIndex==0" :swiper="swiper"></own-swiper> -->
-		<own-swiper :swiper="swiper"></own-swiper>
+		<!-- <own-swiper :swiper="swiper"></own-swiper> -->
+		
+		<view style="padding: 0 26rpx; margin-top: -210rpx;position: relative;display: flex;align-items: center;justify-content: center;">
+			<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
+				<swiper-item v-for="(item,index) in swiper" :key="index">
+					<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
+					@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
+				</swiper-item>
+			</swiper>
+			<view class="indicator-view" v-if="swiper.length>0">
+				<view :class="[swiperCurrentIndex == index ? 'indicator-view-item' : 'indicator-view-item-default']" v-for="(item,index) in swiper" :key="index"></view>
+			</view>
+		</view>
 		
 		<!-- <view class="index-home index-page" v-if="tabBarIndex==0"> -->
 		<view class="index-home index-page">
 			<!-- 模块宫格 -->
-			<own-grid :list="gridList"></own-grid>
-			<view class="index-module-box">
+			<!-- <own-grid :list="gridList"></own-grid> -->
+			<view class="index-module-box" style="margin-top: 40rpx;">
 				<!-- 优惠券模块 -->
 				<own-index-coupon-module :coupon_left="coupon_left" :coupon_right="coupon_right"></own-index-coupon-module>
 				
 			</view>
 			
 			<!-- <view id="z-good-wrap"> -->
-				<view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (40 + statusBarHeight)+'px' : ''" id="scrollId">
+				<view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (38 + statusBarHeight)+'px' : ''" id="scrollId">
 					<scroll-view scroll-x="true" class="owm-index-tab-bar-box"  show-scrollbar="false" upper-threshold="20" >
 						<view class="owm-index-tab-bar">
 							<view class="owm-index-tab-bar-item-view" v-for="item, index in List" @click="change(item.id)">
@@ -95,14 +107,14 @@
 	import ownIndexHeader from "@/components/own-components/own-index-header.vue";
 	import ownCommodityBlock from "@/components/own-components/own-commodity-block.vue";
 	import ownIndexCouponModule from "@/components/own-components/own-index-coupon-module.vue";
-	import ownSwiper from "@/components/own-components/own-swiper.vue";
+	// import ownSwiper from "@/components/own-components/own-swiper.vue";
 	import ownGrid from "@/components/own-components/own-grid.vue";
 	import indexJrtj from "@/components/own-image/index-jrtj.vue";
 	import sr from 'sr-sdk-wxapp';
+	// "own-swiper": ownSwiper,
 	export default {
 		components:{
 			"own-index-header": ownIndexHeader,
-			"own-swiper": ownSwiper,
 			"own-product-list": ownProductList,
 			"own-commodity-block": ownCommodityBlock,
 			"own-grid": ownGrid,
@@ -134,7 +146,11 @@
 				rect: 0,
 				statusBarHeight: 20,
 				poptitle: '',
-				regCouponInfo: []
+				regCouponInfo: [],
+				swiperCurrentIndex: 0,
+				autoplay: true,
+				interval: 2000,
+				duration: 500
 			}
 		},
 		onLoad() {
@@ -311,6 +327,26 @@
 			});
 		},
 		methods: {
+			changeswiper(e) {
+			    let {current, source} = e.detail
+			    if(source === 'autoplay' || source === 'touch') {
+			    //根据官方 source 来进行判断swiper的change事件是通过什么来触发的，autoplay是自动轮播。touch是用户手动滑动。其他的就是未知问题。抖动问题主要由于未知问题引起的，所以做了限制，只有在自动轮播和用户主动触发才去改变current值，达到规避了抖动bug
+			      this.swiperCurrentIndex = e.detail.current;
+			    }
+			  },
+			bannerJump:function(action, id){
+				console.log(action, id);
+				if(action=="gifts_article"){
+					uni.navigateTo({
+						url:'/pages/Post/Post?id=' + id
+					})
+				}
+				if(action=="goods"){
+					uni.navigateTo({
+						url:'/pages/details/details?keynum=' + id
+					})
+				}
+			},
 			change: function(e){
 				this.tabBarIndex = e;
 				// if(e != 0){
@@ -711,6 +747,75 @@
 			font-size: 22rpx;
 			color: #999999;
 			line-height: 30rpx;
+		}
+		
+		/**
+		 * 
+		 */
+		.own-swiper{
+			box-sizing: border-box;
+			width: 100%;
+			height: 280rpx;
+			border-radius: 10rpx;
+			/* margin-top: -50rpx; */
+			/* position: fixed; */
+			/* z-index: 99; */
+		}
+		.swiper-box {
+			border-radius: 10rpx;
+			overflow: hidden;
+			transform: translateY(0);
+		}
+		swiper-item{
+			border-radius: 10rpx !important;
+		}
+		.own-swiper-img{
+			width: 100%;
+			height: 100%!important;
+			border-radius: 10rpx;
+		}
+		
+		/* 自定义轮播图的指示点 */
+		.swiper-box .wx-swiper-dots.wx-swiper-dots-horizontal{
+		  margin-bottom: 2rpx;
+		}
+		.swiper-box .wx-swiper-dot{
+		 width: 12rpx;
+		 display: inline-flex;
+		 height: 4rpx;
+		 justify-content:space-between;
+		}
+		.swiper-box .wx-swiper-dot::before{
+		 content: '';
+		 flex-grow: 1; 
+		 background: #000;
+		 opacity: 0.2;
+		 border-radius: 8rpx
+		}
+		.swiper-box .wx-swiper-dot-active::before{
+		 background: #fff;   
+		 width: 24rpx;
+		}
+		
+		.indicator-view{
+			position: absolute;
+			bottom: 20rpx;
+			display: flex
+		}
+		.indicator-view-item{
+			width: 36rpx;
+			height: 6rpx;
+			background: #FFFFFF;
+			border-radius: 2rpx;
+			margin-right: 6rpx;
+		}
+		.indicator-view-item-default{
+			width: 24rpx;
+			height: 6rpx;
+			background: #000000;
+			border-radius: 2rpx;
+			opacity: 0.2;
+			margin-right: 6rpx;
 		}
 		
 </style>

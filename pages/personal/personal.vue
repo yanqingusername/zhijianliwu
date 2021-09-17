@@ -402,10 +402,38 @@
 		    // 立即开通  会员中心
 			opening:function(e){
 				if(this.sta == '200'){
-					uni.navigateTo({
-						url:'../Member/Member?typestring=1'  //开通会员页面
-						// url: '../Apply/Apply'  //企业会员申请
-						// url: '../../pagesub/AllCovers/AllCovers' // 全部封面
+					let that = this;
+					let action = "get_member_audit_status";
+					let controller = 'member';
+					let memberid = uni.getStorageSync('id')
+					let data = JSON.stringify({
+						memberid: memberid
+					});
+					
+					this.$utils.postNew(action,data,controller).then(res=>{
+						if(res.sta == 1){
+							if(res.rs.status == 1){
+								
+							} else if(res.rs.status == 2){
+								uni.showToast({
+									title: res.rs.msg,
+									icon: 'none'
+								})
+							} else if(res.rs.status == 3){
+								uni.showToast({
+									title: res.rs.msg,
+									icon: 'none'
+								})
+							} else if(res.rs.status == 4){
+								
+							} else {
+								uni.navigateTo({
+									url:'../Member/Member?typestring=1'  //开通会员页面
+									// url: '../Apply/Apply'  //企业会员申请
+									// url: '../../pagesub/AllCovers/AllCovers' // 全部封面
+								})
+							}
+						}
 					})
 				}else{
 					uni.navigateTo({
@@ -863,7 +891,7 @@
  	width: 100%;
  	position: fixed;
      z-index: 200;
-     height: 140rpx;
+     height: 160rpx;
  }
  
  .personal-sign-wangguan-view{

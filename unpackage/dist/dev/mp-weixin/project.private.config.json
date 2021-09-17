@@ -77,6 +77,12 @@
           "pathName": "pages/balance/RechargeStatus",
           "query": "istype=2&ordernumber=41210915812118",
           "scene": null
+        },
+        {
+          "name": "pages/shopping/must",
+          "pathName": "pages/shopping/must",
+          "query": "type=1",
+          "scene": null
         }
       ]
     }

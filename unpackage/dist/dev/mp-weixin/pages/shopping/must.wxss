@@ -531,7 +531,7 @@ page{
 	font-size: 28rpx;
 }
 .hj{
-	padding: 32rpx 64rpx;
+	padding: 32rpx 38rpx 32rpx 64rpx;
 	text-align: right;
 }
 .hj .sum-price{
@@ -601,10 +601,35 @@ page{
 	position: absolute;
 	margin-top: 320rpx;
 }
-.youhuijuan{
-	text-align: center;
-	height: auto;
-	padding-bottom: 20rpx;
+.new-youhuijuan{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	height: 640rpx;
+	/* padding-bottom: 20rpx; */
+	background: #FAFAFA;
+	border-radius: 10rpx 10rpx 0px 0px;
+	position: relative;
+}
+.new-you-title {
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-top: 30rpx;
+	margin-bottom: 40rpx;
+}
+.new-scroll-y{
+	height: 400rpx;
 }
 .jiage{
 	font-size: 15px;
@@ -612,14 +637,18 @@ page{
 	color: #333333;
 }
 .sure-btn{
-	width: 500rpx;
-	border-radius: 50px;
+	    width: 660rpx;
+	    border-radius: 50px;
+	    height: 80rpx;
+	    position: absolute;
+	    bottom: 0rpx;
+	    margin: 0rpx 45rpx;
 	/* position: absolute; */
 	/* bottom: 20rpx; */
 	/* left: 130rpx; */
 }
 .juan-wrap{
-	padding: 26rpx;
+	padding: 0rpx 26rpx;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 }
@@ -643,7 +672,7 @@ page{
 	-webkit-box-flex:1;
 	-webkit-flex:1;
 	        flex:1;
-	padding: 26rpx 20rpx 26rpx 32rpx;
+	padding: 20rpx 20rpx 20rpx 32rpx;
 }
 .juan-list-left .z-circle{
 	position: absolute;
@@ -660,7 +689,7 @@ page{
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
-	margin-bottom: 30rpx;
+	margin-bottom: 24rpx;
 }
 .juan-list-left .z-circle-top{
 	top: -20rpx;
@@ -678,6 +707,7 @@ page{
 	font-size: 28rpx;
 	vertical-align: bottom;
 	display: inline-block;
+	margin-bottom: 6rpx;
 }
 .juan-list-left .juan-list-left-top .z-price{
 	color: #FB503D;
@@ -689,12 +719,13 @@ page{
 .juan-list-left .juan-list-left-top .z-man,.juan-list-left .juan-list-left-center .z-quan{
 	color: #666;
 	font-size: 28rpx;
-	margin-top: 20rpx;
+	margin-top: 14rpx;
 }
 .juan-list-left .juan-list-left-center .z-moth{
 	color: #333;
 	font-size: 36rpx;
 	font-weight: bold;
+	width: 270rpx;
 }
 .juan-list-left .juan-list-left-center{
 	color: #666;
@@ -716,7 +747,7 @@ page{
 	width: 212rpx;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
-	padding-right: 20rpx;
+	padding-right: 0rpx;
 }
 .juan-list-right .checks, .juan-list-right .checked{
 	position: static;

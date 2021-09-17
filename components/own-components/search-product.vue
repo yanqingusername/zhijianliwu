@@ -6,8 +6,8 @@
 					<image :src="$utils.imageUrl(post.head_img)" mode=""class="goods-head-img" ></image>
 					<!-- <image src="@/static/post-play-button.png" mode=""class="goods-head-label" ></image> -->
 				</view>
-				<view class="goods-text uni-ellipsis">{{post.goodsname}}</view>
-				<view class="goods-sub-text uni-ellipsis">{{post.goodstitle}}</view>
+				<view class="goods-text">{{post.goodsname}}</view>
+				<!-- <view class="goods-sub-text uni-ellipsis">{{post.goodstitle}}</view> -->
 				<view class="goods-bottom">
 					<view class="goods-bottom-money">¥<text style="font-size: 34rpx;">{{post.price}}</text><image class="goods-members-icon" v-if="post.level_sign == 1" src="../../static/icon_corporate_members.png"></image></view>
 					<view class="goods-number" v-if="state == 99">已售{{post.buy_count || 0}}件</view>
@@ -100,14 +100,14 @@
 		margin: 18rpx 20rpx 0rpx;
 		font-size: 28rpx;
 		color: #333333;
-		line-height: 42rpx;
-		/* overflow: hidden;
-		text-overflow: ellipsis;
+		word-break: break-all;
 		display: -webkit-box;
-		-webkit-line-clamp: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		-webkit-box-orient: vertical;
-		align-items: center;
-		justify-content: center; */
+		-webkit-line-clamp: 2;
+		line-height: 36rpx;
+		height: 76rpx;
 	}
 	
 	.goods-sub-text{

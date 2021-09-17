@@ -21,7 +21,7 @@
 				</view>
 				<view class="must-guige">
 					<view class="guige-1">
-						<text class="must-guige-title">{{$utils.cut_str(item.goodsname,15)}}</text>
+						<text class="must-guige-title uni-ellipsis">{{$utils.cut_str(item.goodsname,15)}}</text>
 						<text class="must-guige-price">{{item.price}}</text>
 					</view>
 					<view class="guige-2">
@@ -36,11 +36,11 @@
 			<view class="message">
 				<view class="">
 					<text class="message-title">商品总价：</text>
-					<text class="message-price">￥{{sum}}</text>
+					<text class="message-price">￥{{new_price_yuanshi}}</text>
 				</view>
 				<view class="">
 					<text class="message-title">运费：</text>
-					<text class="message-price">￥0.00</text>
+					<text class="message-price">￥{{new_freight}}</text>
 				</view>
 				<!-- <view class="">
 					<text class="message-title">优惠券：</text>
@@ -53,72 +53,57 @@
 				
 				<view class="">
 					<text class="message-title">优惠券：</text>
-					<view class="message-price" v-if="coupon_name">无可用</view>
-					<view class="message-price yhj" v-else>
-						<text style="color: #EC1815;">{{money1 == 0 ? '无可用' : money1}}</text>
-						<text @click="open" v-if="money1 !=0" class="iconfont icon-youjiantou message-jiantou1"></text>
+					<view class="message-price yhj" v-if="new_price_coupon">
+						<text style="color: #EC1815;" @click="open">{{new_price_coupon ? new_price_coupon : '无可用'}}</text>
+						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1"></text>
 					</view>
+					<view class="message-price" v-else>无可用</view>
 				</view> 
 				
 				<view class="">
 					<text class="message-title">余额：</text>
-					<text class="message-price">¥{{balance}}</text>
+					<text class="message-price">¥{{new_balance}}</text>
 					<!-- <view class="" > -->
 					<!-- <text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
 					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text> -->
 					
-					<text class="circle iconfont icon-ico2" @click="switch2Change" v-if="balance != 0" v-show="use_balance==0"></text>
-					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="balance != 0" v-show="use_balance==1"></text>
+					<text class="circle iconfont icon-ico2" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==0"></text>
+					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==1"></text>
 					
 					<!-- </view> -->
 				</view>
 			</view>
 
-			<uni-popup ref="popup" backgroundColor="#FAFAFA" type="bottom">
-				<view class="youhuijuan">
-					<text class="you-title">可用优惠券</text>
-					<!-- <view v-for="item in couponList" :key="item.id">
-						<view class="you-left" v-if="item.status==0">
-							<text class="l-price">{{item.coupon_type_info.money}}</text>
-							<text class="l-man">满{{item.coupon_type_info.full_money}}元可用</text>
-							<text
-								class="l-date">有效期：{{$utils.date_time(item.coupon_type_info.begin_time)}}~{{$utils.date_time(item.coupon_type_info.end_time)}}</text>
-							<text class="l-moth">{{item.coupon_type_info.coupon_name}}</text>
-							<text class="l-quan">全场通用劵</text>
-
-							<view class="you-right" @click="check" :data-id="item.id">
-								<text v-show="!item.gou" class="iconfont icon-gouxuan checks"></text>
-								<text v-show="item.gou" class="iconfont icon-gouxuancopy checked"></text>
-							</view>
-						</view>	
-					</view> -->
-					
-					<view class="juan-wrap" v-for="item in couponList" :key="item.id">
-						<view class="juan-list" v-if="item.status==0">
-							<view class="juan-list-left">
-								<text class='z-circle z-circle-top'></text>
-								<text class='z-circle z-circle-bottom'></text>
-								<view class="z-box">
-									<view class="juan-list-left-top">
-										<text class="z-price-logo">￥</text>
-										<text class="z-price">{{item.coupon_type_info.money}}</text>
-										<view class="z-man">满{{item.coupon_type_info.full_money}}元可用</view>
+			<uni-popup ref="popup" :animation="false" :maskClick="true" type="bottom">
+				<view class="new-youhuijuan">
+					<text class="new-you-title">可用优惠券</text>
+					<scroll-view scroll-y="true" class="new-scroll-y">
+						<view class="juan-wrap" v-for="item in cartCouponList" :key="item.id" v-if="cartCouponList.length > 0" @click="check" :data-id="item.id">
+							<view class="juan-list">
+								<view class="juan-list-left">
+									<text class='z-circle z-circle-top'></text>
+									<text class='z-circle z-circle-bottom'></text>
+									<view class="z-box">
+										<view class="juan-list-left-top">
+											<text class="z-price-logo">￥</text>
+											<text class="z-price">{{item.money}}</text>
+											<view class="z-man uni-ellipsis" style="width: 160rpx;">满{{item.full_money}}元可用</view>
+										</view>
+										<view class="juan-list-left-center">
+											<view class="z-moth uni-ellipsis">{{item.coupon_name}}</view>
+											<view class="z-quan" style="margin-top: 26rpx;">{{"("+item.type_info+")"}}</view>
+										</view>
 									</view>
-									<view class="juan-list-left-center">
-										<view class="z-moth">{{item.coupon_type_info.coupon_name}}</view>
-										<view class="z-quan">(全场通用劵)</view>
-									</view>
+									<view class="juan-list-left-bottom">有效期：{{item.begin_time}}~{{item.end_time}}</view>
 								</view>
-								<view class="juan-list-left-bottom">有效期：{{$utils.date_time(item.coupon_type_info.begin_time)}}~{{$utils.date_time(item.coupon_type_info.end_time)}}</view>
-							</view>
-							<view class="juan-list-right" @click="check" :data-id="item.id">
-								<text v-show="!item.gou" class="iconfont icon-gouxuan checks"></text>
-								<text v-show="item.gou" class="iconfont icon-gouxuancopy checked"></text>
+								<view class="juan-list-right">
+									<text v-show="!item.gou" class="iconfont icon-gouxuan checks"></text>
+									<text v-show="item.gou" class="iconfont icon-gouxuancopy checked"></text>
+								</view>
 							</view>
 						</view>
-					</view>
-					
-					<view class="wucou" style="text-align: center;">
+					</scroll-view>
+					<view class="wucou" style="text-align: center;" v-if="cartCouponList.length == 0">
 						<!-- <text class="wucou">暂无优惠券</text> -->
 						<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" mode="widthFix" style="width: 50%"></image>
 					</view>
@@ -128,13 +113,13 @@
 			<!-- 合计 -->
 			<view class="hj">
 				<text class="jiage">合计：</text>
-				<text class="jiage sum-price">￥{{use_balance == 0 ? price_zhe : '0.00'}}</text>
+				<text class="jiage sum-price">￥{{use_balance == 0 ? new_price_zhe : '0.00'}}</text>
 			</view>
 		</view>
 		<!-- 底部合计 -->
 		<view class="must-bottom heji">
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
-			<text class="must-bottom-price">{{use_balance == 0 ? price_zhe : '0.00'}}</text>
+			<text class="must-bottom-price">{{use_balance == 0 ? new_price_zhe : '0.00'}}</text>
 			<view class="pay clearfix">
 				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
 			</view>
@@ -174,7 +159,15 @@
 				gou: true,
 				couponList: [],
 				buy_type:'',
-				price_zhe:''
+				price_zhe:'',
+				cartPriceData: '',
+				cartCouponList: [],
+				new_price_yuanshi: '',
+				new_price_zhe: '',
+				new_price_coupon: '',
+				new_coupon_number: '',
+				new_balance: '',
+				new_freight: ''
 			}
 		},
 		onLoad: function(e) {
@@ -231,23 +224,23 @@
 				this.list = res.rs.goodslist
 				this.sum = res.rs.price_zhe
 			})
-			var action = 'get_coupon_number_list';
-			this.$utils.post(action, data).then(res => {
-				console.log('优惠券', res)
-				let icon = "success"
-				if (res.sta != 1) {
-					icon = "none";
-					uni.showToast({
-						icon: icon,
-						title: res.msg,
-						duration: 2000
-					});
-					return
-				}
-				this.couponList = res.rs
-				this.count = res.count
+			// var action = 'get_coupon_number_list';
+			// this.$utils.post(action, data).then(res => {
+			// 	console.log('优惠券', res)
+			// 	let icon = "success"
+			// 	if (res.sta != 1) {
+			// 		icon = "none";
+			// 		uni.showToast({
+			// 			icon: icon,
+			// 			title: res.msg,
+			// 			duration: 2000
+			// 		});
+			// 		return
+			// 	}
+			// 	this.couponList = res.rs
+			// 	this.count = res.count
 
-			})
+			// })
 			// 是否有优惠券
 			if (e.coupon_number) {
 				this.coupon_number = e.coupon_number;
@@ -311,29 +304,50 @@
 				if(this.wanfa!='1'){
 					fenshu=1
 				}
-				let money1=this.money1
-				let action = "get_fenshu_price";
+			// 	let money1=this.money1
+			// 	let action = "get_fenshu_price";
+			// 	let data = JSON.stringify({
+			// 		memberid: memberid,
+			// 		fenshu:fenshu,
+			// 		buy_type:buy_type
+			// 	});
+			// 	this.$utils.post(action, data).then(res => {
+			// 		console.log(res)
+			// 		let icon = "success"
+			// 		if (res.sta != 1) {
+			// 			icon = "none";
+			// 			uni.showToast({
+			// 				icon: icon,
+			// 				title: res.msg,
+			// 				duration: 2000
+			// 			});
+			// 		return 
+			// 		}
+			// 		//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
+			// 		this.price_zhe=parseFloat(res.rs.price_zhe)- parseFloat(money1)
+			
+			// 	})
+			
+				let action = "get_shopping_cart_price";
 				let data = JSON.stringify({
 					memberid: memberid,
 					fenshu:fenshu,
-					buy_type:buy_type
+					buy_type:buy_type,
+					coupon_number: this.new_coupon_number
 				});
-				this.$utils.post(action, data).then(res => {
-					console.log(res)
-					let icon = "success"
-					if (res.sta != 1) {
-						icon = "none";
-						uni.showToast({
-							icon: icon,
-							title: res.msg,
-							duration: 2000
-						});
-					return 
+				let controller = "coupon";
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						this.cartPriceData = res.rs;
+						this.cartCouponList = res.rs.coupon_list;
+						this.new_price_yuanshi= res.rs.price_yuanshi;
+						this.new_price_zhe= res.rs.price_zhe;
+						this.new_price_coupon= res.rs.price_coupon;
+						this.new_coupon_number= res.rs.coupon_number;
+						this.new_balance= res.rs.balance;
+						this.new_freight = res.rs.freight;
 					}
-					//赋值总价 ,只有订单确认页面才会减去money1是优惠券的金额
-					this.price_zhe=parseFloat(res.rs.price_zhe)- parseFloat(money1)
-			
-				})					
+				})
 				
 			},			
 			
@@ -358,7 +372,7 @@
 					memberid: this.memberid,
 					member_area_id: this.address.id,
 					delivery_type: this.delivery_mode,
-					coupon_number: this.coupon_number,
+					coupon_number: this.new_coupon_number,
 					use_balance: this.use_balance,
 					use_zj_balance: this.use_zj_balance,
 					buy_type: this.buy_type
@@ -711,19 +725,20 @@
 			},
 			//领取优惠券
 			check: function(e) {
-				this.couponList.forEach(item => {
+				this.cartCouponList.forEach(item => {
 					this.$set(item, 'gou', "")
 				})
-				for (var i = 0; i < this.couponList.length; i++) {
-					if (e.currentTarget.dataset.id == this.couponList[i].id) {
-						this.couponList[i].gou = 1
-						this.money = this.couponList[i].coupon_type_info.money
-						this.coupon_number = this.couponList[i].coupon_number
+				for (var i = 0; i < this.cartCouponList.length; i++) {
+					if (e.currentTarget.dataset.id == this.cartCouponList[i].id) {
+						this.cartCouponList[i].gou = 1
+						this.money = this.cartCouponList[i].money
+						this.coupon_number = this.cartCouponList[i].coupon_number
+						this.new_coupon_number = this.cartCouponList[i].coupon_number
 					} else {
-						this.couponList[i].gou = 0
+						this.cartCouponList[i].gou = 0
 					}
 				}
-				console.log(this.couponList)
+				console.log(this.cartCouponList)
 			}
 		}
 	}
@@ -791,7 +806,7 @@
 		font-size: 28rpx;
 	}
 	.hj{
-		padding: 32rpx 64rpx;
+		padding: 32rpx 38rpx 32rpx 64rpx;
 		text-align: right;
 	}
 	.hj .sum-price{
@@ -856,10 +871,30 @@
 		position: absolute;
 		margin-top: 320rpx;
 	}
-	.youhuijuan{
-		text-align: center;
-		height: auto;
-		padding-bottom: 20rpx;
+	.new-youhuijuan{
+		display: flex;
+		flex-direction: column;
+		height: 640rpx;
+		/* padding-bottom: 20rpx; */
+		background: #FAFAFA;
+		border-radius: 10rpx 10rpx 0px 0px;
+		position: relative;
+	}
+	.new-you-title {
+	    color: #333333;
+	    font-size: 15px;
+	    font-weight: bold;
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: flex;
+	    -webkit-box-pack: center;
+	    -webkit-justify-content: center;
+	    justify-content: center;
+	    margin-top: 30rpx;
+		margin-bottom: 40rpx;
+	}
+	.new-scroll-y{
+		height: 400rpx;
 	}
 	.jiage{
 		font-size: 15px;
@@ -867,15 +902,19 @@
 		color: #333333;
 	}
 	.sure-btn{
-		width: 500rpx;
-		border-radius: 50px;
+		    width: 660rpx;
+		    border-radius: 50px;
+		    height: 80rpx;
+		    position: absolute;
+		    bottom: 0rpx;
+		    margin: 0rpx 45rpx;
 		/* position: absolute; */
 		/* bottom: 20rpx; */
 		/* left: 130rpx; */
 	}
 	
 	.juan-wrap{
-		padding: 26rpx;
+		padding: 0rpx 26rpx;
 		box-sizing: border-box;
 	}
 	.juan-list{
@@ -891,7 +930,7 @@
 		border-right: 1rpx dotted #FFCAC3;
 		position: relative;
 		flex:1;
-		padding: 26rpx 20rpx 26rpx 32rpx;
+		padding: 20rpx 20rpx 20rpx 32rpx;
 	}
 	.juan-list-left .z-circle{
 		position: absolute;
@@ -904,7 +943,7 @@
 	.z-box{
 		display: flex;
 		align-items: center;
-		margin-bottom: 30rpx;
+		margin-bottom: 24rpx;
 	}
 	.juan-list-left .z-circle-top{
 		top: -20rpx;
@@ -922,6 +961,7 @@
 		font-size: 28rpx;
 		vertical-align: bottom;
 		display: inline-block;
+		margin-bottom: 6rpx;
 	}
 	.juan-list-left .juan-list-left-top .z-price{
 		color: #FB503D;
@@ -933,12 +973,13 @@
 	.juan-list-left .juan-list-left-top .z-man,.juan-list-left .juan-list-left-center .z-quan{
 		color: #666;
 		font-size: 28rpx;
-		margin-top: 20rpx;
+		margin-top: 14rpx;
 	}
 	.juan-list-left .juan-list-left-center .z-moth{
 		color: #333;
 		font-size: 36rpx;
 		font-weight: bold;
+		width: 270rpx;
 	}
 	.juan-list-left .juan-list-left-center{
 		color: #666;
@@ -957,7 +998,7 @@
 		height: 100%;
 		width: 212rpx;
 		box-sizing: border-box;
-		padding-right: 20rpx;
+		padding-right: 0rpx;
 	}
 	.juan-list-right .checks, .juan-list-right .checked{
 		position: static;

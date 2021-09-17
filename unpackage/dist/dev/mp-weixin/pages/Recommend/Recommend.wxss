@@ -41,6 +41,9 @@
 
 
 
+page{
+	background: #FAFAFA;
+}
 .index-banner {
 	margin: 0 auto 15rpx auto !important;
 }

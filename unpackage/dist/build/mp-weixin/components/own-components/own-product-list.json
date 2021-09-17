@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "own-product": "/components/own-components/own-product"
+    "search-product": "/components/own-components/search-product"
   }
 }

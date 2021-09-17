@@ -118,10 +118,13 @@
 			this.historySearchList = uni.getStorageSync("historySearchList")||[];
 			console.log(options)
 			if(options){
-				if((options.coupon_type || options.keynum) && options.name){
-					this.coupon_type = options.coupon_type;
-					
+				if(options.keynum && options.name){
 					this.keynum = options.keynum;
+					this.Key = options.name;
+					this.isShowView = 2;
+					this.getProductList(1);
+				} else if(options.coupon_type && options.name){
+					this.coupon_type = options.coupon_type;
 					this.Key = options.name;
 					this.isShowView = 2;
 					this.getProductList(1);

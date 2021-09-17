@@ -118,7 +118,11 @@
 
 
 
-			var data = '{"pageIndex":"' + pageIndex + '","pageSize":"20"}';
+			var data = JSON.stringify({
+				pageIndex: pageIndex,
+				pageSize: 20,
+				is_type: 1
+			})
 			var action = 'get_tuijian_goods';
 			this.$utils.post(action, data).then(res => {
 				// console.log('推荐商品',res.rs)
@@ -331,7 +335,11 @@
 			// 获取推荐商品列表
 			recommend: function(e) {
 				// 旧的
-				var data = '{"pageIndex":"1","pageSize":"20"}';
+				var data = JSON.stringify({
+					pageIndex: 1,
+					pageSize: 20,
+					is_type: 1
+				})
 				var action = 'get_tuijian_goods';
 
 				this.pageIndex = 1;
@@ -404,6 +412,9 @@
 </script>
 
 <style>
+	page{
+		background: #FAFAFA;
+	}
 	.index-banner {
 		margin: 0 auto 15rpx auto !important;
 	}

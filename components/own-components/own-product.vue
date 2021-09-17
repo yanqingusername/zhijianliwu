@@ -9,7 +9,7 @@
 		<view class="z-good-bottom">
 			<!-- 商品名称 -->
 			<view class="own-name">{{data.goodsname}}</view>
-			<view class="own-introduce">{{data.goodstitle ? data.goodstitle : ''}}</view>
+			<!-- <view class="own-introduce">{{data.goodstitle ? data.goodstitle : ''}}</view> -->
 			<!-- 会员状态 -->
 			<view class="own-other-info-box" v-if="level>1">
 				<text class="price-i">￥</text><text class="own-price">{{price_level}}</text>
@@ -129,9 +129,17 @@
 	}
 	.own-name{
 		display: block;
-		overflow : hidden;
+		/* overflow : hidden;
 		text-overflow: ellipsis;
-		white-space: nowrap;
+		white-space: nowrap; */
+		word-break: break-all;
+		display: -webkit-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		line-height: 36rpx;
+		height: 76rpx;
 		color: #333;
 		font-size: 28rpx;
 		margin: 0 0 16rpx ;

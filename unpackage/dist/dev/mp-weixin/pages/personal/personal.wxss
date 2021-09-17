@@ -282,7 +282,7 @@ page{
  	width: 100%;
  	position: fixed;
      z-index: 200;
-     height: 140rpx;
+     height: 160rpx;
 }
 .personal-sign-wangguan-view{
 	 position: relative;
