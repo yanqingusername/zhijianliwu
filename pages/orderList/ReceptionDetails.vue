@@ -88,9 +88,28 @@
 			goTransfer: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let isexchangetype = e.currentTarget.dataset.isexchangetype;
-				uni.navigateTo({
-					url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
-				})
+				if(isexchangetype == 0){
+					let ordernumber = e.currentTarget.dataset.ordernumber;
+					let action = 'order_add_shopping_cart';
+					let memberid = uni.getStorageSync('id')
+					let controller = 'order';
+					let data = JSON.stringify({
+					    ordernumber: ordernumber,
+					    memberid: memberid,
+						buy_type: 1
+					})
+					this.$utils.postNew(action, data, controller).then(res => {
+					    if(res.sta == 1){
+					        uni.navigateTo({
+					        	url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
+					        })
+					    }
+					})
+				}else{
+					uni.navigateTo({
+						url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
+					})
+				}
 			},
 			//填写收货地址
 			ReceptionAddress: function(e) {
