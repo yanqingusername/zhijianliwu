@@ -98,16 +98,17 @@
 	
 	.goods-text {
 		margin: 18rpx 20rpx 0rpx;
+		height: 76rpx;
 		font-size: 28rpx;
 		color: #333333;
-		word-break: break-all;
-		display: -webkit-box;
+		line-height: 38rpx;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		-webkit-box-orient: vertical;
+		display: -webkit-box;
 		-webkit-line-clamp: 2;
-		line-height: 36rpx;
-		height: 76rpx;
+		-webkit-box-orient: vertical;
+		align-items: center;
+		justify-content: center;
 	}
 	
 	.goods-sub-text{

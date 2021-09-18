@@ -132,16 +132,17 @@
 		/* overflow : hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap; */
-		word-break: break-all;
-		display: -webkit-box;
+		height: 76rpx;
+		font-size: 28rpx;
+		color: #333333;
+		line-height: 38rpx;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		-webkit-box-orient: vertical;
+		display: -webkit-box;
 		-webkit-line-clamp: 2;
-		line-height: 36rpx;
-		height: 76rpx;
-		color: #333;
-		font-size: 28rpx;
+		-webkit-box-orient: vertical;
+		align-items: center;
+		justify-content: center;
 		margin: 0 0 16rpx ;
 	}
 	/* .own-name::after{

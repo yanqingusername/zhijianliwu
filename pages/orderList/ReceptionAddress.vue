@@ -542,7 +542,10 @@
 			orderlist: function(e) {
 				// 存放未生成订单礼包
 				let arr = [];
-				let data = '{"cardbag_number":"' + this.cardbag_number + '"}';
+				let data = JSON.stringify({
+					cardbag_number: this.cardbag_number,
+					address_type: 1
+				})
 				let action = 'get_cardbag_fenshu';
 			
 			
