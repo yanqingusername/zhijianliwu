@@ -56,8 +56,7 @@
 								canvas_id: "rCanvas",
 								canvas_width: 375,
 								canvas_height: 540,
-								hidden: true,
-								background_color: 'transparent'
+								hidden: true
 							})
 							// 画背景图
 							await this.$refs.rCanvas.drawImage({

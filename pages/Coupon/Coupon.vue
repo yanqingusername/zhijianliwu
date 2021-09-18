@@ -8,7 +8,7 @@
 						<view class="new-coupon-lable">¥<text class="new-coupon-money">{{item.money}}</text></view>
 						<view class="new-coupon-text">满{{item.full_money}}元可用</view>
 					</view>
-					<view class="new-coupon-left" style="margin-left: 80rpx;">
+					<view class="new-coupon-left" style="margin-left: 20rpx;">
 						<view class="new-coupon-desc">{{item.title}}</view>
 						<view class="new-coupon-coupontype">{{'('+item.type_info+')'}}</view>
 					</view>
@@ -18,9 +18,9 @@
 				</view>
 				<view class="new-coupon-time">有效期：{{item.begin_time}}~{{item.end_time}}</view>
 			</view>
-			<view class="no-btm" v-if="couponList.length==0">
-				<image class="img" src="../../static/nobtm.jpg" mode=""></image>
-			</view>
+		</view>
+		<view class="apply-success-view" v-if="couponList.length == 0">
+			<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" class="apply-success-img"></image>
 		</view>
 		<view class="new-coupon-bottom" @click="expiredCoupon">
 			<view class="new-coupon-bottom-text">没有更多可用优惠券 | </view>
@@ -142,7 +142,7 @@
 	
 	.new-coupon-left{
 		display: flex;
-		align-items: center;
+		/* align-items: center; */
 		justify-content: center;
 		flex-direction: column;
 	}
@@ -161,6 +161,7 @@
 		color: #666666;
 		line-height: 28rpx;
 		margin-top: 10rpx;
+		width: 140rpx;
 	}
 	.new-coupon-desc{
 		font-size: 28rpx;
@@ -210,5 +211,16 @@
 		font-size: 20rpx;
 		color: #999999;
 		line-height: 28rpx;
+	}
+	
+	.apply-success-view{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.apply-success-img{
+		width: 255rpx;
+		height: 180rpx;
+		margin-top: 172rpx;
 	}
 </style>

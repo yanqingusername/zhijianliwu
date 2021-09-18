@@ -113,7 +113,15 @@
 
 				}
 			})
-
+			
+			uni.showShareMenu({
+			  withShareTicket: true,
+			  isPrivateMessage: true
+			})
+			uni.updateShareMenu({
+			  withShareTicket: true,
+			  isPrivateMessage: true
+			})
 		},
 		methods: {
 			shouye(){
@@ -232,7 +240,6 @@
 				path: "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number,
 				type: 0,
 				imageUrl: this.cardbag_theme.background,
-				withShareTicket: true,
 				success(res) {
 					console.log(456)
 					

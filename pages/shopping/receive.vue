@@ -445,9 +445,9 @@
 			open: function(e) {
 				let that = this;
 				if (this.sign == '200') {
-					uni.showLoading({
-						title: '正在领取'
-					})
+					// uni.showLoading({
+					// 	title: '正在领取'
+					// })
 					// 领取红包
 					var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + this.idd + '"}';
 					var action = 'receive_cardbag';

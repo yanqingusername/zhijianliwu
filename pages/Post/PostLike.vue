@@ -10,7 +10,7 @@
 		</view>
 		<view class="apply-success-view" v-if="postList.length==0">
 			<image src="https://zhijianlw.com/static/web/img/empty_page_xm.png" class="apply-success-img"></image>
-			<view class="apply-success-text">当前搜索暂无数据～</view>
+			<view class="apply-success-text">当前暂无数据～</view>
 		</view>
 	</view>
 </template>
