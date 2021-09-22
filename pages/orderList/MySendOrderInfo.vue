@@ -108,15 +108,15 @@
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;">+</view><view style="font-size: 30rpx;">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;margin-top: -6rpx;">+</view><view style="font-size: 30rpx;">¥{{orderSendInfo.orderinfo.delivery_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.paycoupon || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;margin-top: -6rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.paycoupon || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding" v-if="orderSendInfo.orderinfo.balance_price">
 				<view class="reception-order-title">余额抵扣：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.balance_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;margin-top: -6rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderSendInfo.orderinfo.balance_price || '0.00'}}</view></view>
 			</view>
 			
 			<view class="flex-between flex-between-padding order-line">
@@ -194,12 +194,12 @@
 				if(res.sta == 1){
 					that.orderSendInfo = res.rs;
 					if(that.orderSendInfo.orderinfo.status ==5){
-						if(res.ra.wait_pay_time){
-							that.getCountdown(res.ra.wait_pay_time);
+						if(res.rs.wait_pay_time){
+							that.getCountdown(res.rs.wait_pay_time);
 						}
 					}else if(that.orderSendInfo.orderinfo.status ==2){
-						if(res.ra.wait_receive_time){
-							that.getCountdown(res.ra.wait_receive_time);
+						if(res.rs.wait_pay_time){
+							that.getCountdown(res.rs.wait_pay_time);
 						}
 					}
 				}
@@ -275,6 +275,7 @@
 			},
 			// 取消订单
 			cancel: function(e) {
+				let that = this;
 				let memberid = uni.getStorageSync('id')
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let data = JSON.stringify({
@@ -289,7 +290,28 @@
 						uni.showToast({
 							title: "取消成功"
 						})
-						uni.startPullDownRefresh();
+						
+						let action1 = "get_order_giftgiving_info";
+						let controller1 = 'order';
+						let memberid1 = uni.getStorageSync('id')
+						let data1 = JSON.stringify({
+							memberid: memberid1,
+							ordernumber: that.ordernumber
+						});
+						that.$utils.postNew(action1,data1,controller1).then(res=>{
+							if(res.sta == 1){
+								that.orderSendInfo = res.rs;
+								if(that.orderSendInfo.orderinfo.status ==5){
+									if(res.rs.wait_pay_time){
+										that.getCountdown(res.rs.wait_pay_time);
+									}
+								}else if(that.orderSendInfo.orderinfo.status ==2){
+									if(res.rs.wait_pay_time){
+										that.getCountdown(res.rs.wait_pay_time);
+									}
+								}
+							}
+						});
 					} else {
 						uni.showToast({
 							title: "操作失败",
@@ -752,5 +774,6 @@
 		margin-top: 10rpx;
 		display: flex;
 	    align-items: center;
+		justify-content: center;
 	}
 </style>

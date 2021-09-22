@@ -6,13 +6,23 @@
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title"></view>
 			</view>
-			<view class="recharge-status-top">
+			<!-- <view class="recharge-status-top">
 				<image v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
-				<!-- <view  v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
 				<image v-if="orderBuyInfo.orderinfo.status ==2" class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
-				<!-- <view v-if="orderBuyInfo.orderinfo.status ==2" class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
 				<view class="recharge-status-text">{{orderBuyInfo.orderinfo.order_status_info}}</view>
+			</view> -->
+			
+			<view class="recharge-status-top">
+				<image class="recharge-status-img" v-if="orderBuyInfo.orderinfo.status ==5" src="../../static/icon_unpaid_order.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderBuyInfo.orderinfo.status ==5">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
+				<image class="recharge-status-img" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" src="../../static/icon_giving_order.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1 || orderBuyInfo.orderinfo.status ==2">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
+				<image class="recharge-status-img" v-if="orderBuyInfo.orderinfo.status ==3 || orderBuyInfo.orderinfo.status ==2" src="../../static/icon_completed_reception.png"></image>
+				<!-- <view class="recharge-status-text" v-if="orderBuyInfo.orderinfo.status ==3">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
+				<view class="recharge-status-text" >{{orderBuyInfo.orderinfo.order_status_info}}</view>
 			</view>
+			<view class="recharge-status-label" v-if="orderBuyInfo.orderinfo.status ==5">需付款：¥{{orderBuyInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			
 		</view>
 		
 		<view class="recharge-flex">
@@ -61,11 +71,19 @@
 						</view>
 						<view class="conversion-details" @click="RefundInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
 					</view>
-					<view class="new-order-li-bottom" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" >
+					<view class="new-order-li-bottom"  >
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
+							<!-- <view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view> -->
 							<!-- <view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view> -->
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 5" @click="cancel" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">取消订单</view>
+							<view class="new-order-botton" v-if="orderBuyInfo.orderinfo.status == 5" @click="submit" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">立即支付</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">申请开票</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 1" @click="ApplyInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">发票详情</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3" @click="RefundAfterSale" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
+							<view class="new-order-botton" v-if="orderBuyInfo.orderinfo.status == 2 || orderBuyInfo.orderinfo.status == 3 || orderBuyInfo.orderinfo.status == 99 || orderBuyInfo.orderinfo.status == 6" @click="againProduct" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">再次购买</view>
+							
 						</view>
 					</view>
 				</view>
@@ -79,15 +97,15 @@
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">运费：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;">+</view><view style="font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="margin-right: 10rpx;font-size: 30rpx;margin-top: -6rpx;">+</view><view style="font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.delivery_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding">
 				<view class="reception-order-title">优惠券：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="color: #EC1815;margin-right: 10rpx;font-size: 30rpx;margin-top: -6rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.paycoupon || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding" v-if="orderBuyInfo.orderinfo.balance_price">
 				<view class="reception-order-title">余额抵扣：</view>
-				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.balance_price || '0.00'}}</view></view>
+				<view class="reception-order-money" style="display: flex;align-items: center;"><view style="font-size: 30rpx;color: #EC1815;margin-right: 10rpx;margin-top: -6rpx;">-</view><view style="color: #EC1815;font-size: 30rpx;">¥{{orderBuyInfo.orderinfo.balance_price || '0.00'}}</view></view>
 			</view>
 			<view class="flex-between flex-between-padding order-line">
 				<view class="reception-order-money"></view>
@@ -102,7 +120,7 @@
 				<view class="reception-order-text">下单时间：</view>
 				<view class="reception-order-time">{{orderBuyInfo.add_time}}</view>
 			</view>
-			<view class="reception-order-view" style="margin-top: 12rpx;">
+			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderBuyInfo.paytime">
 				<view class="reception-order-text">支付时间：</view>
 				<view class="reception-order-time">{{orderBuyInfo.paytime}}</view>
 			</view>
@@ -112,6 +130,8 @@
 </template>
 
 <script>
+	var timer = null;
+	var times = 0;
 	export default{
 		data(){
 			return{
@@ -119,6 +139,7 @@
 				nav:'20',
 				ordernumber: '',
 				orderBuyInfo: '',
+				countdown: '',
 				isSystemInfo: false
 			}
 		},
@@ -144,10 +165,59 @@
 			this.$utils.postNew(action,data,controller).then(res=>{
 				if(res.sta == 1){
 					that.orderBuyInfo = res.rs;
+					if(that.orderBuyInfo.orderinfo.status ==5){
+						if(res.rs.orderinfo.wait_pay_time){
+							that.getCountdown(res.rs.orderinfo.wait_pay_time);
+						}
+					}
 				}
 			});
 		},
 		methods:{
+			getCountdown(endTime) {
+				var that = this;
+				// var _endDateTime = new Date(endTime).getTime();
+				// // timer = setInterval(function() {
+				// 	var _newDateTime = new Date().getTime();
+				// 		times = _endDateTime - _newDateTime;
+				// 		if (times <= 0) {
+				// 			return
+				// 		}
+				// 		that.setTime(times / 1000)
+				// 	// }, 1000);
+				if (endTime <= 0) {
+					return
+				}
+				that.setTime(endTime)
+			},
+			setTime(times) {
+					var that = this;
+					if (times <= 0) {
+						// clearInterval(timer);
+						return;
+					}
+					var day = 0,
+						hour = 0,
+						minute = 0,
+						second = 0; //时间默认值
+					day = Math.floor(times / (60 * 60 * 24));
+					hour = Math.floor(times / (60 * 60)) - (day * 24);
+					minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+					second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+					if (day <= 9) day = '0' + day;
+					if (hour <= 9) hour = '0' + hour;
+					if (minute <= 9) minute = '0' + minute;
+					if (second <= 9) second = '0' + second;
+					//
+					var countdown = {
+						day: day,
+						hour: hour,
+						minute: minute,
+						second: second,
+					}
+					that.countdown = countdown
+					// times--;
+				},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
@@ -198,6 +268,104 @@
 				uni.redirectTo({
 					url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
 				});
+			},
+			// 取消订单
+			cancel: function(e) {
+				let that = this;
+				let memberid = uni.getStorageSync('id')
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let data = JSON.stringify({
+					memberid: memberid,
+					ordernumber: ordernumber
+				});
+				let action = 'cancel_buy_order';
+			
+				this.$utils.post(action, data).then(res => {
+					console.log("取消订单", res);
+					if (res.sta == 1) {
+						uni.showToast({
+							title: "取消成功"
+						})
+						
+						let action1 = "get_order_buy_info";
+						let controller1 = 'order';
+						let memberid1 = uni.getStorageSync('id')
+						let data1 = JSON.stringify({
+							memberid: memberid1,
+							ordernumber: that.ordernumber
+						});
+						that.$utils.postNew(action1,data1,controller1).then(res=>{
+							if(res.sta == 1){
+								that.orderBuyInfo = res.rs;
+								if(that.orderBuyInfo.orderinfo.status ==5){
+									if(res.rs.orderinfo.wait_pay_time){
+										that.getCountdown(res.rs.orderinfo.wait_pay_time);
+									}
+								}
+							}
+						});
+					} else {
+						uni.showToast({
+							title: "操作失败",
+							icon: 'none'
+						})
+					}
+				})
+			},
+			//  微信支付
+			submit: function(e) {
+				let orderNumber = e.currentTarget.dataset.ordernumber;
+				// 接口地址
+				let action = 'get_buy_order_pay_info';
+				// 传入参数
+				let data = JSON.stringify({
+					ordernumber: orderNumber,
+				});
+				console.log(data);
+				// 请求
+				this.$utils.post(action, data).then(res => {
+					this.$utils.wxPay(res.rs.serial_number, "buy_order");
+				});
+			},
+			//申请开票
+			ApplyInvoice(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
+				});
+			},
+			//发票详情
+			ApplyInfo(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: `../Apply/ApplySuccess?ordernumber=${ordernumber}&types=1`
+				});
+			},
+			//退换/售后
+			RefundAfterSale: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
+				})
+			},
+			//再次购买
+			againProduct: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let action = 'order_add_shopping_cart';
+			    let memberid = uni.getStorageSync('id')
+			    let controller = 'order';
+			    let data = JSON.stringify({
+			        ordernumber: ordernumber,
+			        memberid: memberid
+			    })
+			    this.$utils.postNew(action, data, controller).then(res => {
+					
+			        if(res.sta == 1){
+			            uni.reLaunch({
+			                url:'../shopping/shopping?type=0'
+			            })
+			        }
+			    })
 			},
 		}
 	}
@@ -575,5 +743,15 @@
 		color: #999999;
 		line-height: 33rpx;
 		padding: 0rpx 18rpx;
+	}
+	.recharge-status-label{
+		font-size: 28rpx;
+		color: #FFFFFF;
+		line-height: 40rpx;
+		text-align: center;
+		margin-top: 10rpx;
+		display: flex;
+	    align-items: center;
+		justify-content: center;
 	}
 </style>

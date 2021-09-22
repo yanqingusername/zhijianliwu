@@ -637,6 +637,11 @@ async function wxPay(orderNumber, type) {
 				icon: "success",
 				title: "支付成功"
 			})
+			setTimeout(()=>{
+				uni.navigateBack({
+					delta: 1
+				});
+			},500);
 		},
 		fail: function(res) {
 			console.log(res);

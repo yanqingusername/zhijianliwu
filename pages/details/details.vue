@@ -14,13 +14,13 @@
 						<view class="flex" style="align-items: center;">
 							<view class="guige-name">{{alt.goodsname.substr(0,10)}}...</view>
 							<view class="guige-price-right">
-								<view class="details-hidden-price" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
-								<view class="details-hidden-price" v-else-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
-								<view class="details-hidden-number"></view>
+								<view class="details-hidden-price" style="font-weight: bold;" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
+								<view class="details-hidden-price" style="font-weight: bold;" v-else-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
+								<view class="new_details-hidden-number"></view>
 							</view>
 						</view>
 						
-						<view class="details-hidden-number">已选择：
+						<view class="new_details-hidden-number">已选择：
 							<text v-for="(item,index) of guige" :key="index">{{item}}</text>
 						</view>
 					</view>
@@ -207,7 +207,8 @@
 								<image src="../../static/hamper_icon.png" class="tab" mode="widthFix"></image>
 							</view>
 							<view class="flex-between-text">礼篮</view>
-							<text class="num_all">{{num_all}}</text>
+							<text class="num_all10" v-if="num_all>10">{{num_all}}</text>
+							<text class="num_all" v-else>{{num_all}}</text>
 						</view>
 						
 				</view>
@@ -1474,7 +1475,7 @@
 		left: 517rpx;
 	}
 
-	.details-hidden-number {
+	.new_details-hidden-number {
 		/* width: 340rpx; */
 		/* margin-top: -90rpx; */
 		/* margin-left: 220rpx; */
@@ -1574,10 +1575,25 @@
 		display: flex;
 		justify-content: unset;
 	}
+	.num_all10{
+		position: absolute;
+		top: -4rpx;
+		left: 28rpx;
+		/* width: 20rpx; */
+		/* height: 20rpx; */
+		line-height: 20rpx;
+		text-align: center;
+		border-radius: 10rpx;
+		background-color: red;
+		font-size: 10px;
+		color: #fff;
+		width: 30rpx;
+		height: 20rpx;
+	}
 	.num_all {
 	    position: absolute;
 	    top: -4rpx;
-	    left: 27rpx;
+	    left: 28rpx;
 	    /* width: 20rpx; */
 	    /* height: 20rpx; */
 	    line-height: 20rpx;
@@ -1586,7 +1602,8 @@
 	    background-color: red;
 	    font-size: 10px;
 	    color: #fff;
-	    padding: 2rpx 6rpx;
+	    width: 20rpx;
+		height: 20rpx;
 	}
 	.bottom-lilan{
 		display: inline-block;

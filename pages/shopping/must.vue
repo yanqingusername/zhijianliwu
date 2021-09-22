@@ -113,13 +113,13 @@
 			<!-- 合计 -->
 			<view class="hj">
 				<text class="jiage">合计：</text>
-				<text class="jiage sum-price">￥{{use_balance == 0 ? new_price_zhe : '0.00'}}</text>
+				<text class="jiage sum-price">￥{{new_price_zhe || '0.00'}}</text>
 			</view>
 		</view>
 		<!-- 底部合计 -->
 		<view class="must-bottom heji">
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
-			<text class="must-bottom-price">{{use_balance == 0 ? new_price_zhe : '0.00'}}</text>
+			<text class="must-bottom-price">{{new_price_zhe || '0.00'}}</text>
 			<view class="pay clearfix">
 				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
 			</view>
@@ -272,14 +272,9 @@
 			// 余额选中
 			switch2Change() {
 				this.use_balance = !this.use_balance
+				//计算总价
+				this.caltotalmoney()
 			},
-
-			switch2Change() {
-				console.log(11)
-				this.use_balance = !this.use_balance
-				console.log("余额", this.use_balance);
-			},
-
 			// 选择优惠券
 			coupon1: function(e) {
 				this.money1 = this.money
@@ -333,7 +328,8 @@
 					memberid: memberid,
 					fenshu:fenshu,
 					buy_type:buy_type,
-					coupon_number: this.new_coupon_number
+					coupon_number: this.new_coupon_number,
+					is_balance: this.use_balance == 0 ? false : true
 				});
 				let controller = "coupon";
 				this.$utils.postNew(action, data, controller).then(res => {
@@ -341,7 +337,7 @@
 						this.cartPriceData = res.rs;
 						this.cartCouponList = res.rs.coupon_list;
 						this.new_price_yuanshi= res.rs.price_yuanshi;
-						this.new_price_zhe= res.rs.price_zhe;
+						this.new_price_zhe= res.rs.show_price;
 						this.new_price_coupon= res.rs.price_coupon;
 						this.new_coupon_number= res.rs.coupon_number;
 						this.new_balance= res.rs.balance;
@@ -569,6 +565,9 @@
 													icon: 'none'
 												})
 												that.commodity = ''
+												uni.navigateTo({
+														url:'../orderList/orderList?nav=1'
+													})
 											},
 										})
 									})
