@@ -110,9 +110,19 @@
 									</view>
 									
 									<view class="audio-box-view-wrap">
-										<view class="audio-box-view-tiem" v-if="begin==1 || begin==2">
-										    <view class="em" v-for="(item,index) in 11" :key="index" v-if="begin==2"></view><view style="margin: 0rpx 20rpx;">{{timecount}}</view><view v-if="begin==2" class="em" v-for="(item,index) in 11" :key="index"></view>
+										<view class="audio-box-view-tiem" v-if="begin==1">
+										    <view style="margin: 0rpx 20rpx;">{{timecount}}</view>
+										</view>
+										<view class="audio-box-view-tiem" v-if="begin==2">
+										    <view class="new-prompt-loader">
+										        <view class="new-em" v-for="(item,index) in 11" :key="index"></view>
+										    </view>
+											<view style="margin: 0rpx 20rpx;">{{timecount}}</view>
+											<view class="new-prompt-loader">
+											    <view class="new-em" v-for="(item,index) in 11" :key="index"></view>
+											</view>
 										</view> 
+										
 										<view class="audio-box-view-tiem" v-if="begin==5 || begin==4">
 										    <view>{{timecount}}</view><view v-if="begin==5">/{{totalDuration}}</view>
 										</view> 
@@ -285,6 +295,7 @@
 
 
 							self.zhufu_mp3 = self.$utils.imageUrl(file.filename);
+							// self.zhufu_mp3 = file.filename;
 							console.log('上传成功', file)
 							console.log(that.url + file.filename)
 						} else {
@@ -402,35 +413,82 @@
 								},
 			//开始录音
 			start: function() {
-				recorderManager.stop();
-				innerAudioContext.offTimeUpdate((res) => {
-					console.log('取消监听进度条', res)
-				})
-				clearInterval(this.timer);
+				if(this.begin == 4 || this.begin == 5){
+					recorderManager.stop();
+					innerAudioContext.offTimeUpdate((res) => {
+						console.log('取消监听进度条', res)
+					})
+					clearInterval(this.timer);
+				}
+
 				
-				
-					let that = this;
-					uni.authorize({
-					    scope:'scope.record',
-					    success:function(){
-							that.timecount = '00:00:00';
-							that.hour = 0;
-							that.minute = 0;
-							that.second = 0;
-							that.getTimeInterval();
-							that.radio = true
-							that.begin = 2;
-							that.schedule = 0;
-							console.log('开始录音');
-							recorderManager.start();
-							// uni.showLoading({
-							// 	title: '正在录音中'
-							// });
-					    },
+				let that = this;
+				uni.getSetting({
+				  success(res) {
+				    if (!res.authSetting['scope.record']) {
+				      uni.authorize({
+				        scope: 'scope.record',
+				        success () {
+				          // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+				          uni.startRecord();
+						  that.timecount = '00:00:00';
+						  that.hour = 0;
+						  that.minute = 0;
+						  that.second = 0;
+						  that.getTimeInterval();
+						  that.radio = true
+						  that.begin = 2;
+						  that.schedule = 0;
+						  console.log('开始录音');
+						  recorderManager.start();
+						  // uni.showLoading({
+						  // 	title: '正在录音中'
+						  // });
+				        },
 					    fail:function(){
 					        that.openSetting("录音功能");
 					    }
-					});
+				      })
+				    }else{
+						that.timecount = '00:00:00';
+						that.hour = 0;
+						that.minute = 0;
+						that.second = 0;
+						that.getTimeInterval();
+						that.radio = true
+						that.begin = 2;
+						that.schedule = 0;
+						console.log('开始录音');
+						recorderManager.start();
+						// uni.showLoading({
+						// 	title: '正在录音中'
+						// });
+					}
+				  }
+				})
+				
+					
+					// uni.authorize({
+					//     scope:'scope.record',
+					//     success:function(){
+					// 		that.timecount = '00:00:00';
+					// 		that.hour = 0;
+					// 		that.minute = 0;
+					// 		that.second = 0;
+					// 		that.getTimeInterval();
+					// 		that.radio = true
+					// 		that.begin = 2;
+					// 		that.schedule = 0;
+					// 		console.log('开始录音');
+					// 		recorderManager.start();
+					// 		// uni.showLoading({
+					// 		// 	title: '正在录音中'
+					// 		// });
+					//     },
+					//     fail:function(){
+					//         that.openSetting("录音功能");
+					//     }
+					// });
 			},		
 			//结束录音  
 			stopp: function() {
@@ -456,11 +514,13 @@
 					return
 				}
 				
-				recorderManager.stop();
-				innerAudioContext.offTimeUpdate((res) => {
-					console.log('取消监听进度条', res)
-				})
-				clearInterval(this.timer);
+				if(this.begin == 4){
+					recorderManager.stop();
+					innerAudioContext.offTimeUpdate((res) => {
+						console.log('取消监听进度条', res)
+					})
+					clearInterval(this.timer);
+				}
 				
 				this.timecount = '00:00:00';
 				this.hour = 0;
@@ -494,7 +554,7 @@
 						let duration1 = parseInt(innerAudioContext.duration);
 						let currentTime1 = parseInt(innerAudioContext.currentTime);
 						
-						let schedule1 = (currentTime1/duration1*100);
+						let schedule1 = (currentTime1/duration1*1000);
 						
 						that.schedule = parseInt(schedule1);
 						
@@ -530,7 +590,7 @@
 							})
 							
 							that.begin = 4;
-							that.schedule = 100;
+							that.schedule = 0;
 							that.timecount = '00:00:00';
 							that.hour = 0;
 							that.minute = 0;
@@ -677,6 +737,7 @@
 									let file = JSON.parse(uploadFileRes.data)
 									uni.hideLoading();
 									that.zhufu_mp4 = that.$utils.imageUrl(file.filename);
+									// that.zhufu_mp4 = file.filename;
 									console.log(file)
 									uni.showToast({
 										title: "上传成功",
@@ -1277,6 +1338,7 @@
 		margin-top: 30rpx;
 		display: flex;
 		align-items: center;
+		justify-content: center;
 	}
 	.audio-box-view-text{
 		font-size: 30rpx;
@@ -1306,48 +1368,115 @@
 			margin-right: 0px;
 		}
 		.em:nth-child(1) {
-		 animation:  2.5s 1.4s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 1s infinite linear;
 		}
 		.em:nth-child(2) {
-		 animation:  2.5s 1.2s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.8s infinite linear;
 		}
 		.em:nth-child(3) {
-		 animation:  2.5s 1s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.6s infinite linear;
 		}
 	    .em:nth-child(4) {
-		 animation:  2.5s 0.8s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.4s infinite linear;
 		}
 		.em:nth-child(5) {
-		 animation:  2.5s 0.6s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.2s infinite linear;
 		}
 		.em:nth-child(6) {
-		 animation:  2.5s 0.4s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0s infinite linear;
 		}
 		.em:nth-child(7) {
-		 animation:  2.5s 0.2s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.2s infinite linear;
 		}
 		.em:nth-child(8) {
-		 animation:  2.5s 0s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.4s infinite linear;
 		}
 		.em:nth-child(9) {
-		 animation:  2.5s 0.2s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.6s infinite linear;
 		}
 		.em:nth-child(10) {
-		 animation:  2.5s 0.4s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 0.8s infinite linear;
 		}
 		.em:nth-child(11) {
-		 animation: 2.5s 0.6s infinite linear;
-		 background: #FFFFFF;
+		 animation: load 2.5s 1s infinite linear;
+		}
+		@keyframes load {
+			0% {
+				height: 10%;
+			}
+			50% {
+				height: 100%;
+			}
+			100% {
+				height: 10%;
+			}
 		}
 		
+		
+		
+		
+		/* 语音音阶------------- */
+			.new-prompt-loader {
+				width: 40px;
+			    height: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.new-prompt-loader .new-em {
+				display: block;
+				background: #FFFFFF;
+				width: 1px;
+				height: 10%;
+				margin-right: 2.5px;
+				float: left;
+			}
+			.new-prompt-loader .new-em:last-child {
+				margin-right: 0px;
+			}
+			.new-prompt-loader .new-em:nth-child(1) {
+			 animation: new-load 2.5s 1s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(2) {
+			 animation: new-load 2.5s 0.8s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(3) {
+			 animation: new-load 2.5s 0.6s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(4) {
+			 animation: new-load 2.5s 0.4s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(5) {
+			 animation: new-load 2.5s 0.2s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(6) {
+			 animation: new-load 2.5s 0s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(7) {
+			 animation: new-load 2.5s 0.2s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(8) {
+			 animation: new-load 2.5s 0.4s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(9) {
+			 animation: new-load 2.5s 0.6s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(10) {
+			 animation: new-load 2.5s 0.8s infinite linear;
+			}
+			.new-prompt-loader .new-em:nth-child(11) {
+			 animation: new-load 2.5s 1s infinite linear;
+			}
+			@keyframes new-load {
+				0% {
+					height: 10%;
+				}
+				50% {
+					height: 100%;
+				}
+				100% {
+					height: 10%;
+				}
+			}
+			/* 语音音阶-------------------- */
 </style>

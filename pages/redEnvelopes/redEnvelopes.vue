@@ -185,7 +185,7 @@
 				minute: 0,
 				second: 0,
 				timer:'',
-				totalDuration: '',
+				totalDuration: '00:00:00',
 				is_exchange_type: 0
 			}
 		},
@@ -432,7 +432,7 @@
 						let duration1 = parseInt(innerAudioContext.duration);
 						let currentTime1 = parseInt(innerAudioContext.currentTime);
 						
-						let schedule1 = (currentTime1/duration1*100);
+						let schedule1 = (currentTime1/duration1*1000);
 						
 						that.schedule = parseInt(schedule1);
 						

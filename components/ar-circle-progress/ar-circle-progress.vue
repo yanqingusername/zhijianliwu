@@ -40,7 +40,7 @@ export default {
 			default: 0,
 			// 值在0到100之间
 			validator: val => {
-				return val >= 0 && val <= 100;
+				return val >= 0 && val <= 1000;
 			}
 		},
 		// 圆环底色（灰色的圆环）
@@ -88,7 +88,7 @@ export default {
 	},
 	watch: {
 		percent(nVal, oVal = 0) {
-			if (nVal > 100) nVal = 100;
+			if (nVal > 1000) nVal = 1000;
 			if (nVal < 0) oVal = 0;
 			this.newPercent = nVal;
 			this.oldPercent = oVal;
@@ -134,8 +134,8 @@ export default {
 			ctx.setLineWidth(this.borderWidthPx);
 			ctx.setStrokeStyle(this.activeColor);
 			// 计算过渡时间
-			let time = Math.floor(this.duration / 200);
-			let endAngle = ((2 * Math.PI) / 100) * progress + this.startAngle;
+			let time = Math.floor(this.duration / 2000);
+			let endAngle = ((2 * Math.PI) / 1000) * progress + this.startAngle;
 			ctx.beginPath();
 			// 半径为整个canvas宽度的一半
 			let radius = this.widthPx / 2;

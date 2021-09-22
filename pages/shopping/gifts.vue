@@ -441,7 +441,7 @@
 		box-sizing: border-box;
 	}
 	.gift-card-btn{
-		margin-top: 0rpx;
+		margin-top: 20rpx;
 		/* border: 1px solid #EDEDED; */
 		text-align: center;
 		/* padding: 20rpx; */

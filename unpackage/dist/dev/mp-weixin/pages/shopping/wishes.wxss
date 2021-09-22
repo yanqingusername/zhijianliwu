@@ -525,6 +525,9 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 		-webkit-box-align: center;
 		-webkit-align-items: center;
 		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
 }
 .audio-box-view-text{
 		font-size: 30rpx;
@@ -560,59 +563,163 @@ radio .wx-radio-input.wx-radio-input-checked::before {
 			margin-right: 0px;
 }
 .em:nth-child(1) {
-		 -webkit-animation:  2.5s 1.4s infinite linear;
-		         animation:  2.5s 1.4s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 1s infinite linear;
+		         animation: load 2.5s 1s infinite linear;
 }
 .em:nth-child(2) {
-		 -webkit-animation:  2.5s 1.2s infinite linear;
-		         animation:  2.5s 1.2s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.8s infinite linear;
+		         animation: load 2.5s 0.8s infinite linear;
 }
 .em:nth-child(3) {
-		 -webkit-animation:  2.5s 1s infinite linear;
-		         animation:  2.5s 1s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.6s infinite linear;
+		         animation: load 2.5s 0.6s infinite linear;
 }
 .em:nth-child(4) {
-		 -webkit-animation:  2.5s 0.8s infinite linear;
-		         animation:  2.5s 0.8s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.4s infinite linear;
+		         animation: load 2.5s 0.4s infinite linear;
 }
 .em:nth-child(5) {
-		 -webkit-animation:  2.5s 0.6s infinite linear;
-		         animation:  2.5s 0.6s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.2s infinite linear;
+		         animation: load 2.5s 0.2s infinite linear;
 }
 .em:nth-child(6) {
-		 -webkit-animation:  2.5s 0.4s infinite linear;
-		         animation:  2.5s 0.4s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0s infinite linear;
+		         animation: load 2.5s 0s infinite linear;
 }
 .em:nth-child(7) {
-		 -webkit-animation:  2.5s 0.2s infinite linear;
-		         animation:  2.5s 0.2s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.2s infinite linear;
+		         animation: load 2.5s 0.2s infinite linear;
 }
 .em:nth-child(8) {
-		 -webkit-animation:  2.5s 0s infinite linear;
-		         animation:  2.5s 0s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.4s infinite linear;
+		         animation: load 2.5s 0.4s infinite linear;
 }
 .em:nth-child(9) {
-		 -webkit-animation:  2.5s 0.2s infinite linear;
-		         animation:  2.5s 0.2s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.6s infinite linear;
+		         animation: load 2.5s 0.6s infinite linear;
 }
 .em:nth-child(10) {
-		 -webkit-animation:  2.5s 0.4s infinite linear;
-		         animation:  2.5s 0.4s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 0.8s infinite linear;
+		         animation: load 2.5s 0.8s infinite linear;
 }
 .em:nth-child(11) {
-		 -webkit-animation: 2.5s 0.6s infinite linear;
-		         animation: 2.5s 0.6s infinite linear;
-		 background: #FFFFFF;
+		 -webkit-animation: load 2.5s 1s infinite linear;
+		         animation: load 2.5s 1s infinite linear;
 }
-		
+@-webkit-keyframes load {
+0% {
+				height: 10%;
+}
+50% {
+				height: 100%;
+}
+100% {
+				height: 10%;
+}
+}
+@keyframes load {
+0% {
+				height: 10%;
+}
+50% {
+				height: 100%;
+}
+100% {
+				height: 10%;
+}
+}
+
+/* 语音音阶------------- */
+.new-prompt-loader {
+				width: 40px;
+			    height: 10px;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				        align-items: center;
+				-webkit-box-pack: justify;
+				-webkit-justify-content: space-between;
+				        justify-content: space-between;
+}
+.new-prompt-loader .new-em {
+				display: block;
+				background: #FFFFFF;
+				width: 1px;
+				height: 10%;
+				margin-right: 2.5px;
+				float: left;
+}
+.new-prompt-loader .new-em:last-child {
+				margin-right: 0px;
+}
+.new-prompt-loader .new-em:nth-child(1) {
+			 -webkit-animation: new-load 2.5s 1s infinite linear;
+			         animation: new-load 2.5s 1s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(2) {
+			 -webkit-animation: new-load 2.5s 0.8s infinite linear;
+			         animation: new-load 2.5s 0.8s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(3) {
+			 -webkit-animation: new-load 2.5s 0.6s infinite linear;
+			         animation: new-load 2.5s 0.6s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(4) {
+			 -webkit-animation: new-load 2.5s 0.4s infinite linear;
+			         animation: new-load 2.5s 0.4s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(5) {
+			 -webkit-animation: new-load 2.5s 0.2s infinite linear;
+			         animation: new-load 2.5s 0.2s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(6) {
+			 -webkit-animation: new-load 2.5s 0s infinite linear;
+			         animation: new-load 2.5s 0s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(7) {
+			 -webkit-animation: new-load 2.5s 0.2s infinite linear;
+			         animation: new-load 2.5s 0.2s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(8) {
+			 -webkit-animation: new-load 2.5s 0.4s infinite linear;
+			         animation: new-load 2.5s 0.4s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(9) {
+			 -webkit-animation: new-load 2.5s 0.6s infinite linear;
+			         animation: new-load 2.5s 0.6s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(10) {
+			 -webkit-animation: new-load 2.5s 0.8s infinite linear;
+			         animation: new-load 2.5s 0.8s infinite linear;
+}
+.new-prompt-loader .new-em:nth-child(11) {
+			 -webkit-animation: new-load 2.5s 1s infinite linear;
+			         animation: new-load 2.5s 1s infinite linear;
+}
+@-webkit-keyframes new-load {
+0% {
+					height: 10%;
+}
+50% {
+					height: 100%;
+}
+100% {
+					height: 10%;
+}
+}
+@keyframes new-load {
+0% {
+					height: 10%;
+}
+50% {
+					height: 100%;
+}
+100% {
+					height: 10%;
+}
+}
+
+/* 语音音阶-------------------- */
 

@@ -43,7 +43,8 @@
 			<view class="bot" v-if="com==2">
 				<image @click="hidden" v-if="gift.length > 3" class="jiequ" src="https://zhijianlw.com/static/web/img/expand_button.png"
 					mode="widthFix"></image>
-				<text class="zong">共{{length}}份</text>
+				<text class="zong" v-if="typestring == 4">共{{cardbag.goods_count_num}}件</text>
+				<text class="zong" v-if="typestring == 1">{{cardbag.type_number}}件*{{cardbag.all_details_num}}份</text>
 			</view>
 			
 			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
@@ -74,7 +75,8 @@
 				dataList: [],
 				cardbag_theme: {},
 				cardbag: {},
-				isShowAll: false
+				isShowAll: false,
+				typestring: 1
 			}
 		},
 		onLoad: function(e) {
@@ -95,18 +97,28 @@
 
 				this.cardbag_theme = res.cardbag_theme
 				this.cardbag = res.cardbag
-				if (res.goods_list.length == 1) {
+				if(res.cardbag.type_number == 1){
 					this.com = 1
+				}else{
+					this.com = 2
+				}
+				this.typestring = res.cardbag.type;
+				if (res.goods_list.length == 1) {
+					// this.com = 1
 					this.gift = res.goods_list
 					this.cardbag_number = res.cardbag.cardbag_number
 					uni.setStorageSync("cardbag_number", res.cardbag.cardbag_number)
 				} else {
 					if (res.cardbag.type == 1) {
-						this.com = 2
+						if(res.type1_goodslist && res.type1_goodslist[0].length >1){
+							// this.com = 2
+						}else{
+							// this.com = 1
+						}
 						this.gift = res.type1_goodslist[0]
 						this.length = res.type1_goodslist.length
 					} else {
-						this.com = 2
+						// this.com = 2
 						this.gift = res.goods_list
 						this.length = res.goods_list.length
 					}

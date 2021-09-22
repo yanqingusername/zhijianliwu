@@ -39,7 +39,7 @@
 					</view>
 				</view> -->
 		<!-- 语音-->
-		<view class="sound-border" v-if="gift==='1'">
+		<view class="sound-border" v-if="gift==='1'" style="display: flex;align-items: center;justify-content: center;">
 			<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode=""></image>
 			<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
 			<text class="sound-name">{{present_memberid_name}}</text>
@@ -87,7 +87,7 @@
            	<text class="new-chai" @click="open"></text>
         </view>
 	</view>
-	<view class="" v-else>
+	<view class="" v-else-if="isShowCheck == 1">
 		<!-- 文字祝福 -->
 		<view style="position: relative;width: 80%;margin: 100rpx auto;">
 			<view class="">
@@ -103,6 +103,23 @@
 				
 				<view class="wishes-name zhufu">{{zhufu_msg}}</view>
 			</view>
+		</view>
+	</view>
+	<view class="" v-else-if="isShowCheck == 2">
+		<!-- 文字祝福 -->
+		<view style="position: relative;width: 80%;margin: 100rpx auto;">
+			<view class="">
+				<image class="wishes-fu"
+					src="https://zhijianlw.com/static/web/img/libao_09_01.png" mode="widthFix">
+				</image>
+			</view>
+			<view class="infor">
+				<view class="img-infor">
+					<image class="wishes-fu-head" :src="$utils.imageUrl(head_img)" mode=""></image>
+					<text class="wishes-fu-head-title">{{name}}</text>
+				</view>
+			</view>
+			<view class="new-detail-info" @click="toConversionDetails">查看领取详情 ></view>
 		</view>
 	</view>
 </template>
@@ -152,7 +169,7 @@
 				minute: 0,
 				second: 0,
 				timer:'',
-				totalDuration: ''
+				totalDuration: '00:00:00',
 			}
 		},
 		onLoad: function(e) {	
@@ -245,11 +262,13 @@
 						}
 
 					} else if (re.sta == 101) {
-						uni.reLaunch({
-							url: '../index-coupon/ConversionDetails?cardbag=' + that.cardbag_number +
-								'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
-								that.cardbag_number,
-						})
+						this.isShowCheck = 2;
+						// this.zhufu_msg = re.msg;
+						// uni.reLaunch({
+						// 	url: '../index-coupon/ConversionDetails?cardbag=' + that.cardbag_number +
+						// 		'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
+						// 		that.cardbag_number,
+						// })
 					} else {
 						this.display = '1';
 					}
@@ -357,7 +376,7 @@
 						let duration1 = parseInt(innerAudioContext.duration);
 						let currentTime1 = parseInt(innerAudioContext.currentTime);
 						
-						let schedule1 = (currentTime1/duration1*100);
+						let schedule1 = (currentTime1/duration1*1000);
 						
 						that.schedule = parseInt(schedule1);
 						
@@ -441,7 +460,13 @@
             	this.movable_x = s;
                 this.stop=0
             }, 
-
+			toConversionDetails(){
+				uni.reLaunch({
+					url: '../index-coupon/ConversionDetails?cardbag=' + this.cardbag_number +
+						'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
+						this.cardbag_number,
+				})
+			},
 			open: function(e) {
 				let that = this;
 				if (this.sign == '200') {
@@ -776,4 +801,12 @@
 		margin-top: 26rpx;
 	}
 	
+	.new-detail-info{
+		    position: absolute;
+		    bottom: 80rpx;
+		    left: 202rpx;
+			font-size: 30rpx;
+			color: #FFECC4;
+			line-height: 42rpx;
+	}
 </style>

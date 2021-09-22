@@ -359,5 +359,12 @@ page{
 	color: #FFFFFF;
 	margin-top: 26rpx;
 }
-
+.new-detail-info{
+	    position: absolute;
+	    bottom: 80rpx;
+	    left: 202rpx;
+		font-size: 30rpx;
+		color: #FFECC4;
+		line-height: 42rpx;
+}
 
