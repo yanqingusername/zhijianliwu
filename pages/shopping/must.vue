@@ -55,11 +55,11 @@
 					<text class="message-title">优惠券：</text>
 					<view class="message-price yhj" v-if="new_price_coupon">
 						<text style="color: #EC1815;" @click="open">{{new_price_coupon ? new_price_coupon : '无可用'}}</text>
-						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;"></text>
+						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;"></text>
 					</view>
 					<view class="message-price yhj" v-else>
 						<text style="color: #BBBBBB;">{{'无可用'}}</text>
-						<text class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;"></text>
+						<text class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;"></text>
 					</view>
 					<!-- <view class="message-price" v-else>无可用</view> -->
 				</view> 
