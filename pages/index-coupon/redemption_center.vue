@@ -5,15 +5,15 @@
 		
 		<view class="wrapper">
 			<!-- 假数据 -->
-			<view v-for="item in goodslist" class="tea" :data-keynum="item.keynum" @click="confirm_order">
+			<view v-for="item in goodslist" class="tea">
 				<view>
-					<view class="tea-img">
+					<view class="tea-img" :data-keynum="item.keynum" @click="confirm_order">
 						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 					</view>
 					<view style="padding: 16rpx 20rpx 26rpx">
 						<view class="t-title">{{item.goodsname}}</view>
 						<view class="l-title">{{item.goodstitle}}</view>
-						<button size="mini" class="sub">去兑换</button>
+						<button size="mini" class="sub" :data-keynum="item.keynum"   @click="goto">去兑换</button>
 					</view>
 				</view>
 			</view>
@@ -61,9 +61,10 @@
 			})
 		},
 		methods: {
-			goto() {
+			goto(e) {
+				let keynum = e.currentTarget.dataset.keynum;
 				uni.navigateTo({
-					url: './index-address'
+					url: './index-address?good_keynum=' + keynum
 				})
 			},
 			goodsItem(item, e) {

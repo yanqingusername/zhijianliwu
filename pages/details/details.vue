@@ -82,15 +82,19 @@
 		</view>
 
 		<!-- 轮播图 -->
-		<view v-if="details.length>0" style="width: 100%;height: 750rpx;">
-			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true"
-				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#EC1815">
+		<view v-if="details.length>0" style="width: 100%;height: 750rpx;position: relative;">
+			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true" @change="changeswiper"
+				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#C59A5A">
 				<swiper-item v-for="(item,index) in details" :key="index">
 					<view class="details-swiper-img">
 						<image :src="$utils.imageUrl(item)" class="img" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
+			<view class="position-swiper">
+				<view class="position-swiper-t">{{swiperCurrentIndex}}</view>
+				<view class="position-swiper-q">/{{details.length}}</view>
+			</view>
 		</view>
 		<!-- 不是轮播图的时候 -->
 		<view v-else class="details-swiper">
@@ -122,27 +126,27 @@
 			</view>
 		</view>
 		<!-- 优惠券 -->
-		<view class="details-tips" v-if="couponList.length>0">
+		<!-- <view class="details-tips" v-if="couponList.length>0">
 			<view class="details-blessing-alt">领劵送礼更优惠<view class="details-blessing-circular"></view>
 			</view>
 			<view class="coupon-button" style="position: absolute;right: 0;">
 				<own-coupon-list :list="couponList"></own-coupon-list>
 			</view>
-		</view>
+		</view> -->
 		<!-- 祝福语 -->
-		<view class="details-blessing flex-vertically">
+		<view class="details-blessing flex-vertically" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<text class="details-ch">规格</text>
 			<view class="details-ch-xq chec" v-for="(item,index) of guige" :key="index">
 				{{item}}
 			</view>
 		</view>
 		<!-- 退款提示 -->
-		<view class="details-tips flex-vertically">
+		<view class="details-tips flex-vertically" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<text class="details-ch">服务</text>
 			<text class="details-ch-xq">正品保障 · 可开发票 · 发货&售后</text>
 		</view>
 		<!-- 商品详情/商品须知 -->
-		<view class="details-choose">
+		<view class="details-choose" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<view class="details-choose-content margin-auto flex-between">
 				<view @tap="join" data-index="0" :class="commom">商品详情</view>
 				<view @tap="join" class="zengli" data-index="1" :class="commom1">赠礼须知</view>
@@ -150,9 +154,9 @@
 
 		</view>
 		<!-- 商品详情 -->
-		<u-parse :content="btmdetails" v-if="btm"></u-parse>
+		<u-parse :content="btmdetails" v-if="btm && (alt.is_currency_type == 0 || alt.is_currency_type == 2)"></u-parse>
 		<!-- 赠礼须知 -->
-		<view v-else style="background: #fff; padding-top: 30rpx">
+		<view v-else style="background: #fff; padding-top: 30rpx" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<!-- <u-parse :content="btmnotice" style="background: #fff;"></u-parse> -->
 			<image lazy-load="true" src="https://zhijianlw.com/static/web/img/lizengxuzhi_2021_08_26.jpg" mode="widthFix" style="width: 100%;height: 100%;"></image>
 			<view class="z-zlxz">
@@ -179,6 +183,31 @@
 					<view class="z-zlxz-p">2.指间礼物承诺：凡在指间礼物平台购买的商品均按照《中华人民共和国产品质量法》、《中华人民共和国消费者权益保护法》等法律法规执行相应的售后政策。</view>
 				</view>
 			</view>
+		</view>
+		
+		<!-- 卡册类型 -->
+		<view class="card-details-tips" v-if="alt.is_currency_type == 1">
+			<image class="card-details-img" src="https://zhijianlw.com/static/web/img/icon-service-09-23-01.png" lazy-load="true"></image>
+			<view class="card-details-title" style="margin-left: 10rpx;">正品保障</view>
+			<image class="card-details-img" style="margin-left: 60rpx;" src="https://zhijianlw.com/static/web/img/icon-service-09-23-01.png" lazy-load="true"></image>
+			<view class="card-details-title" style="margin-left: 10rpx;">可开发票</view>
+			<image class="card-details-img" style="margin-left: 60rpx;" src="https://zhijianlw.com/static/web/img/icon-service-09-23-01.png" lazy-load="true"></image>
+			<view class="card-details-title" style="margin-left: 10rpx;">发货&售后</view>
+		</view>
+		<view class="card-details-center" v-if="alt.is_currency_type == 1">
+			<view class="card-details-center-title">收礼人可以选择以下1款礼物进行兑换</view>
+		</view>
+		<view class="card-goodslist" v-if="alt.is_currency_type == 1 && alt.client_card_goods_list.length > 0">
+				<view class="card-goods" :data-keynum="post.keynum" @click="confirm_order" v-for="post in alt.client_card_goods_list" :key="post.id">
+					<view class="card-goods-head">
+						<image :src="$utils.imageUrl(post.head_img)" mode=""class="card-goods-head-img" ></image>
+					</view>
+					<view class="card-goods-text">{{post.goodsname}}</view>
+					<!-- <view class="card-goods-sub-text uni-ellipsis">{{post.goodstitle}}</view> -->
+					<view class="card-goods-bottom">
+						<view class="card-goods-bottom-title">查看</view>
+					</view>
+				</view>
 		</view>
 		
 
@@ -351,7 +380,8 @@
 				goodsinfo: {},
 				goods_item: '',
 				guige: [],
-				checknum: '1'
+				checknum: '1',
+				swiperCurrentIndex: 1,
 			}
 		},
 		onLoad: function(e) {
@@ -1188,7 +1218,21 @@
 
 			close1() {
 				this.$refs.popup.close()
-			}
+			},
+			confirm_order:function (e){
+				let keynum = e.currentTarget.dataset.keynum;
+				uni.navigateTo({
+					url: '../index-coupon/ExchangeDetails?keynum=' + keynum + '&isShow=2'
+				})
+				
+			},
+			changeswiper(e) {
+			    let {current, source} = e.detail
+			    if(source === 'autoplay' || source === 'touch') {
+			    //根据官方 source 来进行判断swiper的change事件是通过什么来触发的，autoplay是自动轮播。touch是用户手动滑动。其他的就是未知问题。抖动问题主要由于未知问题引起的，所以做了限制，只有在自动轮播和用户主动触发才去改变current值，达到规避了抖动bug
+			      this.swiperCurrentIndex = e.detail.current + 1;
+			    }
+			  },
 		}
 	}
 </script>
@@ -1345,7 +1389,7 @@
 	.slider{
 		position: fixed;
 		right: 0rpx;
-		top: 50%;
+		top: 60%;
 	}
 	.lilan {
 		/* position: absolute;
@@ -1680,5 +1724,143 @@
 	.new-img{
 		width: 140rpx;
 		height: 140rpx;
+	}
+	
+	/**
+	 * 卡册
+	 */
+	.card-details-tips{
+		width: 750rpx;
+		height: 100rpx;
+		background: #FFFFFF;
+		border-bottom: 10rpx solid #FAFAFA;
+		border-top: 10rpx solid #FAFAFA;
+		display: flex;
+		align-items: center;
+		/* justify-content: center; */
+	}
+	.card-details-img{
+		width: 34rpx;
+		height: 34rpx;
+		margin-left: 26rpx;
+	}
+	.card-details-title{
+		font-size: 26rpx;
+		font-weight: 500;
+		color: #666666;
+	}
+	.card-details-center{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 750rpx;
+		height: 78rpx;
+		background: #FFFFFF;
+	}
+	.card-details-center-title{
+		font-size: 28rpx;
+		font-weight: 500;
+		color: #333333;
+	}
+	.card-goodslist {
+	  /* padding: 20rpx 26rpx; */
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: space-between;
+	  padding-bottom: 10rpx;
+	  background: #F8F8F8;
+	  padding: 20rpx 25rpx;
+	  /* width: 700rpx; */
+	  /* background: #F8F8F8; */
+	}
+	
+	.card-goods {
+	    width: 338rpx;
+	    margin-bottom: 20rpx;
+	    background: #FFFFFF;
+	    border-radius: 3rpx;
+	    position: relative;
+	    height: 556rpx;
+	}
+	
+	.card-goods-head {
+	    position: relative;
+	    width: 338rpx;
+	    height: 338rpx;
+	}
+	
+	.card-goods-head-img{
+		width: 100%;
+		height: 338rpx;
+	}
+	
+	.card-goods-text {
+		margin: 23rpx 26rpx 0rpx 22rpx;
+		width: 290rpx;
+		height: 76rpx;
+	    font-size: 28rpx;
+	    color: #333333;
+	    line-height: 38rpx;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-align: center;
+	    -webkit-align-items: center;
+	    align-items: center;
+	    -webkit-box-pack: center;
+	    -webkit-justify-content: center;
+		justify-content: center;
+	    font-family: monospace;
+	}
+	
+	.card-goods-sub-text{
+		margin: 6rpx 26rpx 0rpx 22rpx;
+		font-size: 24rpx;
+		color: #999999;
+	}
+	
+	.card-goods-bottom{
+		display: flex;
+		margin-top: 27rpx;
+		justify-content: center;
+		align-items: center;
+		width: 180rpx;
+		height: 56rpx;
+		border-radius: 28rpx;
+		/* opacity: 0.4; */
+		border: 1px solid #F9B4B2;
+		margin-left: 80rpx;
+	}
+	.card-goods-bottom-title{
+		font-size: 24rpx;
+		font-weight: 500;
+		color: #EC1815;
+	}
+	
+	.position-swiper{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 105rpx;
+		height: 40rpx;
+		background: #B3B3B3;
+		border-radius: 20rpx;
+		border: 1px solid #B3B3B3;
+		position: absolute;
+	    bottom: 20rpx;
+	    right: 20rpx;
+	}
+	.position-swiper-t{
+		font-size: 30rpx;
+		font-weight: bold;
+		color: #FFFFFF;
+	}
+	.position-swiper-q{
+		font-size: 18rpx;
+		font-weight: 500;
+		color: #FFFFFF;
+		margin-top: 4rpx;
 	}
 </style>

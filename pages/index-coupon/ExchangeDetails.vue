@@ -2,15 +2,19 @@
 	<view :class="[fixed===false?'':'fixed']">
 
 		<!-- 轮播图 -->
-		<view v-if="details.length>0" style="width: 100%;height: 750rpx;">
-			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true"
-				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#EC1815">
+		<view v-if="details.length>0" style="width: 100%;height: 750rpx;position: relative;">
+			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true" @change="changeswiper"
+				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#C59A5A">
 				<swiper-item v-for="(item,index) in details" :key="index">
 					<view class="details-swiper-img">
 						<image :src="$utils.imageUrl(item)" class="img" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
+			<view class="position-swiper">
+				<view class="position-swiper-t">{{swiperCurrentIndex}}</view>
+				<view class="position-swiper-q">/{{details.length}}</view>
+			</view>
 		</view>
 		<!-- 不是轮播图的时候 -->
 		<view v-else class="details-swiper">
@@ -25,9 +29,9 @@
 			<view class="details-alt-title flex-between">
 				<!-- 商品介绍 -->
 				<view class="details-alt-text">{{alt.goodsname}}</view>
-				<text class="details-alt-xq">{{alt.goodstitle}}</text>
+				<!-- <text class="details-alt-xq">{{alt.goodstitle}}</text> -->
 			</view>
-
+			<view class="details-alt-xq">{{alt.goodstitle}}</view>
 			<!-- 价格 -->
 			<view class="details-alt-left">
 				<view class="details-alt-btm flex">
@@ -50,7 +54,7 @@
 		<view class="details-bottom-kong"></view>
 
 		<!-- 底部 -->
-		<view class="details-btm flex" :data-keynum="alt.keynum" @click="confirm_order" >
+		<view class="details-btm flex" :data-keynum="alt.keynum" @click="confirm_order" v-if="isShow==1">
 			<view class="balance-view">去兑换</view>
 		</view>
 	</view>
@@ -81,11 +85,14 @@
 				openid: '',
 				goodsinfo: {},
 				goods_item: '',
+				isShow: 1,
+				swiperCurrentIndex: 1
 			}
 		},
 		onLoad: function(e) {
 			if (e.keynum) {
 				this.keynum = e.keynum;
+				this.isShow = e.isShow;
 			}
 
 			this.level_name = uni.getStorageSync('level_name');
@@ -142,7 +149,14 @@
 				uni.navigateTo({
 					url: './index-address?good_keynum=' + keynum
 				})
-			}
+			},
+			changeswiper(e) {
+			    let {current, source} = e.detail
+			    if(source === 'autoplay' || source === 'touch') {
+			    //根据官方 source 来进行判断swiper的change事件是通过什么来触发的，autoplay是自动轮播。touch是用户手动滑动。其他的就是未知问题。抖动问题主要由于未知问题引起的，所以做了限制，只有在自动轮播和用户主动触发才去改变current值，达到规避了抖动bug
+			      this.swiperCurrentIndex = e.detail.current + 1;
+			    }
+			  },
 		}
 	}
 </script>
@@ -321,7 +335,6 @@
 		font-size: 26rpx;
 		margin-top: 10rpx;
 		margin-bottom: 10rpx;
-		line-height: 1.5em;
 	}
 
 	.details-icon {
@@ -634,4 +647,28 @@
 		justify-content: center;
 	}
 	
+	.position-swiper{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 105rpx;
+		height: 40rpx;
+		background: #B3B3B3;
+		border-radius: 20rpx;
+		border: 1px solid #B3B3B3;
+		position: absolute;
+	    bottom: 20rpx;
+	    right: 20rpx;
+	}
+	.position-swiper-t{
+		font-size: 30rpx;
+		font-weight: bold;
+		color: #FFFFFF;
+	}
+	.position-swiper-q{
+		font-size: 18rpx;
+		font-weight: 500;
+		color: #FFFFFF;
+		margin-top: 4rpx;
+	}
 </style>
