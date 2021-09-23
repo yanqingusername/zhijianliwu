@@ -36,11 +36,11 @@
 			<view class="message">
 				<view class="">
 					<text class="message-title">商品总价：</text>
-					<text class="message-price">￥{{new_price_yuanshi}}</text>
+					<text class="message-price" style="margin-right: 42rpx;">￥{{new_price_yuanshi}}</text>
 				</view>
 				<view class="">
 					<text class="message-title">运费：</text>
-					<text class="message-price">￥{{new_freight}}</text>
+					<text class="message-price" style="margin-right: 42rpx;">￥{{new_freight}}</text>
 				</view>
 				<!-- <view class="">
 					<text class="message-title">优惠券：</text>
@@ -55,9 +55,13 @@
 					<text class="message-title">优惠券：</text>
 					<view class="message-price yhj" v-if="new_price_coupon">
 						<text style="color: #EC1815;" @click="open">{{new_price_coupon ? new_price_coupon : '无可用'}}</text>
-						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1"></text>
+						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;"></text>
 					</view>
-					<view class="message-price" v-else>无可用</view>
+					<view class="message-price yhj" v-else>
+						<text style="color: #BBBBBB;">{{'无可用'}}</text>
+						<text class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;"></text>
+					</view>
+					<!-- <view class="message-price" v-else>无可用</view> -->
 				</view> 
 				
 				<view class="">
@@ -67,8 +71,8 @@
 					<!-- <text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
 					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text> -->
 					
-					<text class="circle iconfont icon-ico2" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==0"></text>
-					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==1"></text>
+					<text class="circle iconfont icon-ico2" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
+					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
 					
 					<!-- </view> -->
 				</view>

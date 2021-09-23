@@ -109,6 +109,7 @@
 		-webkit-box-orient: vertical;
 		align-items: center;
 		justify-content: center;
+		font-family: monospace;
 	}
 	
 	.goods-sub-text{

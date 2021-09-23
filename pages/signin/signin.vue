@@ -2,7 +2,8 @@
 	<view>
 		<view class="new-sign"><image class="new-sign-img" src="https://zhijianlw.com/static/web/img/Embellishment_2021_08_28.jpg" mode=""></image></view>
 		<!-- <view class="sign-alt">指间礼物</view> -->
-		<button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
+		<!-- <button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button> -->
+		<button  @click="toLoginLink" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
 	</view>
 </template>
 
@@ -59,8 +60,36 @@
 				   // }	
 				}
 			},
-			
-				
+			toLoginLink() {
+			    uni.getUserProfile({
+			        desc: '用于完善资料',
+			        success: (res) => {
+			            this.uniGetUserInfo(res);
+			        }
+			    });
+			},
+			uniGetUserInfo(e){
+				let that = this;
+				            const OK = "getUserProfile:ok"
+				            if (e.errMsg == OK) {
+				                if (!e.userInfo) {
+				                    return;
+				                }
+				                if(e.rawData){
+				                   that.Data = JSON.parse(e.rawData);
+				                   	uni.showLoading({
+				                   		title:'登录中',
+				                   		mask:'true'
+				                   	})
+				                   	that.zhu();
+				                }
+				            } else {
+				                wx.showToast({
+				                    title: '温馨提示:为了您更好的体验,请授权用户信息',
+				                    icon: 'none',
+				                })
+				            }
+			},
 		
 			zhu:function (){
 				

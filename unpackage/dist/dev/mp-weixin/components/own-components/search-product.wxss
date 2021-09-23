@@ -75,6 +75,7 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
+	font-family: monospace;
 }
 .goods-sub-text.data-v-66d54531{
 	margin: 6rpx 20rpx 0rpx;

@@ -464,4 +464,20 @@ page{
 	line-height: 33rpx;
 	padding: 0rpx 18rpx;
 }
+.recharge-status-label{
+	font-size: 28rpx;
+	color: #FFFFFF;
+	line-height: 40rpx;
+	text-align: center;
+	margin-top: 10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
 
