@@ -2,7 +2,7 @@
 	<view>
 		<view class="" v-if="com==false">
 			<view class="shop-no-img">
-				<image src="../../static/shop-no.png" class="img" mode=""></image>
+				<image src="https://zhijianlw.com/static/web/img/shop-no.png" class="img" mode=""></image>
 			</view>
 		</view>
 		<!-- 地址栏 -->	

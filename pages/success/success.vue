@@ -10,7 +10,7 @@
 		</view>
 		<!-- 送出 -->
 		<button class="success-forward" open-type="share" @click="$buttonClick(give)">
-			<image class="img" src="../../static/success-forward.jpg" mode=""></image>
+			<image class="img" src="https://zhijianlw.com/static/web/img/success-forward.jpg" mode=""></image>
 		</button>
 		<view class="success-alt">直接发给朋友或发到微信群</view>
 		<!-- 生成海报 -->
