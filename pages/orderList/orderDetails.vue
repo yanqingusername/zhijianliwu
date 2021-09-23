@@ -308,13 +308,13 @@
 				<view class="template-btm-information-voice" v-else-if="cardbag_theme.zhufu_type==1">
 					<!-- 小喇叭 -->
 					<view class="img" @click="audioPlay" v-if="click==0">
-						<image class="img" src="../../static/luyinn.png"></image>
+						<image class="img" src="https://zhijianlw.com/static/web/img/luyinn.png"></image>
 					</view>
 					<view class="img flex" @click="audioPause" v-if="click==1">
-						<image style="width:22rpx ;height:47rpx ;" src="../../static/luyinn-left.png"></image>
-						<image class="first" style="width:11rpx ;height:47rpx ;" src="../../static/luyinn1.png"></image>
-						<image class="second" style="width:8rpx ;height:47rpx ;" src="../../static/luyinn2.png"></image>
-						<image class="third" style="width:11rpx ;height:47rpx ;" src="../../static/luyinn3.png"></image>
+						<image style="width:22rpx ;height:47rpx ;" src="https://zhijianlw.com/static/web/img/luyinn-left.png"></image>
+						<image class="first" style="width:11rpx ;height:47rpx ;" src="https://zhijianlw.com/static/web/img/luyinn1.png"></image>
+						<image class="second" style="width:8rpx ;height:47rpx ;" src="https://zhijianlw.com/static/web/img/luyinn2.png"></image>
+						<image class="third" style="width:11rpx ;height:47rpx ;" src="https://zhijianlw.com/static/web/img/luyinn3.png"></image>
 					</view>
 					<view class="box" @click="audioPlay"></view>
 					<!-- 可滑动	区域 -->
