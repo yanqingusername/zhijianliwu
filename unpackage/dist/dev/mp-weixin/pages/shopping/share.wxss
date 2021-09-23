@@ -35,6 +35,7 @@ page{
 	height: 540px;
 	border-radius: 16rpx;
 	margin-top: -19rpx;
+	/* margin-left: -30rpx; */
 }
 .share-view{
 	display: -webkit-box;

@@ -14,7 +14,7 @@
 			<view class="box" v-else>
 				<view class="box-content">
 					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id">
-						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="widthFix">
+						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
 						<view class="top-right">
 							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>

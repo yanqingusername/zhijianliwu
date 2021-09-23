@@ -308,7 +308,14 @@ export default{
 		 */
 		setCanvasConfig(config){
 			this.ctx.fillStyle = config.backgroundColor
-			this.ctx.fillRect(0, 0, this.canvas_width, this.canvas_height)
+			this.fillRoundRect({
+			x: 0,
+			y: 0,
+			w: 375,
+			h: 560,
+			radius: 10,
+			fill_color: "transparent"
+			})
 		},
 		/**
 		 * Draw to filepath
