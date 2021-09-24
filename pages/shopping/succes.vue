@@ -50,7 +50,7 @@
 			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
 			
 			<view class="btn">
-				<button type="warn" class="firend-btn" @click="firend">保存图片发朋友圈</button>
+				<button type="warn" v-if="typestring == 4" class="firend-btn" @click="firend">保存图片发朋友圈</button>
 				<!-- 文字 -->
 				<button type="warn" class="firend-btn" open-type="share" >发送给朋友</button>
 			</view>
@@ -76,7 +76,7 @@
 				cardbag_theme: {},
 				cardbag: {},
 				isShowAll: false,
-				typestring: 1
+				typestring: 1 //type: 1 直接送礼   type: 4 拼手气礼包
 			}
 		},
 		onLoad: function(e) {

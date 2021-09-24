@@ -3,7 +3,14 @@
 		<view class="new-sign"><image class="new-sign-img" src="https://zhijianlw.com/static/web/img/Embellishment_2021_08_28.jpg" mode=""></image></view>
 		<!-- <view class="sign-alt">指间礼物</view> -->
 		<!-- <button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button> -->
-		<button  @click="toLoginLink" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
+		<button  @click="toLoginLink" :disabled="!isChecked" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
+
+		<view class="sign-view">
+			<checkbox color="#FF0022"class="flex" style="transform:scale(0.5)"
+			@click="selectClick" :checked="isChecked"></checkbox>
+			<text class="sign-text">未注册的微信号将自动注册指间礼物账号，且表示已经同意</text>
+			<text class="sign-text" style="color: #E02020;" @click="signintext">注册协议</text>
+		</view>
 	</view>
 </template>
 
@@ -15,7 +22,8 @@
 				Data:'',
 				receive:'',
 				parent_member:'',
-				cardbag_number:''
+				cardbag_number:'',
+				isChecked: true
 			}
 		}, 
 		
@@ -36,7 +44,14 @@
 		},
 		
 		methods: {
-			
+			signintext(e){
+				uni.navigateTo({
+					url:'./signintext'
+				})
+			},
+			selectClick(e){
+				this.isChecked = !this.isChecked;
+			},
 			bindGetUserInfo(e){
 				// 用户信息
 				
@@ -276,6 +291,16 @@ page{
 	font-size: 34rpx;
 	color: #FFFFFF;
     text-align: center;
+}
+.sign-view{
+	display: flex;
+	align-items: center;
+	margin-top: 36rpx;
+	justify-content: center;
+}
+.sign-text{
+	font-size: 20rpx;
+	color: #AAAAAA;
 }
 
 </style>

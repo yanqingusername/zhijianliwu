@@ -4622,37 +4622,17 @@ page{
 	background-color: #FFFFFF;
 }
 .new-sign{
-	width: 100%;
-	height: 370rpx;
-}
-.new-sign-img{
-	width: 100%;
-	height: 100%;
-}
-.new-wxsign {
-	width: 608rpx;
-	height: 80rpx;
-	background: #52A91C;
-	border-radius: 40rpx;
-	font-size: 34rpx;
-	color: #FFFFFF;
-    text-align: center;
-}
-.sign-view{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	margin-top: 36rpx;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-direction: normal;
+	    -webkit-flex-direction: column;
+	            flex-direction: column;
+	    padding: 20rpx 40rpx 30rpx 30rpx;
 }
-.sign-text{
-	font-size: 20rpx;
-	color: #AAAAAA;
+.new-sign text{
+	line-height: 40rpx;
 }
 
 

@@ -97,6 +97,11 @@
             "style" : {
 		      "navigationBarTitleText":"授权登录"
 			}
+        },{
+            "path" : "pages/signin/signintext",
+            "style" : {
+		      "navigationBarTitleText":"指间礼物"
+			}
         }
    //      ,{
    //          "path" : "pages/template/template", 
