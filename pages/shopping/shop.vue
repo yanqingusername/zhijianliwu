@@ -179,7 +179,7 @@
 			 
 			 <!-- 确认订单按钮 -->
 			<view class="z-btn-bottom">
-				<view class="shop-bottom-price"><text>￥</text><text>{{price_zhe}}</text></view>
+				<view class="shop-bottom-price"><text>￥</text><text>{{price_zhe || '0.00'}}</text></view>
 				<button class="shop-botton-btn" type="warn" @click="packages">生成礼物红包</button>
 			</view>
 		</view>
