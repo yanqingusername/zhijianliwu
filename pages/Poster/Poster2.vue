@@ -245,6 +245,7 @@
 										setTimeout(function() {
 											uni.canvasToTempFilePath({
 												canvasId: 'myCanvas',
+												quality: 1,
 												success: function(res) {
 													uni.hideLoading();
 													// console.log('保存图片',res)

@@ -19,6 +19,18 @@ page{
 	    height: 80rpx;
 	    /* padding-top: 21rpx; */
 }
+.search-type-nav-price {
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: flex;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+}
 .search-type-nav {
 	    display: -webkit-box;
 	    display: -webkit-flex;
@@ -55,6 +67,7 @@ page{
 		width: 30rpx;
 		height: 30rpx;
 		margin-left: 5rpx;
+		margin-top: 6rpx;
 }
 .search-type-empty{
 		width: 31rpx;

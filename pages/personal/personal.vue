@@ -643,6 +643,46 @@
 					url: '/pages/details/details?keynum=' + index,
 				})
 			},
+			onPullDownRefresh(){
+				this.pageIndex = 1;
+				let that = this;
+				var sign = uni.getStorageSync('sign')
+				if(sign){
+					let time = setTimeout(function(e){
+					 	that.showa = 1;
+					 	clearTimeout(time)
+					},100)
+					 
+					// 基本配置
+					this.basic();
+					// 基本信息
+					this.login();
+					// 收藏
+					this.collection();
+					// 优惠券
+					this.coupon();
+					// 海报
+					this.haibao();
+					this.sta = '200';
+				}else{
+					this.sta = '0';
+				}
+				
+				var data = JSON.stringify({
+					pageIndex: this.pageIndex,
+					pageSize: this.pageSize
+				});
+				var action = 'get_tuijian_goods';
+				this.$utils.post(action, data).then(res => {
+					if (res.sta == 1) {
+						setTimeout(()=>{
+							uni.stopPullDownRefresh();
+						}, 500)
+						this.commody = res.rs;
+						this.pageIndex++;
+					}
+				})
+			},
 		}
 	}
 </script>

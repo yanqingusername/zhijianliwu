@@ -46,7 +46,11 @@
 		 }
 		 // 是否扫码
 		 if(e.scene){
-			 this.parent_member = e.scene
+			 this.parent_member = e.scene;
+			 var sign = uni.getStorageSync('sign')
+			 if(sign){
+				this.getRou();
+			 }
 		 }
 		},
 		

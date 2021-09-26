@@ -32,7 +32,7 @@
 		
 		<view v-else style="padding-top: 200rpx;">
 			<view class="search-type">
-				<view class="search-type-content flex-between">
+				<view class="search-type-content flex-between" style="align-items: center;">
 					<view class="search-type-nav" data-index='0' @click="clickHandler" :data-conditionkey="recommendData.key">
 						<view class="search-type-title">{{recommendData.name}}</view>
 						<image class="search-type-img" v-if="indexCurrent == 0" src="../../static/icon_current_slices.png"></image>
@@ -43,13 +43,13 @@
 						<image class="search-type-img" v-if="indexCurrent == 1" src="../../static/icon_current_slices.png"></image>
 						<view class="search-type-empty" v-else></view>
 					</view>
-					<view class="search-type-nav" data-index='2' @click="clickPopUp" :data-conditionkey="priceData.key">
-						<view class="search-type-nav-ar">
+					<view class="search-type-nav-price" style="flex-direction: row;" data-index='2' @click="clickPopUp" :data-conditionkey="priceData.key">
+						<view class="search-type-nav-ar" style="flex-direction: column;">
 							<view class="search-type-title">{{priceData.name}}</view>
-							<image class="search-type-img-ar" src="../../static/drop_down_arrow.png"></image>
+							<image class="search-type-img" v-if="indexCurrent == 2" src="../../static/icon_current_slices.png"></image>
+							<view class="search-type-empty" v-else></view>
 						</view>
-						<image class="search-type-img" v-if="indexCurrent == 2" src="../../static/icon_current_slices.png"></image>
-						<view class="search-type-empty" v-else></view>
+						<image class="search-type-img-ar" src="../../static/drop_down_arrow.png"></image>
 					</view>
 				</view>
 			</view>
@@ -226,6 +226,7 @@
 				this.indexCurrent = index;
 				this.conditionkey = e.currentTarget.dataset.conditionkey;
 				this.pricekey = "";
+				this.$refs['popupSearch'].close();
 				this.getProductList(1);
 			},
 			clickPopUp: function(e){
@@ -327,6 +328,11 @@
 	    /* padding-top: 21rpx; */
 	}
 	
+	.search-type-nav-price {
+	    display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
 	.search-type-nav {
 	    display: flex;
 	    align-items: center;
@@ -351,6 +357,7 @@
 		width: 30rpx;
 		height: 30rpx;
 		margin-left: 5rpx;
+		margin-top: 6rpx;
 	}
 	.search-type-empty{
 		width: 31rpx;

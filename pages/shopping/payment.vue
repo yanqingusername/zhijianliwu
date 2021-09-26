@@ -8,7 +8,7 @@
 						<view class="z-payment-top-pay">实付 ￥{{orderinfo.orderprice_discount}}</view>
 						<view class="z-payment-top-wx">{{payinfo.paymethod}}</view>
 					</view>
-					<image class="z-payment-top-suc" :src="$utils.osspath_url('/xcx-static/payment/success.png')" mode="widthFix"></image>
+					<image class="z-payment-top-suc" src="https://zhijianlw.com/static/web/img/icon-success-09-26-01.png" mode="widthFix"></image>
 				</view>
 				
 				<view class="bottom">
@@ -28,7 +28,7 @@
 				<view class="z-list1" v-for="item in list1" :key="item.id">
 					<view>
 						<view class="z-list1_img">
-							<image :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+							<image :src="$utils.imageUrl(item.head_img)" mode="" style="width:300rpx;height: 300rpx;"></image>
 						</view>
 						<view class="z-list-bottom">
 							<view class="list1-title">{{item.goodsname}}</view>
