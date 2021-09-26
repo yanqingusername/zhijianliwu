@@ -35,7 +35,7 @@
 			</view>
 			<view class="apply-flex" v-if="goods_list.length == 1 && (typerefund ==2 || typerefund ==3)">
 				<view class="apply-flex-title">换货数量</view>
-				<view class="apply-flex-view-number flex-vertically">1件</view>
+				<view class="apply-flex-view-number flex-vertically">{{goods_list[0].goodsnum}}件</view>
 			</view>
 			<view class="apply-flex" v-if="typerefund ==1 || typerefund ==3">
 				<view class="apply-flex-title">退款金额</view>

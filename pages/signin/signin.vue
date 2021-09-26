@@ -3,7 +3,9 @@
 		<view class="new-sign"><image class="new-sign-img" src="https://zhijianlw.com/static/web/img/Embellishment_2021_08_28.jpg" mode=""></image></view>
 		<!-- <view class="sign-alt">指间礼物</view> -->
 		<!-- <button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button> -->
-		<button  @click="toLoginLink" :disabled="!isChecked" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button>
+		<button  v-if='AuthStatus' @click="toLoginLink" :disabled="!isChecked" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信授权登录</button>
+		<button  v-else class="new-wxsign margin-auto" style="margin-top: 80rpx;" open-type="getPhoneNumber"
+		            @getphonenumber="bindPhoneNumber">微信授权手机号</button>
 
 		<view class="sign-view">
 			<checkbox color="#FF0022"class="flex" style="transform:scale(0.5)"
@@ -23,7 +25,9 @@
 				receive:'',
 				parent_member:'',
 				cardbag_number:'',
-				isChecked: true
+				isChecked: true,
+				AuthStatus: true, // true: 用户信息 false : 手机号
+				telstring: ''
 			}
 		}, 
 		
@@ -31,6 +35,9 @@
 			// console.log('扫码进来的',e)
 			
 		    this.openid();
+			
+			let telstring = uni.getStorageInfoSync('telstring');
+			this.telstring = telstring;
 		  
 		  // 登录领取红包
 		 if(e.receive){
@@ -96,18 +103,18 @@
 				                   		title:'登录中',
 				                   		mask:'true'
 				                   	})
-				                   	that.zhu();
+				                   	that.zhu(e);
 				                }
 				            } else {
-				                wx.showToast({
+				                uni.showToast({
 				                    title: '温馨提示:为了您更好的体验,请授权用户信息',
 				                    icon: 'none',
 				                })
 				            }
 			},
 		
-			zhu:function (){
-				
+			zhu(e){
+				let that = this;
 				// 基本信息
 				var rawdata = this.Data; 
 				// openid
@@ -148,7 +155,7 @@
 					   //登录   
 						var data = '{"wx_openid":"'+openid+'"}';
 						var action = 'member_login';
-						 this.$utils.post(action,data).then(res=>{
+						 that.$utils.post(action,data).then(res=>{
 							 // console.log('基本信息',res.rs)
 							 // 全部
 							 uni.setStorageSync('sign',res.rs)
@@ -176,40 +183,48 @@
 							 	uni.setStorageSync('discount_name',res.rs.discount_name)  
 							 }
 							 
-							  if(this.receive){
-								  uni.hideLoading();
-								  var that = this;
-								  uni.showToast({
-								   	title:'登录成功',  
-								   	icon:"success",
-								   	mask:'true', 
-								   	success: (res) => {
-								   		setTimeout(function(e){
-								   			uni.reLaunch({
-								   				url:'../redEnvelopes/redEnvelopes?cardbag_number=' + that.cardbag_number
-								   			})
-								   		}
-								   		,1500) 
-								   	}
-								  })  
-							  }else{
-								 uni.hideLoading();
-								// 登录跳转
-							     uni.showToast({
-							     	title:'登录成功',
-							     	icon:"success",
-							     	mask:'true',
-							     	success: (res) => {
-							     		setTimeout(function(e){
-							     			uni.reLaunch({
-							     				// url:'../personal/personal' 
-												url:'../index/index'
-							     			})
-							     		}
-							     		,1500) 
-							     	}
-							    })  
-							  }
+							
+							uni.hideLoading();
+							if(that.telstring == 'phone_number'){
+								that.getRou();
+							}else{
+								that.AuthStatus = false;
+							}
+							 
+							 //  if(that.receive){
+								//   uni.hideLoading();
+								//   uni.showToast({
+								//    	title:'登录成功',  
+								//    	icon:"success",
+								//    	mask:'true', 
+								//    	success: (res) => {
+								//    		setTimeout(function(e){
+								//    			uni.reLaunch({
+								//    				url:'../redEnvelopes/redEnvelopes?cardbag_number=' + that.cardbag_number
+								//    			})
+								//    		}
+								//    		,1500) 
+								//    	}
+								//   })  
+							 //  }else{
+								//  uni.hideLoading();
+								//  // that.getMemberPhone(e);
+								// // 登录跳转
+							 //     uni.showToast({
+							 //     	title:'登录成功',
+							 //     	icon:"success",
+							 //     	mask:'true',
+							 //     	success: (res) => {
+							 //     		setTimeout(function(e){
+							 //     			uni.reLaunch({
+							 //     				// url:'../personal/personal' 
+								// 				url:'../index/index'
+							 //     			})
+							 //     		}
+							 //     		,1500) 
+							 //     	}
+							 //    })  
+							 //  }
 							  
 								 
 						 })
@@ -264,7 +279,70 @@
 				  }) 	
 				} 
 			},
-			
+			// 授权手机号
+			    bindPhoneNumber(e) {
+					console.log(e)
+			        // 用户同意授权
+			        const OK = 'getPhoneNumber:ok'
+			        if (e.detail.errMsg == OK) {
+			            // 判断 session_key 有无到期
+			            this.getMemberPhone(e)
+			        } else {
+						this.getRou();
+					}
+			    },
+			// 获取
+			getMemberPhone(e){
+				let that = this;
+				var openid = uni.getStorageSync('openid');
+						
+				// 判断是否获取
+				if(openid){
+					
+							var data = JSON.stringify({
+								encrypted_data: e.detail.encryptedData,
+								wx_openid: openid,
+								iv: e.detail.iv
+							})
+							var action = 'get_member_phone_number';
+							var controller = 'member';
+							this.$utils.postNew(action,data,controller).then(res=>{
+								uni.setStorageSync('telstring','phone_number');
+								that.getRou();
+							})
+						
+				} 
+			},
+			getRou(){
+				if(this.receive){
+					
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:'../redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number
+								})
+							},1500) 
+						}
+					})  
+				}else{
+					uni.showToast({
+						title:'登录成功',
+						icon:"success",
+						mask:'true',
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:'../index/index'
+								})
+							},1500) 
+						}
+					})  
+				}
+			}
 		}
 	}
 </script>

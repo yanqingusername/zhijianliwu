@@ -8,7 +8,7 @@
 						<view class="new-coupon-lable">¥<text class="new-coupon-money">{{item.money}}</text></view>
 						<view class="new-coupon-text">满{{item.full_money}}元可用</view>
 					</view>
-					<view class="new-coupon-left" style="margin-left: 80rpx;">
+					<view class="new-coupon-left" style="margin-left: 60rpx;">
 						<view class="new-coupon-desc">{{item.title}}</view>
 						<view class="new-coupon-coupontype">{{'('+item.type_info+')'}}</view>
 					</view>

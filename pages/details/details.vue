@@ -209,7 +209,7 @@
 					</view>
 				</view>
 		</view>
-		
+		<view v-if="alt.is_currency_type == 1 && alt.client_card_goods_list.length == 0" style="height: 30rpx;"></view>
 
 		<view class="details-bottom-kong"></view>
 
