@@ -2,7 +2,7 @@
 	<view>
 		<view class="new-coupon-content" v-if="couponList.length > 0">
 			<view class="new-coupon-content-li flex" v-for="(item,index) in couponList" :key="index">
-				<image src="../../static/coupon_bg.png" class="new-coupon-img"></image>
+				<image src="https://zhijianlw.com/static/web/img/coupon_bg.png" class="new-coupon-img" lazy-load="true"></image>
 				<view class="new-coupon-view">
 					<view class="new-coupon-left">
 						<view class="new-coupon-lable">¥<text class="new-coupon-money">{{item.money}}</text></view>

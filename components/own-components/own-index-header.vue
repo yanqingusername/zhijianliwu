@@ -4,7 +4,7 @@
 		<view class="z-logo-top">
 			<view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view>
 			<!-- <image :src="$utils.osspath_url('/xcx-static/index/logo.png')" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image> -->
-			<image src="../../static/logo.png" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image>
+			<image src="https://zhijianlw.com/static/web/img/logo.png" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()" lazy-load="true"></image>
 		</view>
 		
 		

@@ -2,7 +2,7 @@
 	<view>
 		<!-- 头部 -->
 		<view class="shop-header member-header template-header" style="height: 200rpx;">
-			<image class="shop-header-background template-header" style="height: 200rpx;" src="../../static/my-top.jpg"
+			<image class="shop-header-background template-header" style="height: 200rpx;" src="https://zhijianlw.com/static/web/img/my-top.jpg" lazy-load="true"
 				mode=""></image>
 		</view>
 		<!-- 企业会员 -->

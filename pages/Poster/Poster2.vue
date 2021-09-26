@@ -10,7 +10,7 @@
 		<view class="poster-btm flex-between">
 			<button class="poster-li" open-type="share" @click="share">
 				<view class="poster-img">
-					<image class="img" src="../../static/wx.jpg" mode=""></image>
+					<image class="img" src="https://zhijianlw.com/static/web/img/wx.jpg" mode="" lazy-load="true"></image>
 				</view>
 				<view class="poster-text">分享好友</view>
 			</button>

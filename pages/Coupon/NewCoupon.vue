@@ -71,7 +71,7 @@
 				<view class="coupon-content-circular-top"></view>
 				<view class="coupon-content-circular-btm"></view>
 				<view class="coupon-bottom-state coupon-no-right-state">
-					<image class="img" src="../../static/shiyong.png" mode=""></image>
+					<image class="img" src="https://zhijianlw.com/static/web/img/shiyong.png" mode="" lazy-load="true"></image>
 				</view>
 			</view>
 			<!--  已过期 -->
@@ -98,7 +98,7 @@
 				<view class="coupon-content-circular-top"></view>
 				<view class="coupon-content-circular-btm"></view>
 				<view class="coupon-bottom-state coupon-no-right-state">
-					<image class="img" src="../../static/yiguoqi.png" mode=""></image>
+					<image class="img" src="https://zhijianlw.com/static/web/img/yiguoqi.png" mode="" lazy-load="true"></image>
 				</view>
 			</view>
 		</view>
@@ -142,7 +142,7 @@
 			<view class="coupon-content-circular-top"></view>
 			<view class="coupon-content-circular-btm"></view>
 			<view class="coupon-bottom-state">
-				<image class="img" src="../../static/yilingqu.png" mode=""></image>
+				<image class="img" src="https://zhijianlw.com/static/web/img/yilingqu.png" mode="" lazy-load="true"></image>
 			</view>
 		</view>
 		<!-- 已使用 -->
@@ -177,7 +177,7 @@
 			<view class="coupon-content-circular-top"></view>
 			<view class="coupon-content-circular-btm"></view>
 			<view class="coupon-bottom-state coupon-no-right-state">
-				<image class="img" src="../../static/shiyong.png" mode=""></image>
+				<image class="img" src="https://zhijianlw.com/static/web/img/shiyong.png" mode="" lazy-load="true"></image>
 			</view>
 		</view>
 		<!-- 已过期 -->
@@ -212,7 +212,7 @@
 			<view class="coupon-content-circular-top"></view>
 			<view class="coupon-content-circular-btm"></view>
 			<view class="coupon-bottom-state coupon-no-right-state">
-				<image class="img" src="../../static/yiguoqi.png" mode=""></image>
+				<image class="img" src="https://zhijianlw.com/static/web/img/yiguoqi.png" mode="" lazy-load="true"></image>
 			</view>
 		</view>
 

@@ -4,7 +4,7 @@
 		<view class="shop-header member-header template-header">
 			<view class="member-kong"></view>
 			<!-- 背景图 -->
-			<image class="shop-header-background template-header member-img" src="../../static/my-top.jpg" mode=""></image>
+			<image class="shop-header-background template-header member-img" src="https://zhijianlw.com/static/web/img/my-top.jpg" mode="" lazy-load="true"></image>
 			<!-- <view class="my-nav"></view> -->
 			<!-- 信息 -->
 		     <view class="shop-interstall margin-auto flex">
@@ -19,7 +19,7 @@
 				  <!-- <view> -->  
 					<!-- 内容 -->  
 					<view class="member-content" >
-					   <image class="member-content-background" src="../../static/putong.jpg" mode=""></image>
+					   <image class="member-content-background" src="https://zhijianlw.com/static/web/img/putong.jpg" mode="" lazy-load="true"></image>
 					   <view class="member-content-header flex">
 						   <view class="member-portrait"><image class="img" :src="$utils.imageUrl(head_img)" mode=""></image></view>
 						   <view>
@@ -51,7 +51,7 @@
 				 <view v-else-if="item.level == 2">
 				 <!-- <view> -->
 					 <view class="member-content" >
-				 			   <image class="member-content-background" src="../../static/zhijian.jpg" mode=""></image>
+				 			   <image class="member-content-background" src="https://zhijianlw.com/static/web/img/zhijian.jpg" mode="" lazy-load="true"></image>
 				 			   <view class="member-content-header flex">
 				 				   <view class="member-portrait"><image class="img" :src="$utils.imageUrl(head_img)" mode=""></image></view>
 				 				   <view>
