@@ -1625,14 +1625,17 @@
 		left: 28rpx;
 		/* width: 20rpx; */
 		/* height: 20rpx; */
-		line-height: 20rpx;
+		line-height: 26rpx;
 		text-align: center;
 		border-radius: 10rpx;
 		background-color: red;
-		font-size: 10px;
+		font-size: 16rpx;
 		color: #fff;
 		width: 30rpx;
 		height: 20rpx;
+		display: flex;
+		align-items: center;
+	    justify-content: center;
 	}
 	.num_all {
 	    position: absolute;
@@ -1640,14 +1643,17 @@
 	    left: 28rpx;
 	    /* width: 20rpx; */
 	    /* height: 20rpx; */
-	    line-height: 20rpx;
+	    line-height: 26rpx;
 	    text-align: center;
 	    border-radius: 50%;
 	    background-color: red;
-	    font-size: 10px;
+	    font-size: 16rpx;
 	    color: #fff;
 	    width: 20rpx;
 		height: 20rpx;
+		display: flex;
+		align-items: center;
+	    justify-content: center;
 	}
 	.bottom-lilan{
 		display: inline-block;
