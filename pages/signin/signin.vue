@@ -5,7 +5,7 @@
 		<!-- <button  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信一键登录</button> -->
 		<button  v-if='AuthStatus' @click="toLoginLink" :disabled="!isChecked" class="new-wxsign margin-auto" style="margin-top: 80rpx;">微信授权登录</button>
 		<button  v-else class="new-wxsign margin-auto" style="margin-top: 80rpx;" open-type="getPhoneNumber"
-		            @getphonenumber="bindPhoneNumber">微信授权手机号</button>
+		            @getphonenumber="bindPhoneNumber">手机号授权</button>
 
 		<view class="sign-view">
 			<checkbox color="#FF0022"class="flex" style="transform:scale(0.5)"
