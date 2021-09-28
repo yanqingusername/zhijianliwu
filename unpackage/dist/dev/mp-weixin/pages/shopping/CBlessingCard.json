@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "定制祝福卡",
+  "navigationBarBackgroundColor": "#F5F5F5",
+  "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "首页",
+          "pathName": "pages/index/index",
+          "query": ""
+        },
+        {
+          "name": "pages/shopping/CBlessingCard",
+          "pathName": "pages/shopping/CBlessingCard",
+          "query": "type=0",
+          "scene": null
+        },
+        {
+          "name": "pages/shopping/CBlessingCardWe",
+          "pathName": "pages/shopping/CBlessingCardWe",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

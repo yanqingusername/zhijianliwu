@@ -271,6 +271,19 @@ export default{
 			this.ctx.lineTo(w,h)
 			this.ctx.stroke()
 		},
+		
+		drawLineTo1(config){
+			let line_width = config.line_width || 1
+			let line_color = config.line_color || "black"
+			let line_cap = config.line_cap || "butt"
+			this.ctx.beginPath()
+			// this.ctx.lineWidth = line_width
+			// this.ctx.strokeStyle = line_color
+			this.ctx.moveTo(config.x,config.y)
+			this.ctx.lineTo(config.w,config.h)
+			this.ctx.stroke()
+		},
+		
 		/** 
 		 * Compatibility px
 		 * @param {Object} size
@@ -296,9 +309,15 @@ export default{
 				this.canvas_width = config.canvas_width ? this.compatibilitySize(config.canvas_width) : system_info.windowWidth
 				this.canvas_height = config.canvas_height ? this.compatibilitySize(config.canvas_height) : system_info.windowHeight
 				this.ctx = uni.createCanvasContext(this.canvas_id,this)
-				this.setCanvasConfig({
-					backgroundColor:config.background_color?config.background_color:"#fff"
-				})
+				if(config.showType == 1){
+					this.setCanvasConfig1({
+						backgroundColor:config.background_color?config.background_color:"#fff"
+					})
+				}else{
+					this.setCanvasConfig({
+						backgroundColor:config.background_color?config.background_color:"#fff"
+					})
+				}
 				resolve()
 			})
 		},
@@ -316,6 +335,10 @@ export default{
 			radius: 10,
 			fill_color: "transparent"
 			})
+		},
+		setCanvasConfig1(config){
+			this.ctx.fillStyle = config.backgroundColor
+			this.ctx.fillRect(0, 0, this.canvas_width, this.canvas_height)
 		},
 		/**
 		 * Draw to filepath

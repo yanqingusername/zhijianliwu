@@ -390,6 +390,24 @@
 				"navigationBarTextStyle": "white"
 			}
         },{
+            "path" : "pages/shopping/CBlessingCard",
+            "style" : {
+				"navigationBarTitleText":"定制祝福卡",
+				"navigationBarBackgroundColor":"#F5F5F5"
+			}
+        },{
+            "path" : "pages/shopping/CBlessingCardWe",
+            "style" : {
+				"navigationBarTitleText":"礼包",
+				"navigationBarBackgroundColor":"#F5F5F5"
+			}
+        },{
+            "path" : "pages/shopping/CBlessingCardShare",
+            "style" : {
+				"navigationBarTitleText":"分享礼包",
+				"navigationBarBackgroundColor":"#F5F5F5"
+			}
+        },{
             "path" : "pages/shopping/wishes",
             "style" : {
 				"navigationBarTitleText":"",

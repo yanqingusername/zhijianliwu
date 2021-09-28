@@ -50,6 +50,8 @@
 			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
 			
 			<view class="btn">
+				<button type="warn" v-if="typestring == 1" class="firend-btn" @click="firendCard">保存卡片发朋友圈</button>
+				
 				<button type="warn" v-if="typestring == 4" class="firend-btn" @click="firend">保存图片发朋友圈</button>
 				<!-- 文字 -->
 				<button type="warn" class="firend-btn" open-type="share" >发送给朋友</button>
@@ -159,7 +161,30 @@
 					this.gift = res.type1_goodslist[0];
 					this.isShowAll = !this.isShowAll;
 				})
-			},	
+			},
+			firendCard: function(e) {
+				let cardbag_number = uni.getStorageSync("cardbag_number")
+				this.cardbag_number = cardbag_number
+				var action = 'get_cardbag_detail';
+
+				let merberid = uni.getStorageSync('id')
+				var data = JSON.stringify({
+					cardbag_number: this.cardbag.cardbag_number,
+					cardbag_detail_id: 0,
+					merberid: merberid
+				})
+				this.$utils.post(action, data).then(res => {
+					console.log('商品信息', res)
+					// this.gift=res.rs.goodslist
+					this.background = res.cardbag_theme.background
+					this.send_talk_msg = res.cardbag_theme.send_talk_msg
+					uni.setStorageSync("background", res.cardbag_theme.background)
+					uni.setStorageSync("send_talk_msg", res.cardbag_theme.send_talk_msg)
+					uni.navigateTo({
+						url: '../shopping/CBlessingCardShare?cardbag_number=' + this.cardbag.cardbag_number
+					})
+				})
+			},
 			firend: function(e) {
 				let cardbag_number = uni.getStorageSync("cardbag_number")
 				this.cardbag_number = cardbag_number
@@ -242,14 +267,19 @@
 					this.$utils.post(action1, data1).then(res => {
 						console.log('结果', res)
 
-					})			
+					})		
+				
+				let path = "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number;
+				if(this.typestring == 1){
+					path = "../shopping/CBlessingCardWe?cardbag_number=" + this.cardbag.cardbag_number
+				}
 			
 			
 			return {
 				title: this.cardbag_theme.send_talk_msg,
 				provider: "weixin",
 				scene: "WXSceneSession",
-				path: "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number,
+				path: path,
 				type: 0,
 				imageUrl: this.cardbag_theme.background,
 				success(res) {

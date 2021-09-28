@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "分享礼包",
+  "navigationBarBackgroundColor": "#F5F5F5",
+  "usingComponents": {
+    "r-canvas": "/components/r-canvas/r-canvas"
+  }
+}

@@ -28,7 +28,7 @@
 						</view>
 					</view>
 					<view v-else>
-						<image class="personal-sign-img" src="../../static/my-touxiang.jpg" mode=""></image>
+						<image class="personal-sign-img" src="https://zhijianlw.com/static/web/img/my-touxiang.jpg" mode=""></image>
 					</view>
 					
 					<view class="personal-center-name" v-if="sign.id">

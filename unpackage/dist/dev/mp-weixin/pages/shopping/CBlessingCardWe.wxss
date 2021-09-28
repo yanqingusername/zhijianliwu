@@ -1,0 +1,85 @@
+
+page{
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+
+
+/* 信息 */
+.gift-small{
+	width: 100%;
+	position: relative;
+	/* height: 600rpx; */
+}
+.icon-card-select-0{
+	width: 750rpx;
+	height: 1275rpx;
+}
+.icon-card-select-1{
+	position: absolute;
+	    top: 340rpx;
+	    left: 84rpx;
+	    width: 76rpx;
+	    height: 76rpx;
+}
+.icon-card-select-2{
+	position: absolute;
+	    top: 439rpx;
+	        left: 84rpx;
+	    width: 400rpx;
+	    font-size: 28rpx;
+	    /* color: #575D65; */
+	    height: 34rpx;
+	    /* border-bottom: 1px solid #EEEEEE; */
+}
+.icon-card-select-3{
+	    position: absolute;
+	    top: 490rpx;
+	    left: 84rpx;
+	    width: 584rpx;
+	    height: 224rpx;
+}
+.icon-card-select-4{
+	position: absolute;
+	    top: 736rpx;
+	    right: 80rpx;
+	    width: 353rrpx;
+	    height: 30rpx;
+	    font-size: 28rpx;
+	    /* color: #575D65; */
+	    /* border-bottom: 1px solid #EEEEEE; */
+}
+.gift-btn{
+	margin-top: 60rpx;
+	    width: 640rpx;
+	    background-color: #F55856;
+	    height: 80rpx;
+	    line-height: 80rpx;
+	    margin-bottom: 30rpx;
+	    font-size: 32rpx;
+	    border-radius: 50rpx;
+}
+
+
+/*wxss*/
+.section{
+    height: 220rpx;
+    width: 100%;
+    position: absolute;
+    line-height: 52rpx;
+    overflow: scroll;
+    font-size: 30rpx;
+    background: #FFF7EA;
+  /* text-decoration-line: underline; */
+}
+.text{
+	height: 220rpx;
+	    -webkit-text-decoration-line: underline;
+	    text-decoration-line: underline;
+	    position: absolute;
+	    width: 100%;
+	    background: -webkit-repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+}
+

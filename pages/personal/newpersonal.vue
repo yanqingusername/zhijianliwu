@@ -18,7 +18,7 @@
 			</view>
 			<!-- 未登录状态 -->
 			<view class="my-header-interstall flex margin-auto" v-else>
-				<image class="my-header-img" src="../../static/my-touxiang.jpg" mode=""></image>
+				<image class="my-header-img" src="https://zhijianlw.com/static/web/img/my-touxiang.jpg" mode=""></image>
 				<view class="my-header-state">未登录</view>
 				<view class="my-header-sign" @click="$buttonClick(signIn)">立即登录></view>
 			</view>
@@ -77,7 +77,7 @@
 				
 				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
 					<view class="my-comtent-bottom-li" @click="$buttonClick(giftList)">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
+						<view class="my-comtent-bottom-img"><image  class="img" src="https://zhijianlw.com/static/web/img/liwu.png" lazy-load="true" mode=""></image></view>
 						<view class="my-comtent-bottom-text">礼包</view>
 					</view>
 					
@@ -123,7 +123,7 @@
 				
 				<view class="my-comtent-bottom-ul flex-between" :class="[item.index==0?'border':'']">
 					<view class="my-comtent-bottom-li" @click="text" :data-index="0">
-						<view class="my-comtent-bottom-img"><image  class="img" src="../../static/my-liwu.png" mode=""></image></view>
+						<view class="my-comtent-bottom-img"><image  class="img" src="https://zhijianlw.com/static/web/img/liwu.png" lazy-load="true" mode=""></image></view>
 						<view class="my-comtent-bottom-text">求个礼物</view>
 					</view>
 					<view class="my-comtent-bottom-li" @click="text" :data-index="1">

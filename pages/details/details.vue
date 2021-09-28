@@ -258,7 +258,7 @@
 			<!-- 求礼物 -->
 			<view class="details-alt-logo gifts" style="margin: 0;padding: 0;">
 				<!-- <image @click="gotoShare" class="img" :src="$utils.osspath_url('/xcx-static/details/qiugift.png')" -->
-				<image @click="gotoShare" class="new-img" src="../../static/liwu.png" mode="widthFix"></image>
+				<image @click="gotoShare" class="new-img" src="https://zhijianlw.com/static/web/img/liwu.png" lazy-load="true" mode="widthFix"></image>
 				<uni-popup ref="popup" backgroundColor="#fff" type="bottom">
 					<view class="qiu">
 						<!-- <text class="wx">发送给微信好友</text>

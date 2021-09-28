@@ -16,7 +16,7 @@
 			</button>
 			<view class="poster-li" @click="down">
 				<view class="poster-img">
-					<image class="img" src="../../static/down.jpg" mode=""></image>
+					<image class="img" src="https://zhijianlw.com/static/web/img/down.jpg" mode=""></image>
 				</view>
 				<view class="poster-text">保存图片</view>
 			</view>

@@ -19,7 +19,7 @@
 				<image src="../../static/reception-address-location.png" class="reception-address-img"></image>
 				<view class="reception-address-text">获取微信地址</view>
 			</view>
-			<image src="../../static/reception-address-line.png" class="reception-address-line"></image>
+			<image src="https://zhijianlw.com/static/web/img/reception-address-line.png" class="reception-address-line"></image>
 		</view>
 		
 		<!--  -->

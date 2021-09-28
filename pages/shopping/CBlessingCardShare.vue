@@ -1,0 +1,293 @@
+<template>
+	<view class="share-bag-view">
+		<view class="share-bag">
+				<r-canvas ref="rCanvas"></r-canvas>
+				<image :src="$utils.imageUrl(posterUrl)" mode="" class="poster"></image>
+		</view>
+		<view class="share-view" @click="down">保存图片</view>
+		<view class="share-empty"></view>
+	</view>
+
+</template>
+
+<script>
+	import config from '../../common/config.js';
+	import rCanvas from "@/components/r-canvas/r-canvas.vue"
+	export default {
+		components: {
+			rCanvas
+		},
+		data() {
+			return {
+				posterUrl:'',
+				QRcodeUrl: '',
+				bgUrl:'',
+				flowUrl:'',
+				imageUrl: '',
+				text: '',
+				content: '',
+				title: ''
+			}
+		},
+		onLoad(e) {
+			let cardbag_number = e.cardbag_number || '';
+			var action = 'get_theme_type_by_customized';
+			var controller = 'zhufu';
+			var memberid = uni.getStorageSync('id');
+			var data = JSON.stringify({
+				memberid: memberid
+			});
+			this.$utils.postNew(action, data, controller).then(res => {
+				this.bgUrl = res.rs.default_theme_background;
+				this.flowUrl = res.rs.customized_head_img;
+				this.text = res.rs.customized_call;
+				this.content = res.rs.customized_zhufu;
+				this.title = res.rs.customized_company;
+				
+				uni.showToast({
+					title: "生成中",
+					icon: "loading"
+				})
+				var action = 'get_haibao';
+				let data1 = JSON.stringify({
+					scene: cardbag_number,  
+					page: "pages/shopping/CBlessingCardWe",
+				});
+				this.$utils.post(action, data1).then(res => {
+					console.log(res)
+					this.QRcodeUrl = res.dir;
+					console.log('QRcodeUrl:', this.QRcodeUrl);
+				}).then(
+					res => {
+						this.$nextTick(async () => {
+							// 初始化
+							await this.$refs.rCanvas.init({
+								canvas_id: "rCanvas",
+								canvas_width: 375,
+								canvas_height: 650,
+								hidden: true,
+								showType: 1
+							})
+							// 画背景图
+							await this.$refs.rCanvas.drawImage({
+								url: this.bgUrl,
+								x: 0,
+								y: 0,
+								w: 375,
+								h: 638
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							// 画头像
+							await this.$refs.rCanvas.drawImage({
+								url: this.flowUrl,
+								x: 42,
+								y: 170,
+								w: 38,
+								h: 38
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							// 画名字
+							await this.$refs.rCanvas.drawText({
+								text: this.text,
+								x: 42,
+								y: 225,
+								font_color: "#575D65",
+								font_size: 12,
+								max_width: 200,
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							// await this.$refs.rCanvas.drawLineTo1({
+							// 	x: 330,
+							// 	y: 232,
+							// 	w: 42,
+							// 	h: 232,
+							// 	line_width: 330,
+							// 	line_color: "#575D65"
+							// })
+							
+							// 画名字
+							await this.$refs.rCanvas.drawText({
+								text: this.content,
+								x: 42,
+								y: 250,
+								font_color: "#575D65",
+								font_size: 12,
+								max_width: 280,
+								line_clamp: 4,
+								line_height: 30,
+								is_line_break: true
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							// 画名字
+							await this.$refs.rCanvas.drawText({
+								text: this.title,
+								x: 182,
+								y: 370,
+								font_color: "#575D65",
+								font_size: 12,
+								max_width: 280
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							
+								
+								
+								
+								
+							// 画小程序二维码
+							await this.$refs.rCanvas.drawImage({
+								url: this.QRcodeUrl,
+								x: 145,
+								y: 500,
+								w: 100,
+								h: 100,
+								radius: 12,
+								is_radius: true
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							
+							// 画 长按扫码即可送礼
+							await this.$refs.rCanvas.drawText({
+								text: "长按小程序二维码领识别",
+								x: 120,
+								y: 620,
+								font_color: "#000000",
+								font_size: 14
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							// 画 长按扫码即可送礼
+							// await this.$refs.rCanvas.drawText({
+							// 	text: "先到先得",
+							// 	x: 160,
+							// 	y: 495,
+							// 	max_width: 130,
+							// 	font_color: "#FFF8F8",
+							// 	font_size: 14
+							// }).catch(err_msg => {
+							// 	uni.showToast({
+							// 		title: err_msg,
+							// 		icon: "none"
+							// 	})
+							// })
+							// 生成海报
+							await this.$refs.rCanvas.draw((res) => {
+								//res.tempFilePath：生成成功，返回base64图片
+								uni.hideLoading();
+								this.posterUrl = res.tempFilePath;
+							})
+						})
+					})
+				})
+		},
+		methods:{
+			down: function(e) {
+				uni.saveImageToPhotosAlbum({
+					filePath: this.posterUrl,
+					success(res) {
+						// console.log(res)
+						uni.showToast({
+							title: "图片已保存",
+							icon: "none"
+						})
+					},
+					fail(err) {
+						if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
+							"saveImageToPhotosAlbum:fail auth deny" || err.errMsg === "saveImageToPhotosAlbum:fail authorize no response"
+						) {
+							uni.showModal({
+								title: '提示',
+								content: '需要您授权保存相册',
+								showCancel: false,
+								success: modalSuccess => {
+									uni.openSetting({
+										success(settingdata) {
+											if (settingdata.authSetting['scope.writePhotosAlbum']) {
+												// console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+											} else {
+												// console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+											}
+										}
+									})
+								}
+							})
+						}
+					}
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+	page{
+		background: #FFFFFF;
+	}
+	.share-bag-view{
+		display: flex;
+		flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	}
+	.share-bag {
+		width: 750rpx;
+		height: 1390rpx;
+		display: flex;
+		justify-content: center;
+		margin: auto;
+	}
+	.poster {
+		display: block;
+		margin: 0rpx auto;
+		width: 375px;
+		height: 650px;
+		/* border-radius: 16rpx;
+		margin-top: -19rpx; */
+	}
+	.share-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0rpx;
+		width: 200rpx;
+		height: 80rpx;
+		background: #EC1815;
+		border-radius: 40rpx;
+		font-size: 30rpx;
+		color: #FFFFFF;
+	}
+	.share-empty{
+		height: 30rpx;
+	}
+</style>

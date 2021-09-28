@@ -54,7 +54,7 @@
 						<image :src="$utils.imageUrl(item)" style="width:165rpx;height:156rpx;" lazy-load />
 					</view>
 					<view class="up" @click="uploadSub" v-if="6>IMG_DATA.length">
-						<image src="../../static/icon_phone.png"/>
+						<image src="https://zhijianlw.com/static/web/img/icon_phone.png" lazy-load="true"/>
 						<view class="title">上传凭证</view>
 						<view class="number">(最多6张)</view>
 					</view>

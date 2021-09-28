@@ -84,7 +84,7 @@
 				 <view   v-else-if="item.level == 3">
 				 <!-- <view> -->
 					 <view class="member-content">
-				 			   <image class="member-content-background" src="../../static/plus.jpg" mode=""></image>
+				 			   <image class="member-content-background" src="https://zhijianlw.com/static/web/img/plus.jpg" mode=""></image>
 				 			   <view class="member-content-header flex">
 				 				   <view class="member-portrait"><image class="img" :src="$utils.imageUrl(head_img)" mode=""></image></view>
 				 				   <view>

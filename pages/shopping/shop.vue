@@ -85,9 +85,9 @@
 						</view>
 					</view>
 					
-					<view class="shop-gift-address shop-list">
+					<!-- <view class="shop-gift-address shop-list">
 						<text class="">直接填写收货地址</text>
-					</view>
+					</view> -->
 				</view>
 				 
 				<!-- 拼手气红包 -->
@@ -101,27 +101,22 @@
 					</view>
 					
 					<view class="shop-gift-address shop-list">
-						<text class="">{{numberss == 1 ? '手慢无':'每人随机领取一件礼物'}}</text>
+						<text class="">{{numberss == 1 ? '手慢无':'随机领取一件礼物'}}</text>
 					</view>
-					<view class="shop-gift-pin shop-list" @click="chooseGift">
+					<!-- <view class="shop-gift-pin shop-list" @click="chooseGift">
 						<text>选择礼物封面</text>
 						<view class="right">
 							<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
 						</view>
-						
-						<!-- <image  class="shop-gift-jiantou" :src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 					</view>
 					<view class="shop-gift-pin shop-list flex-between"  @click="wishes">
 						<text>自定义“福语”</text>
 						<view style="display: flex;align-items: center;">
-							<!-- <text class="">{{zhufu_type}}</text> -->
 							<text class="yixuan" style="margin-left: 0rpx;">{{setwishessuccess==1?'已选':''}}</text>
 							<text class="icon icon-z-right"></text>
-							<!-- <image class="shop-jiantou" :src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 						</view>
-						
-					</view>
+					</view> -->
 				</view>
 				 
 				<!-- 直接送礼 -->
@@ -144,25 +139,26 @@
 					</view>
 					<view>
 						<view class="shop-gift-pin shop-list"  @click="chooseGift">
+							<text>定制祝福卡</text>
+							<view class="right">
+								<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
+								<text class="icon icon-z-right"></text>
+							</view>
+						</view>
+						<!-- <view class="shop-gift-pin shop-list"  @click="chooseGift">
 							<text>选择礼物封面</text>
 							<view class="right">
 								<text class="yixuan">{{setgiftssuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
-							<!-- <image class="shop-gift-jiantou"
-								:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 							</view>
 						</view>
 						<view class="shop-gift-pin fu shop-list"  @click="wishes">
 							<text>自定义“福语”</text>
 							<view class="right">
-								<!-- <text class="">{{zhufu_type}}</text> -->
 								<text class="yixuan">{{setwishessuccess==1?'已选':''}}</text>
 								<text class="icon icon-z-right"></text>
-								<!-- <image class="shop-jiantou"
-									:src="$utils.osspath_url('/xcx-static/return_arrow_r_g.png')" mode=""></image> -->
 							</view>
-							
-						</view>
+						</view> -->
 					</view>
 				</view>
 				 
@@ -426,29 +422,32 @@
 		   		this.$refs.popup.close()
 		   	},
 			chooseGift:function(e){
-				let action = "get_giftbag_list";
-				let memberid = uni.getStorageSync('id')
-				this.memberid=memberid
-				let data = JSON.stringify({
-					memberid:this.memberid,
-					buy_type:1
-				});
-				this.$utils.post(action, data).then(res => {
-					console.log("直接赠送")
-					console.log(res)
-					let icon="success"
-					   if (res.sta !=1) {
-					   	icon = "none";
-					   	uni.showToast({
-					   		icon: icon,
-					   		title: res.msg,
-					   		duration: 2000
-					   	});
-					}
-					   uni.navigateTo({
-					   	url:'../shopping/gifts?type=1'
-					   })
-					})
+				uni.navigateTo({
+					url:'../shopping/CBlessingCard'
+			    })
+				// let action = "get_giftbag_list";
+				// let memberid = uni.getStorageSync('id')
+				// this.memberid=memberid
+				// let data = JSON.stringify({
+				// 	memberid:this.memberid,
+				// 	buy_type:1
+				// });
+				// this.$utils.post(action, data).then(res => {
+				// 	console.log("直接赠送")
+				// 	console.log(res)
+				// 	let icon="success"
+				// 	   if (res.sta !=1) {
+				// 	   	icon = "none";
+				// 	   	uni.showToast({
+				// 	   		icon: icon,
+				// 	   		title: res.msg,
+				// 	   		duration: 2000
+				// 	   	});
+				// 	}
+				// 	   uni.navigateTo({
+				// 	   	url:'../shopping/gifts?type=1'
+				// 	   })
+				// 	})
 			},
 			wishes:function(e){
 				let zhufu_type = uni.getStorageSync('zhufu_type')

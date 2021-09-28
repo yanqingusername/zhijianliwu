@@ -284,10 +284,34 @@
 				})
 			},
 			givee: function(e) {
+				// let ordernumber = this.cardbag_number;
+				// uni.navigateTo({
+				// 	url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${this.is_exchange_type}`
+				// })
 				let ordernumber = this.cardbag_number;
-				uni.navigateTo({
-					url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${this.is_exchange_type}`
-				})
+				let isexchangetype = this.is_exchange_type;
+				if(isexchangetype == 0){
+					let ordernumber = this.cardbag_number;
+					let action = 'order_add_shopping_cart';
+					let memberid = uni.getStorageSync('id')
+					let controller = 'order';
+					let data = JSON.stringify({
+					    ordernumber: ordernumber,
+					    memberid: memberid,
+						buy_type: 1
+					})
+					this.$utils.postNew(action, data, controller).then(res => {
+					    if(res.sta == 1){
+					        uni.navigateTo({
+								url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
+							})
+					    }
+					})
+				}else{
+					uni.navigateTo({
+						url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=${isexchangetype}`
+					})
+				}
 				// // let cardbag_number = e.currentTarget.dataset.cardbag_number;
 				// let cardbag_number = this.cardbag_number
 				// let price = this.price;
