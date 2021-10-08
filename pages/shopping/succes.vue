@@ -271,7 +271,7 @@
 				
 				let path = "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number;
 				if(this.typestring == 1){
-					path = "../shopping/CBlessingCardWe?cardbag_number=" + this.cardbag.cardbag_number
+					path = "pages/shopping/CBlessingCardWe?cardbag_number=" + this.cardbag.cardbag_number
 				}
 			
 			

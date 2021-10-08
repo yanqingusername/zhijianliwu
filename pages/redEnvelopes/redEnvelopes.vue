@@ -69,7 +69,7 @@
 				<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
 			</view>
 
-			<view style="height: 30rpx;width: 100%;background: #EEEEEE;margin-top: 50rpx;"></view>
+			<!-- <view style="height: 30rpx;width: 100%;background: #EEEEEE;margin-top: 50rpx;"></view>
 			
 			<view class="bag-red" v-if="gift==='0'">
 				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_yuyin_z_2021_08_30.png"
@@ -78,7 +78,6 @@
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
 				<view class="zhufu">
 					<text class="bag-red-fu">{{cardbag_theme.zhufu_msg}}</text>
-					<!-- <text class="bag-red-con">{{cardbag_theme.send_talk_msg}}</text></text> -->
 				</view>
 			</view>
 			<view class="bag-red" v-if="gift==='1'" style="display: flex;align-items: center;justify-content: center;">
@@ -86,17 +85,6 @@
 				</image>
 				<image class="bag-red-head" :src="cardbag.present_memberid_headimg" mode=""></image>
 				<text class="bag-red-title">{{cardbag.present_memberid_name}}</text>
-				<!-- <image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
-				<image class="sound-san" @click="audioPlay" v-if="radio"
-					:src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
-				<image class="sound-san" @click="audioPlay" v-else
-					:src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
-				<image class="sound-on" @click="audioPlay" :class="radio?'sound-on':'sound-on-rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')"
-					mode=""></image>
-				<view class="slider" @click="audioPlay">
-					<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
-				</view> -->
-				
 				<view class="audio-box-view">
 					<view class="audio-img-view">
 						<image class="sound-img-bg1" src="https://zhijianlw.com/static/web/img/icon-cd-2021-09-08-01.png" mode=""></image>
@@ -120,7 +108,6 @@
 
 			</view>
 			<view class="bag-red" v-if="gift==='2'">
-				<!-- <image class="bag-red-img" :src="$utils.osspath_url('/xcx-static/wishes/mb_movie.png')" mode=""></image> -->
 				<image class="bag-red-img" src="https://zhijianlw.com/static/web/img/mb_movie_z_2021_08_30.png" mode=""></image>
 				<view class="template-btm-information-video"><video :src="cardbag_theme.zhufu_mp4" controls></video>
 				</view>
@@ -129,7 +116,7 @@
 				<view class="wishes-line">
 					<text class="wishes-line-font">{{cardbag.present_memberid_name}}送了您一份礼物赶紧领取吧</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view style="height: 30rpx;width: 100%;"></view>
 	</view>
