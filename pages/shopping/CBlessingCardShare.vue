@@ -126,7 +126,7 @@
 								y: 250,
 								font_color: "#575D65",
 								font_size: 12,
-								max_width: 280,
+								max_width: 295,
 								line_clamp: 4,
 								line_height: 30,
 								is_line_break: true

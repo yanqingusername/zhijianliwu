@@ -363,8 +363,8 @@
 		    top: 439rpx;
 		        left: 84rpx;
 		    width: 400rpx;
-		    font-size: 28rpx;
-		    /* color: #575D65; */
+		    font-size: 24rpx;
+		    color: #575D65;
 		    height: 34rpx;
 		    /* border-bottom: 1px solid #EEEEEE; */
 	}
@@ -381,8 +381,8 @@
 		    right: 80rpx;
 		    width: 353rrpx;
 		    height: 30rpx;
-		    font-size: 28rpx;
-		    /* color: #575D65; */
+		    font-size: 24rpx;
+		    color: #575D65;
 		    /* border-bottom: 1px solid #EEEEEE; */
 	}
 	
@@ -402,9 +402,9 @@
 	    height: 220rpx;
 	    width: 100%;
 	    position: absolute;
-	    line-height: 52rpx;
+	    line-height: 50rpx;
 	    overflow: scroll;
-	    font-size: 30rpx;
+	    font-size: 24rpx;
 	    background: #FFF7EA;
 	  /* text-decoration-line: underline; */
 	}
@@ -414,7 +414,12 @@
 		    text-decoration-line: underline;
 		    position: absolute;
 		    width: 100%;
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+	}
+	.section textarea{
+		width: 100%;
+		font-size: 24rpx;
+		color: #575D65;
 	}
 </style>
