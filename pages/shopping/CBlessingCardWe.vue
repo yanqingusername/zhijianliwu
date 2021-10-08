@@ -30,7 +30,6 @@
 				background: '',
 				isShowCheck: 0,
 				gift: '0',
-				send_talk_msg: '',
 				zhufu_msg: '',
 				name: '',
 				w: '',
@@ -66,7 +65,7 @@
 			
 		},
 		onLoad: function(e) {
-			this.getShowcustomized();
+			// this.getShowcustomized();
 			
 			this.url = config.URL;
 			let that = this;
@@ -87,11 +86,16 @@
 			})
 			var action = 'get_cardbag_detail';
 			this.$utils.post(action, data).then(res => {
+				this.background = res.cardbag_theme.theme_background;
+				this.IMG_DATA = res.cardbag_theme.customized_head_img;
+				this.text = res.cardbag_theme.customized_call;
+				this.content = res.cardbag_theme.zhufu_msg;
+				this.title = res.cardbag_theme.customized_company;
+				
 				console.log('礼包详情', res)
 				this.zhufu_msg = res.cardbag_theme.zhufu_msg
 				this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
 				this.zhufu_mp4=res.cardbag_theme.zhufu_mp4
-				this.send_talk_msg = send_talk_msg
 				this.present_memberid_headimg=res.cardbag.present_memberid_headimg
 				this.present_memberid_name=res.cardbag.present_memberid_name
 				if (res.cardbag.type == 3) {
@@ -231,12 +235,6 @@
 						console.log('领取卡包', res)
 						if (res.sta == 1) {
 							
-							innerAudioContext1.play();
-							setTimeout(function(e) {
-								// console.log('停止')
-								innerAudioContext1.stop();
-							}, 1000)
-			
 							// 存入本地缓存
 							uni.setStorageSync('new_cardbag_number', res)
 			
@@ -272,8 +270,6 @@
 							}
 							// 即时开奖
 							else if (this.type == 4) {
-								innerAudioContext.src = that.auto;
-								innerAudioContext.play();
 			
 								setTimeout(function(e) {
 									uni.navigateTo({
@@ -288,13 +284,8 @@
 								}, 500)
 			
 			
-								setTimeout(function(e) {
-									// console.log('停止')
-									innerAudioContext.stop();
-								}, 2200)
+								
 							} else {
-								innerAudioContext.src = that.auto;
-								innerAudioContext.play();
 			
 								setTimeout(function(e) {
 									uni.reLaunch({
@@ -308,11 +299,7 @@
 									uni.hideLoading();
 								}, 500)
 			
-								setTimeout(function(e) {
-									// console.log('停止')
-									innerAudioContext.stop();
-								}, 2200)
-			
+								
 			
 							}
 						} else {

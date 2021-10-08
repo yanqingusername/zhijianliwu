@@ -31,29 +31,30 @@
 		},
 		onLoad(e) {
 			let cardbag_number = e.cardbag_number || '';
-			var action = 'get_theme_type_by_customized';
-			var controller = 'zhufu';
+			var action = 'get_cardbag_detail';
 			var memberid = uni.getStorageSync('id');
 			var data = JSON.stringify({
-				memberid: memberid
+				cardbag_number: cardbag_number,
+				cardbag_detail_id: 0,
+				merberid: memberid
 			});
-			this.$utils.postNew(action, data, controller).then(res => {
-				this.bgUrl = res.rs.default_theme_background;
-				this.flowUrl = res.rs.customized_head_img;
-				this.text = res.rs.customized_call;
-				this.content = res.rs.customized_zhufu;
-				this.title = res.rs.customized_company;
+			this.$utils.post(action, data).then(res => {
+				this.bgUrl = res.cardbag_theme.theme_background;
+				this.flowUrl = res.cardbag_theme.customized_head_img;
+				this.text = res.cardbag_theme.customized_call;
+				this.content = res.cardbag_theme.zhufu_msg;
+				this.title = res.cardbag_theme.customized_company;
 				
 				uni.showToast({
 					title: "生成中",
 					icon: "loading"
 				})
-				var action = 'get_haibao';
+				var action1 = 'get_haibao';
 				let data1 = JSON.stringify({
 					scene: cardbag_number,  
 					page: "pages/shopping/CBlessingCardWe",
 				});
-				this.$utils.post(action, data1).then(res => {
+				this.$utils.post(action1, data1).then(res => {
 					console.log(res)
 					this.QRcodeUrl = res.dir;
 					console.log('QRcodeUrl:', this.QRcodeUrl);

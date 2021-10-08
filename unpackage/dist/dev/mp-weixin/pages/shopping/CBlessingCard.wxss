@@ -159,13 +159,14 @@ page{
 	        position: absolute;
 	        bottom: 40rpx;
 	        right: 40rpx;
-	        width: 310rpx;
+	        width: 450rpx;
 	        height: 40rpx;
 }
 .input-view-bottom input{
 	    font-size: 24rpx;
 	        height: 40rpx;
-	        width: 310rpx;
+	        width: 450rpx;
+			text-align: right;
 	        /* border-bottom: 1px solid #EEEEEE; */
 }
 .gift-small-head{

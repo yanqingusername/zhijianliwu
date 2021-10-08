@@ -27,7 +27,7 @@
 					<view class="new-icon-card-click" @click.stop="clickHandler">换一换</view>
 					
 					<view class="input-view-bottom">
-						<input @input='txttitle' :value="title" placeholder="某某集团股份有限公司 敬贺" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
+						<input @input='txttitle' :value="title" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
 					</view>
 				 </view>
 			 </view>
@@ -161,12 +161,12 @@
 				}
 			},
 			txttitle: function(e) {
-				if (e.detail.cursor == 0) {
-					// 接口用到的
-					this.title = '';
-				} else {
+				// if (e.detail.cursor == 0) {
+				// 	// 接口用到的
+				// 	this.title = '';
+				// } else {
 					this.title = e.detail.value;
-				}
+				// }
 			},
 			change(e) {
 				this.swiperCurrentIndex = e.detail.current;
@@ -420,13 +420,14 @@
 		        position: absolute;
 		        bottom: 40rpx;
 		        right: 40rpx;
-		        width: 310rpx;
+		        width: 450rpx;
 		        height: 40rpx;
 	}
 	.input-view-bottom input{
 		    font-size: 24rpx;
 		        height: 40rpx;
-		        width: 310rpx;
+		        width: 450rpx;
+				text-align: right;
 		        /* border-bottom: 1px solid #EEEEEE; */
 	}
 	.gift-small-head{

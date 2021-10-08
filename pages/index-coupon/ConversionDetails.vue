@@ -107,7 +107,8 @@
 				zhufu_mp4: '',
 				zhufu_mp3:'',
 				radio: true,
-				receive_info: ''
+				receive_info: '',
+				typestring: 1 //type: 1 直接送礼   type: 4 拼手气礼包
 			}
 		},
 		onLoad: function(e) {
@@ -166,6 +167,7 @@
 			})
             var action2 = "get_cardbag_detail";
             this.$utils.post(action2, data2).then(res => {
+				this.typestring = res.cardbag.type;
             	console.log('礼包信息')
             	console.log(res)
             	this.cardbag_in_people = res.cardbag_in_people
@@ -221,13 +223,16 @@
 						console.log('结果', res)
 		
 					})			
-			
+			let path = "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number;
+			if(this.typestring == 1){
+				path = "../shopping/CBlessingCardWe?cardbag_number=" + this.cardbag.cardbag_number
+			}
 			
 			return {
 				title: this.cardbag_theme.send_talk_msg,
 				provider: "weixin",
 				scene: "WXSceneSession",
-				path: "pages/shopping/receive?cardbag_number=" + this.cardbag.cardbag_number,
+				path: path,
 				type: 0,
 				imageUrl: this.cardbag_theme.background,
 				success(res) {
