@@ -99,6 +99,7 @@ page{
 	left: 40rpx;
 }
 .input-view input{
+	color: #575D65;
 	    font-size: 24rpx;
 	        height: 26rpx;
 	        width: 534rpx;
@@ -136,8 +137,8 @@ page{
 	left: 40rpx;
 }
 .icon-card-click{
-	width: 75rpx;
-	height: 28rpx;
+	width: 80rpx;
+	height: 30rpx;
 	border-radius: 14rpx;
 	border: 1px solid #E95F5D;
 	font-size: 16rpx;
@@ -154,6 +155,7 @@ page{
 	position: absolute;
 	bottom: 15rpx;
     right: 0rpx;
+	z-index: 9999;
 }
 .input-view-bottom{
 	        position: absolute;
@@ -163,6 +165,7 @@ page{
 	        height: 40rpx;
 }
 .input-view-bottom input{
+	color: #575D65;
 	    font-size: 24rpx;
 	        height: 40rpx;
 	        width: 450rpx;
@@ -321,8 +324,24 @@ page{
 .gift-img text{
 	border-bottom: 1px solid #999;
 }
+.gift-btn-view{
+	    position: fixed;
+	    z-index: 99;
+	    bottom: 0rpx;
+		width: 100%;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		    background: #FFFFFF;
+}
 .gift-btn{
-	margin-top: 60rpx;
+	margin-top: 30rpx;
 	    width: 640rpx;
 	    background-color: #F55856;
 	    height: 80rpx;
@@ -331,15 +350,11 @@ page{
 	    font-size: 32rpx;
 	    border-radius: 50rpx;
 }
-
-
-/* textarea{
+.section textarea{
 	width: 100%;
-	font-size: 30rpx;
-	color: #333333;
-	line-height: 1.5em;
-	height: 42px;
-} */
+	font-size: 24rpx;
+	color: #575D65;
+}
 .success-pop .pop-center .p{
 	margin: 20rpx 0;
 	text-align: left;
@@ -396,18 +411,17 @@ page{
 .icon-card-select-1{
 	position: absolute;
 	    top: 230rpx;
-	    left: 48rpx;
+	    left: 60rpx;
 	    width: 50rpx;
 	    height: 50rpx;
 		border-radius: 50%;
 }
 .icon-card-select-2{
-	position: absolute;
 	   position: absolute;
 	       top: 292rpx;
-	       left: 52rpx;
+	       left: 60rpx;
 	       width: 400rpx;
-	       font-size: 20rpx;
+	       font-size: 14rpx;
 	       /* color: #575D65; */
 	       height: 35rpx;
 	    /* border-bottom: 1px solid #EEEEEE; */
@@ -415,17 +429,17 @@ page{
 .icon-card-select-3{
 	position: absolute;
 	    top: 324rpx;
-	    left: 52rpx;
-	    width: 400rpx;
+	    left: 60rpx;
+	    width: 392rpx;
 	    height: 146rpx;
 }
 .icon-card-select-4{
 	position: absolute;
 	    top: 476rpx;
 	    right: 58rpx;
-	    width: 353rrpx;
+	    width: 400rrpx;
 	    height: 30rpx;
-	    font-size: 20rpx;
+	    font-size: 14rpx;
 	    /* color: #575D65; */
 	    /* border-bottom: 1px solid #EEEEEE; */
 }
@@ -469,9 +483,9 @@ page{
     height: 220rpx;
     width: 100%;
     position: absolute;
-    line-height: 52rpx;
+    line-height: 50rpx;
     overflow: scroll;
-    font-size: 30rpx;
+    font-size: 24rpx;
     background: #FFF7EA;
   /* text-decoration-line: underline; */
 }
@@ -481,9 +495,9 @@ page{
 	    text-decoration-line: underline;
 	    position: absolute;
 	    width: 100%;
-	    background: -webkit-repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+	    background: -webkit-repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
 }
 .section1{
     height: 220rpx;
@@ -491,7 +505,7 @@ page{
     position: absolute;
     line-height: 32rpx;
     overflow: scroll;
-    font-size: 20rpx;
+    font-size: 14rpx;
     background: #FFF7EA;
   /* text-decoration-line: underline; */
 }

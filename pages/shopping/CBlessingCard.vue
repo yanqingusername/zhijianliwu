@@ -22,9 +22,9 @@
 						   <textarea class="text" maxlength="60" @input='txtcontent' :value="content"/>
 						 </view>
 						<!-- <image src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png" class="icon-card-title"></image> -->
-						<!-- <view class="icon-card-click" style="bottom: 24rpx;" @click.stop="clickHandler">换一换</view> -->
+						<view class="icon-card-click" style="bottom: 18rpx;" @click.stop="clickHandler">换一换</view>
 					</view>
-					<view class="new-icon-card-click" @click.stop="clickHandler">换一换</view>
+					<!-- <view class="new-icon-card-click" @click.stop="clickHandler">换一换</view> -->
 					
 					<view class="input-view-bottom">
 						<input @input='txttitle' :value="title" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
@@ -55,7 +55,10 @@
 			 	</view>
 			 </view>
 		</view>
-		<button class="gift-btn" type="warn" @click="getgift">保存使用</button>
+		<view style="height: 180rpx;"></view>
+		<view class="gift-btn-view">
+			<button class="gift-btn" type="warn" @click="getgift">保存使用</button>
+		</view>
 		
 		<!-- 选择照片 -->
 		<uni-popup ref="popuppic" type="bottom" :animation="false" :maskClick="true" @change="changePic">
@@ -371,6 +374,7 @@
 		left: 40rpx;
 	}
 	.input-view input{
+		color: #575D65;
 		    font-size: 24rpx;
 		        height: 26rpx;
 		        width: 534rpx;
@@ -403,8 +407,8 @@
 	}
 	
 	.icon-card-click{
-		width: 75rpx;
-		height: 28rpx;
+		width: 80rpx;
+		height: 30rpx;
 		border-radius: 14rpx;
 		border: 1px solid #E95F5D;
 		font-size: 16rpx;
@@ -415,6 +419,7 @@
 		position: absolute;
 		bottom: 15rpx;
 	    right: 0rpx;
+		z-index: 9999;
 	}
 	.input-view-bottom{
 		        position: absolute;
@@ -424,6 +429,7 @@
 		        height: 40rpx;
 	}
 	.input-view-bottom input{
+		color: #575D65;
 		    font-size: 24rpx;
 		        height: 40rpx;
 		        width: 450rpx;
@@ -568,8 +574,18 @@
 	.gift-img text{
 		border-bottom: 1px solid #999;
 	}
+	.gift-btn-view{
+		    position: fixed;
+		    z-index: 99;
+		    bottom: 0rpx;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			    background: #FFFFFF;
+	}
 	.gift-btn{
-		margin-top: 60rpx;
+		margin-top: 30rpx;
 		    width: 640rpx;
 		    background-color: #F55856;
 		    height: 80rpx;
@@ -578,13 +594,11 @@
 		    font-size: 32rpx;
 		    border-radius: 50rpx;
 	}
-	/* textarea{
+	.section textarea{
 		width: 100%;
-		font-size: 30rpx;
-		color: #333333;
-		line-height: 1.5em;
-		height: 42px;
-	} */
+		font-size: 24rpx;
+		color: #575D65;
+	}
 	.success-pop .pop-center .p{
 		margin: 20rpx 0;
 		text-align: left;
@@ -626,18 +640,17 @@
 	.icon-card-select-1{
 		position: absolute;
 		    top: 230rpx;
-		    left: 48rpx;
+		    left: 60rpx;
 		    width: 50rpx;
 		    height: 50rpx;
 			border-radius: 50%;
 	}
 	.icon-card-select-2{
-		position: absolute;
 		   position: absolute;
 		       top: 292rpx;
-		       left: 52rpx;
+		       left: 60rpx;
 		       width: 400rpx;
-		       font-size: 20rpx;
+		       font-size: 14rpx;
 		       /* color: #575D65; */
 		       height: 35rpx;
 		    /* border-bottom: 1px solid #EEEEEE; */
@@ -645,17 +658,17 @@
 	.icon-card-select-3{
 		position: absolute;
 		    top: 324rpx;
-		    left: 52rpx;
-		    width: 400rpx;
+		    left: 60rpx;
+		    width: 392rpx;
 		    height: 146rpx;
 	}
 	.icon-card-select-4{
 		position: absolute;
 		    top: 476rpx;
 		    right: 58rpx;
-		    width: 353rrpx;
+		    width: 400rrpx;
 		    height: 30rpx;
-		    font-size: 20rpx;
+		    font-size: 14rpx;
 		    /* color: #575D65; */
 		    /* border-bottom: 1px solid #EEEEEE; */
 	}
@@ -694,9 +707,9 @@
 	    height: 220rpx;
 	    width: 100%;
 	    position: absolute;
-	    line-height: 52rpx;
+	    line-height: 50rpx;
 	    overflow: scroll;
-	    font-size: 30rpx;
+	    font-size: 24rpx;
 	    background: #FFF7EA;
 	  /* text-decoration-line: underline; */
 	}
@@ -706,8 +719,8 @@
 		    text-decoration-line: underline;
 		    position: absolute;
 		    width: 100%;
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 50rpx ,#FFF7EA 52rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
 	}
 	
 	.section1{
@@ -716,7 +729,7 @@
 	    position: absolute;
 	    line-height: 32rpx;
 	    overflow: scroll;
-	    font-size: 20rpx;
+	    font-size: 14rpx;
 	    background: #FFF7EA;
 	  /* text-decoration-line: underline; */
 	}
