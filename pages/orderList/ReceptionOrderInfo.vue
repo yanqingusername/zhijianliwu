@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		
-		<view class="recharge-flex">
+		<view class="recharge-flex" :style="'margin-top: ' + (orderReceptionInfo.orderinfo.wuliu_info.length > 0 || orderReceptionInfo.orderinfo.linkman ? '-30':'0') +'rpx'">
 			<view class="reception-flex" v-if="orderReceptionInfo.orderinfo.wuliu_info.length > 0">
 				<view class="reception-address-view" @click="logisticInfo" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber">
 					<view class="reception-address-view-left">

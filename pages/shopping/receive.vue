@@ -190,13 +190,13 @@
 			}
 
 
-			let data = JSON.stringify({
+			let data1 = JSON.stringify({
 				cardbag_number: this.cardbag_number,
 				cardbag_detail_id: "0",
 				merberid: merberid
 			})
-			var action = 'get_cardbag_detail';
-			this.$utils.post(action, data).then(res => {
+			var action1 = 'get_cardbag_detail';
+			this.$utils.post(action1, data1).then(res => {
 				console.log('礼包详情', res)
 				this.zhufu_msg = res.cardbag_theme.zhufu_msg
 				this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
