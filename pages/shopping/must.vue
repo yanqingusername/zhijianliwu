@@ -36,11 +36,11 @@
 			<view class="message">
 				<view class="">
 					<text class="message-title">商品总价：</text>
-					<text class="message-price" style="margin-right: 42rpx;">￥{{new_price_yuanshi}}</text>
+					<text class="message-price" style="margin-right: 0rpx;">￥{{new_price_yuanshi}}</text>
 				</view>
 				<view class="">
 					<text class="message-title">运费：</text>
-					<text class="message-price" style="margin-right: 42rpx;">￥{{new_freight}}</text>
+					<text class="message-price" style="margin-right: 0rpx;">￥{{new_freight}}</text>
 				</view>
 				<!-- <view class="">
 					<text class="message-title">优惠券：</text>
@@ -55,28 +55,29 @@
 					<text class="message-title">优惠券：</text>
 					<view class="message-price yhj" v-if="new_price_coupon">
 						<text style="color: #EC1815;" @click="open">{{new_price_coupon ? new_price_coupon : '无可用'}}</text>
-						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;"></text>
+						<text @click="open" v-if="new_price_coupon" class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;margin-right: -8rpx;"></text>
 					</view>
 					<view class="message-price yhj" v-else>
 						<text style="color: #BBBBBB;">{{'无可用'}}</text>
-						<text class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;"></text>
+						<text class="iconfont icon-youjiantou message-jiantou1" style="font-size: 32rpx;margin-left: 10rpx;margin-top: -6rpx;margin-right: -8rpx;"></text>
 					</view>
 					<!-- <view class="message-price" v-else>无可用</view> -->
 				</view> 
 				
 				<view class="">
 					<text class="message-title">余额：</text>
-					<text class="message-price">¥{{new_balance}}</text>
+					
 					<!-- <view class="" > -->
 					<!-- <text class="circle iconfont icon-ico2" @click="switch2Change" v-show="!use_balance"></text>
 					<text class="circle iconfont icon-ico1" @click="switch2Change" v-show="use_balance"></text> -->
 					
 					<!-- <text class="circle iconfont icon-ico2" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
 					<text class="circle iconfont icon-ico1" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text> -->
-					
-					<image class="picker-view-img" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_m.png"></image>
-					<image class="picker-view-img" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_d.png"></image>
-					
+					<view class="message-price yhj" @click="switch2Change" style="display: flex;align-items: center;justify-content: center;">
+						<text class="message-price">¥{{new_balance}}</text>
+						<image class="picker-view-img" v-if="new_balance_price != '' && use_balance==0" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_m.png"></image>
+						<image class="picker-view-img" v-if="new_balance_price != '' && use_balance==1" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_d.png"></image>
+					</view>
 					<!-- </view> -->
 				</view>
 			</view>
@@ -153,7 +154,7 @@
 				coupon_name: '',
 				coupon_money: '',
 				showa: '',
-				use_balance: 0, //余额的选中
+				use_balance: 1, //余额的选中
 				balance: 0,
 				showa: 1,
 				openid: '',
@@ -173,7 +174,8 @@
 				new_price_zhe: '',
 				new_price_coupon: '',
 				new_coupon_number: '',
-				new_balance: '',
+				new_balance: '0.00',
+				new_balance_price: '',
 				new_freight: ''
 			}
 		},
@@ -181,7 +183,7 @@
 
 			// 余额
 			this.balance = uni.getStorageSync('balance');
-			this.use_balance = 0;
+			this.use_balance = 1;
 			this.use_zj_balance = 1;
 			this.openid = uni.getStorageSync('openid');
 			this.id = uni.getStorageSync('id');
@@ -348,7 +350,13 @@
 						this.new_price_coupon= res.rs.price_coupon;
 						this.new_coupon_number= res.rs.coupon_number;
 						this.new_balance= res.rs.balance;
+						this.new_balance_price= res.rs.balance;
 						this.new_freight = res.rs.freight;
+						if(parseInt(res.rs.balance) > 0){
+							
+						}else{
+							this.new_balance_price= '';
+						}
 					}
 				})
 				

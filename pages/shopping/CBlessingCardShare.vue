@@ -165,6 +165,8 @@
 								w: 100,
 								h: 100,
 								radius: 12,
+								border_color: '#EC1815',
+								border_width: 2,
 								is_radius: true
 							}).catch(err_msg => {
 								uni.showToast({
