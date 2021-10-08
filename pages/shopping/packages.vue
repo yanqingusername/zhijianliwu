@@ -57,8 +57,10 @@
 					<!-- <text class="circle cir iconfont icon-ico2" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==0"></text>
 					<text class="circle cir iconfont icon-ico1" @click="switch2Change" v-if="new_balance != ''" v-show="use_balance==1"></text> -->
 					
-					<text class="circle cir iconfont icon-ico2" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
-					<text class="circle cir iconfont icon-ico1" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
+					<!-- <text class="circle cir iconfont icon-ico2" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text>
+					<text class="circle cir iconfont icon-ico1" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="width: 32rpx;height: 32rpx;display: flex;align-items: center;"></text> -->
+					<image class="picker-view-img" @click="switch2Change" v-if="new_balance != '' && use_balance==0" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_m.png"></image>
+					<image class="picker-view-img" @click="switch2Change" v-if="new_balance != '' && use_balance==1" style="margin-left: 10rpx;width: 32rpx;height: 32rpx;display: flex;align-items: center;" src="../../static/icon_reason_d.png"></image>
 					
 				</view>
 			</view>

@@ -41,7 +41,7 @@
 								:class="swiperCurrentIndex == index ? 'swiper-item' : 'swiper-itemDefault'"
 								:src="$utils.imageUrl(item.background)">
 							</image>
-							<image v-if="swiperCurrentIndex == index" class="icon-card-select-1" :src="IMG_DATA" ></image>
+							<image v-if="swiperCurrentIndex == index" class="icon-card-select-1" :src="IMG_DATA" mode="heightFix"></image>
 							<view v-if="swiperCurrentIndex == index" class="icon-card-select-2">{{text}}</view>
 							<!-- <image v-if="swiperCurrentIndex == index" class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
 							<view v-if="swiperCurrentIndex == index" class="icon-card-select-3">
@@ -342,7 +342,7 @@
 	.icon-card-morenlogo{
 		width: 64rpx;
 		height: 64rpx;
-		border-radius: 50%;
+		/* border-radius: 50%; */
 	}
 	.icon-card-morenlogo-view-bg{
 		width: 76rpx;
@@ -641,9 +641,9 @@
 		position: absolute;
 		    top: 230rpx;
 		    left: 60rpx;
-		    width: 50rpx;
+		    /* width: 50rpx; */
 		    height: 50rpx;
-			border-radius: 50%;
+			/* border-radius: 50%; */
 	}
 	.icon-card-select-2{
 		   position: absolute;

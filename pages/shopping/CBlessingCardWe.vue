@@ -2,7 +2,7 @@
 	<view class="gift">
 		<view class="gift-small">
 			<image class="icon-card-select-0" :src="background"></image>
-			<image class="icon-card-select-1" :src="IMG_DATA" ></image>
+			<image class="icon-card-select-1" :src="IMG_DATA" mode="heightFix"></image>
 			<view class="icon-card-select-2">{{text}}</view>
 			<!-- <image  class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
 			<view class="icon-card-select-3">

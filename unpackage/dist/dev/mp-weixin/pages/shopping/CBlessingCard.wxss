@@ -58,7 +58,7 @@ page{
 .icon-card-morenlogo{
 	width: 64rpx;
 	height: 64rpx;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 }
 .icon-card-morenlogo-view-bg{
 	width: 76rpx;
@@ -412,9 +412,9 @@ page{
 	position: absolute;
 	    top: 230rpx;
 	    left: 60rpx;
-	    width: 50rpx;
+	    /* width: 50rpx; */
 	    height: 50rpx;
-		border-radius: 50%;
+		/* border-radius: 50%; */
 }
 .icon-card-select-2{
 	   position: absolute;
