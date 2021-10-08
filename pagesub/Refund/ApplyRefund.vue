@@ -67,7 +67,7 @@
 		</view>
 		
 		<!-- 退款原因 -->
-		<uni-popup ref="popup" type="bottom" :animation="false" :maskClick="true" @change="change">
+		<uni-popup ref="popup" type="bottom" :animation="false" :maskClick="true" @change="change" background-color="#fff">
 				<view class="popup-view">
 					<view class="popup-view-top">
 						<view class="popup-view-title">申请原因</view>

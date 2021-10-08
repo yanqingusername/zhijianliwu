@@ -61,9 +61,9 @@
 		</view>
 		
 		<!-- 选择照片 -->
-		<uni-popup ref="popuppic" type="bottom" :animation="false" :maskClick="true" @change="changePic">
+		<uni-popup ref="popuppic" type="bottom" :animation="false" :maskClick="true" @change="changePic" background-color="#fff">
 			<view class="popup-pic">
-				<view class="popup-pic-text" @click="$buttonClick(cameraPic)">拍照</view>
+				<!-- <view class="popup-pic-text" @click="$buttonClick(cameraPic)">拍照</view> -->
 				<view class="popup-pic-border" @click="$buttonClick(albumPic)">从相册选择</view>
 				<view class="popup-pic-view" @click="$buttonClick(closepic)">取消</view>
 			</view>
