@@ -19,7 +19,7 @@ page{
 }
 .share-bag {
 	width: 750rpx;
-	height: 1390rpx;
+	height: 1275rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -32,7 +32,7 @@ page{
 	display: block;
 	margin: 0rpx auto;
 	width: 375px;
-	height: 650px;
+	height: 638px;
 	/* border-radius: 16rpx;
 	margin-top: -19rpx; */
 }
@@ -46,11 +46,11 @@ page{
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	margin-top: 0rpx;
-	width: 200rpx;
-	height: 80rpx;
-	background: #EC1815;
-	border-radius: 40rpx;
+	margin-top: 48rpx;
+	width: 642rpx;
+	height: 82rpx;
+	background: #DB3C3A;
+	border-radius: 44rpx;
 	font-size: 30rpx;
 	color: #FFFFFF;
 }

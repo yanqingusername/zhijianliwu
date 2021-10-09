@@ -26,7 +26,8 @@
 				imageUrl: '',
 				text: '',
 				content: '',
-				title: ''
+				title: '',
+				bg_icon:"https://zhijianlw.com/static/web/img/icon_card_share_2021_10_09_01.png"
 			}
 		},
 		onLoad(e) {
@@ -44,6 +45,21 @@
 				this.text = res.cardbag_theme.customized_call;
 				this.content = res.cardbag_theme.zhufu_msg;
 				this.title = res.cardbag_theme.customized_company;
+				
+				wx.getImageInfo({
+					src: this.flowUrl,
+				    success: (resImg) => {
+						let width = (76*resImg.width)/resImg.height;
+						this.coverWidth = parseInt(width/2);
+						if(this.coverWidth < 38){
+							this.coverWidth = 38
+						}
+				    },
+				    fail: (err) => {
+						console.log(err)
+				    }
+				});
+				
 				
 				uni.showToast({
 					title: "生成中",
@@ -65,7 +81,7 @@
 							await this.$refs.rCanvas.init({
 								canvas_id: "rCanvas",
 								canvas_width: 375,
-								canvas_height: 650,
+								canvas_height: 638,
 								hidden: true,
 								showType: 1
 							})
@@ -87,7 +103,7 @@
 								url: this.flowUrl,
 								x: 42,
 								y: 170,
-								w: 38,
+								w: this.coverWidth,
 								h: 38
 							}).catch(err_msg => {
 								uni.showToast({
@@ -140,11 +156,12 @@
 							// 画名字
 							await this.$refs.rCanvas.drawText({
 								text: this.title,
-								x: 182,
+								x: 335,
 								y: 370,
 								font_color: "#575D65",
 								font_size: 12,
-								max_width: 280
+								max_width: 280,
+								text_align: 'right'
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
@@ -152,21 +169,29 @@
 								})
 							})
 							
+							await this.$refs.rCanvas.drawImage({
+								url: this.bg_icon,
+								x: 0,
+								y: 497,
+								w: 375,
+								h: 141
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
 							
-								
-								
-								
-								
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.QRcodeUrl,
 								x: 145,
-								y: 500,
-								w: 100,
-								h: 100,
+								y: 490,
+								w: 92,
+								h: 92,
 								radius: 12,
-								border_color: '#EC1815',
-								border_width: 2,
+								border_color: '#F7E8CB',
+								border_width: 6,
 								is_radius: true
 							}).catch(err_msg => {
 								uni.showToast({
@@ -178,10 +203,10 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序二维码领识别",
-								x: 120,
-								y: 620,
-								font_color: "#000000",
+								text: "长按小程序二维码领礼物先到先得",
+								x: 85,
+								y: 610,
+								font_color: "#B58D3D",
 								font_size: 14
 							}).catch(err_msg => {
 								uni.showToast({
@@ -265,7 +290,7 @@
 	}
 	.share-bag {
 		width: 750rpx;
-		height: 1390rpx;
+		height: 1275rpx;
 		display: flex;
 		justify-content: center;
 		margin: auto;
@@ -274,7 +299,7 @@
 		display: block;
 		margin: 0rpx auto;
 		width: 375px;
-		height: 650px;
+		height: 638px;
 		/* border-radius: 16rpx;
 		margin-top: -19rpx; */
 	}
@@ -282,11 +307,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-top: 0rpx;
-		width: 200rpx;
-		height: 80rpx;
-		background: #EC1815;
-		border-radius: 40rpx;
+		margin-top: 48rpx;
+		width: 642rpx;
+		height: 82rpx;
+		background: #DB3C3A;
+		border-radius: 44rpx;
 		font-size: 30rpx;
 		color: #FFFFFF;
 	}

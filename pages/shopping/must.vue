@@ -82,7 +82,7 @@
 				</view>
 			</view>
 
-			<uni-popup ref="popup" :animation="false" :maskClick="true" type="bottom">
+			<uni-popup ref="popup" :animation="false" :maskClick="true" type="bottom" background-color="#fff">
 				<view class="new-youhuijuan">
 					<text class="new-you-title">可用优惠券</text>
 					<scroll-view scroll-y="true" class="new-scroll-y">
@@ -95,11 +95,11 @@
 										<view class="juan-list-left-top">
 											<text class="z-price-logo">￥</text>
 											<text class="z-price">{{item.money}}</text>
-											<view class="z-man uni-ellipsis" style="width: 160rpx;">满{{item.full_money}}元可用</view>
+											<view class="z-man uni-ellipsis" style="width: 160rpx;font-size: 20rpx;">满{{item.full_money}}元可用</view>
 										</view>
-										<view class="juan-list-left-center">
-											<view class="z-moth uni-ellipsis">{{item.coupon_name}}</view>
-											<view class="z-quan" style="margin-top: 26rpx;">{{"("+item.type_info+")"}}</view>
+										<view class="juan-list-left-center" style="margin-top: 16rpx;">
+											<view class="z-moth uni-ellipsis" style="font-size: 28rpx;">{{item.coupon_name}}</view>
+											<view class="z-quan" style="margin-top: 20rpx;font-size: 20rpx;">{{"("+item.type_info+")"}}</view>
 										</view>
 									</view>
 									<view class="juan-list-left-bottom">有效期：{{item.begin_time}}~{{item.end_time}}</view>
@@ -766,7 +766,7 @@
 	}
 	.must-address {
 		height: auto;
-		padding: 40rpx 100rpx 30rpx 56rpx;
+		padding: 40rpx 100rpx 30rpx 38rpx;
 		background-color: #fff;
 		margin-top: 20rpx;
 		position: relative;
