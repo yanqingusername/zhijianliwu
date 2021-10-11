@@ -65,8 +65,9 @@
 			</view>
 
 			<view style="display: flex;" v-else>
-				<button type="default" class="transfer" @click="givee">转赠礼物</button>
-				<button type="warn" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
+				<button type="default" v-if="card_type != 0" class="transfer" @click="givee">转赠礼物</button>
+				<button type="warn" v-if="card_type == 2" class="write" :data-cardbag_number="cardbag_number" @click="address">填写地址</button>
+				<button type="default" v-if="card_type == 0 || card_type == 1 || card_type == 3" class="transfer" @click="lockliwu">查看礼物</button>
 			</view>
 
 			<!-- <view style="height: 30rpx;width: 100%;background: #EEEEEE;margin-top: 50rpx;"></view>
@@ -173,7 +174,8 @@
 				second: 0,
 				timer:'',
 				totalDuration: '00:00:00',
-				is_exchange_type: 0
+				is_exchange_type: 0,
+				card_type: '', //card_type 1 去兑换按钮   card_type 2  写地址按钮  card_type 3  充值按钮 card_type 0 (订单完成)显示详情或列表
 			}
 		},
 		onLoad: function(e) {
@@ -234,6 +236,7 @@
             this.$utils.post(action2, data2).then(res => {
             	console.log('礼包信息')
             	console.log(res)
+				this.card_type = res.card_type
             	this.cardbag_in_people = res.cardbag_in_people
             	this.cardbag = res.cardbag
             	this.cardbag_theme = res.cardbag_theme

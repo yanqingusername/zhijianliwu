@@ -251,10 +251,8 @@
 				sr.track('register_wxapp',{})
 				sr.track('login_wxapp',{})
 				sr.startReport();
-				sr.setContext({
-				    wx_user: { // 首次添加
-				        open_id: openid
-				    }
+				sr.setUser({
+					open_id: openid
 				})
 			},
 

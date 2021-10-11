@@ -143,7 +143,7 @@
 			go_exchange: function(e) {
 				console.log(e);
 				let cardid = e.currentTarget.dataset.cardid;
-				uni.navigateTo({
+				uni.redirectTo({
 					url: './redemption_center?cardid=' + cardid
 				})
 			},

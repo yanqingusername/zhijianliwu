@@ -10,7 +10,7 @@
 		<view v-if="checknum==0">
 			<view class="balance-page">
 				<view class="balance-content flex-between-wrap">
-					<view :class="[number==index?'new-balance-content-li-active':'new-balance-content-li']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala">
+					<view :class="[number==index?'new-balance-content-li-active':'new-balance-content-li']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala" :data-remoney="item.recharge_money" :data-gvmoney="item.give_money">
 						<image class="new-balance-center-img" :src="[number==index?'../../static/bala_decorate_bg.png':'../../static/bala_decorate_bg_def.png']"></image>
 						<view class="new-balance-content-give">{{item.give_money}}</view>
 						<view :class="[number==index?'new-balance-content-price-active':'new-balance-content-price']">{{item.recharge_money}}元</view>
@@ -648,6 +648,7 @@ page{
 }
 
 .new-balance-content-li{
+	border: 1px solid #FFFFFF;
 	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
@@ -659,7 +660,7 @@ page{
 }
 .new-balance-content-li-active {
     border: 1px solid #EC1815;
-	width: 208rpx;
+	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
 	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);

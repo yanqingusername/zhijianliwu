@@ -743,6 +743,7 @@
 		color: #999999;
 		line-height: 33rpx;
 		padding: 0rpx 18rpx;
+		margin-left: 10rpx;
 	}
 	.recharge-status-label{
 		font-size: 28rpx;

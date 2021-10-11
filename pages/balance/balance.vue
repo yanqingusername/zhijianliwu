@@ -564,6 +564,7 @@ page{
 }
 
 .new-balance-content-li{
+	border: 1px solid #FFFFFF;
 	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
@@ -575,7 +576,7 @@ page{
 }
 .new-balance-content-li-active {
     border: 1px solid #EC1815;
-	width: 208rpx;
+	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
 	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);

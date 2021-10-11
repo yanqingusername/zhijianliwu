@@ -63,7 +63,7 @@
 		methods: {
 			goto(e) {
 				let keynum = e.currentTarget.dataset.keynum;
-				uni.navigateTo({
+				uni.redirectTo({
 					url: './index-address?good_keynum=' + keynum
 				})
 			},

@@ -121,7 +121,8 @@
 			var data = JSON.stringify({
 				pageIndex: pageIndex,
 				pageSize: 20,
-				is_type: 1
+				is_type: 1,
+				member_level: uni.getStorageSync("level"),
 			})
 			var action = 'get_tuijian_goods';
 			this.$utils.post(action, data).then(res => {
@@ -338,7 +339,8 @@
 				var data = JSON.stringify({
 					pageIndex: 1,
 					pageSize: 20,
-					is_type: 1
+					is_type: 1,
+					member_level: uni.getStorageSync("level"),
 				})
 				var action = 'get_tuijian_goods';
 

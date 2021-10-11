@@ -66,6 +66,29 @@
 					</view>
 					<view class="conversion-details">{{item.cancel_type_info}}</view>
 				</view>
+				
+				<!-- 兑换卡册 -->
+				<view style="padding: 25rpx 45rpx 25rpx 38rpx;" v-if="orderReceptionInfo.currency_type == 1 && orderReceptionInfo.currency_list.length > 0">
+					<view class="" style="padding: 15rpx 0rpx;font-size: 24rpx;color: #999999;width: 100%;">兑换商品</view>
+					<view class="new-order-li-center-item">
+						<view class="new-order-left" style="width: 112rpx;margin-left: 6rpx;">
+							<view class="new-order-img" style="width: 112rpx;height: 112rpx;">
+								<image lazy-load="true" class="new-order-commodity-img" :src="orderReceptionInfo.currency_list[0].head_img" mode="" style="width: 112rpx;height: 112rpx;"></image>
+							</view>
+						</view>
+						<view class="new-order-right" style="margin-left: 0rpx;width: 530rpx;">
+							<view class="new-order-item">
+								<view class="new-order-item-title">{{orderReceptionInfo.currency_list[0].goodsname}}</view>
+								<view class="new-order-item-money"></view>
+							</view>
+							<view class="new-order-item">
+								<view class="new-order-item-sku">规格：{{orderReceptionInfo.currency_list[0].goods_spec_item}}</view>
+								<view class="new-order-item-total"></view>
+							</view>
+						</view>
+					</view>
+				</view>
+				
 				<view class="new-order-li-bottom" v-if="orderReceptionInfo.orderinfo.status ==3" >
 					<view class="new-order-nickname"></view>
 					<view class="new-order-botton-view">
@@ -83,6 +106,14 @@
 			<view class="reception-order-view" style="margin-top: 12rpx;">
 				<view class="reception-order-text">领取时间：</view>
 				<view class="reception-order-time">{{orderReceptionInfo.add_time}}</view>
+			</view>
+			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderReceptionInfo.currency_type == 1 && orderReceptionInfo.currency_time">
+				<view class="reception-order-text">兑换成功：</view>
+				<view class="reception-order-time">{{orderReceptionInfo.currency_time}}</view>
+			</view>
+			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderReceptionInfo.currency_type == 2 && orderReceptionInfo.currency_time">
+				<view class="reception-order-text">充值成功：</view>
+				<view class="reception-order-time">{{orderReceptionInfo.currency_time}}</view>
 			</view>
 		</view>
 		<view class="reception-empty"></view>
@@ -344,6 +375,15 @@
 		position: absolute;
 		bottom: 12rpx;
 		right: 34rpx;
+	}
+	.new-order-li-center-item{
+		display: flex;
+		align-items: center;
+		position: relative;
+		justify-content: space-between;
+		width: 678rpx;
+		height: 135rpx;
+		background: #FAFAFA;
 	}
 	.new-order-left{
 		width: 140rpx;

@@ -3,7 +3,7 @@
 
 		<!-- 轮播图 -->
 		<view v-if="details.length>0" style="width: 100%;height: 750rpx;position: relative;">
-			<swiper class="details-swiper" :circular="true" :indicator-dots="true" :autoplay="true" @change="changeswiper"
+			<swiper class="details-swiper" :circular="true" :indicator-dots="false" :autoplay="true" @change="changeswiper"
 				:interval="3000" :duration="1000" indicator-color="#D6D6D6 " indicator-active-color="#C59A5A">
 				<swiper-item v-for="(item,index) in details" :key="index">
 					<view class="details-swiper-img">

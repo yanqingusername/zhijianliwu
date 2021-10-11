@@ -194,7 +194,8 @@
 			 })
 			var data = JSON.stringify({
 				pageIndex: this.pageIndex,
-				pageSize: this.pageSize
+				pageSize: this.pageSize,
+				member_level: uni.getStorageSync("level"),
 			});
 			var action = 'get_tuijian_goods';
 			
@@ -212,7 +213,8 @@
 			console.log("下一页");
 			var data = JSON.stringify({
 				pageIndex: this.pageIndex,
-				pageSize: this.pageSize
+				pageSize: this.pageSize,
+				member_level: uni.getStorageSync("level"),
 			});
 			var action = 'get_tuijian_goods';
 			this.$utils.post(action, data).then(res => {
@@ -670,7 +672,8 @@
 				
 				var data = JSON.stringify({
 					pageIndex: this.pageIndex,
-					pageSize: this.pageSize
+					pageSize: this.pageSize,
+					member_level: uni.getStorageSync("level"),
 				});
 				var action = 'get_tuijian_goods';
 				this.$utils.post(action, data).then(res => {

@@ -120,7 +120,7 @@
 			clickHandler(){
 				this.showPop = false;
 				this.showInput = true;
-				uni.navigateTo({
+				uni.redirectTo({
 					url:"./ExchangeOrder"
 				});
 			},

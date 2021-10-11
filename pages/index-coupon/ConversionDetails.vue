@@ -36,9 +36,15 @@
 			</scroll-view>
 
 			<view class="bag-gift">
-				<view class="bag-gift-title">
-					<text class="bag-gift-title-font">{{cardbag.receive_status_info_buttom}}</text>
+				<view class="new-gray-view-dispaly">
+					<view class="bag-gift-title">
+						<text class="bag-gift-title-font">{{cardbag.receive_status_info_buttom}}</text>
+					</view>
+					<view style="display: flex;margin-right: 40rpx;" v-if="cardbag.receive_status == 0">
+						<button class="new-gray-view" open-type="share">提醒好友领取</button>
+					</view>
 				</view>
+				
 
 				<view class="bag-gift-title" style="height: 110rpx;border-top: 1px solid #E6E6E6;" v-for="item1 in cardbag_in_people" :key="item1.id">
 					<view class="flex-between flex-vertically">
@@ -59,9 +65,9 @@
 
 			</view>
 			
-			<view style="display: flex;margin-bottom: 60rpx;" v-if="cardbag.receive_status == 0">
+			<!-- <view style="display: flex;margin-bottom: 60rpx;" v-if="cardbag.receive_status == 0">
 				<button class="gray-view" open-type="share">提醒好友领取</button>
-			</view>
+			</view> -->
 			
 			<view style="display: flex;">
 				<button type="warn" class="write" @click="resend">再送一份</button>
@@ -393,6 +399,26 @@
 		border-radius: 3rpx;
 		font-size: 25rpx;
 		color: #666666;
+	}
+
+	.new-gray-view-dispaly{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.new-gray-view{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 220rpx;
+		height: 66rpx;
+		background: #F3E4E4;
+		border-radius: 33rpx;
+		font-size: 25rpx;
+font-weight: 500;
+color: #DB3C3A;
+line-height: 34rpx;
 	}
 
 	.write {

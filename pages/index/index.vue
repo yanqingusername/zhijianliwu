@@ -199,7 +199,10 @@
 				this.gridList = res.rs;
 			});
 			// 推荐商品
-			var data = JSON.stringify({a:0});
+			var data = JSON.stringify({
+				a:0,
+				member_level: uni.getStorageSync("level"),
+			});
 			var action = 'get_tuijian_goods';
 			this.$utils.post(action, data).then(res => {
 				console.log("推荐商品：",res);
