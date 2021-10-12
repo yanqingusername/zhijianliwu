@@ -86,13 +86,18 @@
 				goodsinfo: {},
 				goods_item: '',
 				isShow: 1,
-				swiperCurrentIndex: 1
+				swiperCurrentIndex: 1,
+				isOrder: 0
 			}
 		},
 		onLoad: function(e) {
 			if (e.keynum) {
 				this.keynum = e.keynum;
 				this.isShow = e.isShow;
+			}
+
+			if(e && e.isOrder){
+				this.isOrder =  e.isOrder;
 			}
 
 			this.level_name = uni.getStorageSync('level_name');
@@ -147,7 +152,7 @@
 				console.log(e);
 				let keynum = e.currentTarget.dataset.keynum;
 				uni.navigateTo({
-					url: './index-address?good_keynum=' + keynum
+					url: './index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder
 				})
 			},
 			changeswiper(e) {

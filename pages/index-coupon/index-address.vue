@@ -81,10 +81,16 @@
 				good_keynum: "",
 				remark: "",
 				showInput: true,
-				showPop: false
+				showPop: false,
+				isOrder: 0
 			}
 		},
 		onLoad: function(e) {
+
+			if(e && e.isOrder){
+				this.isOrder =  e.isOrder;
+			}
+
 			console.log(e);
 			uni.showToast({
 				icon: "loading",
@@ -120,9 +126,15 @@
 			clickHandler(){
 				this.showPop = false;
 				this.showInput = true;
-				uni.redirectTo({
-					url:"./ExchangeOrder"
-				});
+				if(this.isOrder == 1){
+					uni.navigateBack({
+				        delta:1
+				    })
+				} else {
+					uni.redirectTo({
+						url:"./ExchangeOrder"
+					});
+				}
 			},
 			
 			sub: function(e) {

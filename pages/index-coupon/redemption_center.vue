@@ -37,11 +37,15 @@
 	export default {
 		data() {
 			return {
-				goodslist:[]
+				goodslist:[],
+				isOrder: 0
 			}
 		},
 		onLoad: function(e) {
 			console.log(e);
+			if(e && e.isOrder){
+				this.isOrder =  e.isOrder;
+			}
 			uni.showToast({
 				icon: "loading",
 				title: "加载中"
@@ -64,7 +68,7 @@
 			goto(e) {
 				let keynum = e.currentTarget.dataset.keynum;
 				uni.redirectTo({
-					url: './index-address?good_keynum=' + keynum
+					url: './index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder
 				})
 			},
 			goodsItem(item, e) {
@@ -83,8 +87,8 @@
 				// uni.navigateTo({
 				// 	url: './index-address?good_keynum=' + keynum
 				// })
-				uni.navigateTo({
-					url: './ExchangeDetails?keynum=' + keynum
+				uni.redirectTo({
+					url: './ExchangeDetails?keynum=' + keynum + '&isOrder=' + this.isOrder
 				})
 				
 			}

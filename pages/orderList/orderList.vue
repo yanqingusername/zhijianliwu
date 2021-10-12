@@ -1378,7 +1378,7 @@
 				console.log(e);
 				let cardid = e.currentTarget.dataset.cardid;
 				uni.navigateTo({
-					url: '../index-coupon/redemption_center?cardid=' + cardid
+					url: '../index-coupon/redemption_center?cardid=' + cardid + '&isOrder=1'
 				})
 			},
 			//去充值
