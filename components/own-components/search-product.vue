@@ -8,10 +8,23 @@
 				</view>
 				<view class="goods-text">{{post.goodsname}}</view>
 				<!-- <view class="goods-sub-text uni-ellipsis">{{post.goodstitle}}</view> -->
-				<view class="goods-bottom">
+				<!-- <view class="goods-bottom">
 					<view class="goods-bottom-money">¥<text style="font-size: 34rpx;">{{post.price}}</text><image class="goods-members-icon" v-if="post.level_sign == 1" src="../../static/icon_corporate_members.png"></image></view>
 					<view class="goods-number" v-if="state == 99">已售{{post.buy_count || 0}}件</view>
 					<view class="goods-number" v-else>{{post.buy_count || 0}}人已购</view>
+				</view> -->
+				<view class="own-other-info-box" v-if="post.level_sign == 1">
+					<text class="price-i">￥</text><text style="font-size: 34rpx;color: #FB4133;">{{post.price}}</text>
+					<image class="qi" src="../../static/icon_corporate_members.png" mode="widthFix"></image>
+				</view>
+				<!-- 价格 -->
+				<view class="own-price-box">
+					<text class="own-discount-price" v-if="post.level_sign == 1">￥{{post.price_level0}}</text>
+					<view v-else>
+						<text class="price-i">￥</text><text class="own-price" style="font-size: 34rpx;color: #FB4133;">{{post.price}}</text>
+					</view>
+					<text class="goods-number" v-if="state == 99">已售{{post.buy_count || 0}}件</text>
+					<text class="goods-number" v-else>{{post.buy_count || 0}}人已购</text>
 				</view>
 			</view>
 	</view>
@@ -73,7 +86,8 @@
 	    background: #FFFFFF;
 	    border-radius: 10rpx;
 	    position: relative;
-	    height: 510rpx;
+		padding-bottom: 20rpx;
+	    /* height: 510rpx; */
 	}
 	
 	.goods-head {
@@ -144,7 +158,7 @@
 	.goods-number{
 		font-size: 24rpx;
 		color: #999999;
-		line-height: 33rpx;
+		/* line-height: 33rpx; */
 	}
 	.goods-members-icon{
 		width: 38rpx;
@@ -152,5 +166,38 @@
 		position: absolute;
 		top: 18rpx;
 		margin-left: 6rpx;
+	}
+	
+	
+	
+	.own-other-info-box{
+		margin: 20rpx 20rpx 16rpx 20rpx;
+	}
+	.price-i{
+		font-size: 24rpx;
+		color: #FB4133;
+	}
+	.qi{
+		width: 40rpx;
+		margin-left: 6rpx;
+	}
+	.own-price-box{
+		margin-top: 14rpx;
+		margin-left: 20rpx;
+		margin-right: 20rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+	.own-discount-price{
+		font-size: 12px;
+		text-decoration: line-through;
+		color: #898989;
+	}
+	.own-price-box .number{
+		float: right;
+		font-size: 26rpx;
+		font-weight: bold;
+		color: #999;
 	}
 </style>

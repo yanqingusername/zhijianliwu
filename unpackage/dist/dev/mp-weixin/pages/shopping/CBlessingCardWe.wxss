@@ -59,6 +59,17 @@ page{
 	    font-size: 32rpx;
 	    border-radius: 50rpx;
 }
+.new-gift-btn{
+	margin-top: 60rpx;
+	    width: 640rpx;
+	    background-color: #575D65;
+		color: #FFFFFF;
+	    height: 80rpx;
+	    line-height: 80rpx;
+	    margin-bottom: 30rpx;
+	    font-size: 32rpx;
+	    border-radius: 50rpx;
+}
 
 
 /*wxss*/

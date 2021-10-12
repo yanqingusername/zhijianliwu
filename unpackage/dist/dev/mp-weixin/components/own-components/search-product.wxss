@@ -38,7 +38,8 @@
     background: #FFFFFF;
     border-radius: 10rpx;
     position: relative;
-    height: 510rpx;
+	padding-bottom: 20rpx;
+    /* height: 510rpx; */
 }
 .goods-head.data-v-66d54531 {
     position: relative;
@@ -112,7 +113,7 @@
 .goods-number.data-v-66d54531{
 	font-size: 24rpx;
 	color: #999999;
-	line-height: 33rpx;
+	/* line-height: 33rpx; */
 }
 .goods-members-icon.data-v-66d54531{
 	width: 38rpx;
@@ -120,5 +121,41 @@
 	position: absolute;
 	top: 18rpx;
 	margin-left: 6rpx;
+}
+.own-other-info-box.data-v-66d54531{
+	margin: 20rpx 20rpx 16rpx 20rpx;
+}
+.price-i.data-v-66d54531{
+	font-size: 24rpx;
+	color: #FB4133;
+}
+.qi.data-v-66d54531{
+	width: 40rpx;
+	margin-left: 6rpx;
+}
+.own-price-box.data-v-66d54531{
+	margin-top: 14rpx;
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: baseline;
+	-webkit-align-items: baseline;
+	        align-items: baseline;
+}
+.own-discount-price.data-v-66d54531{
+	font-size: 12px;
+	text-decoration: line-through;
+	color: #898989;
+}
+.own-price-box .number.data-v-66d54531{
+	float: right;
+	font-size: 26rpx;
+	font-weight: bold;
+	color: #999;
 }
 
