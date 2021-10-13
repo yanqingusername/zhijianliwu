@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "充值查询",
+  "navigationBarTitleText": "余额明细",
   "enablePullDownRefresh": true,
   "usingComponents": {}
 }

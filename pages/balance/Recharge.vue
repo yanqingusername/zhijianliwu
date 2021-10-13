@@ -12,7 +12,7 @@
 				<view class="balance-content flex-between-wrap">
 					<view :class="[number==index?'new-balance-content-li-active':'new-balance-content-li']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala" :data-remoney="item.recharge_money" :data-gvmoney="item.give_money">
 						<image class="new-balance-center-img" :src="[number==index?'../../static/bala_decorate_bg.png':'../../static/bala_decorate_bg_def.png']"></image>
-						<view class="new-balance-content-give">{{item.give_money}}</view>
+						<view class="new-balance-content-give">{{item.discount}}</view>
 						<view :class="[number==index?'new-balance-content-price-active':'new-balance-content-price']">{{item.recharge_money}}元</view>
 						<image class="new-balance-img" :src="[number==index?'../../static/bala_current_cz.png':'../../static/bala_default_cz.png']"></image>
 					</view>
@@ -134,7 +134,7 @@
 					  this.balance = res.rs;
 					  this.id = res.rs[0].id;
 					  if(res.rs.length > 0){
-					  	  this.payMoney = parseFloat(res.rs[0].recharge_money) - parseFloat(res.rs[0].give_money)
+					  	  this.payMoney = res.rs[0].give_money
 					  } else {
 					  	  this.payMoney = 0
 					  }
@@ -317,7 +317,7 @@
 				 this.id = e.currentTarget.dataset.id;
 				 this.reMoney = e.currentTarget.dataset.remoney;
 				 this.gvMoney = e.currentTarget.dataset.gvmoney;
-				 this.payMoney = parseFloat(e.currentTarget.dataset.remoney) - parseFloat(e.currentTarget.dataset.gvmoney)
+				 this.payMoney = e.currentTarget.dataset.gvmoney
 				 this.number = index;
 				 this.money = 0;
 			   },
