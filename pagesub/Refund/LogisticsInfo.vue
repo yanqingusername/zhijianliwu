@@ -18,6 +18,7 @@
 							<image src="../../static/icon_delivery_logistics_05.png" class="wl_Order_placed_img" v-if="item.status_type ==5"></image>
 							<image src="../../static/icon_signed_logistics_06.png" class="wl_Order_placed_img" v-if="item.status_type ==6"></image>
 							<view style="font-size: 20rpx;color: #FFCDCD;width: 40rpx;height: 40rpx;display: flex;align-items: center;justify-content: center;" v-if="item.status_type ==7">收</view>
+							<view style="font-size: 20rpx;color: #FFCDCD;width: 40rpx;height: 40rpx;display: flex;align-items: center;justify-content: center;" v-if="item.status_type ==8">完</view>
 						</view>
 						<view class="wl_Order_placed_view" v-else></view>
 					</view>

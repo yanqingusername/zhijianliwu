@@ -1,11 +1,11 @@
 <template>
-	<view>
-		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
-			<view class="my-nav" :style="'height:'+nav+'px'"></view>
+	<view style="width: 100%;overflow-x: hidden;display: flex;flex-direction: column;box-sizing: border-box;">
+		<view class="personal-header" style="height:200rpx;">
+			<!-- <view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title"></view>
-			</view>
+			</view> -->
 			<!-- <view class="recharge-status-top">
 				<image v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
 				<image v-if="orderBuyInfo.orderinfo.status ==2" class="recharge-status-img" src="../../static/icon_completed_reception.png"></image>
@@ -380,6 +380,10 @@
 	page{
 		background-color: #F9F9F9;
 		box-sizing: border-box;
+		width: 100%;
+		overflow-x: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 	
 	.personal-header{
@@ -415,7 +419,8 @@
 		display: flex;
 		align-items: center;
 	    justify-content: center;
-	    margin-top: 20rpx;
+	    /* margin-top: 20rpx; */
+		padding-top: 20rpx;
 	}
 	.recharge-status-img{
 		width: 42rpx;

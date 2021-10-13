@@ -938,7 +938,7 @@
 		    border-radius: 50px;
 		    height: 80rpx;
 		    position: absolute;
-		    bottom: 0rpx;
+		    bottom: 20rpx;
 		    margin: 0rpx 45rpx;
 		/* position: absolute; */
 		/* bottom: 20rpx; */

@@ -533,7 +533,8 @@
 			"style" :                                                                                    
 			{
 			    "navigationBarTitleText": "",
-				"navigationStyle":"custom"
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor":"#FB503D"
 			}
 		},
 		{
@@ -541,7 +542,8 @@
 			"style" :                                                                                    
 			{
 			    "navigationBarTitleText": "",
-				"navigationStyle":"custom"
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor":"#FB503D"
 			}
 		},
 		{
@@ -549,7 +551,8 @@
 			"style" :                                                                                    
 			{
 			    "navigationBarTitleText": "",
-				"navigationStyle":"custom"
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor":"#FB503D"
 			}
 		},
 		{

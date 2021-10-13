@@ -1,11 +1,11 @@
 <template>
-	<view>
-		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
-			<view class="my-nav" :style="'height:'+nav+'px'"></view>
+	<view style="width: 100%;overflow-x: hidden;display: flex;flex-direction: column;">
+		<view class="personal-header" style="height:200rpx;">
+			<!-- <view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title"></view>
-			</view>
+			</view> -->
 			<view class="recharge-status-top">
 				<image class="recharge-status-img" v-if="orderReceptionInfo.orderinfo.status ==2" src="../../static/icon_transit_reception.png"></image>
 				<!-- <view class="recharge-status-text" v-if="orderReceptionInfo.orderinfo.status ==2">{{orderReceptionInfo.orderinfo.order_status_info}}</view> -->
@@ -228,7 +228,8 @@
 		display: flex;
 		align-items: center;
 	    justify-content: center;
-	    margin-top: 20rpx;
+	    /* margin-top: 20rpx; */
+		padding-top: 20rpx;
 	}
 	.recharge-status-img{
 		width: 42rpx;

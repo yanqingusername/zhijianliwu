@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="width: 100%;overflow-x: hidden;display: flex;flex-direction: column;">
 		<view class="order-purchase-view">
 			<view class="new-order-li">
 				<view class="new-order-li-top">

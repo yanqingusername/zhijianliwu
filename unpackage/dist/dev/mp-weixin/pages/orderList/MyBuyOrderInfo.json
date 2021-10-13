@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "",
-  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#FB503D",
   "usingComponents": {
     "uni-countdown": "/uni_modules/uni-countdown/components/uni-countdown/uni-countdown"
   }

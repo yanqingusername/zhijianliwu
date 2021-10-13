@@ -46,7 +46,8 @@ page{
     -webkit-box-pack: center;
     -webkit-justify-content: center;
             justify-content: center;
-    margin-top: 20rpx;
+    /* margin-top: 20rpx; */
+	padding-top: 20rpx;
 }
 .recharge-status-img{
 	width: 42rpx;
