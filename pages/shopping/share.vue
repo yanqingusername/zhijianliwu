@@ -130,7 +130,7 @@
 									x: 100,
 									y: 100,
 									w: 180,
-									h: 200,
+									h: 225,
 									radius: 10,
 									fill_color: "#CCB586"
 								});
@@ -138,7 +138,7 @@
 									x: 102,
 									y: 102,
 									w: 176,
-									h: 196,
+									h: 221,
 									radius: 10,
 									fill_color: "rgb(255, 255, 255)"
 								});
@@ -159,10 +159,10 @@
 								// 画商品
 								await this.$refs.rCanvas.drawImage({
 									url: this.$utils.imageUrl(this.imageUrl),
-									x: 125,
-									y: 130,
-									w: 130,
-									h: 120
+									x: 106,
+									y: 106,
+									w: 170,
+									h: 170
 								}).catch(err_msg => {
 									uni.showToast({
 										title: err_msg,
@@ -174,7 +174,7 @@
 								await this.$refs.rCanvas.drawText({
 									text: this.$utils.sub_str(this.goodsname,9),
 									x: 130,
-									y: 280,
+									y: 301,
 									font_color: "#333333",
 									font_size: 14
 								}).catch(err_msg => {
@@ -320,7 +320,7 @@
 							await this.$refs.rCanvas.drawText({
 								text: this.nickname + "为你挑选了"+this.goods_count_num+"件礼物",
 								x: 110,
-								y: 340,
+								y: 360,
 								font_color: "#FADEA5",
 								font_size: 16
 							}).catch(err_msg => {
@@ -352,7 +352,7 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序二维码领识别",
+								text: "长按小程序二维码识别",
 								x: 120,
 								y: 510,
 								font_color: "#FFF8F8",

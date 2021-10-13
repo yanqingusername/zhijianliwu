@@ -39,20 +39,10 @@
 					</view>
 				</view> -->
 		<!-- 语音-->
-		<view class="sound-border" v-if="gift==='1'" style="display: flex;align-items: center;justify-content: center;">
+		<!-- <view class="sound-border" v-if="gift==='1'" style="display: flex;align-items: center;justify-content: center;">
 			<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_recording_2021_08_30.png" mode=""></image>
 			<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
 			<text class="sound-name">{{present_memberid_name}}</text>
-			<!-- <image class="sound-cd" :src="$utils.osspath_url('/xcx-static/wishes/cd.png')" mode=""></image>
-			 <image class="sound-san" @click="audioPlay" v-if="radio"
-			 	:src="$utils.osspath_url('/xcx-static/wishes/piay_icon1.png')" mode=""></image>
-			 <image class="sound-san" @click="audioPlay" v-else
-			 	:src="$utils.osspath_url('/xcx-static/wishes/piay_icon.png')" mode=""></image>
-			<image class="sound-on" @click="audioPlay" :class="radio?'sound-on':'sound-on-rotate'" :src="$utils.osspath_url('/xcx-static/wishes/on.png')" mode=""></image>
-			<view class="slider" @click="audioPlay">
-				<slider :value="schedule" step="1" activeColor="#D8D8D8" backgroundColor="#767676 " block-color="#D8D8D8" block-size="12"/>
-			</view> -->
-			
 			<view class="audio-box-view">
 				<view class="audio-img-view">
 					<image class="sound-img-bg1" src="https://zhijianlw.com/static/web/img/icon-cd-2021-09-08-01.png" mode=""></image>
@@ -65,17 +55,16 @@
 					    <view>{{timecount}}</view><view>/{{totalDuration}}</view>
 					</view> 
 					<view class="audio-box-view-text" style="color: EEEEEE;">播放录音</view>
-					
 				</view>
 			</view>
 			
 			<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
 			<text class="new-chai" @click="open"></text>
-		</view>
+		</view> -->
 
         
         <!-- 视频 -->
-        <view class="sound-border" v-if="gift==='2'">
+        <!-- <view class="sound-border" v-if="gift==='2'">
            	<image class="sound-bg" src="https://zhijianlw.com/static/web/img/mb_movie_2021_08_30.png"
            		mode=""></image>
 				<image class="sound-head" :src="present_memberid_headimg" mode=""></image>
@@ -85,7 +74,7 @@
            	
            	<text class="line">熊猫送了您一份礼物，赶紧领取吧</text>
            	<text class="new-chai" @click="open"></text>
-        </view>
+        </view> -->
 	</view>
 	<view class="" v-else-if="isShowCheck == 1">
 		<!-- 文字祝福 -->

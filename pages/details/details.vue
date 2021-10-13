@@ -26,7 +26,7 @@
 					</view>
 				</view>
 				<view class="details-hidden-content">
-					<scroll-view scroll-y="true" style="max-height: 240px;white-space: normal;">
+					<scroll-view scroll-y="true" style="max-height: 220px;white-space: normal;">
 						<view v-for="(item,index) in choose" :key="index"  v-if="text>1">
 							<view class="details-hidden-title">{{item.spec_name}}</view>
 							
@@ -146,7 +146,7 @@
 			<text class="details-ch-xq">正品保障 · 可开发票 · 发货&售后</text>
 		</view>
 		<!-- 商品详情/商品须知 -->
-		<view class="details-choose" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
+		<view class="details-choose" style="border-bottom: 1px solid #EEEEEE" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<view class="details-choose-content margin-auto flex-between">
 				<view @tap="join" data-index="0" :class="commom">商品详情</view>
 				<view @tap="join" class="zengli" data-index="1" :class="commom1">赠礼须知</view>
@@ -156,7 +156,7 @@
 		<!-- 商品详情 -->
 		<u-parse :content="btmdetails" v-if="btm && (alt.is_currency_type == 0 || alt.is_currency_type == 2)"></u-parse>
 		<!-- 赠礼须知 -->
-		<view v-else style="background: #fff; padding-top: 30rpx" v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
+		<view v-else v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<!-- <u-parse :content="btmnotice" style="background: #fff;"></u-parse> -->
 			<image lazy-load="true" src="https://zhijianlw.com/static/web/img/lizengxuzhi_2021_08_26.jpg" mode="widthFix" style="width: 100%;height: 100%;"></image>
 			<view class="z-zlxz">
@@ -1285,12 +1285,13 @@
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		overflow: hidden;
-		padding: 10rpx 30rpx !important;
-		border-radius: 50rpx;
+		padding: 8rpx 36rpx !important;
+		border-radius: 24rpx;
 		background-color: #f5f5f5;
-		color: #696969;
+		color: #666666;
 		border: none;
-		margin: 0 20rpx 20rpx 0;
+		margin: 0 20rpx 48rpx 0;
+		font-size: 24rpx;
 	}
 	.details-hidden-alt{
 		border: none;
@@ -1298,9 +1299,10 @@
 	}
 
 	.details-hidden-alt .active {
-		border: 1px solid #BD2C00;
-		background-color: #FFD2D2;
-		color: #BD2C00;
+		color: #EB302F;
+		background: #FFDBDA;
+		border-radius: 24rpx;
+		border: 1px solid #EB302F;
 	}
 
 	.rich_img {
@@ -1558,7 +1560,7 @@
 	}
 
 	.cart-count {
-		width: 60rpx;
+		width: 90rpx;
 		height: 40rpx;
 		line-height: 40rpx;
 		text-align: center;
@@ -1627,12 +1629,12 @@
 		/* height: 20rpx; */
 		line-height: 26rpx;
 		text-align: center;
-		border-radius: 10rpx;
+		border-radius: 12rpx;
 		background-color: red;
-		font-size: 16rpx;
+		font-size: 18rpx;
 		color: #fff;
-		width: 30rpx;
-		height: 20rpx;
+		width: 36rpx;
+		height: 24rpx;
 		display: flex;
 		align-items: center;
 	    justify-content: center;
@@ -1647,10 +1649,10 @@
 	    text-align: center;
 	    border-radius: 50%;
 	    background-color: red;
-	    font-size: 16rpx;
+	    font-size: 18rpx;
 	    color: #fff;
-	    width: 20rpx;
-		height: 20rpx;
+	    width: 24rpx;
+		height: 24rpx;
 		display: flex;
 		align-items: center;
 	    justify-content: center;
@@ -1686,7 +1688,7 @@
 		padding: 10rpx 30rpx;
 		background-color: #fff;
 		position: fixed;
-		bottom: 20rpx;
+		bottom: 40rpx;
 		box-sizing: border-box;
 	}
 	.details-hidden-determine>view{
@@ -1851,12 +1853,13 @@
 		justify-content: center;
 		width: 105rpx;
 		height: 40rpx;
-		background: #B3B3B3;
+		background: #000000;
 		border-radius: 20rpx;
-		border: 1px solid #B3B3B3;
+		border: 1px solid #FFFFFF;
 		position: absolute;
 	    bottom: 20rpx;
 	    right: 20rpx;
+		opacity: 0.29;
 	}
 	.position-swiper-t{
 		font-size: 30rpx;

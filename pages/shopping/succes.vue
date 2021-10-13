@@ -58,7 +58,7 @@
 			</view>
 			<button class="btn-one" type="warn" plain="true" @click="resend">再送一份</button>
 
-
+			<!-- <view style="height: 50rpx;width: 100%;"></view> -->
 		</view>
 		<view style="height: 30rpx;"></view>
 	</view>
@@ -310,6 +310,7 @@
 <style>
 	.btn{
 		padding: 0 40rpx;
+		margin-top: 50rpx;
 	}
 	.firend-btn{
 		margin: 0 20rpx;;
@@ -335,6 +336,7 @@
 		text-align: center;
 		background-color: #fff;
 		border-radius: 10rpx;
+		min-height: 1100rpx;
 	}
 	
 	 .home_icon{
@@ -344,14 +346,18 @@
 		 margin-left: 20px;
 	 }
 	.gift1 {
-		width: 360rpx;
-		border: 1px solid #CCB586;
-		border-radius: 10rpx;
-		margin-left: 3rpx;
 		position: relative;
-		padding: 72rpx 40rpx 40rpx;
 		box-sizing: border-box;
 		display: inline-block;
+		
+		width: 368rpx;
+		    	height: 460rpx;
+				border: 3rpx solid #CCB586;
+				/* position: absolute;
+				top: 100px;
+				left: 180rpx; */
+				/* justify-content: center; */
+				border-radius: 10rpx;
 	}
 	.flowers{
 		width: 40rpx;
@@ -363,13 +369,14 @@
 	}
 	
 	.gift-img1 {
-		height: 246rpx;
-		width: 174rpx;
+		height: 360rpx;
+		    	width: 360rpx;
+				border-radius: 10rpx;
 	}
 	
 	.gift-xq1 {
 		text-align: center;
-		margin-top: 55rpx;
+		margin-top: 20rpx;
 	}
 	
 	.gift-xq-title1 {
@@ -391,7 +398,7 @@
 	
 	.bot {
 		width: 100%;
-		margin-top: 25rpx;
+		margin-top: 40rpx;
 		text-align: center;
 		flex-direction: column;
 	    display: flex;
@@ -413,7 +420,7 @@
 		text-align: center;
 	}
 	.z-font-hours{
-		margin-top: 44rpx;
+		margin-top: 60rpx;
 		font-size: 24rpx;
 		color: #999;
 	}

@@ -118,6 +118,8 @@
 					<text class="wishes-line-font">{{cardbag.present_memberid_name}}送了您一份礼物赶紧领取吧</text>
 				</view>
 			</view> -->
+			
+			<!-- <view style="height: 50rpx;width: 100%;"></view> -->
 		</view>
 		<view style="height: 30rpx;width: 100%;"></view>
 	</view>
@@ -565,6 +567,7 @@
 	    display: flex;
 	    flex-direction: column;
 		align-items: center;
+		min-height: 1000rpx;
 		padding-bottom: 30rpx;
 	}
 
@@ -586,21 +589,23 @@
 	}
 
 	.bag-tea {
-		width: 320rpx;
-		height: 350rpx;
-		border: 1px solid #CCB586;
+		width: 368rpx;
+    	height: 460rpx;
+		border: 3rpx solid #CCB586;
 		/* position: absolute;
 		top: 100px;
 		left: 180rpx; */
 		display: flex;
-		justify-content: center;
+		/* justify-content: center; */
 		align-items: center;
 		flex-direction: column;
+		border-radius: 10rpx;
 	}
 
 	.bag-tea-img {
-		height: 246rpx;
-		width: 174rpx;
+		height: 360rpx;
+    	width: 360rpx;
+		border-radius: 10rpx;
 	}
 
 	.bag-tea-title {
@@ -613,7 +618,7 @@
 		/* width: 90%; */
 		/* height: 204rpx; */
 		background-color: #F8F8F8;
-		margin: 50rpx 0rpx;
+		margin: 80rpx 0rpx;
 		    width: 90%;
 		/* position: absolute;
 		margin-top: 350px;

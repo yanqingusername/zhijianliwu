@@ -41,7 +41,7 @@
 			<view class="new-order-li" @click="receptiondetails" :data-ordernumber="item.ordernumber" :data-status="item.status" :data-cardtype="item.card_type">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">订单号：{{item.ordernumber}}</view>
-					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} ></view>
+					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} <image style="width: 20rpx;height: 24rpx;margin-left: 0rpx;margin-right: -4rpx;" src="../../static/return_arrow_r_g.png"/></view>
 				</view>
 				<view class="new-order-li-center">
 					<view class="new-order-left" v-if="item.goods_info_list.length == 1">
@@ -105,6 +105,7 @@
 			</view>
 			
 		</view>
+		<view style="height: 20rpx;"></view>
 		<view class="post-bottom" v-if="isAll">
 			<view class="post-bottom-line"></view>
 			<view class="post-bottom-text">我是有底线的</view>
@@ -1569,6 +1570,9 @@
 		font-size: 24rpx;
 		color: #333333;
 		line-height: 33rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	.new-order-li-center{
 		display: flex;
@@ -1653,7 +1657,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #EB1615;
 		font-size: 24rpx;
@@ -1666,7 +1670,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #979797;
 		font-size: 24rpx;

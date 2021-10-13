@@ -1,6 +1,8 @@
 
 page{
 	background-color: #F9F9F9;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .personal-header{
 	 height: 160px;
@@ -119,6 +121,11 @@ page{
 	font-weight: bold;
 	color: #333333;
 	line-height: 42rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 .reception-distribution-time{
 	width: 570rpx;
@@ -310,7 +317,7 @@ page{
 	margin-left: 20rpx;
 }
 .new-order-item-money{
-	font-size: 24rpx;
+	font-size: 30rpx;
 	color: #333333;
 	line-height: 33rpx;
 }
@@ -437,7 +444,7 @@ page{
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	height: 48rpx;
+	height: 44rpx;
 	border-radius: 3rpx;
 	border: 1px solid #EB1615;
 	font-size: 24rpx;
@@ -456,7 +463,7 @@ page{
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	height: 48rpx;
+	height: 44rpx;
 	border-radius: 3rpx;
 	border: 1px solid #979797;
 	font-size: 24rpx;

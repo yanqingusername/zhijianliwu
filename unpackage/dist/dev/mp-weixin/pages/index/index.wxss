@@ -392,7 +392,13 @@ swiper-item{
 			bottom: 20rpx;
 			display: -webkit-box;
 			display: -webkit-flex;
-			display: flex
+			display: flex;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
 }
 .indicator-view-item{
 			width: 36rpx;

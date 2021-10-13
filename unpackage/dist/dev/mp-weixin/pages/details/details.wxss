@@ -297,21 +297,23 @@
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		overflow: hidden;
-		padding: 10rpx 30rpx !important;
-		border-radius: 50rpx;
+		padding: 8rpx 36rpx !important;
+		border-radius: 24rpx;
 		background-color: #f5f5f5;
-		color: #696969;
+		color: #666666;
 		border: none;
-		margin: 0 20rpx 20rpx 0;
+		margin: 0 20rpx 48rpx 0;
+		font-size: 24rpx;
 }
 .details-hidden-alt{
 		border: none;
 		padding-bottom: 0;
 }
 .details-hidden-alt .active {
-		border: 1px solid #BD2C00;
-		background-color: #FFD2D2;
-		color: #BD2C00;
+		color: #EB302F;
+		background: #FFDBDA;
+		border-radius: 24rpx;
+		border: 1px solid #EB302F;
 }
 .rich_img {
 		width: 100% !important;
@@ -561,7 +563,7 @@
 		font-size: 32rpx;
 }
 .cart-count {
-		width: 60rpx;
+		width: 90rpx;
 		height: 40rpx;
 		line-height: 40rpx;
 		text-align: center;
@@ -631,12 +633,12 @@
 		/* height: 20rpx; */
 		line-height: 26rpx;
 		text-align: center;
-		border-radius: 10rpx;
+		border-radius: 12rpx;
 		background-color: red;
-		font-size: 16rpx;
+		font-size: 18rpx;
 		color: #fff;
-		width: 30rpx;
-		height: 20rpx;
+		width: 36rpx;
+		height: 24rpx;
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -657,10 +659,10 @@
 	    text-align: center;
 	    border-radius: 50%;
 	    background-color: red;
-	    font-size: 16rpx;
+	    font-size: 18rpx;
 	    color: #fff;
-	    width: 20rpx;
-		height: 20rpx;
+	    width: 24rpx;
+		height: 24rpx;
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -702,7 +704,7 @@
 		padding: 10rpx 30rpx;
 		background-color: #fff;
 		position: fixed;
-		bottom: 20rpx;
+		bottom: 40rpx;
 		-webkit-box-sizing: border-box;
 		        box-sizing: border-box;
 }
@@ -890,12 +892,13 @@
 		        justify-content: center;
 		width: 105rpx;
 		height: 40rpx;
-		background: #B3B3B3;
+		background: #000000;
 		border-radius: 20rpx;
-		border: 1px solid #B3B3B3;
+		border: 1px solid #FFFFFF;
 		position: absolute;
 	    bottom: 20rpx;
 	    right: 20rpx;
+		opacity: 0.29;
 }
 .position-swiper-t{
 		font-size: 30rpx;

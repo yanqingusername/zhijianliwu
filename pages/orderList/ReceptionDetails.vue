@@ -311,7 +311,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #EB1615;
 		font-size: 24rpx;
@@ -324,7 +324,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #979797;
 		font-size: 24rpx;

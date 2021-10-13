@@ -517,6 +517,10 @@
 </script>
 <style>
 	@import '../../common/gift.css';
+	
+	page{
+		background: #FAFAFA;
+	}
 	.new-shop-gift-buy-bot {
 	    width: 750rpx;
 	    /* height: 338rpx; */
@@ -536,5 +540,10 @@
 	    color: #999999; */
 	    align-items: center;
 	    justify-content: center;
+	}
+	
+	.shop-header-xiong {
+	    width: 700rpx;
+	    height: 288rpx;
 	}
 </style>

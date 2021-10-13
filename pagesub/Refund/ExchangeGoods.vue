@@ -41,7 +41,8 @@
 				typerefund: 1,
 				orderGood:'',
 				goods_list: [],
-				detailIdsList:[]
+				detailIdsList:[],
+				title: '换货'
 			}
 		},
 		onShow:function(e){
@@ -51,6 +52,18 @@
 		onLoad:function(options){	
 			this.ordernumber=options.ordernumber;
 			this.typerefund=options.typerefund;
+			
+			if(this.typerefund == 1){
+				this.title = '退款'
+			}else if(this.typerefund == 2){
+				this.title = '换货'
+			}else{
+				this.title = '退货'
+			}
+						
+			uni.setNavigationBarTitle({
+				title: this.title
+			})
 			
 			let action = 'get_refund_order_goods_list';
 			let controller = 'order';

@@ -77,7 +77,7 @@
 									x: 100,
 									y: 100,
 									w: 180,
-									h: 200,
+									h: 225,
 									radius: 10,
 									fill_color: "#CCB586"
 								});
@@ -85,7 +85,7 @@
 									x: 102,
 									y: 102,
 									w: 176,
-									h: 196,
+									h: 221,
 									radius: 10,
 									fill_color: "rgb(255, 255, 255)"
 								});
@@ -106,10 +106,10 @@
 								// 画商品
 								await this.$refs.rCanvas.drawImage({
 									url: this.$utils.imageUrl(this.imageUrl),
-									x: 125,
-									y: 130,
-									w: 130,
-									h: 120
+									x: 106,
+									y: 106,
+									w: 170,
+									h: 170
 								}).catch(err_msg => {
 									uni.showToast({
 										title: err_msg,
@@ -121,7 +121,7 @@
 								await this.$refs.rCanvas.drawText({
 									text: this.$utils.sub_str(this.goodsname,7),
 									x: 135,
-									y: 280,
+									y: 301,
 									max_width: 140,
 									font_color: "#333333",
 									font_size: 14
@@ -137,7 +137,7 @@
 							await this.$refs.rCanvas.drawText({
 								text: "我发现了一份不错的礼物，快来看看吧！",
 								x: 60,
-								y: 340,
+								y: 350,
 								font_color: "#FADEA5",
 								font_size: 15
 							}).catch(err_msg => {
@@ -150,12 +150,14 @@
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.$utils.imageUrl(this.QRcodeUrl),
-								x: 150,
-								y: 368,
-								w: 80,
-								h: 80,
-								radius: 16,
-								is_radius: true
+								x: 149,
+								y: 366,
+								w: 82,
+								h: 82,
+								radius: 12,
+								is_radius: true,
+								border_width: 4,
+								border_color: "#FADEA5"
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
@@ -166,9 +168,9 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序二维码领识别",
+								text: "长按小程序二维码识别",
 								x: 120,
-								y: 470,
+								y: 480,
 								font_color: "#FFF8F8",
 								font_size: 14
 							}).catch(err_msg => {

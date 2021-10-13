@@ -344,6 +344,9 @@
 	height: 50rpx;
 	margin-top: 5rpx;
 }
+page{
+	background: #FAFAFA;
+}
 .new-shop-gift-buy-bot {
     width: 750rpx;
     /* height: 338rpx; */
@@ -368,5 +371,9 @@
     -webkit-box-pack: center;
     -webkit-justify-content: center;
             justify-content: center;
+}
+.shop-header-xiong {
+    width: 700rpx;
+    height: 288rpx;
 }
 

@@ -57,7 +57,7 @@
 					<view class="new-order-right">
 						<view class="new-order-item">
 							<view class="new-order-item-title">{{item.goodsname}}</view>
-							<view class="new-order-item-money">¥{{item.goods_price}}</view>
+							<view class="new-order-item-money" style="font-size: 30rpx;">¥{{item.goods_price}}</view>
 						</view>
 						<view class="new-order-item">
 							<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
@@ -187,6 +187,7 @@
 <style>
 	page{
 		background-color: #F9F9F9;
+		box-sizing: border-box;
 	}
 	
 	.personal-header{
@@ -281,6 +282,11 @@
 		font-weight: bold;
 		color: #333333;
 		line-height: 42rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
 	}
 	
 	.reception-distribution-time{
@@ -537,7 +543,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #EB1615;
 		font-size: 24rpx;
@@ -550,7 +556,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 48rpx;
+		height: 44rpx;
 		border-radius: 3rpx;
 		border: 1px solid #979797;
 		font-size: 24rpx;

@@ -8,7 +8,7 @@
 					<view class="new-balance-top-price">{{balanc}}</view>
 				</view>
 				<view class="new-balance-top-right">
-					<view class="new-balance-top-text" @click="$buttonClick(left)">查看明细</view>
+					<view class="new-balance-top-text" @click="$buttonClick(left)">余额明细</view>
 					<view class="new-balance-top-view" @click="$buttonClick(right)">充值</view>
 				</view>
 			</view>

@@ -94,6 +94,11 @@ page{
 	font-weight: bold;
 	color: #333333;
 	line-height: 42rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 .reception-distribution-time{
 	width: 570rpx;

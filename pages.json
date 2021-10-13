@@ -138,13 +138,13 @@
         ,{
             "path" : "pages/balance/balance",
             "style" : {
-				"navigationBarTitleText":"余额充值"
+				"navigationBarTitleText":"余额"
 			}
         },
 		{
 		    "path" : "pages/balance/Query",
 		    "style" : {
-				"navigationBarTitleText":"充值查询",
+				"navigationBarTitleText":"余额明细",
 				"enablePullDownRefresh":true
 			}
 		},

@@ -803,7 +803,9 @@
 		.indicator-view{
 			position: absolute;
 			bottom: 20rpx;
-			display: flex
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 		.indicator-view-item{
 			width: 36rpx;

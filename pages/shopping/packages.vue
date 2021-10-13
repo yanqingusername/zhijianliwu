@@ -254,7 +254,7 @@
 			this.coupon_number = uni.getStorageSync('coupon_number');
 			
 			//计算总价
-			this.caltotalmoney()
+			this.caltotalmoney(1)
 		},
 		methods:{
 			open(){
@@ -266,7 +266,7 @@
 			 	this.use_balance=!this.use_balance
 				console.log("余额", this.use_balance);
 				//计算总价
-				this.caltotalmoney()
+				this.caltotalmoney(1)
 			 },
 			// 选择优惠券
 			coupon1: function(e) {
@@ -276,7 +276,7 @@
 				 //计算结算金额
 				this.caltotalmoney()
 			},
-			caltotalmoney:function (e){
+			caltotalmoney (number){
 				let fenshu=this.fenshu
 				//这里要判断下类型，如果是直接送礼份数取出来实际的，如果是拼手气的话，份数是固定的1
 				let memberid = uni.getStorageSync('id')
@@ -326,7 +326,22 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 					if (res.sta == 1) {
 						this.cartPriceData = res.rs;
-						this.cartCouponList = res.rs.coupon_list;
+						if(number == 1){
+							this.cartCouponList = res.rs.coupon_list;
+							this.cartCouponList.forEach(item => {
+								this.$set(item, 'gou', "0")
+							})
+							for (var i = 0; i < this.cartCouponList.length; i++) {
+								if (res.rs.coupon_number == this.cartCouponList[i].coupon_number) {
+									this.cartCouponList[i].gou = 1
+									this.money = this.cartCouponList[i].money
+									this.coupon_number = this.cartCouponList[i].coupon_number
+									this.new_coupon_number = this.cartCouponList[i].coupon_number
+								} else {
+									this.cartCouponList[i].gou = 0
+								}
+							}
+						}
 						this.new_price_yuanshi= res.rs.price_yuanshi;
 						this.new_price_zhe= res.rs.show_price;
 						this.new_price_coupon= res.rs.price_coupon;
@@ -528,17 +543,20 @@
 					})
 			},
 			check: function(e) {
-				this.cartCouponList.forEach(item => {
-					this.$set(item, 'gou', "")
-				})
+				// this.cartCouponList.forEach(item => {
+				// 	this.$set(item, 'gou', "")
+				// })
 				for (var i = 0; i < this.cartCouponList.length; i++) {
-					if (e.currentTarget.dataset.id == this.cartCouponList[i].id) {
+					if ((this.new_coupon_number == this.cartCouponList[i].coupon_number) && this.cartCouponList[i].gou == 0) {
 						this.cartCouponList[i].gou = 1
 						this.money = this.cartCouponList[i].money
 						this.coupon_number = this.cartCouponList[i].coupon_number
 						this.new_coupon_number = this.cartCouponList[i].coupon_number
 					} else {
 						this.cartCouponList[i].gou = 0
+						this.money = ''
+						this.coupon_number = '-1'
+						this.new_coupon_number = '-1'
 					}
 				}
 				console.log(this.cartCouponList)

@@ -534,6 +534,10 @@
 
 <style>
 	@import '../../common/gift.css';
+	page{
+		background: #FAFAFA;
+	}
+	
 	.icon-back-img{
 		position: absolute;
 		top: 60rpx;
@@ -566,5 +570,13 @@
 	    color: #999999;
 		text-align: center;
 		text-decoration-line: line-through;
+	}
+	
+	.shop-header {
+	    padding: 0 0rpx !important;
+	}
+	.shop-header-xiong {
+	    width: 700rpx !important;
+	    height: 288rpx !important;
 	}
 </style>
