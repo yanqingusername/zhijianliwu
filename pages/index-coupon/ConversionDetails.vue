@@ -9,7 +9,7 @@
 			<text class="bag-font">{{cardbag.present_memberid_name}}送出的礼物</text>
 
 			<view class="many-com" v-if="com==1">
-				<view class="bag-tea" v-for="item in goodslist" :key="item.id">
+				<view class="bag-tea" v-for="item in goodslist" :key="item.id" @click="goToDetails(item.keynum)">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png"
 						mode=""></image>
 					<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
@@ -196,6 +196,11 @@
 	     
 		},
 		methods: {
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			// 滑动
 			scroll: function(e) {
 				console.log(e)

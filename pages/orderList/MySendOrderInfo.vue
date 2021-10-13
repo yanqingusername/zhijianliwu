@@ -48,7 +48,7 @@
 			
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center" v-for="(item,index) in orderSendInfo.orderdetail" :key="index">
+					<view class="new-order-li-center" v-for="(item,index) in orderSendInfo.orderdetail" :key="index" @click="goToDetails(item.keynum)">
 						<view class="new-order-left">
 							<view class="new-order-img">
 								<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
@@ -206,6 +206,11 @@
 			});
 		},
 		methods:{
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			getCountdown(endTime) {
 				var that = this;
 				// var _endDateTime = new Date(endTime).getTime();

@@ -48,7 +48,7 @@
 					<view class="new-order-nickname">{{orderReceptionInfo.orderinfo.give_name}}</view>
 					<view class="new-order-li-top-ordersn">送出的</view>
 				</view>
-				<view class="new-order-li-center" v-for="(item,index) in orderReceptionInfo.orderdetail" :key="index">
+				<view class="new-order-li-center" v-for="(item,index) in orderReceptionInfo.orderdetail" :key="index" @click="goToDetails(item.keynum)">
 					<view class="new-order-left">
 						<view class="new-order-img">
 							<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
@@ -157,6 +157,11 @@
 			});
 		},
 		methods:{
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1

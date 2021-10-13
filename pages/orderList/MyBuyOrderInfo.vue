@@ -53,7 +53,7 @@
 			
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center" v-for="(item,index) in orderBuyInfo.orderdetail" :key="index">
+					<view class="new-order-li-center" v-for="(item,index) in orderBuyInfo.orderdetail" :key="index" @click="goToDetails(item.keynum)">
 						<view class="new-order-left">
 							<view class="new-order-img">
 								<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
@@ -69,7 +69,7 @@
 								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<view class="conversion-details" @click="RefundInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
+						<view class="conversion-details" @click.stop="RefundInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
 					</view>
 					<view class="new-order-li-bottom"  >
 						<view class="new-order-nickname"></view>
@@ -174,6 +174,11 @@
 			});
 		},
 		methods:{
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "../details/details?keynum="+ keynum
+				});
+			},
 			getCountdown(endTime) {
 				var that = this;
 				// var _endDateTime = new Date(endTime).getTime();
