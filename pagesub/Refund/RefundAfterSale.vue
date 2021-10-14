@@ -1,5 +1,5 @@
 <template>
-	<view class="sale-view">
+	<view class="sale-view" :style="'height:'+ (isreception == 0 ? '260' : '130')+'rpx;'">
 		<view class="sale-content flex-between" @click="routeHandler" data-typerefund="2">
 			<view class="sale-content-left">
 				<image class="sale-content-img" src="../../static/icon_exchange_goods.png"></image>
@@ -10,8 +10,8 @@
 				<image class="sale-content-ar" src="../../static/icon_arrow_r_m.png"></image>
 			</view>
 		</view>
-		<view class="sale-line"></view>
-		<view class="sale-content flex-between" @click="routeHandler" data-typerefund="3">
+		<view class="sale-line" v-if="isreception == 0"></view>
+		<view class="sale-content flex-between" v-if="isreception == 0" @click="routeHandler" data-typerefund="3">
 			<view class="sale-content-left">
 				<image class="sale-content-img" src="../../static/icon_return_goods.png"></image>
 				<view class="sale-content-title">退货</view>
@@ -29,7 +29,8 @@
 	export default {
 		data() {
 			return {
-				ordernumber: ''
+				ordernumber: '',
+				isreception: 0
 			}
 		},
 		onShow:function(e){
@@ -38,6 +39,7 @@
 		},
 		onLoad:function(e){	
 			this.ordernumber = e.ordernumber;
+			this.isreception = e.isreception;
 		},
 		methods: { 
 			routeHandler: function(e) {

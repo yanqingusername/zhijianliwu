@@ -76,17 +76,19 @@
 					<view class="new-order-botton-view" v-if="nav==1">
 						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
-						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id">申请退款</view>
+						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && item.is_all_refund == 0" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="1" >申请退款</view>
+						<view class="new-order-botton-gray_default" v-if="(item.status == 0 || item.status == 1) && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="1" >申请退款</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length">退换/售后</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_all_refund == 0" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
 						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="againProduct" :data-ordernumber="item.ordernumber">再次购买</view>
 					</view>
 					
 					<view class="new-order-botton-view" v-if="nav==2">
 						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
-						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id">申请退款</view>
+						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="2" :data-goodsinfolist="item.goods_info_list" :data-isrefundprice="item.is_refund_price">申请退款</view>
 						<view class="new-order-botton" v-if="item.status == 0 || item.status == 1" @click.stop="PresentNow" :data-ordernumber="item.ordernumber">立即赠送</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
@@ -99,7 +101,7 @@
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length">退换/售后</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="1" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
 					</view>
 				</view>
 			</view>
@@ -1299,14 +1301,36 @@
 				let typerefund = e.currentTarget.dataset.typerefund;
 				let goodslength = e.currentTarget.dataset.goodslength;
 				let detailid = e.currentTarget.dataset.detailid;
-				if(goodslength > 1){
-					uni.navigateTo({
-						url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
-					})
+				let nav = e.currentTarget.dataset.nav;
+				if(nav == 2){
+					let goodsinfolist = e.currentTarget.dataset.goodsinfolist;
+					let isrefundprice = e.currentTarget.dataset.isrefundprice;
+					let detailidList = []
+					for(let i in goodsinfolist){
+						detailidList.push(goodsinfolist[i].id)
+					}
+					let detailids = detailidList.join(",");
+					if(isrefundprice == 0){
+						uni.navigateTo({
+							url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailids}`
+						});
+					}else{
+						uni.navigateTo({
+							url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailids}`
+						});
+					}
+					
 				}else{
-					uni.navigateTo({
-						url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
-					});
+					// 我购买的
+					if(goodslength > 1){
+						uni.navigateTo({
+							url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
+						})
+					}else{
+						uni.navigateTo({
+							url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+						});
+					}
 				}
 			},
 			//申请开票
@@ -1326,9 +1350,28 @@
 			//退换/售后
 			RefundAfterSale: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
-				})
+				let isreception = e.currentTarget.dataset.isreception;
+				let isexchangegoods = e.currentTarget.dataset.isexchangegoods || 0;
+				let detailid = e.currentTarget.dataset.detailid;
+				
+				//  我收到的
+				if(isreception == 1){
+					if(isexchangegoods == 0){
+						uni.navigateTo({
+							url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}&isreception=${isreception}` //退换/售后
+						})
+					}else{
+						uni.navigateTo({
+							url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=2&detailid=${detailid}`
+						});
+					}
+				}else{
+					//  我购买的
+					uni.navigateTo({
+						url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}&isreception=${isreception}` //退换/售后
+					})
+				}
+				
 			},
 			//再次购买
 			againProduct: function(e) {
@@ -1675,6 +1718,21 @@
 		border: 1px solid #979797;
 		font-size: 24rpx;
 		color: #999999;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
+		margin-left: 20rpx;
+	}
+	
+	.new-order-botton-gray_default{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 44rpx;
+		border-radius: 3rpx;
+		border: 1px solid #999999;
+		font-size: 24rpx;
+		color: #FFFFFF;
+		background-color: #999999;
 		line-height: 33rpx;
 		padding: 0rpx 18rpx;
 		margin-left: 20rpx;

@@ -67,6 +67,14 @@ page {
 	margin-right: 20rpx !important;
 	border-radius: 50%;
 }
+.wl_Order_placed_default {
+	width: 40rpx !important;
+	height: 40rpx !important;
+	background-color: #E6E6E6 !important;
+	margin-left: -20rpx !important;
+	margin-right: 20rpx !important;
+	border-radius: 50%;
+}
 .wl_Order_placed_img{
 	width: 40rpx !important;
 	height: 40rpx !important;

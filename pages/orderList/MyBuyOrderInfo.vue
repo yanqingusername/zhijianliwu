@@ -78,10 +78,12 @@
 							<!-- <view class="new-order-botton" @click="$buttonClick(receptiondetails)">填写收货地址</view> -->
 							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 5" @click="cancel" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">取消订单</view>
 							<view class="new-order-botton" v-if="orderBuyInfo.orderinfo.status == 5" @click="submit" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">立即支付</view>
-							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
+							<view class="new-order-botton-gray" v-if="(orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1) && orderBuyInfo.orderinfo.is_all_refund == 0" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
+							<view class="new-order-botton-gray_default" v-if="(orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1) && orderBuyInfo.orderinfo.is_all_refund == 1" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
 							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">申请开票</view>
 							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 1" @click="ApplyInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">发票详情</view>
-							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3" @click="RefundAfterSale" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_all_refund == 0" @click="RefundAfterSale" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
+							<view class="new-order-botton-gray_default" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_all_refund == 1" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
 							<view class="new-order-botton" v-if="orderBuyInfo.orderinfo.status == 2 || orderBuyInfo.orderinfo.status == 3 || orderBuyInfo.orderinfo.status == 99 || orderBuyInfo.orderinfo.status == 6" @click="againProduct" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">再次购买</view>
 							
 						</view>
@@ -154,6 +156,26 @@
 			
 			this.isSystemInfo = this.$utils.isSystemInfo();
 			
+			// let that = this;
+			// let action = "get_order_buy_info";
+			// let controller = 'order';
+			// let memberid = uni.getStorageSync('id')
+			// let data = JSON.stringify({
+			// 	memberid: memberid,
+			// 	ordernumber: this.ordernumber
+			// });
+			// this.$utils.postNew(action,data,controller).then(res=>{
+			// 	if(res.sta == 1){
+			// 		that.orderBuyInfo = res.rs;
+			// 		if(that.orderBuyInfo.orderinfo.status ==5){
+			// 			if(res.rs.orderinfo.wait_pay_time){
+			// 				that.getCountdown(res.rs.orderinfo.wait_pay_time);
+			// 			}
+			// 		}
+			// 	}
+			// });
+		},
+		onShow() {
 			let that = this;
 			let action = "get_order_buy_info";
 			let controller = 'order';
@@ -270,7 +292,7 @@
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let typerefund = e.currentTarget.dataset.typerefund;
 				let detailid = e.currentTarget.dataset.detailid;
-				uni.redirectTo({
+				uni.navigateTo({
 					url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
 				});
 			},
@@ -350,7 +372,7 @@
 			RefundAfterSale: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
+					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}&isreception=0` //退换/售后
 				})
 			},
 			//再次购买
@@ -760,6 +782,20 @@
 		line-height: 33rpx;
 		padding: 0rpx 18rpx;
 		margin-left: 10rpx;
+	}
+	.new-order-botton-gray_default{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 44rpx;
+		border-radius: 3rpx;
+		border: 1px solid #999999;
+		font-size: 24rpx;
+		color: #FFFFFF;
+		background-color: #999999;
+		line-height: 33rpx;
+		padding: 0rpx 18rpx;
+		margin-left: 20rpx;
 	}
 	.recharge-status-label{
 		font-size: 28rpx;

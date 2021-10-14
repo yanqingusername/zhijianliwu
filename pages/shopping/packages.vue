@@ -72,7 +72,7 @@
 				<view class="new-youhuijuan">
 					<text class="new-you-title">可用优惠券</text>
 					<scroll-view scroll-y="true" class="new-scroll-y">
-						<view class="juan-wrap" v-for="item in cartCouponList" :key="item.id" v-if="cartCouponList.length > 0" @click="check" :data-id="item.id">
+						<view class="juan-wrap" v-for="(item, index) in cartCouponList" :key="item.id" v-if="cartCouponList.length > 0" @click="check" :data-id="item.id" :data-index="index" :data-couponnumber="item.coupon_number">
 							<view class="juan-list">
 								<view class="juan-list-left">
 									<text class='z-circle z-circle-top'></text>
@@ -542,23 +542,54 @@
 						}
 					})
 			},
-			check: function(e) {
+			check(e) {
+				let index = e.currentTarget.dataset.index;
+				let couponnumber = e.currentTarget.dataset.couponnumber;
+				
 				// this.cartCouponList.forEach(item => {
 				// 	this.$set(item, 'gou', "")
 				// })
-				for (var i = 0; i < this.cartCouponList.length; i++) {
-					if ((this.new_coupon_number == this.cartCouponList[i].coupon_number) && this.cartCouponList[i].gou == 0) {
-						this.cartCouponList[i].gou = 1
-						this.money = this.cartCouponList[i].money
-						this.coupon_number = this.cartCouponList[i].coupon_number
-						this.new_coupon_number = this.cartCouponList[i].coupon_number
-					} else {
-						this.cartCouponList[i].gou = 0
+				
+				if ((couponnumber == this.new_coupon_number)) {
+					if(this.cartCouponList[index].gou == 1){
+						this.cartCouponList[index].gou = 0
 						this.money = ''
 						this.coupon_number = '-1'
 						this.new_coupon_number = '-1'
+					}else if(this.cartCouponList[index].gou == 0){
+						this.cartCouponList[index].gou = 1
+						this.money = this.cartCouponList[index].money
+						this.coupon_number = this.cartCouponList[index].coupon_number
+						this.new_coupon_number = this.cartCouponList[index].coupon_number
+					}
+				} else {
+					for (var i = 0; i < this.cartCouponList.length; i++) {
+						this.cartCouponList[i].gou = 0
+						if(couponnumber == this.cartCouponList[i].coupon_number){
+							this.cartCouponList[index].gou = 1
+							this.money = this.cartCouponList[index].money
+							this.coupon_number = this.cartCouponList[index].coupon_number
+							this.new_coupon_number = this.cartCouponList[index].coupon_number
+						}
 					}
 				}
+				
+					
+					
+				
+				// for (var i = 0; i < this.cartCouponList.length; i++) {
+				// 	if ((this.new_coupon_number == this.cartCouponList[i].coupon_number) && this.cartCouponList[i].gou == 0) {
+				// 		this.cartCouponList[i].gou = 1
+				// 		this.money = this.cartCouponList[i].money
+				// 		this.coupon_number = this.cartCouponList[i].coupon_number
+				// 		this.new_coupon_number = this.cartCouponList[i].coupon_number
+				// 	} else {
+				// 		this.cartCouponList[i].gou = 0
+				// 		this.money = ''
+				// 		this.coupon_number = '-1'
+				// 		this.new_coupon_number = '-1'
+				// 	}
+				// }
 				console.log(this.cartCouponList)
 			}
 		}

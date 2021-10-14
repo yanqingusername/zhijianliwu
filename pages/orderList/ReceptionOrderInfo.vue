@@ -64,7 +64,7 @@
 							<view class="new-order-item-total">x{{item.goodsnum}}</view>
 						</view>
 					</view>
-					<view class="conversion-details">{{item.cancel_type_info}}</view>
+					<view class="conversion-details" @click.stop="RefundInfo" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
 				</view>
 				
 				<!-- 兑换卡册 -->
@@ -92,7 +92,7 @@
 				<view class="new-order-li-bottom" v-if="orderReceptionInfo.orderinfo.status ==3" >
 					<view class="new-order-nickname"></view>
 					<view class="new-order-botton-view">
-						<view class="new-order-botton-gray" @click="RefundAfterSale" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber">退换/售后</view>
+						<view class="new-order-botton-gray" @click="RefundAfterSale" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber" :data-isexchangegoods="orderReceptionInfo.orderinfo.is_exchange_goods" :data-detailid="orderReceptionInfo.orderdetail[0].id">退换/售后</view>
 					</view>
 				</view>
 			</view>
@@ -142,6 +142,21 @@
 			this.isSystemInfo = this.$utils.isSystemInfo();
 			
 			this.ordernumber = options.ordernumber;
+			// let that = this;
+			// let action = "get_order_receivegifts_info";
+			// let controller = 'order';
+			// let memberid = uni.getStorageSync('id')
+			// let data = JSON.stringify({
+			// 	memberid: memberid,
+			// 	ordernumber: this.ordernumber
+			// });
+			// this.$utils.postNew(action,data,controller).then(res=>{
+			// 	if(res.sta == 1){
+			// 		that.orderReceptionInfo = res.rs;
+			// 	}
+			// });
+		},
+		onShow(){
 			let that = this;
 			let action = "get_order_receivegifts_info";
 			let controller = 'order';
@@ -167,12 +182,28 @@
 					delta: 1
 				});
 			},
+			RefundInfo(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let typerefund = e.currentTarget.dataset.typerefund;
+				let detailid = e.currentTarget.dataset.detailid;
+				uni.navigateTo({
+					url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+				});
+			},
 			//退换/售后
 			RefundAfterSale: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.redirectTo({
-					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
-				})
+				let isexchangegoods = e.currentTarget.dataset.isexchangegoods || 0;
+				let detailid = e.currentTarget.dataset.detailid;
+				if(isexchangegoods == 0){
+					uni.navigateTo({
+						url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}&isreception=${1}` //退换/售后
+					})
+				}else{
+					uni.navigateTo({
+						url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=2&detailid=${detailid}`
+					});
+				}
 			},
 			copy: function(e) {
 				let orderNumber = e.currentTarget.dataset.ordernumber;
@@ -184,6 +215,13 @@
 				        });
 				    },
 				})	
+			},
+			//物流
+			logisticInfo: function(e) {
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: "../../pagesub/Refund/LogisticsInfo?ordernumber=" + ordernumber
+				});
 			},
 		}
 	}

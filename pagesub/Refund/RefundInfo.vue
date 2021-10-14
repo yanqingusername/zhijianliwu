@@ -140,28 +140,29 @@
 					<view class="line-gray" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)"></view>
 					
 					
-					<!-- v-for="(item,index) in screenPurchase" :key="index" -->
-					<view class="new-order-li-center">
+					<!-- v-for="(item,index) in cancel_list" :key="index" -->
+					<view class="new-order-li-center" v-for="(item,index) in cancel_list" :key="index">
 						<view class="new-order-left">
 							<view class="new-order-img">
-								<image lazy-load="true" class="new-order-commodity-img" :src="cancel_info.head_img" mode=""></image>
+								<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 							</view>
 						</view>
 						<view class="new-order-right">
 							<view class="new-order-item">
-								<view class="new-order-item-title">{{cancel_info.goodsname}}</view>
+								<view class="new-order-item-title">{{item.goodsname}}</view>
 								<view class="new-order-item-money"></view>
 							</view>
 							<view class="new-order-item">
-								<view class="new-order-item-sku">规格：{{cancel_info.goods_spec_item}}</view>
-								<view class="new-order-item-total">x{{cancel_info.goodsnum}}</view>
+								<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
+								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
 					</view>
 					<view class="new-order-li-bottom" v-if="typerefund == 1 && cancel_info.status == 1">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="$buttonClick(applyHandler)">撤销申请</view>
+							<view class="new-order-botton-gray" v-if="typerefund == 1 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
+							<view class="new-order-botton-gray" v-if="typerefund == 1 && cancel_info.status == 3" @click="$buttonClick(ApplyRefund)">再次申请</view>
 						</view>
 					</view>
 					
@@ -259,7 +260,8 @@
 				isShowAll: false,
 				bHeight: 260,
 				countdown: '',
-				isSystemInfo: false
+				isSystemInfo: false,
+				cancel_list: []
 			}
 		},
 		onLoad:function(options){
@@ -286,6 +288,7 @@
 			this.$utils.postNew(action, data, controller).then(res => {
 			    if(res.sta == 1){
 			        this.cancel_info = res.rs.cancel_info;
+					this.cancel_list = res.rs.cancel_list;
 					this.typerefund = res.rs.cancel_info.type;
 					if((this.typerefund == 2 || this.typerefund == 3) && this.cancel_info.status == 2){
 						this.getCountdown(this.cancel_info.express_surplus_time);
@@ -366,6 +369,11 @@
 				    },
 				})	
 			},
+			ApplyRefund(e) {
+				uni.redirectTo({
+					url: `./ApplyRefund?ordernumber=${this.ordernumber}&typerefund=${this.typerefund}&detailid=${this.detailid}`
+				});
+			},
 			//撤销申请
 			applyHandler(e){
 				let action = 'revoke_refund_order';
@@ -378,9 +386,14 @@
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
 				    if(res.sta == 1){
-				        uni.navigateBack({
-				        	delta:1
-				        })
+						uni.showToast({
+						  title: '撤销成功',
+						});
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							});
+						},1000)
 				    }
 				})
 			},

@@ -204,7 +204,7 @@
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
 								text: "长按小程序二维码领取礼物",
-								x: 85,
+								x: 105,
 								y: 610,
 								font_color: "#B58D3D",
 								font_size: 14

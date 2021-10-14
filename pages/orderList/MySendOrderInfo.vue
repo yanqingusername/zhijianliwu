@@ -64,7 +64,7 @@
 								<view class="new-order-item-total">x{{item.goodsnum}}</view>
 							</view>
 						</view>
-						<!-- <view class="conversion-details">{{item.cancel_type_info}}</view> -->
+						<view class="conversion-details" @click.stop="RefundInfo" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" :data-typerefund="item.cancel_type" :data-detailid="item.id">{{item.cancel_type_info}}</view>
 					</view>
 					
 					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==5" >
@@ -78,7 +78,7 @@
 					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderSendInfo.orderdetail.length" :data-detailid="orderSendInfo.orderdetail[0].id">申请退款</view>
+							<view class="new-order-botton-gray" @click="ApplyRefund" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderSendInfo.orderdetail.length" :data-orderdetail="orderSendInfo.orderdetail" :data-detailid="orderSendInfo.orderdetail[0].id" :data-isrefundprice="orderSendInfo.orderinfo.is_refund_price || 0">申请退款</view>
 							<view class="new-order-botton" @click="PresentNow" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">立即赠送</view>
 						</view>
 					</view>
@@ -182,6 +182,30 @@
 			
 			this.isSystemInfo = this.$utils.isSystemInfo();
 			
+			// let that = this;
+			// let action = "get_order_giftgiving_info";
+			// let controller = 'order';
+			// let memberid = uni.getStorageSync('id')
+			// let data = JSON.stringify({
+			// 	memberid: memberid,
+			// 	ordernumber: this.ordernumber
+			// });
+			// this.$utils.postNew(action,data,controller).then(res=>{
+			// 	if(res.sta == 1){
+			// 		that.orderSendInfo = res.rs;
+			// 		if(that.orderSendInfo.orderinfo.status ==5){
+			// 			if(res.rs.wait_pay_time){
+			// 				that.getCountdown(res.rs.wait_pay_time);
+			// 			}
+			// 		}else if(that.orderSendInfo.orderinfo.status ==2){
+			// 			if(res.rs.wait_pay_time){
+			// 				that.getCountdown(res.rs.wait_pay_time);
+			// 			}
+			// 		}
+			// 	}
+			// });
+		},
+		onShow() {
 			let that = this;
 			let action = "get_order_giftgiving_info";
 			let controller = 'order';
@@ -340,6 +364,20 @@
 					this.$utils.wxPay(res.rs.serial_number, "buy_order");
 				});
 			},
+			// 跳转
+			RefundInfo(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				let typerefund = e.currentTarget.dataset.typerefund;
+				let detailid = e.currentTarget.dataset.detailid;
+				let detailidList = []
+				for(let i in this.orderSendInfo.orderdetail){
+					detailidList.push(this.orderSendInfo.orderdetail[i].id)
+				}
+				let detailids = detailidList.join(",");
+				uni.navigateTo({
+					url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailids}`
+				});
+			},
 			//申请退款
 			ApplyRefund: function(e) {
 				// uni.navigateTo({
@@ -350,15 +388,34 @@
 				let typerefund = e.currentTarget.dataset.typerefund;
 				let goodslength = e.currentTarget.dataset.goodslength;
 				let detailid = e.currentTarget.dataset.detailid;
-				if(goodslength > 1){
+				let orderdetail = e.currentTarget.dataset.orderdetail;
+				let isrefundprice = e.currentTarget.dataset.isrefundprice;
+				
+				let detailidList = []
+				for(let i in orderdetail){
+					detailidList.push(orderdetail[i].id)
+				}
+				let detailids = detailidList.join(",");
+				if(isrefundprice == 0){
 					uni.navigateTo({
-						url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
-					})
+						url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailids}`
+					});
 				}else{
 					uni.navigateTo({
-						url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+						url: `../../pagesub/Refund/RefundInfo?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailids}`
 					});
 				}
+				
+				
+				// if(goodslength > 1){
+				// 	uni.navigateTo({
+				// 		url: `../../pagesub/Refund/ExchangeGoods?ordernumber=${ordernumber}&typerefund=${typerefund}`
+				// 	})
+				// }else{
+				// 	uni.navigateTo({
+				// 		url: `../../pagesub/Refund/ApplyRefund?ordernumber=${ordernumber}&typerefund=${typerefund}&detailid=${detailid}`
+				// 	});
+				// }
 			},
 			//立即赠送
 			PresentNow: function(e) {
