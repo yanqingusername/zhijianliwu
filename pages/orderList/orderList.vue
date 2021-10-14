@@ -81,7 +81,7 @@
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_all_refund == 0" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
+						<view class="new-order-botton-gray_default" v-if="item.status == 3 && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
 						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="againProduct" :data-ordernumber="item.ordernumber">再次购买</view>
 					</view>
 					
