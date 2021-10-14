@@ -41,6 +41,7 @@
 				<view class="apply-flex-title">退款金额</view>
 				<view class="apply-flex-view flex-vertically">¥{{orderGood.goods_count_price}}</view>
 			</view>
+			<view class="apply-flex-title" v-if="orderGood.goods_count_price_info" style="padding-bottom: 30rpx;">{{orderGood.goods_count_price_info}}</view>
 		</view>
 		<view class="apply-refund padding-refund">
 			<view class="apply-flex">
