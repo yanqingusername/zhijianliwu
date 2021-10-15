@@ -115,7 +115,7 @@
 							await this.$refs.rCanvas.drawText({
 								text: this.text,
 								x: 42,
-								y: 225,
+								y: 230,
 								font_color: "#575D65",
 								font_size: 12,
 								max_width: 200,
@@ -137,14 +137,14 @@
 							
 							// 画名字
 							await this.$refs.rCanvas.drawText({
-								text: this.content,
+								text: '		'+this.content,
 								x: 42,
-								y: 250,
+								y: 254,
 								font_color: "#575D65",
 								font_size: 12,
 								max_width: 295,
 								line_clamp: 4,
-								line_height: 30,
+								line_height: 26,
 								is_line_break: true
 							}).catch(err_msg => {
 								uni.showToast({
@@ -160,7 +160,7 @@
 								y: 370,
 								font_color: "#575D65",
 								font_size: 12,
-								max_width: 280,
+								max_width: 295,
 								text_align: 'right'
 							}).catch(err_msg => {
 								uni.showToast({

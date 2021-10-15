@@ -24,7 +24,7 @@ page{
 }
 .icon-card-select-2{
 	position: absolute;
-	    top: 439rpx;
+	    top: 450rpx;
 	        left: 84rpx;
 	    width: 400rpx;
 	    font-size: 24rpx;
@@ -36,13 +36,13 @@ page{
 	    position: absolute;
 	    top: 490rpx;
 	    left: 84rpx;
-	    width: 584rpx;
+	    width: 590rpx;
 	    height: 224rpx;
 }
 .icon-card-select-4{
 	position: absolute;
 	    top: 736rpx;
-	    right: 80rpx;
+	    right: 76rpx;
 	    width: 353rrpx;
 	    height: 30rpx;
 	    font-size: 24rpx;

@@ -34,6 +34,8 @@ page{
 	position: relative;
 	width: 614rpx;
     height: 480rpx;
+		background-image: url(https://zhijianlw.com/static/web/img/icon-card-letter-bg-09-27.png);
+		background-size: 614rpx 480rpx;
 }
 .icon-card-letter{
 	width: 614rpx;
@@ -41,8 +43,8 @@ page{
 }
 .icon-card-morenlogo-view{
 	position: absolute;
-	top: 26rpx;
-	left: 37rpx;
+	/* top: 26rpx;
+	left: 37rpx; */
 	width: 76rpx;
 	height: 76rpx;
 	display: -webkit-box;
@@ -88,15 +90,16 @@ page{
 }
 .icon-card-edit{
 	position: absolute;
-	top: 32rpx;
-	right: 39rpx;
+	/* top: 32rpx; */
+	right: 36rpx;
 	width: 86rpx;
 	height: 86rpx;
 }
 .input-view{
-	position: absolute;
-	top: 120rpx;
-	left: 40rpx;
+	margin-top: 104rpx;
+	/* position: absolute;
+	top: 130rpx;
+	left: 40rpx; */
 }
 .input-view input{
 	color: #575D65;
@@ -107,9 +110,9 @@ page{
 }
 .icon-card-title-view{
 	position: absolute;
-	    top: 184rpx;
-	    left: 40rpx;
-	    width: 530rpx;
+	    /* top: 184rpx;
+	    left: 40rpx; */
+	    width: 270px;
 	    height: 200rpx;
 }
 .icon-card-title{
@@ -160,15 +163,15 @@ page{
 .input-view-bottom{
 	        position: absolute;
 	        bottom: 40rpx;
-	        right: 40rpx;
-	        width: 450rpx;
+	        /* right: 40rpx; */
+	        width: 270px;
 	        height: 40rpx;
 }
 .input-view-bottom input{
 	color: #575D65;
 	    font-size: 24rpx;
 	        height: 40rpx;
-	        width: 450rpx;
+	        width: 100%;
 			text-align: right;
 	        /* border-bottom: 1px solid #EEEEEE; */
 }
@@ -418,26 +421,27 @@ page{
 }
 .icon-card-select-2{
 	   position: absolute;
-	       top: 292rpx;
-	       left: 60rpx;
-	       width: 400rpx;
+	       /* top: 300rpx;
+	       left: 60rpx; */
+	       width: 390rpx;
 	       font-size: 14rpx;
 	       /* color: #575D65; */
 	       height: 35rpx;
 	    /* border-bottom: 1px solid #EEEEEE; */
 }
 .icon-card-select-3{
-	position: absolute;
+	/* position: absolute;
 	    top: 324rpx;
-	    left: 60rpx;
-	    width: 392rpx;
-	    height: 146rpx;
+	    left: 60rpx; */
+	        width: 395rpx;
+	        height: 146rpx;
+	        margin-top: 30rpx;
 }
 .icon-card-select-4{
 	position: absolute;
-	    top: 476rpx;
-	    right: 58rpx;
-	    width: 400rrpx;
+	    /* top: 476rpx; */
+	    right: 0rpx;
+	    width: 395rrpx;
 	    height: 30rpx;
 	    font-size: 14rpx;
 	    /* color: #575D65; */
@@ -486,7 +490,7 @@ page{
     line-height: 50rpx;
     overflow: scroll;
     font-size: 24rpx;
-    background: #FFF7EA;
+    /* background: #FFF7EA; */
   /* text-decoration-line: underline; */
 }
 .text{
@@ -495,9 +499,8 @@ page{
 	    text-decoration-line: underline;
 	    position: absolute;
 	    width: 100%;
-	    background: -webkit-repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+	    /* background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx); */
 }
 .section1{
     height: 220rpx;
@@ -505,8 +508,8 @@ page{
     position: absolute;
     line-height: 32rpx;
     overflow: scroll;
-    font-size: 14rpx;
-    background: #FFF7EA;
+    font-size:16rpx;
+    /* background: #FFF7EA; */
   /* text-decoration-line: underline; */
 }
 .text1{
@@ -515,8 +518,7 @@ page{
 	    text-decoration-line: underline;
 	    position: absolute;
 	    width: 100%;
-	    background: -webkit-repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
-	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
+	    /* background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
+	    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx); */
 }
 

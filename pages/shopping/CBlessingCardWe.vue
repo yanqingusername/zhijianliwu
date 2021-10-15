@@ -7,7 +7,7 @@
 			<!-- <image  class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
 			<view class="icon-card-select-3">
 				<view class="section" >
-				   <textarea class="text" disabled="true" maxlength="60" :value="content"/>
+				   <textarea class="text" disabled="true" maxlength="84" :value="content"/>
 				 </view>
 			</view>
 			<view class="icon-card-select-4">{{title}}</view>
@@ -361,7 +361,7 @@
 	}
 	.icon-card-select-2{
 		position: absolute;
-		    top: 439rpx;
+		    top: 450rpx;
 		        left: 84rpx;
 		    width: 400rpx;
 		    font-size: 24rpx;
@@ -373,13 +373,13 @@
 		    position: absolute;
 		    top: 490rpx;
 		    left: 84rpx;
-		    width: 584rpx;
+		    width: 590rpx;
 		    height: 224rpx;
 	}
 	.icon-card-select-4{
 		position: absolute;
 		    top: 736rpx;
-		    right: 80rpx;
+		    right: 76rpx;
 		    width: 353rrpx;
 		    height: 30rpx;
 		    font-size: 24rpx;

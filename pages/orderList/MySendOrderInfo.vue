@@ -86,7 +86,7 @@
 					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==2">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" @click="GiveitAgain" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">再次赠送</view>
+							<view class="new-order-botton" @click="GiveitAgain" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">再次赠送</view>
 						</view>
 					</view>
 					
@@ -145,12 +145,15 @@
 			<view class="reception-order-view" style="margin-top: 12rpx;" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1 || orderSendInfo.orderinfo.status ==2 || orderSendInfo.orderinfo.status ==3">
 				<view class="reception-order-text">礼包送法：</view>
 				<view class="reception-order-time">{{orderSendInfo.orderinfo.order_status_info}}  {{orderSendInfo.receive_info}}</view>
-				<view class="reception-order-copy" style="width: 100rpx;margin-left: 60rpx;" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="goConversionDetails">查看详情</view>
+				<!-- <view class="reception-order-copy" style="width: 100rpx;margin-left: 60rpx;" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="goConversionDetails">查看详情</view> -->
 			</view>
 			<view class="reception-order-view-bootom" style="margin-top: 12rpx;">
 				<view class="reception-order-text">超时说明：</view>
 				<view class="reception-order-time">支付完成超过24小时，未成功领取的礼物系统将自动退款</view>
 			</view>
+		</view>
+		<view style="display: flex;align-items: center;justify-content: center;margin-top: 30rpx;">
+			<view class="reception-detail-view" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="goConversionDetails">查看详情</view>
 		</view>
 		<view class="reception-empty"></view>
 	</view>
@@ -743,7 +746,7 @@
 		display: flex;
 	}
 	.reception-order-text{
-		min-width: 140rpx;
+		min-width: 120rpx;
 		font-size: 24rpx;
 		color: #999999;
 	}
@@ -769,7 +772,7 @@
 	}
 	
 	.reception-empty{
-		height: 100rpx;
+		height: 60rpx;
 	}
 	
 	.flex-between-padding{
@@ -844,5 +847,19 @@
 		display: flex;
 	    align-items: center;
 		justify-content: center;
+	}
+	.reception-detail-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 360rpx;
+		height: 66rpx;
+		background: #F3E4E4;
+		border-radius: 33rpx;
+		border: 1px solid #DB3C3A;
+		font-size: 25rpx;
+		font-weight: 500;
+		color: #DB3C3A;
+		line-height: 34rpx;
 	}
 </style>

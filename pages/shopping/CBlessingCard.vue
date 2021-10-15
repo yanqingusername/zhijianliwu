@@ -3,31 +3,33 @@
 		<view class="gift-small">
 			<view class="gift-small-con-view">
 				 <view class="gift-small-con">
-					<image src="https://zhijianlw.com/static/web/img/icon-card-letter-bg-09-27.png" class="icon-card-letter"></image>
-					<view class="icon-card-morenlogo-view">
-						<image :src="IMG_DATA" class="icon-card-morenlogo"></image>
-						<view class="icon-card-morenlogo-view-bg" @click="clickLogo">
-							<view class="icon-card-morenlogo-view-title">更换</view>
-							<view class="icon-card-morenlogo-view-title">LOGO</view>
+					<!-- <image src="https://zhijianlw.com/static/web/img/icon-card-letter-bg-09-27.png" class="icon-card-letter"></image> -->
+					<view style="position: relative;padding: 18px;width: 100%;box-sizing: border-box;">
+						<view class="icon-card-morenlogo-view">
+							<image :src="IMG_DATA" class="icon-card-morenlogo"></image>
+							<view class="icon-card-morenlogo-view-bg" @click="clickLogo">
+								<view class="icon-card-morenlogo-view-title">更换</view>
+								<view class="icon-card-morenlogo-view-title">LOGO</view>
+							</view>
 						</view>
-					</view>
-					<image @click="clickEdit" src="https://zhijianlw.com/static/web/img/icon-card-edit-09-27.png" class="icon-card-edit"></image>
-					<view class="input-view">
-						<input @input='txt' :value="text" :focus="isFocus" @blur="isFocus = false" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
-					</view>
-					<view class="icon-card-title-view" style="height: 220rpx;top: 174rpx;">
-						<!-- <input @input='txttitle' :value="txttitle" style="border-bottom: 1px solid #EEEEEE;height: 50rpx;" placeholder="某某集团股份有限公司 敬贺" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
-						<textarea class="icon-card-title" style="border-bottom: 1px solid #EEEEEE;height: 150rpx;" type="text"v-model="remark" placeholder="某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺" ></textarea> -->
-						<view class="section" >
-						   <textarea class="text" maxlength="60" @input='txtcontent' :value="content"/>
-						 </view>
-						<!-- <image src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png" class="icon-card-title"></image> -->
-						<view class="icon-card-click" style="bottom: 18rpx;" @click.stop="clickHandler">换一换</view>
-					</view>
-					<!-- <view class="new-icon-card-click" @click.stop="clickHandler">换一换</view> -->
-					
-					<view class="input-view-bottom">
-						<input @input='txttitle' :value="title" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
+						<image @click="clickEdit" src="https://zhijianlw.com/static/web/img/icon-card-edit-09-27.png" class="icon-card-edit"></image>
+						<view class="input-view">
+							<input @input='txt' :value="text" :focus="isFocus" @blur="isFocus = false" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
+						</view>
+						<view class="icon-card-title-view" style="height: 220rpx;">
+							<!-- <input @input='txttitle' :value="txttitle" style="border-bottom: 1px solid #EEEEEE;height: 50rpx;" placeholder="某某集团股份有限公司 敬贺" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
+							<textarea class="icon-card-title" style="border-bottom: 1px solid #EEEEEE;height: 150rpx;" type="text"v-model="remark" placeholder="某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺" ></textarea> -->
+							<view class="section" >
+							   <textarea class="text" maxlength="84" @input='txtcontent' :value="content" cursor="5"/>
+							 </view>
+							<!-- <image src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png" class="icon-card-title"></image> -->
+							<view class="icon-card-click" style="bottom: 15px;" @click.stop="clickHandler">换一换</view>
+						</view>
+						<!-- <view class="new-icon-card-click" @click.stop="clickHandler">换一换</view> -->
+						
+						<view class="input-view-bottom">
+							<input @input='txttitle' :value="title" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
+						</view>
 					</view>
 				 </view>
 			 </view>
@@ -42,14 +44,16 @@
 								:src="$utils.imageUrl(item.background)">
 							</image>
 							<image v-if="swiperCurrentIndex == index" class="icon-card-select-1" :src="IMG_DATA" mode="heightFix"></image>
-							<view v-if="swiperCurrentIndex == index" class="icon-card-select-2">{{text}}</view>
-							<!-- <image v-if="swiperCurrentIndex == index" class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
-							<view v-if="swiperCurrentIndex == index" class="icon-card-select-3">
-								<view class="section1" style="height: 146rpx;">
-								   <textarea class="text1" disabled="true" maxlength="60" :value="content" style="height: 146rpx;"/>
-								 </view>
+							<view style="position: absolute;top: 300rpx;width: 195px;height: 100px;left: 60rpx;box-sizing: border-box;">
+								<view v-if="swiperCurrentIndex == index" class="icon-card-select-2">{{text}}</view>
+								<!-- <image v-if="swiperCurrentIndex == index" class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
+								<view v-if="swiperCurrentIndex == index" class="icon-card-select-3">
+									<view class="section1" style="height: 146rpx;">
+									   <textarea class="text1" disabled="true" maxlength="84" :value="content" style="height: 146rpx;"/>
+									 </view>
+								</view>
+								<view v-if="swiperCurrentIndex == index" class="icon-card-select-4">{{title}}</view>
 							</view>
-							<view v-if="swiperCurrentIndex == index" class="icon-card-select-4">{{title}}</view>
 						</swiper-item>
 					 </swiper>
 			 	</view>
@@ -158,7 +162,7 @@
 			txtcontent: function(e) {
 				if (e.detail.cursor == 0) {
 					// 接口用到的
-					this.content = '';
+					this.content = '     ';
 				} else {
 					this.content = e.detail.value;
 				}
@@ -324,6 +328,8 @@
 		position: relative;
 		width: 614rpx;
 	    height: 480rpx;
+			background-image: url(https://zhijianlw.com/static/web/img/icon-card-letter-bg-09-27.png);
+			background-size: 614rpx 480rpx;
 	}
 	.icon-card-letter{
 		width: 614rpx;
@@ -331,8 +337,8 @@
 	}
 	.icon-card-morenlogo-view{
 		position: absolute;
-		top: 26rpx;
-		left: 37rpx;
+		/* top: 26rpx;
+		left: 37rpx; */
 		width: 76rpx;
 		height: 76rpx;
 		display: flex;
@@ -363,15 +369,16 @@
 	}
 	.icon-card-edit{
 		position: absolute;
-		top: 32rpx;
-		right: 39rpx;
+		/* top: 32rpx; */
+		right: 36rpx;
 		width: 86rpx;
 		height: 86rpx;
 	}
 	.input-view{
-		position: absolute;
-		top: 120rpx;
-		left: 40rpx;
+		margin-top: 104rpx;
+		/* position: absolute;
+		top: 130rpx;
+		left: 40rpx; */
 	}
 	.input-view input{
 		color: #575D65;
@@ -382,9 +389,9 @@
 	}
 	.icon-card-title-view{
 		position: absolute;
-		    top: 184rpx;
-		    left: 40rpx;
-		    width: 530rpx;
+		    /* top: 184rpx;
+		    left: 40rpx; */
+		    width: 270px;
 		    height: 200rpx;
 	}
 	.icon-card-title{
@@ -424,15 +431,15 @@
 	.input-view-bottom{
 		        position: absolute;
 		        bottom: 40rpx;
-		        right: 40rpx;
-		        width: 450rpx;
+		        /* right: 40rpx; */
+		        width: 270px;
 		        height: 40rpx;
 	}
 	.input-view-bottom input{
 		color: #575D65;
 		    font-size: 24rpx;
 		        height: 40rpx;
-		        width: 450rpx;
+		        width: 100%;
 				text-align: right;
 		        /* border-bottom: 1px solid #EEEEEE; */
 	}
@@ -647,26 +654,27 @@
 	}
 	.icon-card-select-2{
 		   position: absolute;
-		       top: 292rpx;
-		       left: 60rpx;
-		       width: 400rpx;
+		       /* top: 300rpx;
+		       left: 60rpx; */
+		       width: 390rpx;
 		       font-size: 14rpx;
 		       /* color: #575D65; */
 		       height: 35rpx;
 		    /* border-bottom: 1px solid #EEEEEE; */
 	}
 	.icon-card-select-3{
-		position: absolute;
+		/* position: absolute;
 		    top: 324rpx;
-		    left: 60rpx;
-		    width: 392rpx;
-		    height: 146rpx;
+		    left: 60rpx; */
+		        width: 395rpx;
+		        height: 146rpx;
+		        margin-top: 30rpx;
 	}
 	.icon-card-select-4{
 		position: absolute;
-		    top: 476rpx;
-		    right: 58rpx;
-		    width: 400rrpx;
+		    /* top: 476rpx; */
+		    right: 0rpx;
+		    width: 395rrpx;
 		    height: 30rpx;
 		    font-size: 14rpx;
 		    /* color: #575D65; */
@@ -710,7 +718,7 @@
 	    line-height: 50rpx;
 	    overflow: scroll;
 	    font-size: 24rpx;
-	    background: #FFF7EA;
+	    /* background: #FFF7EA; */
 	  /* text-decoration-line: underline; */
 	}
 	.text{
@@ -719,8 +727,8 @@
 		    text-decoration-line: underline;
 		    position: absolute;
 		    width: 100%;
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		    /* background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx); */
 	}
 	
 	.section1{
@@ -729,8 +737,8 @@
 	    position: absolute;
 	    line-height: 32rpx;
 	    overflow: scroll;
-	    font-size: 14rpx;
-	    background: #FFF7EA;
+	    font-size:16rpx;
+	    /* background: #FFF7EA; */
 	  /* text-decoration-line: underline; */
 	}
 	.text1{
@@ -739,7 +747,7 @@
 		    text-decoration-line: underline;
 		    position: absolute;
 		    width: 100%;
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
+		    /* background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 24rpx ,#FFF7EA 32rpx); */
 	}
 </style>
