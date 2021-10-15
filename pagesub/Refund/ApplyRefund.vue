@@ -39,9 +39,9 @@
 			</view>
 			<view class="apply-flex" v-if="typerefund ==1 || typerefund ==3">
 				<view class="apply-flex-title">退款金额</view>
-				<view class="apply-flex-view flex-vertically">¥{{orderGood.goods_count_price}}</view>
+				<view class="apply-flex-view flex-vertically" style="height: 70rpx;">¥{{orderGood.goods_count_price}}</view>
 			</view>
-			<view class="apply-flex-title" v-if="orderGood.goods_count_price_info" style="padding-bottom: 30rpx;">{{orderGood.goods_count_price_info}}</view>
+			<view class="apply-flex-price_info" v-if="orderGood.goods_count_price_info" style="padding-bottom: 24rpx;">{{orderGood.goods_count_price_info}}</view>
 		</view>
 		<view class="apply-refund padding-refund">
 			<view class="apply-flex">
@@ -751,5 +751,11 @@
 	.all-order-img{
 		width: 140rpx;
 		height: 140rpx;
+	}
+	
+	.apply-flex-price_info{
+		font-size: 22rpx;
+		color: #AAAAAA;
+		line-height: 30rpx;
 	}
 </style>

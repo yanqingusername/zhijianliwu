@@ -430,4 +430,9 @@ page{
 	width: 140rpx;
 	height: 140rpx;
 }
+.apply-flex-price_info{
+	font-size: 22rpx;
+	color: #AAAAAA;
+	line-height: 30rpx;
+}
 

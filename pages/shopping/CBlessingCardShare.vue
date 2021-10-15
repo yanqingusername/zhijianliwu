@@ -137,7 +137,7 @@
 							
 							// 画名字
 							await this.$refs.rCanvas.drawText({
-								text: '		'+this.content,
+								text: this.content,
 								x: 42,
 								y: 254,
 								font_color: "#575D65",

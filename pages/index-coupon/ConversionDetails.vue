@@ -247,7 +247,7 @@
 				scene: "WXSceneSession",
 				path: path,
 				type: 0,
-				imageUrl: this.cardbag_theme.background,
+				imageUrl: this.cardbag_theme.share_background,
 				success(res) {
 					console.log(456)
 					
