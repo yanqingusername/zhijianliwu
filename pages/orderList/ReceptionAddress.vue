@@ -16,7 +16,7 @@
 				<view class="reception-address-text">手动添加地址</view>
 			</view>
 			<view class="reception-address-left" @click="chooseaddbutton">
-				<image src="../../static/reception-address-location.png" class="reception-address-img"></image>
+				<image src="https://zhijianlw.com/static/web/img/reception-address-location.png" class="reception-address-img"></image>
 				<view class="reception-address-text">获取微信地址</view>
 			</view>
 			<image src="https://zhijianlw.com/static/web/img/reception-address-line.png" class="reception-address-line"></image>

@@ -4,7 +4,7 @@
 		 <view class="logistics-header flex-center" v-if="wuliu.status !=2">
 			 <!-- 已完成 -->
 			 <view class="logistics-header-content flex-between flex-vertically" v-if="wuliu.status==3">
-			 	 <view class="logistics-header-img"><image class="img" src="../../static/wancheng.png" mode=""></image></view>
+			 	 <view class="logistics-header-img"><image class="img" src="https://zhijianlw.com/static/web/img/wancheng.png" mode=""></image></view>
 			 	 <view class="logistics-header-text">已完成</view>
 			 </view>
 			 <!-- 待发货 -->

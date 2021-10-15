@@ -34,7 +34,7 @@
 					<!-- 时间 -->
 					<view class="coupon-content-time">{{item.time}}</view>
 					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
-							<image class="img" src="../../static/text-img.png" mode=""></image>
+							<image class="img" src="https://zhijianlw.com/static/web/img/text-img.png" mode=""></image>
 						</view>
 					</view>
 				</view>
@@ -60,7 +60,7 @@
 					<!-- 时间 -->
 					<view class="coupon-content-time">{{item.time}}</view>
 					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
-							<image class="img" src="../../static/text-img.png" mode=""></image>
+							<image class="img" src="https://zhijianlw.com/static/web/img/text-img.png" mode=""></image>
 						</view>
 					</view>
 				</view>
@@ -87,7 +87,7 @@
 					<!-- 时间 -->
 					<view class="coupon-content-time">{{item.time}}</view>
 					<view class="coupon-content-text flex-between flex-vertically">详细信息<view class="coupon-content-text-img">
-							<image class="img" src="../../static/text-img.png" mode=""></image>
+							<image class="img" src="https://zhijianlw.com/static/web/img/text-img.png" mode=""></image>
 						</view>
 					</view>
 				</view>

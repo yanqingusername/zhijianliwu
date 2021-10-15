@@ -57,7 +57,7 @@
 			</view>
 			
 			<view class="personal-bottom" @click="$buttonClick(opening)" v-if="sign.level_name!='企业会员'">
-				<image class="personal-bottom-img" src="../../static/vip_08_03.png" mode=""></image>
+				<image class="personal-bottom-img" src="https://zhijianlw.com/static/web/img/vip_08_03.png" mode=""></image>
 			    <view class="personal-bottom-title">开通企业会员 预计省1263元/年</view>
 				<view class="personal-bottom-view">查看详情</view>	
 			</view>
