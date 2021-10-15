@@ -164,7 +164,7 @@ export default{
 					
 					// checkout is line break
 					if(config.is_line_break){
-						let splitTextArr = config.text.split(/\s/ig)
+						let splitTextArr = config.text.split(/\^s/ig)
 						if(splitTextArr && splitTextArr.length > 0){
 							let newSplitTextArr = this.arrDeleteEmpty(splitTextArr)
 							if(newSplitTextArr && newSplitTextArr.length > 0){
