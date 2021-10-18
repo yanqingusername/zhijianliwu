@@ -29,7 +29,7 @@
 			</view>
 			
 			<view class="jie" v-if="com==2 && !isShowAll">
-				<view class="gift2" v-if="index < 3" v-for="(item, index) in gift" :key="index">
+				<view class="gift2" v-if="index < 2" v-for="(item, index) in gift" :key="index">
 					<view class='gift2-list'>
 						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
 						<view class="gift-xq2">
@@ -41,10 +41,10 @@
 			</view>
 			
 			<view class="bot" v-if="com==2">
-				<image @click="hidden" v-if="gift.length > 3" class="jiequ" src="https://zhijianlw.com/static/web/img/expand_button.png"
+				<image @click="hidden" v-if="gift.length > 2 && !isShowAll" class="jiequ" src="https://zhijianlw.com/static/web/img/expand_button.png"
 					mode="widthFix"></image>
 				<text class="zong" v-if="typestring == 4">共{{cardbag.goods_count_num}}件</text>
-				<text class="zong" v-if="typestring == 1">{{cardbag.type_number}}件*{{cardbag.all_details_num}}份</text>
+				<text class="zong" v-if="typestring == 1">{{cardbag.goods_count_num}}件*{{cardbag.all_details_num}}份</text>
 			</view>
 			
 			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
@@ -158,7 +158,13 @@
 				})
 				this.$utils.post(action, data).then(res => {
 					console.log('商品信息', res)
-					this.gift = res.type1_goodslist[0];
+					if(this.typestring == 1){
+						this.gift = res.type1_goodslist[0]
+						this.length = res.type1_goodslist.length
+					}else{
+						this.gift = res.goods_list
+						this.length = res.goods_list.length
+					}
 					this.isShowAll = !this.isShowAll;
 				})
 			},

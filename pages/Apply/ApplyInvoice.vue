@@ -2,7 +2,7 @@
 	<view>
 		<form @submit="forsubmit">
 			<view class="apply-order-number">订单编号：{{billInfo.orderinfo.ordernumber}}</view>
-			<view class="apply-order-money">开票金额：{{billInfo.orderinfo.orderprice_discount}}</view>
+			<view class="apply-order-money">开票金额：{{billInfo.orderinfo.orderprice_discount}} <text style="font-size: 24rpx;color: #999999;margin-left: 34rpx;">*开票金额为订单实付金额</text></text></view>
 			
 			<view class="apply-order-info">
 				<view class="apply-type">
@@ -341,6 +341,8 @@ page{
 }
 
 .apply-order-money{
+	display: flex;
+	align-items: center;
 	font-size: 28rpx;
 	color: #666666;
 	line-height: 40rpx;

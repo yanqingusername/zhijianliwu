@@ -14,7 +14,7 @@
 		</view>
 		<button class="gift-btn" v-if="isShowCheck == 0" type="warn" @click="getgift">立即收礼</button>
 		<button class="gift-btn" v-else-if="isShowCheck == 2" type="warn" @click="toConversionDetails">查看领取详情</button>		
-		<button class="new-gift-btn" v-else type="default">礼物已领光</button>
+		<button class="new-gift-btn" v-else>礼物已领完</button>
 		
 	</view>
 </template>
@@ -394,19 +394,19 @@
 		    height: 80rpx;
 		    line-height: 80rpx;
 		    margin-bottom: 30rpx;
-		    font-size: 32rpx;
+		    font-size: 30rpx;
 		    border-radius: 50rpx;
 	}
 	
 	.new-gift-btn{
 		margin-top: 60rpx;
 		    width: 640rpx;
-		    background-color: #575D65;
-			color: #FFFFFF;
+		    background-color: #DADADA;
+			color: #555555;
 		    height: 80rpx;
 		    line-height: 80rpx;
 		    margin-bottom: 30rpx;
-		    font-size: 32rpx;
+		    font-size: 30rpx;
 		    border-radius: 50rpx;
 	}
 	

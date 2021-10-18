@@ -56,18 +56,18 @@ page{
 	    height: 80rpx;
 	    line-height: 80rpx;
 	    margin-bottom: 30rpx;
-	    font-size: 32rpx;
+	    font-size: 30rpx;
 	    border-radius: 50rpx;
 }
 .new-gift-btn{
 	margin-top: 60rpx;
 	    width: 640rpx;
-	    background-color: #575D65;
-		color: #FFFFFF;
+	    background-color: #DADADA;
+		color: #555555;
 	    height: 80rpx;
 	    line-height: 80rpx;
 	    margin-bottom: 30rpx;
-	    font-size: 32rpx;
+	    font-size: 30rpx;
 	    border-radius: 50rpx;
 }
 
