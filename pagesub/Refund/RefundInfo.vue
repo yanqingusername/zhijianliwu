@@ -1,11 +1,11 @@
 <template>
-	<view>
-		<view class="personal-header" :style="'height:'+ (isSystemInfo ? '190' : '160')+'px'">
-			<view class="my-nav" :style="'height:'+nav+'px'"></view>
+	<view style="width: 100%;overflow-x: hidden;display: flex;flex-direction: column;box-sizing: border-box;">
+		<view class="personal-header" style="height:200rpx;">
+			<!-- <view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
 				<view class="personal-header-title"></view>
-			</view>
+			</view> -->
 			<view class="recharge-status-top" v-if="typerefund == 1 && cancel_info.status == 1">
 				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
 				<view class="recharge-status-text">待审核</view>
@@ -58,6 +58,7 @@
 						<view class="refund-text">退款金额</view>
 						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
 					</view>
+					<view v-if="typerefund == 1 && cancel_info.status == 6" style="font-size: 22rpx;color: #AAAAAA;padding-left: 46rpx;padding-bottom: 22rpx;">{{cancel_info.goods_count_price_info}}</view>
 					<view class="line-gray" v-if="typerefund == 1 && cancel_info.status == 6"></view>
 					
 					<view class="refund-info-top" v-if="(typerefund == 2 || typerefund == 3) && cancel_info.status == 2">
@@ -84,6 +85,7 @@
 						<view class="refund-text">退款金额</view>
 						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
 					</view>
+					<view v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)" style="font-size: 22rpx;color: #AAAAAA;padding-left: 46rpx;padding-bottom: 22rpx;">{{cancel_info.goods_count_price_info}}</view>
 					<view class="line-gray" v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)"></view>
 					
 					
@@ -137,6 +139,7 @@
 						<view class="refund-text">退款金额</view>
 						<view class="refund-money">¥{{cancel_info.refund_price}}</view>
 					</view>
+					<view v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)" style="font-size: 22rpx;color: #AAAAAA;padding-left: 46rpx;padding-bottom: 22rpx;">{{cancel_info.goods_count_price_info}}</view>
 					<view class="line-gray" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)"></view>
 					
 					
@@ -159,7 +162,7 @@
 						</view>
 					</view>
 					<view class="new-order-li-bottom" v-if="typerefund == 1 && cancel_info.status == 1">
-						<view class="new-order-nickname"></view>
+						<view class="new-order-nickname">{{cancel_info.goods_count_price_info}}</view>
 						<view class="new-order-botton-view">
 							<view class="new-order-botton-gray" v-if="typerefund == 1 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
 							<view class="new-order-botton-gray" v-if="typerefund == 1 && cancel_info.status == 3" @click="$buttonClick(ApplyRefund)">再次申请</view>
@@ -167,7 +170,7 @@
 					</view>
 					
 					<view class="new-order-li-bottom" v-if="typerefund == 2 && (cancel_info.status == 1 || cancel_info.status == 2)">
-						<view class="new-order-nickname"></view>
+						<view class="new-order-nickname">{{cancel_info.goods_count_price_info}}</view>
 						<view class="new-order-botton-view">
 							<view class="new-order-botton-gray" v-if="typerefund == 2 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
 							<view class="new-order-botton-gray" v-if="typerefund == 2 && cancel_info.status == 2" @click="$buttonClick(logisticsHandler)">填写物流单号</view>
@@ -175,7 +178,7 @@
 					</view>
 					
 					<view class="new-order-li-bottom" v-if="typerefund == 3 && (cancel_info.status == 1 || cancel_info.status == 2)">
-						<view class="new-order-nickname"></view>
+						<view class="new-order-nickname">{{cancel_info.goods_count_price_info}}</view>
 						<view class="new-order-botton-view">
 							<view class="new-order-botton-gray" v-if="typerefund == 3 && cancel_info.status == 1" @click="$buttonClick(applyHandler)">撤销申请</view>
 							<view class="new-order-botton-gray" v-if="typerefund == 3 && cancel_info.status == 2" @click="$buttonClick(logisticsHandler)">填写物流单号</view>
@@ -461,6 +464,11 @@
 <style>
 	page{
 		background-color: #F9F9F9;
+		box-sizing: border-box;
+		width: 100%;
+		overflow-x: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 	
 	.personal-header{
@@ -647,10 +655,11 @@
 		border-radius: 50%;
 	}
 	.new-order-nickname{
-		font-size: 24rpx;
-		color: #333333;
+		font-size: 22rpx;
+		color: #AAAAAA;
 		line-height: 33rpx;
-		margin-left: 8rpx;
+		width: 408rpx;
+		/* margin-left: 8rpx; */
 	}
 	.new-order-li-top-ordersn{
 		font-size: 24rpx;

@@ -1,6 +1,17 @@
 
 page{
 	background-color: #F9F9F9;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	width: 100%;
+	overflow-x: hidden;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
 }
 .personal-header{
 	 height: 160px;
@@ -206,10 +217,11 @@ page{
 	border-radius: 50%;
 }
 .new-order-nickname{
-	font-size: 24rpx;
-	color: #333333;
+	font-size: 22rpx;
+	color: #AAAAAA;
 	line-height: 33rpx;
-	margin-left: 8rpx;
+	width: 408rpx;
+	/* margin-left: 8rpx; */
 }
 .new-order-li-top-ordersn{
 	font-size: 24rpx;
