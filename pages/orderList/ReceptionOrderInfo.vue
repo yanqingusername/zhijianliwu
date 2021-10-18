@@ -424,7 +424,7 @@
 		line-height: 33rpx;
 		position: absolute;
 		bottom: 12rpx;
-		right: 34rpx;
+		right: 45rpx;
 	}
 	.new-order-li-center-item{
 		display: flex;

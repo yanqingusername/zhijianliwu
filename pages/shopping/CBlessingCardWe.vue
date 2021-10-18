@@ -320,7 +320,7 @@
 						success: (res) => {
 							setTimeout(function(e) {
 								uni.reLaunch({
-									url: '../signin/signin?receive=' + 'on' +
+									url: '../signin/signin?receive=' + 'onone' +
 										'&cardbag_number=' + that.cardbag_number
 								})
 							}, 1500)

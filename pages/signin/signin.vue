@@ -316,7 +316,8 @@
 				} 
 			},
 			getRou(){
-				if(this.receive){
+				let that = this;
+				if(this.receive == 'on'){
 					
 					uni.showToast({
 						title:'登录成功',  
@@ -325,7 +326,20 @@
 						success: (res) => {
 							setTimeout(function(e){
 								uni.reLaunch({
-									url:'../redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number
+									url:'../redEnvelopes/redEnvelopes?cardbag_number=' + that.cardbag_number
+								})
+							},1500) 
+						}
+					})  
+				}else if(this.receive == 'onone'){
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:'../shopping/CBlessingCardWe?cardbag_number=' + that.cardbag_number
 								})
 							},1500) 
 						}
