@@ -418,7 +418,7 @@
 	    line-height: 50rpx;
 	    overflow: scroll;
 	    font-size: 24rpx;
-	    background: #FFF7EA;
+	    /* background: #FFF7EA; */
 	  /* text-decoration-line: underline; */
 	}
 	.text{
@@ -427,8 +427,8 @@
 		    text-decoration-line: underline;
 		    position: absolute;
 		    width: 100%;
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
-		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		   /* background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx);
+		    background: repeating-linear-gradient(#FFF7EA,#FFF7EA 34rpx ,#FFF7EA 50rpx); */
 	}
 	.section textarea{
 		width: 100%;
