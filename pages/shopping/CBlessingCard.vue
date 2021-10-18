@@ -137,6 +137,9 @@
 						this.background = res.rs.default_theme_background;
 						this.id = res.rs.default_theme_id;
 						this.textList = res.rs.zhufu_list;
+						
+						// 根据可选模板id遍历可选模板,拿到默认模板
+						this.imgs();
 					}
 				});
 			},
@@ -174,6 +177,16 @@
 				// } else {
 					this.title = e.detail.value;
 				// }
+			},
+			imgs: function(e) {
+				// 默认背景
+				for (let i in this.textList) {
+					if (this.textList[i].id == this.id) {
+						this.background = this.textList[i].background;
+						this.id = this.textList[i].id;
+						this.swiperCurrentIndex = i;
+					}
+				}
 			},
 			change(e) {
 				this.swiperCurrentIndex = e.detail.current;

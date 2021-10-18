@@ -150,11 +150,11 @@
 			 <view class="z-btn-bottom">
 				<view class="shop-bottom-price" v-if="price_zhe"  v-model="price_zhe"><text>￥</text><text>{{price_zhe}}</text></view>
 				<view v-if="show==='0'">
-					<button class="shop-botton-btn" type="warn" style="opacity: 0.3" v-if="com==false" @click="packages">确认订单</button>
+					<button class="shop-botton-btn" type="warn" style="opacity: 0.3" v-if="com==false">确认订单</button>
 					<button class="shop-botton-btn" type="warn" v-else @click="packages">确认订单</button>
 				</view>
 				<view v-else>
-					<button class="shop-botton-btn" style="opacity: 0.3" type="warn" v-if="com==false" @click="packages">生成礼物红包</button>
+					<button class="shop-botton-btn" style="opacity: 0.3" type="warn" v-if="com==false">确认订单</button>
 					<button class="shop-botton-btn"  type="warn" v-else @click="packages">确认订单</button>
 				</view>
 			 </view>
@@ -442,6 +442,15 @@
 			},
 			packages: function(e) {
 				if (this.show === '2') {
+					this.setgiftssuccess =  uni.getStorageSync('setgiftssuccess')|| 2;
+					if(this.setgiftssuccess == 2){
+						uni.showToast({
+							icon: "none",
+							title: "请先定制祝福卡！"
+						});
+						return
+					}
+					
 					//批量送礼
 					let type = uni.getStorageSync('type')
 					this.type = type;
