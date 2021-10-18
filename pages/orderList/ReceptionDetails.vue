@@ -221,7 +221,7 @@
 		align-items: center;
 		position: relative;
 		justify-content: space-between;
-		padding: 25rpx 45rpx 25rpx 38rpx;
+		padding: 25rpx 45rpx 40rpx 38rpx;
 		border-bottom: 2rpx solid #EEEEEE;
 	}
 	.conversion-details{
@@ -229,8 +229,9 @@
 		color: #EC1815;
 		line-height: 33rpx;
 		position: absolute;
-		bottom: 12rpx;
-		right: 45rpx;
+		bottom: 0rpx;
+		right: 35rpx;
+		padding: 20rpx 10rpx;
 	}
 	.new-order-left{
 		width: 140rpx;
@@ -300,7 +301,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 15rpx 45rpx 18rpx 38rpx;
+		padding: 30rpx 45rpx 30rpx 38rpx;
 	}
 	
 	.new-order-botton-view{

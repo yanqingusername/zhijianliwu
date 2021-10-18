@@ -27,7 +27,8 @@
 				cardbag_number:'',
 				isChecked: true,
 				AuthStatus: true, // true: 用户信息 false : 手机号
-				telstring: ''
+				telstring: '',
+				keynum: ''
 			}
 		}, 
 		
@@ -43,6 +44,9 @@
 		 if(e.receive){
 			 this.receive = e.receive;
 			 this.cardbag_number = e.cardbag_number;
+		 }
+		 if(e.keynum){
+			 this.keynum = e.keynum;
 		 }
 		 // 是否扫码
 		 if(e.scene){
@@ -342,6 +346,19 @@
 									url:'../shopping/CBlessingCardWe?cardbag_number=' + that.cardbag_number
 								})
 							},1500) 
+						}
+					})  
+				}else if(this.receive == 'ondetails'){
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:'../details/details?keynum=' + that.keynum
+								})
+							},500) 
 						}
 					})  
 				}else{

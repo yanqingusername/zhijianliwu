@@ -710,19 +710,11 @@
 			},
 			//礼篮
 			lilan: function(e) {
-				this.btns=3
-				let i = 0;
-				this.display = !this.display;
-				this.fixed = true;
-				console.log('打开商品规格')
-				if (i == 0) {
-					console.log(this.scrollTop)
-					i++
-				}			
-							
-					return		
-					
-				if (this.text > 1 || this.text1 > 1) {
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					this.btns=3
 					let i = 0;
 					this.display = !this.display;
 					this.fixed = true;
@@ -730,26 +722,53 @@
 					if (i == 0) {
 						console.log(this.scrollTop)
 						i++
-					}
-				} else {
-					let action = "op_buy_shopping_cart";
-					let id = this.id;
-					let goodsid = this.goodsid
-					let goods_model = this.goods_model;
-					// 替换 # 为 \u35
-					let goods_spec = this.goods_spec;
-					let goods_item = this.goods_item;
-					console.log(String(goods_item).replace('#', '\\u35'));
-					let data = JSON.stringify({
-						memberid: id,
-						goodsid: goodsid,
-						goods_model: goods_model,
-						goods_spec: String(goods_spec),
-						goods_item: String(goods_item).replace('#', '\\u35'),
-						num: 1
-					});
-					this.$utils.post(action, data).then(res => {
+					}			
+								
+						return		
 						
+					if (this.text > 1 || this.text1 > 1) {
+						let i = 0;
+						this.display = !this.display;
+						this.fixed = true;
+						console.log('打开商品规格')
+						if (i == 0) {
+							console.log(this.scrollTop)
+							i++
+						}
+					} else {
+						let action = "op_buy_shopping_cart";
+						let id = this.id;
+						let goodsid = this.goodsid
+						let goods_model = this.goods_model;
+						// 替换 # 为 \u35
+						let goods_spec = this.goods_spec;
+						let goods_item = this.goods_item;
+						console.log(String(goods_item).replace('#', '\\u35'));
+						let data = JSON.stringify({
+							memberid: id,
+							goodsid: goodsid,
+							goods_model: goods_model,
+							goods_spec: String(goods_spec),
+							goods_item: String(goods_item).replace('#', '\\u35'),
+							num: 1
+						});
+						this.$utils.post(action, data).then(res => {
+							
+						})
+					}
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
 					})
 				}
 			},
@@ -833,142 +852,218 @@
 			},
 			// 直接购买确定规格  
 			determine1: function(e) {
-				console.log('确定规格')
-				this.display = false;
-				this.fixed = false;
-				let action = "op_buy_shopping_cart";
-				let id = this.id;
-				let goodsid = this.goodsid;
-				let goods_model = this.goods_model;
-				let goods_spec = String(Object.keys(this.specArr));
-				let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
-				console.log(goods_item);
-				let data = JSON.stringify({
-					memberid: id,
-					goodsid: goodsid,
-					goods_model: goods_model,
-					goods_spec: goods_spec,
-					goods_item: goods_item,
-					num: this.checknum,
-					buy_type:1
-				});
-				console.log(data);
-				this.$utils.post(action, data).then(res => {
-					console.log(res+"直接购买")
-					let icon="success"
-					if (res.sta !=1) {
-						icon = "none";
-						uni.showToast({
-							icon: icon,
-							title: res.msg,
-							duration: 2000
-						});
-						return
-					}
-					if(goods_item!=''){
-						uni.navigateTo({
-							url:'../shopping/must?type=1'
-						})
-					}
-				})
-				this.scrolle()
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					console.log('确定规格')
+					this.display = false;
+					this.fixed = false;
+					let action = "op_buy_shopping_cart";
+					let id = this.id;
+					let goodsid = this.goodsid;
+					let goods_model = this.goods_model;
+					let goods_spec = String(Object.keys(this.specArr));
+					let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
+					console.log(goods_item);
+					let data = JSON.stringify({
+						memberid: id,
+						goodsid: goodsid,
+						goods_model: goods_model,
+						goods_spec: goods_spec,
+						goods_item: goods_item,
+						num: this.checknum,
+						buy_type:1
+					});
+					console.log(data);
+					this.$utils.post(action, data).then(res => {
+						console.log(res+"直接购买")
+						let icon="success"
+						if (res.sta !=1) {
+							icon = "none";
+							uni.showToast({
+								icon: icon,
+								title: res.msg,
+								duration: 2000
+							});
+							return
+						}
+						if(goods_item!=''){
+							uni.navigateTo({
+								url:'../shopping/must?type=1'
+							})
+						}
+					})
+					this.scrolle()
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
+					})
+				}
 			},
 			//确认规格直接赠送
              determine2: function(e) {
-             	console.log('确定规格')
-             	this.display = false;
-             	this.fixed = false;
-             	let action = "op_buy_shopping_cart";
-             	let id = this.id;
-             	let goodsid = this.goodsid;
-             	let goods_model = this.goods_model;
-             	let goods_spec = String(Object.keys(this.specArr));
-             	let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
-             	console.log(goods_item);
-             	let data = JSON.stringify({
-             		memberid: id,
-             		goodsid: goodsid,
-             		goods_model: goods_model,
-             		goods_spec: goods_spec,
-             		goods_item: goods_item,
-             		num: this.checknum,
-					buy_type:1
-             	});
-             	this.$utils.post(action, data).then(res => {
-					console.log("直接赠送")
-					console.log(res)
-					let icon="success"
-					   if (res.sta !=1) {
-					   	icon = "none";
-					   	uni.showToast({
-					   		icon: icon,
-					   		title: res.msg,
-					   		duration: 2000
-					   	});
-					   	return
-					   }
-             		   if(goods_item!=''){
-						// 打开新页面跳转
-             			// uni.navigateTo({
-             			// 	url:'../shopping/shop?type=1'
-             			// })
-						 uni.redirectTo({
-             				url:'../shopping/shop?type=1'
-             			})
-             		  }
-             	})
-             	this.scrolle()
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					console.log('确定规格')
+					this.display = false;
+					this.fixed = false;
+					let action = "op_buy_shopping_cart";
+					let id = this.id;
+					let goodsid = this.goodsid;
+					let goods_model = this.goods_model;
+					let goods_spec = String(Object.keys(this.specArr));
+					let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
+					console.log(goods_item);
+					let data = JSON.stringify({
+						memberid: id,
+						goodsid: goodsid,
+						goods_model: goods_model,
+						goods_spec: goods_spec,
+						goods_item: goods_item,
+						num: this.checknum,
+						buy_type:1
+					});
+					this.$utils.post(action, data).then(res => {
+						console.log("直接赠送")
+						console.log(res)
+						let icon="success"
+						   if (res.sta !=1) {
+							icon = "none";
+							uni.showToast({
+								icon: icon,
+								title: res.msg,
+								duration: 2000
+							});
+							return
+						   }
+						   if(goods_item!=''){
+							// 打开新页面跳转
+							// uni.navigateTo({
+							// 	url:'../shopping/shop?type=1'
+							// })
+							 uni.redirectTo({
+								url:'../shopping/shop?type=1'
+							})
+						  }
+					})
+					this.scrolle()
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
+					})
+				}
              },
 			 //确定规格礼篮
 			 determine3: function(e) {
-			 	this.display = false;
-			 	this.fixed = false;
-			 	let action = "op_buy_shopping_cart";
-			 	let id = this.id;
-			 	let goodsid = this.goodsid;
-			 	let goods_model = this.goods_model;
-			 	
-			 	let goods_spec = String(Object.keys(this.specArr));
-			 	let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
-			 	
-			 	let data = JSON.stringify({
-			 		memberid: id,
-			 		goodsid: goodsid,
-			 		goods_model: goods_model,
-			 		goods_spec: goods_spec,
-			 		goods_item: goods_item,
-			 		num:  this.checknum,
-					buy_type:0
-			 	});
-			 	console.log(JSON.parse(data))
-			 	this.$utils.post(action,data).then(res => {
-					console.log("res")
-					console.log(res)
-					   if (res.sta ==1) {
-						   
-					   	uni.showToast({
-					   		icon: 'success',
-					   		title: '添加成功',
-					   		duration: 1000
-					   	});
-					   }
-					   //把数据给一个小球放底部礼篮
-					   let type=0
-					   let memberid = uni.getStorageSync('id')
-					   this.memberid = memberid;
-					   var data1 = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
-					   var action="get_buy_shopping_cart"
-					   this.$utils.post(action,data1).then(res1=>{
-						    console.log('商品信息',res1)
-							this.num_all=res1.rs.num_all
-					   })
-			 	})
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					this.display = false;
+					this.fixed = false;
+					let action = "op_buy_shopping_cart";
+					let id = this.id;
+					let goodsid = this.goodsid;
+					let goods_model = this.goods_model;
+					
+					let goods_spec = String(Object.keys(this.specArr));
+					let goods_item = String(Object.values(this.specArr)).replace('#', '替换u35');
+					
+					let data = JSON.stringify({
+						memberid: id,
+						goodsid: goodsid,
+						goods_model: goods_model,
+						goods_spec: goods_spec,
+						goods_item: goods_item,
+						num:  this.checknum,
+						buy_type:0
+					});
+					console.log(JSON.parse(data))
+					this.$utils.post(action,data).then(res => {
+						console.log("res")
+						console.log(res)
+						   if (res.sta ==1) {
+							   
+							uni.showToast({
+								icon: 'success',
+								title: '添加成功',
+								duration: 1000
+							});
+						   }
+						   //把数据给一个小球放底部礼篮
+						   let type=0
+						   let memberid = uni.getStorageSync('id')
+						   this.memberid = memberid;
+						   var data1 = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+						   var action="get_buy_shopping_cart"
+						   this.$utils.post(action,data1).then(res1=>{
+								console.log('商品信息',res1)
+								this.num_all=res1.rs.num_all
+						   })
+					})
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
+					})
+				}
 			 },
 			 // 左下角跳转
 			 bottom_btn: function(e) {
-				 uni.reLaunch({
-				    url:'../shopping/shopping?type=0'
-				  })
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					uni.reLaunch({
+						url:'../shopping/shopping?type=0'
+					})
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
+					})
+				}
 			 },
 			onPageScroll: function(e) { // 获取滚动条当前位置
 				let tt = this.tt;
@@ -1213,7 +1308,26 @@
 				})
 			},
 			gotoShare: function() {
-				this.$refs.popup.open()
+				let that = this;
+				//判断是否登录
+				var id = uni.getStorageSync('id')
+				if(id){
+					this.$refs.popup.open()
+				}else{
+					uni.showToast({
+						title: '请先登录',
+						icon: "none",
+						mask: 'true',
+						success: (res) => {
+							setTimeout(function(e) {
+								uni.reLaunch({
+									url: '../signin/signin?receive=' + 'ondetails' +
+										'&keynum=' + that.keynum
+								})
+							}, 500)
+						}
+					})
+				}
 			},
 
 			close1() {

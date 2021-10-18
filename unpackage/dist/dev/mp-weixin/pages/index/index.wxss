@@ -282,6 +282,9 @@
 .coupon-bg-img-two{
 			width: 700rpx;
 			height: 905rpx;
+			position: absolute;
+			left: 0rpx;
+			top: 0rpx;
 }
 .scroll-x-coupon{
 			  height: 410rpx;

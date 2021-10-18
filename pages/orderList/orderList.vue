@@ -172,10 +172,10 @@
 			}
 		},
 		onShow: function() {
-			uni.showToast({
-				icon: "loading",
-				title: "加载中"
-			})
+			// uni.showToast({
+			// 	icon: "loading",
+			// 	title: "加载中"
+			// })
 			this.getOrderList(1);
 		},
 		// 下拉刷新
@@ -1022,10 +1022,10 @@
 
 			// 选项卡切换
 			top: function(e) {
-				uni.showToast({
-					icon: "loading",
-					title: "加载中"
-				})
+				// uni.showToast({
+				// 	icon: "loading",
+				// 	title: "加载中"
+				// })
 				let index = e.currentTarget.dataset.index;
 				this.nav = index;
 				this.getOrderList(1);

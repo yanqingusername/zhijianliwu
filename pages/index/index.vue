@@ -61,7 +61,7 @@
 		</view> -->
 		
 		<!-- 提交成功 -->
-		<uni-popup ref="popupcenter" type="center" :animation="false" :maskClick="true" @change="changePop">
+		<uni-popup ref="popupcenter" type="center" :animation="false" @change="changePop">
 			<view class="popup-center-view">
 				<image class="popup-center-view-img" src="https://zhijianlw.com/static/web/img/icon_adopt_apply_in.png"></image>
 				<view class="popup-center-view-text">{{poptitle}}</view>
@@ -72,7 +72,7 @@
 		</uni-popup>
 		
 		<!-- 优惠券 -->
-		<uni-popup ref="couponcenter" type="center" :animation="false" :maskClick="true" @change="changePop">
+		<uni-popup ref="couponcenter" type="center" :animation="false" @change="changePop">
 			<view class="coupon-view" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length == 1">
 				<image class="coupon-bg-img" v-if="regCouponInfo[0].scene == 1" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_01-1.png"></image>
 				<image class="coupon-bg-img" v-else src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_01-2.png"></image>
@@ -85,7 +85,7 @@
 			<view class="coupon-view-two" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length > 1">
 				<image class="coupon-bg-img-two" v-if="regCouponInfo[0].scene == 1" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-1.png"></image>
 				<image class="coupon-bg-img-two" v-else src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-2.png"></image>
-				<view style="height: 400rpx;width: 515rpx;margin-top: 88px;position: absolute;">
+				<view style="height: 400rpx;width: 515rpx;top: 164px;position: absolute;">
 					<scroll-view scroll-y="true" class="scroll-x-coupon">
 						<view class="coupon-content-two" v-for="item in regCouponInfo" :key="item.id">
 							<image class="coupon-bg-img-two_bg" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_03.png"></image>
@@ -706,10 +706,14 @@
 			width: 700rpx;
 			height: 905rpx;
 			position: relative;
+			z-index: 99;
 		}
 		.coupon-bg-img-two{
 			width: 700rpx;
 			height: 905rpx;
+			position: absolute;
+			left: 0rpx;
+			top: 0rpx;
 		}
 		.scroll-x-coupon{
 			  height: 410rpx;
