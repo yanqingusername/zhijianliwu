@@ -85,7 +85,7 @@
 			<view class="coupon-view-two" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length > 1">
 				<image class="coupon-bg-img-two" v-if="regCouponInfo[0].scene == 1" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-1.png"></image>
 				<image class="coupon-bg-img-two" v-else src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_02-2.png"></image>
-				<view style="height: 400rpx;width: 515rpx;top: 164px;position: absolute;">
+				<view class="coupon-a-a" :style="'top:'+(isSystemInfo ? '179' : '164')+'px;'">
 					<scroll-view scroll-y="true" class="scroll-x-coupon">
 						<view class="coupon-content-two" v-for="item in regCouponInfo" :key="item.id">
 							<image class="coupon-bg-img-two_bg" src="https://zhijianlw.com/static/web/img/icon_member_reg_coupon_03.png"></image>
@@ -150,11 +150,15 @@
 				swiperCurrentIndex: 0,
 				autoplay: true,
 				interval: 2000,
-				duration: 500
+				duration: 500,
+				isSystemInfo: false
 			}
 		},
 		onLoad() {
 			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
+			
+			this.isSystemInfo = this.$utils.isSystemInfo();
+			
 			var sign = uni.getStorageSync('sign');
 			if (sign) {
 				this.sta = '200';
@@ -714,6 +718,12 @@
 			position: absolute;
 			left: 0rpx;
 			top: 0rpx;
+		}
+		.coupon-a-a{
+			height: 400rpx;
+			width: 515rpx;
+			top: 164px;
+			position: absolute;
 		}
 		.scroll-x-coupon{
 			  height: 410rpx;

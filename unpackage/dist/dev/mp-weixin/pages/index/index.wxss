@@ -278,6 +278,7 @@
 			width: 700rpx;
 			height: 905rpx;
 			position: relative;
+			z-index: 99;
 }
 .coupon-bg-img-two{
 			width: 700rpx;
@@ -285,6 +286,12 @@
 			position: absolute;
 			left: 0rpx;
 			top: 0rpx;
+}
+.coupon-a-a{
+			height: 400rpx;
+			width: 515rpx;
+			top: 164px;
+			position: absolute;
 }
 .scroll-x-coupon{
 			  height: 410rpx;
