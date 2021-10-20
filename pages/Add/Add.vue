@@ -7,14 +7,15 @@
 					<view class="new-logistics-add flex-center" >
 						<view class="logistics-add-content flex-vertically" style="width: 750rpx;height: 100rpx;">
 								<!-- <view class="logistics-add-img" :data-index="index"  @click="choose"><image class="img" src="../../static/add.png" mode=""></image></view> -->
-								<view class="logistics-add-img-text" style="width: 640rpx;margin-left: 30rpx;flex-direction: column;justify-content: center;height: 100rpx;" :data-index="item.id" :data-linkman="item.linkman"
+								<view class="logistics-add-img-text" style="width: 630rpx;margin-left: 40rpx;flex-direction: column;justify-content: center;height: 100rpx;" :data-index="item.id" :data-linkman="item.linkman"
 									:data-linktel="item.linktel" :data-address ="item.province_name+' '+item.city_name+' '+item.county_name+' '+item.address"@click="choose">
-									<view class="logistics-add-name" style="display: flex;align-items: center;">{{item.linkman}}  {{item.linktel}} <view v-if="item.is_default ==1" class="logistics-default">默认</view></view>
-									<view class="logistics-adder" style="margin-top: 18rpx;">{{item.province_name}}  {{item.city_name}}  {{item.county_name}}  {{item.address}}</view>
+									<view class="logistics-add-name" style="display: flex;align-items: center;font-size: 32rpx;font-weight: bold;color: #333333;">{{item.linkman}}  {{item.linktel}} <view v-if="item.is_default ==1" class="logistics-default">默认</view></view>
+									<view class="logistics-adder" style="margin-top: 18rpx;font-size: 28rpx;color: #666666;">{{item.province_name}}  {{item.city_name}}  {{item.county_name}}  {{item.address}}</view>
 								</view>
 								<!-- <view class="logistics-delete" @click="del" :data-index="index" :data-id="item.id"><image class="img" src="../../static/delete.png" mode=""></image></view> -->
 								<view class="logistics-delete" @click="modify" style="margin-left: 0rpx;" :data-index="index" ><image class="img" src="https://zhijianlw.com/static/web/img/icon_edit_09_16_01.png" mode="" style="width: 40rpx;height: 40rpx;"></image></view>
 						</view>
+						<view style="width: 700rpx;height: 1px;background: #E6E6E6;margin-top: 24rpx;"></view>
 					</view>
 				</uni-swipe-action-item>
 				
@@ -176,15 +177,18 @@
 </script>
 
 <style>
+	page{
+		background: #FFFFFF;
+	}
 .new-logistics-add {
     width: 100%;
-    height: 140rpx;
-    border-top: 2rpx solid #F1F5F4;
-    border-bttom: 2rpx soild #F4F4F4;
-    background-color: #FFF;
-    /* margin-bottom: 20rpx; */
-    /* margin-top: 20rpx; */
-    position: relative;
+        /* height: 160rpx; */
+        /* border-top: 2rpx solid #F1F5F4; */
+        /* border-bttom: 2rpx soild #F4F4F4; */
+        background-color: #FFF;
+        position: relative;
+        flex-direction: column;
+        margin-top: 30rpx;
 }
 .logistics-delete{
 	width: 68rpx;

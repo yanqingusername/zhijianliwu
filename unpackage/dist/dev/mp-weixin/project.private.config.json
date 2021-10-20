@@ -29,6 +29,12 @@
           "pathName": "pages/shopping/CBlessingCardWe",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "CinemaTicketHome",
+          "pathName": "pagesub/CinemaTicket/CinemaTicketHome",
+          "query": "",
+          "scene": null
         }
       ]
     }

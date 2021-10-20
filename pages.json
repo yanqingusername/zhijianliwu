@@ -211,7 +211,8 @@
         {
             "path" : "pages/Address/Address",
             "style" : {
-				"navigationBarTitleText":"新增地址"
+				"navigationBarTitleText":"新增地址",
+				"navigationBarBackgroundColor":"#F5F5F5"
 			}
         }
         ,{
@@ -316,7 +317,9 @@
         ,{
             "path" : "pages/Add/Add",
             "style" : {
-				"navigationBarTitleText":"我的收货地址"
+				"navigationBarTitleText":"我的收货地址",
+				"navigationBarBackgroundColor":"#F5F5F5"
+				
 			}
         }
         ,{
@@ -683,6 +686,14 @@
 					"style" : {
 						"navigationBarTitleText":"全部封面"
 					}
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHome",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "电影票",
+				        "enablePullDownRefresh": true
+				    }
 				}
 				
 				

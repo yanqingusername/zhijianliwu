@@ -1,13 +1,19 @@
 
+page{
+		background: #FFFFFF;
+}
 .new-logistics-add {
     width: 100%;
-    height: 140rpx;
-    border-top: 2rpx solid #F1F5F4;
-    border-bttom: 2rpx soild #F4F4F4;
-    background-color: #FFF;
-    /* margin-bottom: 20rpx; */
-    /* margin-top: 20rpx; */
-    position: relative;
+        /* height: 160rpx; */
+        /* border-top: 2rpx solid #F1F5F4; */
+        /* border-bttom: 2rpx soild #F4F4F4; */
+        background-color: #FFF;
+        position: relative;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+                flex-direction: column;
+        margin-top: 30rpx;
 }
 .logistics-delete{
 	width: 68rpx;

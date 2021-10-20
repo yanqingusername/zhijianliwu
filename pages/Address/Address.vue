@@ -28,8 +28,8 @@
 					</view>
 				</view>
 				<view class="new-add-li flex-vertically">
-					<view class="add-left chec" style="color: #666666;">设置为默认地址</view>
-					<evan-switch class="evan" v-model="checked" activeColor="#FFD7D7 "></evan-switch>
+					<view style="padding-left: 17rpx;font-size: 32rpx;color: #666666;">设置为默认地址</view>
+					<evan-switch class="evan" size="15" v-model="checked" activeColor="#FFD7D7 "></evan-switch>
 				</view>
 				
 			</view>

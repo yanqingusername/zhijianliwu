@@ -11,6 +11,13 @@
 				<view class="recharge-status-text">待审核</view>
 			</view>
 			<view class="recharge-status-label" v-if="typerefund == 1 && cancel_info.status == 1">退款申请已提交，请等待客服处理</view>
+			
+			<view class="recharge-status-top" v-if="typerefund == 1 && cancel_info.status == 3">
+				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">已拒绝</view>
+			</view>
+			<view class="recharge-status-label" v-if="typerefund == 1 && cancel_info.status == 3">退款申请审核不通过，如有疑问请联系客服</view>
+			
 			<view class="refund-info-content" v-if="typerefund == 1 && cancel_info.status == 6">
 				<view class="refund-info-text">退款完成</view>
 				<view class="refund-info-text margin-text">退款金额 ¥{{cancel_info.refund_price}}</view>
@@ -36,6 +43,12 @@
 				<view class="recharge-status-text">待审核</view>
 			</view>
 			<view class="recharge-status-label" v-if="typerefund == 3 && cancel_info.status == 1">您已提交退货申请，待审核</view>
+			
+			<view class="recharge-status-top" v-if="typerefund == 3 && cancel_info.status == 3">
+				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">已拒绝</view>
+			</view>
+			<view class="recharge-status-label" v-if="typerefund == 3 && cancel_info.status == 3">退款申请审核不通过，如有疑问请联系客服</view>
 			
 			<view class="refund-info-content" v-if="typerefund == 3 && cancel_info.status == 2">
 				<view class="refund-info-text">审核通过，请尽快寄出退货商品并填写物流单号</view>
