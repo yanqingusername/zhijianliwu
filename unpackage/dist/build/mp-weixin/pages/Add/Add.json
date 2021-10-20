@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "我的收货地址",
+  "navigationBarBackgroundColor": "#F5F5F5",
   "usingComponents": {
     "uni-swipe-action": "/uni_modules/uni-swipe-action/components/uni-swipe-action/uni-swipe-action",
     "uni-swipe-action-item": "/uni_modules/uni-swipe-action/components/uni-swipe-action-item/uni-swipe-action-item"

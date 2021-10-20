@@ -99,7 +99,10 @@
         "Refund/RefundExchangeInfo",
         "Refund/RefundExchangeDown",
         "Refund/LogisticsInfo",
-        "AllCovers/AllCovers"
+        "AllCovers/AllCovers",
+        "CinemaTicket/CinemaTicketHome",
+        "CinemaTicket/CinemaTicketHomeItem",
+        "CinemaTicket/CinemaTicketHomeDetail"
       ]
     }
   ],

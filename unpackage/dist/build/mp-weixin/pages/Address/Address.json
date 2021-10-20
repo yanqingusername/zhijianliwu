@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "新增地址",
+  "navigationBarBackgroundColor": "#F5F5F5",
   "usingComponents": {
     "evan-switch": "/components/evan-switch/evan-switch",
     "simple-address": "/components/simple-address/simple-address"
