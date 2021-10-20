@@ -63,12 +63,12 @@
 					</view> -->
 				</view>
 				
-				<!-- 拼手气红包 -->
+				<!-- 拼手气礼包 -->
 				<view class="" v-if="show==='1'">
 					<view class="shop-list shop-ways">
 						<text class="shop-gift-title">送礼方式</text>
 						<view class="right">
-							<text class="shop-gift-buy" @click="toggle">拼手气红包</text>
+							<text class="shop-gift-buy" @click="toggle">拼手气礼包</text>
 							<text class="icon icon-z-right"></text>
 						</view>
 					</view>
@@ -140,7 +140,7 @@
 				<uni-popup ref="popup" type="bottom" :animation="false">
 					<view class="new-shop-gift-buy-bot">
 						<text class="shop-bot" @click="box1">直接送礼</text>
-						<text class="shop-bot" @click="box2">拼手气红包</text>
+						<text class="shop-bot" @click="box2">拼手气礼包</text>
 						<text class="shop-bot" @click="box3">立即购买</text>
 						<text @click="close" class="shop-bot close">取消</text>
 					</view>
@@ -318,7 +318,7 @@
 				
 				let memberid = uni.getStorageSync('id')
 				let buy_type=0
-				//如果show=1是拼手气红包，如果show=2是直接送礼
+				//如果show=1是拼手气礼包，如果show=2是直接送礼
 				if(this.show==1 ||  this.show==0){
 					fenshu=1;
 				}
@@ -474,7 +474,7 @@
 						}
 					})
 				} else if (this.show === '1') {
-					//拼手气红包
+					//拼手气礼包
 					let type = uni.getStorageSync('type')
 					this.type = type;
 					let memberid = uni.getStorageSync('id')

@@ -32,7 +32,7 @@
         },
         {
           "name": "CinemaTicketHome",
-          "pathName": "pagesub/CinemaTicket/CinemaTicketHome",
+          "pathName": "pagesub/CinemaTicket/CinemaTicketHomeDetail",
           "query": "",
           "scene": null
         }

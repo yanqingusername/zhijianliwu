@@ -100,7 +100,9 @@
         "Refund/RefundExchangeDown",
         "Refund/LogisticsInfo",
         "AllCovers/AllCovers",
-        "CinemaTicket/CinemaTicketHome"
+        "CinemaTicket/CinemaTicketHome",
+        "CinemaTicket/CinemaTicketHomeItem",
+        "CinemaTicket/CinemaTicketHomeDetail"
       ]
     }
   ],
@@ -158,6 +160,5 @@
   "usingComponents": {
     "navgation": "/wxcomponents/navgation/navgation",
     "address": "/components/simple-address/simple-address"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

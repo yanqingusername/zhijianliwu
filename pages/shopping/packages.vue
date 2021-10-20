@@ -281,7 +281,7 @@
 				//这里要判断下类型，如果是直接送礼份数取出来实际的，如果是拼手气的话，份数是固定的1
 				let memberid = uni.getStorageSync('id')
 				let buy_type=this.type
-				//如果show=1是拼手气红包，如果show=2是直接送礼
+				//如果show=1是拼手气礼包，如果show=2是直接送礼
 				if(this.show==1 ||  this.show==0){
 					fenshu=1;
 				}

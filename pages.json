@@ -694,9 +694,21 @@
 				        "navigationBarTitleText": "电影票",
 				        "enablePullDownRefresh": true
 				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHomeItem",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "电影票"
+				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHomeDetail",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "影片详情"
+				    }
 				}
-				
-				
 		 ]
 	}],
 	"preloadRule": {

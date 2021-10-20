@@ -1,79 +1,14 @@
 <template>
 	<view >
 		<view class="cth-a">
-			<view class="cth-a-1">
-				<view style="display: flex;align-items: center;">
-					<image class="cth-a-1-1" src="https://zhijianlw.com/static/web/img/icon_2021_10_19_01.png"></image>
-					<view class="cth-a-1-2">{{cityname}}</view>
-				</view>
-				<view class="cth-a-2-2-default"></view>
-			</view>
-			<view class="cth-a-2" style="margin-left: 40rpx;" @click="clickTabs" data-tabnumber="0">
-				<view :class="tabNumber == 0 ? 'cth-a-2-1' : 'cth-a-2-1-default'">热映</view>
-				<view :class="tabNumber == 0 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
-			</view>
-			<view class="cth-a-2" @click="clickTabs" data-tabnumber="1">
-				<view :class="tabNumber == 1 ? 'cth-a-2-1' : 'cth-a-2-1-default'">待映</view>
-				<view :class="tabNumber == 1 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
-			</view>
-			<view class="cth-a-2" @click="clickTabs" data-tabnumber="2">
-				<view :class="tabNumber == 2 ? 'cth-a-2-1' : 'cth-a-2-1-default'">影院</view>
-				<view :class="tabNumber == 2 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
-			</view>
-		</view>
-		
-		<view v-if="tabNumber == 0 || tabNumber == 1" style="padding: 16rpx 26rpx 20rpx 26rpx; margin-top: 0rpx;position: relative;display: flex;align-items: center;justify-content: center;">
-			<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
-				<swiper-item v-for="(item,index) in swiper" :key="index">
-					<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
-					@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
-				</swiper-item>
-			</swiper>
-			<view class="indicator-view" v-if="swiper.length>0">
-				<view :class="[swiperCurrentIndex == index ? 'indicator-view-item' : 'indicator-view-item-default']" v-for="(item,index) in swiper" :key="index"></view>
-			</view>
-		</view>
-		
-		<view v-if="tabNumber == 0" class="cth-b" v-for="(item,index) in cthList" :key="index">
-			<view class="cth-b-bg">
-				<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
-				<view class="cth-b-bg-2">
-					<view class="cth-b-bg-2-1">
-						<view class="cth-b-bg-2-1-1">{{item.title}}</view>
-						<view class="cth-b-bg-2-1-2">
-							<view class="cth-b-bg-2-1-2-1">3D</view>
-							<view class="cth-b-bg-2-1-2-2">IMAX</view>
+			<scroll-view scroll-x="true" class="scroll-view-top">
+					<view style="display: flex;padding-left: 44rpx;">
+						<view class="cth-a-2" style="padding-right: 36rpx;" v-for="(item,index) in itemsTime" :key="index" @click="clickTime" :data-timeindex="index">
+							<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.title}}</view>
+							<view :class="[timeIndex == index ? 'cth-a-2-2' : 'cth-a-2-2-default']"></view>
 						</view>
 					</view>
-					<view class="cth-b-bg-2-2">评分<text class="cth-b-bg-2-2-1">{{item.score}}</text></view>
-					<view class="cth-b-bg-2-3">导演：{{item.name}}</view>
-					<view class="cth-b-bg-2-4">主演：{{item.name1}}</view>
-					
-					<view class="cth-b-bg-2-5">购票</view>
-				</view>
-			</view>
-		</view>
-		
-		<view v-if="tabNumber == 1" class="cth-b" v-for="(item,index) in cthList" :key="index">
-			<view class="cth-b-bg">
-				<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
-				<view class="cth-b-bg-2">
-					<view class="cth-b-bg-2-1">
-						<view class="cth-b-bg-2-1-1">{{item.title}}</view>
-						<view class="cth-b-bg-2-1-2">
-							<view class="cth-b-bg-2-1-2-1">3D</view>
-							<view class="cth-b-bg-2-1-2-2">IMAX</view>
-						</view>
-					</view>
-					<view class="cth-b-bg-2-2">{{item.time}}</view>
-					<view class="cth-b-bg-2-3">导演：{{item.name}}</view>
-					<view class="cth-b-bg-2-4">主演：{{item.name1}}</view>
-					
-					<view class="cth-b-bg-2-6" v-if="item.status ==1">预售</view>
-					<view class="cth-b-bg-2-7" v-if="item.status ==2">想看</view>
-					<view class="cth-b-bg-2-8" v-if="item.status ==3">已想看</view>
-				</view>
-			</view>
+			</scroll-view>
 		</view>
 		
 		<view v-if="tabNumber == 2" class="cth-c">
@@ -130,36 +65,32 @@
 				
 			</view>
 			
-			<view class="cth-c-item" v-for="(item,index) in cthList" :key="index">
+			<view class="cth-c-content">今天有场次</view>
+			
+			<view class="cth-c-item" :style="index == 0 ? 'padding-top: 0rpx;' : 'padding-top:20rpx;'" v-for="(item,index) in cthList" :key="index">
 				<view class="cth-c-bg">
 					<view class="cth-c-bg-view">
 						<view class="cth-c-bg-1">万达影城丰台万达广场店</view>
-						<view class="cth-c-bg-2"><text class="cth-c-bg-2-1">¥44.9</text><text class="cth-c-bg-2-2">¥27.8</text><text class="cth-c-bg-2-3">起</text></view>
+						<view class="cth-c-bg-2"><text class="cth-c-bg-2-2">¥27.8</text><text class="cth-c-bg-2-3">起</text></view>
 					</view>
-					<view class="cth-c-bg-view" style="margin-top: 18rpx;">
+					<view class="cth-c-bg-view" style="margin-top: 20rpx;">
 						<view class="cth-c-bg-3">丰台区丰科路6号万达广场6层</view>
 						<view class="cth-c-bg-4">3.3km</view>
 					</view>
-					<view style="margin-top: 20rpx;display: flex;flex-wrap: wrap;">
+					<view style="margin-top: 18rpx;display: flex;flex-wrap: wrap;">
 						<view v-for="(itemInfo,index) in item.itemList" :key="index" class="cth-c-bg-label" :style="'border: 1px solid'+ itemInfo.color+';color: '+itemInfo.color+';'">{{itemInfo.title}}</view>
+					</view>
+					<view class="cth-c-bg-view" style="margin-top: 18rpx;">
+						<view class="cth-c-bg-3" style="width: 565rpx;">近期场次：09:55 | 12:00 | 14:15 | 16:30 | 18:40 … </view>
 					</view>
 				</view>
 			</view>
 		</view>
 		
-		
-		<view class="cth-positon" v-if="tabNumber == 0" @click="clickMyOrder"></view>
-		
-		<!-- 筛选 -->
-		<uni-popup ref="cthcenter" type="top" :animation="false" @change="changePop">
-			<view class="cthtop-view" @click="$buttonClick(submitcoupon)">
-				<view class="cthtop-view-1">
-					<view class="cthtop-view-left">放映影厅</view>
-					<view class="cthtop-view-right" @click="clickSearch">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
-				</view>
-			</view>
-		</uni-popup>
-		
+		<view class="cthi-bottom" @click="setAddress">
+			<image class="cthi-bottom-img" src="https://zhijianlw.com/static/web/img/icon_refreach_10_20.png"></image>
+			<view class="cthi-bottom-title">我在：{{addressname}}</view>
+		</view>
 	</view>
 </template>
 
@@ -308,11 +239,29 @@
 					{
 						'title': 'IMAX厅',
 					}
-				]
+				],
+				itemsTime:[
+					{
+						'title': '今天 09-22',
+					},
+					{
+						'title': '明天 09-23',
+					},
+					{
+						'title': '后天 09-24',
+					},
+					{
+						'title': '周六 09-25',
+					},
+					{
+						'title': '周日 09-25',
+					},
+				],
+				timeIndex: 0,
+				addressname: ''
 			} 
 		},
 		onLoad:function(options){
-			let that = this;
 			// 轮播图
 			var data = JSON.stringify({a:0}); 
 			var action = 'get_banner';
@@ -321,17 +270,12 @@
 				this.swiper = res.rs;
 			});
 			
-			uni.getLocation({
-			    type: 'wgs84',
-			    success: function (res) {
-					that.getCityAddress(res.latitude, res.longitude);
-			    }
-			});
+			this.setAddress();
 			
 		},
 		methods: {
-			clickTabs(e){
-				this.tabNumber = e.currentTarget.dataset.tabnumber;
+			clickTime(e){
+				this.timeIndex = e.currentTarget.dataset.timeindex;
 				this.currTag = false;
 			},
 			changeswiper(e) {
@@ -348,10 +292,20 @@
 			clickSelect(){
 				this.currTag = !this.currTag;
 			},
+			setAddress(){
+				let that = this;
+				uni.getLocation({
+				    type: 'wgs84',
+				    success: function (res) {
+						that.getCityAddress(res.latitude, res.longitude);
+				    }
+				});
+			},
 			getCityAddress(latitude,longitude){
 				let that = this;
 				let action = 'get_city_info';
 				let controller = 'sms';
+				let memberid = uni.getStorageSync('id')
 				let data = JSON.stringify({
 					latitude: latitude,
 					longitude: longitude
@@ -359,7 +313,8 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 				    if(res.sta == 1){
 				        console.log(res.rs)
-						that.cityname = res.rs.addressComponent.city
+						that.cityname = res.rs.addressComponent.city;
+						that.addressname = res.rs.formatted_address
 						console.log(that.cityname)
 				    }
 				})
@@ -374,54 +329,38 @@ page{
 }
 
 .cth-a{
-	height: 90rpx;
+	height: 60rpx;
 	border-top: 1px solid #F5F5F5;
 	display: flex;
 	align-items: center;
 	background: #FFFFFF;
 }
-.cth-a-1{
+.cth-a-2{
+	/* width: 130rpx; */
 	display: flex;
-	align-items: center;
-	padding-left: 32rpx;
+    align-items: center;
 	flex-direction: column;
 	margin-top: 20rpx;
 }
-.cth-a-1-1{
-	width: 40rpx;
-	height: 40rpx;
-	margin-right: 6rpx;
-}
-.cth-a-1-2{
-	font-size: 30rpx;
-	color: #666666;
-}
-.cth-a-2{
-	width: 128rpx;
-	display: flex;
-    flex-direction: column;
-    align-items: center;
-	margin-top: 20rpx;
-}
 .cth-a-2-1{
-	font-size: 30rpx;
+	font-size: 24rpx;
 	font-weight: bold;
 	color: #333333;
 }
 .cth-a-2-1-default{
-	font-size: 30rpx;
-	color: #333333;
+	font-size: 24rpx;
+	color: #999999;
 }
 .cth-a-2-2{
-	width: 26rpx;
-    height: 5rpx;
-    background: #DB3C3A;
-    border-radius: 2rpx;
+	width: 28rpx;
+	height: 4rpx;
+	background: #DB3C3A;
+	border-radius: 2rpx;
     margin-top: 12rpx;
 }
 .cth-a-2-2-default{
-	width: 26rpx;
-	height: 5rpx;
+	width: 28rpx;
+	height: 4rpx;
 	background: #FFFFFF;
 	border-radius: 2rpx;
 	margin-top: 12rpx;
@@ -518,7 +457,7 @@ page{
 		}
 		.cth-b-bg-2{
 			margin-left: 24rpx;
-			width: 490rpx;
+			width: 470rpx;
 			position: relative;
 		}
 		.cth-b-bg-2-1{
@@ -668,7 +607,7 @@ page{
 		}
 		
 		.cth-c{
-			
+			padding-bottom: 120rpx;
 		}
 		
 		.cth-c-top{
@@ -717,13 +656,12 @@ page{
 		.cth-c-item{
 			padding: 20rpx 25rpx 0rpx;
 		}
-		
 		.cth-c-bg{
 			/* width: 700px; */
 			/* height: 200px; */
 			background: #FFFFFF;
 			border-radius: 6px;
-			padding: 30rpx 18rpx 30rpx 30rpx;
+			padding: 30rpx 18rpx 20rpx 30rpx;
 			display: flex;
 			/* align-items: center; */
 			justify-content: space-between;
@@ -919,5 +857,37 @@ page{
 		
 		scroll-view{
 			height: 760rpx !important;
+		}
+		
+		.scroll-view-top{
+			height: 60rpx !important;
+		}
+		.cth-c-content{
+			font-size: 24rpx;
+			font-weight: bold;
+			color: #999999;
+			padding: 28rpx 55rpx 9rpx;
+		}
+		
+		.cthi-bottom{
+			display: flex;
+			align-items: center;
+			/* justify-content: center; */
+			width: 750rpx;
+			height: 80rpx;
+			/* background: rgb(0,0,0,.09); */
+			background: #EEEEEE;
+			position: fixed;
+		    bottom: 0rpx;
+		}
+		.cthi-bottom-img{
+			width: 30rpx;
+			height: 30rpx;
+			margin-left: 43rpx;
+		}
+		.cthi-bottom-title{
+			font-size: 24rpx;
+			color: #666666;
+			margin-left: 4rpx;
 		}
 </style>
