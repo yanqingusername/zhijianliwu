@@ -102,7 +102,12 @@
         "AllCovers/AllCovers",
         "CinemaTicket/CinemaTicketHome",
         "CinemaTicket/CinemaTicketHomeItem",
-        "CinemaTicket/CinemaTicketHomeDetail"
+        "CinemaTicket/CinemaTicketHomeDetail",
+        "CinemaTicket/CinemaTicketHomeOrder",
+        "CinemaTicket/CinemaTicketHomeSuccess",
+        "CinemaTicket/CinemaTicketHomeOrderDetail",
+        "CinemaTicket/CinemaDetails",
+        "CinemaTicket/CinemaTicketOrderList"
       ]
     }
   ],

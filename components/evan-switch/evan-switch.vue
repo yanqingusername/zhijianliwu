@@ -1,6 +1,6 @@
 <template>
 	<view @click="toggle" class="evan-switch" :class="{'evan-switch--disabled':disabled}" :style="{width:2*size+'px',height:switchHeight,borderRadius:size+'px',backgroundColor:currentValue===activeValue?activeColor:inactiveColor}">
-		<view class="evan-switch__circle" :style="{width:size+'px',height:size+'px',transform:currentValue===activeValue?`translateX(${size}px)`:`translateX(0)`,backgroundColor:currentValue===activeValue?'#F55856':'#D9D9D9'}"></view>
+		<view class="evan-switch__circle" :style="{width:size+'px',height:size+'px',transform:currentValue===activeValue?`translateX(${size}px)`:`translateX(0)`,backgroundColor:currentValue===activeValue?activeColor1:activeColor2}"></view>
 	</view>
 </template>
 
@@ -11,6 +11,14 @@
 			value: {
 				type: [String, Number, Boolean],
 				default: false
+			},
+			activeColor2: {
+				type: String,
+				default: '#fff'
+			},
+			activeColor1: {
+				type: String,
+				default: '#108ee9'
 			},
 			activeColor: {
 				type: String,

@@ -637,7 +637,7 @@
 		height: 750rpx;
 		width: 442rpx;
 		text-align: center;
-		broder-radius: 6rpx;
+		border-radius: 6rpx;
 	}
 	.swiper-item {
 		display: flex;
@@ -648,7 +648,7 @@
 		height: 834rpx;
 	    width: 490rpx;
 		text-align: center;
-		broder-radius: 6rpx;
+		border-radius: 6rpx;
 	}
 	
 	.swiper-tall {

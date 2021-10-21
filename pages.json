@@ -708,6 +708,44 @@
 				    {
 				        "navigationBarTitleText": "影片详情"
 				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHomeOrder",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "确认订单"
+				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHomeSuccess",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "购票结果"
+				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketHomeOrderDetail",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "订单详情"
+				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaDetails",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "影院详情"
+				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaTicketOrderList",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "我的订单",
+						"enablePullDownRefresh": true,
+						"navigationStyle":"custom"
+						
+				    }
 				}
 		 ]
 	}],

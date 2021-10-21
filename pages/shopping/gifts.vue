@@ -538,7 +538,7 @@
 		height: 272rpx;
 	    width: 340rpx;
 		text-align: center;
-		broder-radius: 6rpx;
+		border-radius: 6rpx;
 	}
 	
 	.swiper-tall {

@@ -68,7 +68,7 @@
 			<view class="cth-c-content">今天有场次</view>
 			
 			<view class="cth-c-item" :style="index == 0 ? 'padding-top: 0rpx;' : 'padding-top:20rpx;'" v-for="(item,index) in cthList" :key="index">
-				<view class="cth-c-bg">
+				<view class="cth-c-bg" @click="clickCinemaDetails">
 					<view class="cth-c-bg-view">
 						<view class="cth-c-bg-1">万达影城丰台万达广场店</view>
 						<view class="cth-c-bg-2"><text class="cth-c-bg-2-2">¥27.8</text><text class="cth-c-bg-2-3">起</text></view>
@@ -317,6 +317,11 @@
 						that.addressname = res.rs.formatted_address
 						console.log(that.cityname)
 				    }
+				})
+			},
+			clickCinemaDetails(){
+				uni.navigateTo({
+					url: '/pagesub/CinemaTicket/CinemaDetails'
 				})
 			}
 		}
