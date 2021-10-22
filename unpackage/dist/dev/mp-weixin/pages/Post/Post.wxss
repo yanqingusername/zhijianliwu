@@ -15,7 +15,7 @@
 	-webkit-user-select:none;
 	        user-select:none;
 	width: 100%;
-	font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+	font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif, '宋体', SimSun;
 	color: #333;
 	line-height: 1.5;
 	font-size: 1em;
@@ -374,6 +374,13 @@
 .parse-view-img{
 	width: 750rpx;
 	height: 938rpx;
+}
+.parse-view-title{
+	padding: 2rpx 26rpx 48rpx 26rpx;
+	font-size: 48rpx;
+	font-weight: bold;
+	color: #333333;
+	line-height: 67rpx;
 }
 .post-bottom-fixed{
 	position: absolute;

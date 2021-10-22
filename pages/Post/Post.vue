@@ -12,10 +12,13 @@
 			<view class="parse-view" v-if="postStyle=='post'">
 				<image class="parse-view-img" :src="title_img"></image>
 			</view>
+			<view class="parse-view-title" v-if="postStyle=='post'">{{title}}</view>
+			
 			<view :class="postStyle=='post'?'parse-con':'poster-con'">
 				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
 				<view v-for="(item, index) in detail_list" :key="index">
-					<u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
+					<!-- <u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse> -->
+					<mp-html :content="item.content"/>
 					<view v-if="item.goods_list.length > 0" class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails(goodData.keynum)">
 							<view class="new-order-left">
 								<view class="new-order-img">
@@ -80,10 +83,13 @@
 <script>
 	import uParse from "@/components/feng-parse/parse.vue";
 	import '@/components/feng-parse/parse.css';
+	import mpHtml from '@/components/mp-html/mp-html'
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		components:{
-			uParse
+			uParse,
+			mpHtml
 		},
 		data() {
 			return {
@@ -100,7 +106,8 @@
 				is_collect: 1,
 				statusBarHeight:'20',
 				detail_list: [],
-				slide_up:''
+				slide_up:'',
+				gifts_article_id: ''
 			}
 		},
 		onShow() {
@@ -114,6 +121,9 @@
 				icon: "loading"
 			})
 			this.url = config.URL;
+			
+			this.gifts_article_id = e.id
+			
 			this.imageProp.domain = config.URL.replace("https://","").replace("http://", "");
 			let that = this;
 			let action = "get_gifts_article_detail";
@@ -163,6 +173,15 @@
 			} else if (e.scrollTop < 200) {
 				this.fadeOut();
 			}
+		},
+		onShareAppMessage: function(e) {
+			return {
+				imageUrl: this.title_img,
+				title: this.title,
+				path: '/pages/Post/Post?id=' + this.gifts_article_id,
+				desc: '指间送礼',
+			}
+
 		},
 		methods: {
 			//渐显
@@ -358,6 +377,14 @@
 .parse-view-img{
 	width: 750rpx;
 	height: 938rpx;
+}
+
+.parse-view-title{
+	padding: 2rpx 26rpx 48rpx 26rpx;
+	font-size: 48rpx;
+	font-weight: bold;
+	color: #333333;
+	line-height: 67rpx;
 }
 
 .post-bottom-fixed{

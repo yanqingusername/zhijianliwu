@@ -15,7 +15,7 @@
 	-webkit-user-select:none;
 	        user-select:none;
 	width: 100%;
-	font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+	font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif, '宋体', SimSun;
 	color: #333;
 	line-height: 1.5;
 	font-size: 1em;
