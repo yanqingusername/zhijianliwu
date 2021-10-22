@@ -165,5 +165,6 @@
   "usingComponents": {
     "navgation": "/wxcomponents/navgation/navgation",
     "address": "/components/simple-address/simple-address"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
