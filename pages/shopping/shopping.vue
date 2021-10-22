@@ -24,10 +24,10 @@
 									<text class="shop-gift-buys-price">{{item.goodsinfo.price}}</text>
 								</view>
 								<view class="flex-vertically">
-									<image src="../../static/reduce_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="reduce(item)"></image>
+									<image src="https://zhijianlw.com/static/web/img/reduce_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="reduce(item)"></image>
 									<!-- <view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="reduce(item)"><view>-</view></view> -->
 									<view class="cart-count">{{item.goodsnum}}</view>
-									<image src="../../static/increase_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="increase(item)"></image>
+									<image src="https://zhijianlw.com/static/web/img/increase_2021_08_30.png" class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="increase(item)"></image>
 									<!-- <view class="new-reduce" :data-index="item.id" :data-goodsid="item.goodsid" @click.stop="increase(item)"><view>+</view></view> -->
 									
 								</view>

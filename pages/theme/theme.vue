@@ -65,7 +65,7 @@
 						<view class="index-bottom-price" v-else-if="level_name == '企业会员'"><span style="margin-right: 4rpx;">¥</span>{{item.price_level3}}</view>
 						<view class="index-bottom-price" v-else-if="level_name == '合作伙伴'"><span style="margin-right: 4rpx;">¥</span>{{item.price_level4}}</view>
 						<view class="index-bottom-give">
-							<image lazy-load="true" class="index-bottom-img" src="../../static/give.png" mode=""></image>
+							<image lazy-load="true" class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.png" mode=""></image>
 						</view>
 					</button>
 					<view class="index-commodity-bottom flex" v-else-if="level>1" :data-id="item.id" @click="give">
@@ -76,13 +76,13 @@
 						<view class="index-bottom-price" v-else-if="level_name == '合作伙伴'"><span style="margin-right: 4rpx;">¥</span>{{item.price_level4}}</view>
 						<view class="index-label-discount">¥{{item.price}}</view>
 						<view class="index-bottom-give">
-							<image lazy-load="true" class="index-bottom-img" src="../../static/give.png" mode=""></image>
+							<image lazy-load="true" class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.png" mode=""></image>
 						</view>
 					</view>
 					<view class="index-commodity-bottom flex-between" v-else-if="level==1" :data-id="item.id" @click="give">
 						<view class="index-bottom-price" v-if="level_name == '普通会员'"><span style="margin-right: 4rpx;">¥</span>{{item.price}}</view>
 						<view class="index-bottom-give">
-							<image lazy-load="true" class="index-bottom-img" src="../../static/give.png" mode=""></image>
+							<image lazy-load="true" class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.png" mode=""></image>
 						</view>
 					</view>
 

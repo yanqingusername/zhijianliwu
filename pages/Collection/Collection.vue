@@ -30,7 +30,7 @@
 							   
 							   <view class="fication-introduce-bottom flex-between">
 								   <view class="fication-introduce-bottom-price">{{item.price}}</view>
-								   <image class="fication-introduce-bottom-img" :data-id="item.id" @click="give" src="../../static/give.jpg" mode=""></image>
+								   <image class="fication-introduce-bottom-img" :data-id="item.id" @click="give" src="https://zhijianlw.com/static/web/img/give.jpg" mode=""></image>
 							   </view>
 						   </view>
 		</view>		

@@ -62,7 +62,7 @@
 		</view> -->
 		
 		<view class="post-scroll-top" @click="goToScrollTop">
-			<image class="post-scroll-top-img" src="@/static/post-scroll-top-img.png" mode="widthFix"></image>
+			<image class="post-scroll-top-img" src="https://zhijianlw.com/static/web/img/post-scroll-top-img.png" mode="widthFix"></image>
 		</view>
 		
 		<!-- 退款原因 -->

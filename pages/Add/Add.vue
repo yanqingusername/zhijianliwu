@@ -6,9 +6,9 @@
 				<uni-swipe-action-item :right-options="options" @click="onClick($event, index,item.id)" @change="swipeChange($event, index,item.id)">
 					<view class="new-logistics-add flex-center" >
 						<view class="logistics-add-content flex-vertically" style="width: 750rpx;height: 100rpx;">
-								<!-- <view class="logistics-add-img" :data-index="index"  @click="choose"><image class="img" src="../../static/add.png" mode=""></image></view> -->
+								<!-- <view class="logistics-add-img" :data-index="index"  @click="choose"><image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode=""></image></view> -->
 								<view class="logistics-add-img-text" style="width: 630rpx;margin-left: 40rpx;flex-direction: column;justify-content: center;height: 100rpx;" :data-index="item.id" :data-linkman="item.linkman"
-									:data-linktel="item.linktel" :data-address ="item.province_name+' '+item.city_name+' '+item.county_name+' '+item.address"@click="choose">
+									:data-linktel="item.linktel" :data-address ="item.province_name+' '+item.city_name+' '+item.county_name+' '+item.address" @click="choose">
 									<view class="logistics-add-name" style="display: flex;align-items: center;font-size: 32rpx;font-weight: bold;color: #333333;">{{item.linkman}}  {{item.linktel}} <view v-if="item.is_default ==1" class="logistics-default">默认</view></view>
 									<view class="logistics-adder" style="margin-top: 18rpx;font-size: 28rpx;color: #666666;">{{item.province_name}}  {{item.city_name}}  {{item.county_name}}  {{item.address}}</view>
 								</view>

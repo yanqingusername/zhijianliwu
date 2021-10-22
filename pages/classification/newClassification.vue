@@ -88,13 +88,13 @@
 						 style="padding: 0;background: transparent">
 							<view class="index-bottom-price"><span style="margin-right: 4rpx;">¥</span> {{item["price_level"+(level-1)]}}</view>
 							<view class="index-bottom-give">
-								<image lazy-load="true" class="index-bottom-img" src="../../static/give.png" mode=""></image>
+								<image lazy-load="true" class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.png" mode=""></image>
 							</view>
 						</button>
 						<view class="index-commodity-bottom flex-between" v-else-if="sta == 200" :data-id="item.id" @click="give">
 							<view class="index-bottom-price"><span style="margin-right: 4rpx;">¥</span>{{item["price_level"+(level-1)]}}</view>
 							<view class="index-bottom-give">
-								<image lazy-load="true" class="index-bottom-img" src="../../static/give.png" mode=""></image>
+								<image lazy-load="true" class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.png" mode=""></image>
 							</view>
 						</view>
 					</view>

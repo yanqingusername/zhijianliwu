@@ -72,8 +72,8 @@
 		<view class='sock_all' :animation="slide_up">
 			<image src='https://zhijianlw.com/static/web/img/bg_slices_2021_0830.png' style='width:460rpx;height:200rpx' lazy-load="true"/>
 			<view class="post-bottom-fixed" @click="clickLike(article_id,is_collect)">
-				<image v-if="is_collect == 1" src="@/static/post_like_0831.png" mode="" class="post-bottom-fixed-img" ></image>
-				<image v-else src="@/static/post_like_default_0831.png" mode="" class="post-bottom-fixed-img" ></image>
+				<image v-if="is_collect == 1" src="https://zhijianlw.com/static/web/img/post_like_0831.png" mode="" class="post-bottom-fixed-img" ></image>
+				<image v-else src="https://zhijianlw.com/static/web/img/post_like_default_0831.png" mode="" class="post-bottom-fixed-img" ></image>
 				<view class="post-bottom-fixed-number">{{live_number || 0}}</view>
 			</view>
 		</view>

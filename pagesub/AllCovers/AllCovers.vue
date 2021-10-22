@@ -3,7 +3,7 @@
 		<!-- <block v-for="imgData in imgsList" :key="index" > -->
 			<view class="imgs" v-for="item in imgsList" :key="index" @click="submitrefund" :data-id="item.id" :data-background="item.background">
 				<image :src="$utils.imageUrl(item.background)" mode="widthFix"class="imgs-head-img" ></image>
-				<image class="new-balance-img" :src="[number==item.id?'../../static/bala_current_cz.png':'']"></image>
+				<image class="new-balance-img" :src="[number==item.id?'https://zhijianlw.com/static/web/img/bala_current_cz.png':'']"></image>
 			</view>
 		<!-- </block> -->
 	</view>

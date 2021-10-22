@@ -2,7 +2,7 @@
 	<view class="sale-view" :style="'height:'+ (isreception == 0 ? '260' : '130')+'rpx;'">
 		<view class="sale-content flex-between" @click="routeHandler" data-typerefund="2">
 			<view class="sale-content-left">
-				<image class="sale-content-img" src="../../static/icon_exchange_goods.png"></image>
+				<image class="sale-content-img" src="https://zhijianlw.com/static/web/img/icon_exchange_goods.png"></image>
 				<view class="sale-content-title">换货</view>
 			</view>
 			<view class="sale-content-right">

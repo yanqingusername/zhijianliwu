@@ -19,7 +19,7 @@
 		<view class="order-add flex-vertically" @click="goToLoistics" v-if="wuliu_info.length>0">
 			<!-- 图标 -->
 			<view class="order-add-img">
-				<image class="img" src="../../static/add.png" mode="" style="width: 32rpx;"></image>
+				<image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode="" style="width: 32rpx;"></image>
 			</view>
 			<!-- 住址信息 -->
 			<view class="order-add-information" style="width: auto;">
@@ -36,7 +36,7 @@
 		<view class="order-add flex-vertically">
 			<!-- 图标 -->
 			<view class="order-add-img">
-				<image class="img" src="../../static/add.png" mode="" style="width: 32rpx;"></image>
+				<image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode="" style="width: 32rpx;"></image>
 			</view>
 			<!-- 住址信息 -->
 			<view class="order-add-information" style="width: auto;">
@@ -60,7 +60,7 @@
 				<view class="order-add flex-vertically" @click="add">
 					<!-- 图标 -->
 					<view class="order-add-img">
-						<image class="img" src="../../static/add.png" mode="" style="width: 32rpx;"></image>
+						<image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode="" style="width: 32rpx;"></image>
 					</view>
 					<!-- 住址信息 -->
 					<view class="order-add-information" style="width: auto;">

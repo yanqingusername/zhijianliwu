@@ -25,7 +25,7 @@
  		  					 <!-- 地址 -->
  		  					 <view class="order-add flex-vertically"  @click="add">
  		  						 <!-- 图标 -->
- 		  						 <view class="order-add-img"><image class="img" src="../../static/add.png" mode=""></image></view>	
+ 		  						 <view class="order-add-img"><image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode=""></image></view>	
  		  						 <!-- 住址信息 -->	
  		  						 <view class="order-add-information">
  		  							 <view class="order-name">{{orderinfo.linkman}}  {{orderinfo.linktel}}</view>

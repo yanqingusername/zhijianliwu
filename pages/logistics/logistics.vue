@@ -34,7 +34,7 @@
 		<!-- 地址 -->
 		 <view class="logistics-add flex-center" >
 			 <view class="logistics-add-content flex">
-				 <view class="logistics-add-img"><image class="img" src="../../static/add.png" mode=""></image></view>
+				 <view class="logistics-add-img"><image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode=""></image></view>
 			     <view class="logistics-add-img-text">
 					 <view class="logistics-add-name">{{wuliu.linkman}}  {{wuliu.linktel}}</view>
 					 <view class="logistics-adder">{{wuliu.province}}  {{wuliu.city}}  {{wuliu.county}}  {{wuliu.address}} </view>
@@ -83,7 +83,7 @@
 					  
 					  <view class="index-commodity-bottom flex-between">
 					  	<view class="index-bottom-price">{{item.price}}</view>
-					  	<view class="index-bottom-give"><image class="index-bottom-img" src="../../static/give.jpg" mode=""></image></view>
+					  	<view class="index-bottom-give"><image class="index-bottom-img" src="https://zhijianlw.com/static/web/img/give.jpg" mode=""></image></view>
 					  </view>
 				  </view>
 				</view>

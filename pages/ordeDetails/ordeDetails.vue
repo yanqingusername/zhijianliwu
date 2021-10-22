@@ -4,7 +4,7 @@
 		<view class="logistics-add flex-center" @click="address">
 			<view class="logistics-add-content flex">
 				<view class="logistics-add-img">
-					<image class="img" src="../../static/add.png" mode=""></image>
+					<image class="img" src="https://zhijianlw.com/static/web/img/add.png" mode=""></image>
 				</view>
 				<view class="logistics-add-img-text">
 					<view class="logistics-add-name">{{addli.linkman}} {{addli.linktel}}</view>

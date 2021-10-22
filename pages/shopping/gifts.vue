@@ -60,7 +60,7 @@
 		<!-- 修改文字 -->
 		<view class="success-pop" v-if="showPop">
 			<view class="pop-center clearfix">
-				<image @click="close" class="close" src="../../static/z-close.png" mode="widthFix"></image>
+				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
 				<view class="p"><textarea  @input='txt' :placeholder="text" maxlength="35" :value="text"></textarea></view>
 				<view class="n" @click="close">完成</view>
 			</view>
