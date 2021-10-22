@@ -107,7 +107,8 @@
 				statusBarHeight:'20',
 				detail_list: [],
 				slide_up:'',
-				gifts_article_id: ''
+				gifts_article_id: '',
+				share_img: ''
 			}
 		},
 		onShow() {
@@ -158,6 +159,7 @@
 				that.postContnet=res.rs.gifts_article.detail;
 				that.productList=res.rs.goodslist;
 				that.detail_list = res.rs.gifts_article.detail_list;
+				that.share_img = res.rs.gifts_article.share_img;
 			})
 		},
 		computed: {
@@ -176,7 +178,7 @@
 		},
 		onShareAppMessage: function(e) {
 			return {
-				imageUrl: this.title_img,
+				imageUrl: this.share_img,
 				title: this.title,
 				path: '/pages/Post/Post?id=' + this.gifts_article_id,
 				desc: '指间送礼',
