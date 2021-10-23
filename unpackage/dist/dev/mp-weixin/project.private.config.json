@@ -37,8 +37,8 @@
           "scene": null
         },
         {
-          "name": "CinemaTicketHomeOrderDetail",
-          "pathName": "pagesub/CinemaTicket/CinemaTicketHomeOrderDetail",
+          "name": "pagesub/CinemaTicket/Cinema",
+          "pathName": "pagesub/CinemaTicket/CinemaSeatSelect",
           "query": "",
           "scene": null
         }

@@ -746,6 +746,13 @@
 						"navigationStyle":"custom"
 						
 				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaSeatSelect",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": ""
+				    }
 				}
 		 ]
 	}],
