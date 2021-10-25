@@ -17,9 +17,9 @@
 			<view :class="postStyle=='post'?'parse-con':'poster-con'">
 				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
 				<view v-for="(item, index) in detail_list" :key="index">
-					<!-- <u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse> -->
-					<mp-html :content="item.content"/>
-					<view v-if="item.goods_list.length > 0" class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails(goodData.keynum)">
+					<u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
+					<!-- <mp-html :content="item.content"/> -->
+					<view v-if="item.goods_list.length > 0" class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails" :data-keynum="goodData.keynum">
 							<view class="new-order-left">
 								<view class="new-order-img">
 									<image lazy-load="true" class="new-order-commodity-img" :src="goodData.head_img" mode=""></image>
@@ -213,7 +213,8 @@
 					delta: 1
 				});
 			},
-			goToDetails(keynum) {
+			goToDetails(e) {
+				let keynum = e.currentTarget.dataset.keynum;
 				uni.navigateTo({
 					url: "../details/details?keynum="+ keynum
 				});

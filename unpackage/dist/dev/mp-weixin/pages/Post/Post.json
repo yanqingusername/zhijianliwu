@@ -3,7 +3,7 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
-    "mp-html": "/components/mp-html/mp-html",
-    "u-parse": "/components/feng-parse/parse"
+    "u-parse": "/components/feng-parse/parse",
+    "mp-html": "/components/mp-html/mp-html"
   }
 }

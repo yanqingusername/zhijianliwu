@@ -509,13 +509,14 @@ swiper-item{
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #666666;
+			line-height: 30rpx;
 }
 .cth-c-bg-4{
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #666666;
 }
-.cth-c-bg-label{
+.cth-c-bg-label0{
 			display: -webkit-box;
 			display: -webkit-flex;
 			display: flex;
@@ -530,6 +531,60 @@ swiper-item{
 			border: 1px solid #39B498;
 			font-size: 18rpx;
 			color: #39B498;
+			padding: 2rpx 8rpx;
+			margin-right: 10rpx;
+}
+.cth-c-bg-label1{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			border-radius: 2rpx;
+			opacity: 0.7;
+			border: 1px solid #FF5B40;
+			font-size: 18rpx;
+			color: #FF5B40;
+			padding: 2rpx 8rpx;
+			margin-right: 10rpx;
+}
+.cth-c-bg-label2{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			border-radius: 2rpx;
+			opacity: 0.7;
+			border: 1px solid #427DE5;
+			font-size: 18rpx;
+			color: #427DE5;
+			padding: 2rpx 8rpx;
+			margin-right: 10rpx;
+}
+.cth-c-bg-label3{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			border-radius: 2rpx;
+			opacity: 0.7;
+			border: 1px solid #DDDDDD;
+			font-size: 18rpx;
+			color: #DDDDDD;
 			padding: 2rpx 8rpx;
 			margin-right: 10rpx;
 }
