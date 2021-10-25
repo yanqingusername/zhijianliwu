@@ -107,7 +107,8 @@
         "CinemaTicket/CinemaTicketHomeSuccess",
         "CinemaTicket/CinemaTicketHomeOrderDetail",
         "CinemaTicket/CinemaDetails",
-        "CinemaTicket/CinemaTicketOrderList"
+        "CinemaTicket/CinemaTicketOrderList",
+        "CinemaTicket/CinemaSeatSelect"
       ]
     }
   ],
