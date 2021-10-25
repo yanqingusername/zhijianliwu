@@ -320,6 +320,7 @@
 				 this.payMoney = e.currentTarget.dataset.gvmoney
 				 this.number = index;
 				 this.money = 0;
+				 this.inputmoney='';
 			   },
 			  // 选择框
 			 price:function(e){
