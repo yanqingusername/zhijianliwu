@@ -1,9 +1,6 @@
 <template>
 	<view style="display: flex;flex-direction: column;">
-		<!-- <view class='info'>
-			<view class='movieName'>{{movieName}}</view>
-			<view class='planDetail'>{{planDetail}}</view>
-		</view> -->
+		
 		<!--座位示例图  -->
 		<view class="seatDemosBack" v-if="loadComplete">
 			<view class="seatDemos">
@@ -91,8 +88,6 @@
 	export default {
 		data() {
 			return {
-				movieName: undefined,
-				planDetail: undefined,
 				seatList: [],
 				selectedSeat: [],
 				hallName: undefined,
@@ -111,9 +106,6 @@
 					"errorCode": 0,
 					"errorMsg": "",
 					"name": "4号厅",
-					"movieName": "惊奇队长",
-					"showTime": "2019-03-06 周五 16:50",
-					"cinema_name": "惊奇队长影院",
 					"seatList": [{
 							"id": "16879097",
 							"row": "1",
@@ -1470,17 +1462,27 @@
 							"position": "up"
 						}
 					]
-				}
+				},
+				showId: '',
+				cinemaName: ''
 			}
 		},
 		onLoad: function(options) {
 			let that = this;
+			that.showId = options.showId;
+			that.cinemaName = options.cinemaName;
+			uni.setNavigationBarTitle({
+				title: that.cinemaName
+			});
+			
 			uni.getSystemInfo({
 				success: (res) => {
 					that.seatArea = res.screenHeight - (500 * res.screenWidth / 750)
 					that.rpxToPx = res.screenWidth / 750
 				},
 			})
+			
+			this.getFilmShowSeats();
 		},
 		onShow() {
 			uni.showLoading({
@@ -1492,8 +1494,6 @@
 			wx.hideLoading();
 			if (result.errorCode == 0) {
 				let seatList = that.prosessSeatList(result);
-				that.movieName = result.movieName;
-				that.planDetail = result.showTime;
 				that.hallName = result.name;
 				that.seatList = seatList;
 				that.seatTypeList = result.seatTypeList;
@@ -1531,6 +1531,19 @@
 			//---这此替换成自己的接口请求成功后--end--
 		},
 		methods: {
+			getFilmShowSeats() {
+				let that = this;
+				let action = 'get_film_show_seats';
+				let controller = 'films';
+				let data = JSON.stringify({
+					showId: that.showId
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						
+					}
+				})
+			},
 			//解决官方bug
 			handleScale: function(e) {
 				if (this.timer) {

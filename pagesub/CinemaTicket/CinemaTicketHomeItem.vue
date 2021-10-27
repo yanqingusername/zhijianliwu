@@ -240,7 +240,9 @@
 							that.cityname = res.rs.addressComponent.city;
 							that.cityCode = res.rs.cityCode;
 							that.regionCode = '';
-							that.date = that.itemsTime[0].date || '';
+							if(that.itemsTime.length > 0){
+								that.date = that.itemsTime[0].date;
+							}
 							that.keywords = '';
 						}
 						that.addressname = res.rs.formatted_address;
@@ -351,7 +353,9 @@
 				let controller = 'films';
 				this.$utils.postNew(action, data, controller).then(res => {
 					that.itemsTime = res.rs.dates_list;
-					that.date = that.itemsTime[0].date;
+					if(that.itemsTime.length > 0){
+						that.date = that.itemsTime[0].date;
+					}
 					uni.setNavigationBarTitle({
 						title:res.rs.movieInfo.name
 					})

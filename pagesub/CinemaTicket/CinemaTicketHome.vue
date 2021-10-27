@@ -114,7 +114,9 @@
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
 						<view class="cth-b-bg-2-4">主演：{{item.cast}}</view>
 						
-						<view class="cth-b-bg-2-5" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId='+ item.movieId">购票</view>
+						<view class="cth-b-bg-2-5" v-if="item.publiSatus == 1" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId='+ item.movieId">购票</view>
+						<view class="cth-b-bg-2-6" v-if="item.publiSatus == 2" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId='+ item.movieId">预售</view>
+						
 					</view>
 				</view>
 			</view>
@@ -134,9 +136,9 @@
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
 						<view class="cth-b-bg-2-4">主演：{{item.cast}}</view>
 						
-						<view class="cth-b-bg-2-6" v-if="item.status ==1">预售</view>
-						<view class="cth-b-bg-2-7" v-if="item.status ==2">想看</view>
-						<view class="cth-b-bg-2-8" v-if="item.status ==3">已想看</view>
+						<view class="cth-b-bg-2-6" v-if="item.publiSatus == 2" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId='+ item.movieId">预售</view>
+						<view class="cth-b-bg-2-7" v-if="item.publiSatus == 3" @click.stop="clickLike" :data-movieid="item.movieId">想看</view>
+						<view class="cth-b-bg-2-8" v-if="item.publiSatus == 4" @click.stop="clickLike" :data-movieid="item.movieId">已想看</view>
 					</view>
 				</view>
 			</view>
@@ -482,6 +484,22 @@
 			},
 			clickClear(e){
 				
+			},
+			clickLike(e){
+				let movieid = e.currentTarget.dataset.movieid;
+				let that = this;
+				let action = 'set_film_like';
+				let controller = 'filmset';
+				let memberid = uni.getStorageSync('id')
+				let data = JSON.stringify({
+					movieId: movieid,
+					memberid: memberid
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(res.sta == 1){
+						that.getFilmCinemaList(1);
+					}
+				});
 			}
 		},
 		onPullDownRefresh:function(){

@@ -58,7 +58,7 @@
 				<view class="cd-item-right">
 					<view class="cd-item-right-1">¥<text class="cd-item-right-1-1">{{item.salePrice}}</text><text class="cd-item-right-1-2">起</text></view>
 					<!-- <view class="cd-item-right-2">满座</view> -->
-					<view class="cd-item-right-3" @click="clickBuy">购票</view>
+					<view class="cd-item-right-3" @click="clickBuy" :data-showid="item.showId">购票</view>
 				</view>
 			</view>
 		</view>
@@ -164,9 +164,10 @@
 				this.date = e.currentTarget.dataset.date;
 				this.getFilmShowList();
 			},
-			clickBuy(){
+			clickBuy(e){
+				let showid = e.currentTarget.dataset.showid;
 				uni.navigateTo({
-					url: '/pagesub/CinemaTicket/CinemaSeatSelect?movieId=' + this.movieInfo.movieId
+					url: `/pagesub/CinemaTicket/CinemaSeatSelect?showId=${showid}&cinemaName=${this.cinemaInfo.cinemaName}`
 				})
 			},
 			clickAdress(){

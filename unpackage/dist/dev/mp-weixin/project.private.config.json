@@ -41,6 +41,12 @@
           "pathName": "pagesub/CinemaTicket/CinemaTicketHome",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pagesub/CinemaTicket/CinemaSeatSelect",
+          "pathName": "pagesub/CinemaTicket/CinemaSeatSelect",
+          "query": "showId=28660*2*15552*2021-10-27*550231180",
+          "scene": null
         }
       ]
     }
