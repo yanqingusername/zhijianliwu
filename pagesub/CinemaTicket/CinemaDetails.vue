@@ -4,15 +4,15 @@
 			<view class="cd-a-img">
 				<view class="cd-a-item">
 					<view class="cd-a-item-left">
-						<view class="cd-a-item-left-title">万达影城丰台万达广场店</view>
+						<view class="cd-a-item-left-title">{{cinemaInfo.cinemaName}}</view>
 						<view class="cd-a-item-left-1">
-							<view class="cd-a-item-left-1-1">丰台区丰科路6号万达广场购物中心6层…</view>
-							<view class="cd-a-item-left-1-2">· 2.0km</view>
+							<view class="cd-a-item-left-1-1">{{cinemaInfo.cinemaAddress}}</view>
+							<view class="cd-a-item-left-1-2">· {{cinemaInfo.distance}}</view>
 						</view>
-						<view class="cd-a-item-left-lable">好评度94% · 可改签 · 3D眼镜收费 · 儿童特惠</view>
+						<view class="cd-a-item-left-lable"><view v-for="(item, index) in cinemaInfo.services" :key="index" class="cd-a-item-left-lable-1" style="display: flex;">{{item.name}}<view v-if="index != (cinemaInfo.services.length -1)" class="cd-a-item-left-lable-1" style="margin: 0rpx 6rpx 0rpx;">·</view></view></view>
 					</view>
 					<view class="cd-a-item-right">
-						<image class="cd-a-item-right-img"
+						<image class="cd-a-item-right-img" @click="clickAdress"
 							src="https://zhijianlw.com/static/web/img/icon_cd_position_2021_10_21.png"></image>
 					</view>
 				</view>
@@ -24,22 +24,24 @@
 				<swiper class="swiper-tall" :indicator-dots="indicatorDots" :autoplay="autoplay"
 					:previous-margin="previousMargin" :next-margin="nextMargin" :circular="circular" @change="change"
 					:current="swiperCurrentIndex">
-					<swiper-item class="swiper-container" v-for="(item,index) in textList" :key="index">
+					<swiper-item class="swiper-container" v-for="(item,index) in moviesList" :key="index">
 						<image :class="swiperCurrentIndex == index ? 'swiper-item' : 'swiper-itemDefault'"
-							:src="$utils.imageUrl(item.background)">
+							:src="item.pic">
 						</image>
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="cd-b">失控玩家<text class="cd-b-1">评分</text><text class="cd-b-2">8.7</text></view>
-			<view class="cd-c">{{'115分钟 | 动作 | 瑞安·雷诺兹、朱迪·科默、里尔·莱尔·哈瓦瑞…  >'}}</view>
+			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text class="cd-b-2">{{movieInfo.grade}}</text></view>
+			<view class="cd-c-view">
+				<view class="cd-c">{{movieInfo.duration}} | {{movieInfo.filmTypes}} | {{movieInfo.cast}}{{'  >'}}</view>
+			</view>
 			<view style="height: 30rpx;"></view>
 			
 			<view class="cth-a">
 				<scroll-view scroll-x="true" class="scroll-view-top">
 						<view style="display: flex;padding-left: 44rpx;">
-							<view class="cth-a-2" style="padding-right: 36rpx;" v-for="(item,index) in itemsTime" :key="index" @click="clickTime" :data-timeindex="index">
-								<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.title}}</view>
+							<view class="cth-a-2" style="padding-right: 36rpx;" v-for="(item,index) in itemsTime" :key="index" @click="clickTime" :data-timeindex="index" :data-date="item.date">
+								<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.name}}</view>
 								<view :class="[timeIndex == index ? 'cth-a-2-2' : 'cth-a-2-2-default']"></view>
 							</view>
 						</view>
@@ -48,15 +50,15 @@
 		</view>
 		
 		<view class="cd-item-view">
-			<view class="cd-item" v-for="(item,index) in textList" :style="index == 0 ? 'margin-top: 14rpx;' : 'margin-top:20rpx;'">
+			<view class="cd-item" v-for="(item,index) in showsLsit" :key="index" :style="index == 0 ? 'margin-top: 14rpx;' : 'margin-top:20rpx;'">
 				<view class="cd-item-left">
-					<view class="cd-item-left-1"><text class="cd-item-left-1-1">18:10</text><text class="cd-item-left-1-2">国语 2D</text></view>
-					<view class="cd-item-left-2"><text class="cd-item-left-2-1">20:09散场</text><text class="cd-item-left-2-2">11号激光厅</text></view>
+					<view class="cd-item-left-1"><text class="cd-item-left-1-1">{{item.showTime}}</text><text class="cd-item-left-1-2">{{item.showVersionType}}</text></view>
+					<view class="cd-item-left-2"><text class="cd-item-left-2-1">{{item.endTime}}散场</text><text class="cd-item-left-2-2">{{item.hallName}}</text></view>
 				</view>
 				<view class="cd-item-right">
-					<view class="cd-item-right-1">¥<text class="cd-item-right-1-1">27.8</text><text class="cd-item-right-1-2">起</text></view>
+					<view class="cd-item-right-1">¥<text class="cd-item-right-1-1">{{item.salePrice}}</text><text class="cd-item-right-1-2">起</text></view>
 					<!-- <view class="cd-item-right-2">满座</view> -->
-					<view class="cd-item-right-3">购票</view>
+					<view class="cd-item-right-3" @click="clickBuy">购票</view>
 				</view>
 			</view>
 		</view>
@@ -72,65 +74,111 @@
 	export default {
 		data() {
 			return {
+				cinemaid: '',
+				date: '',
+				movieId:'',
 				indicatorDots: false,
 				autoplay: false,
 				previousMargin: '148px',
 				nextMargin: '148px',
 				circular: true,
 				swiperCurrentIndex: 0,
-				textList:[
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					},
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					},
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					},
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					},
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					},
-					{
-						"background": "https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"
-					}
-				],
-				itemsTime:[
-					{
-						'title': '今天 09-22',
-					},
-					{
-						'title': '明天 09-23',
-					},
-					{
-						'title': '后天 09-24',
-					},
-					{
-						'title': '周六 09-25',
-					},
-					{
-						'title': '周日 09-25',
-					},
-				],
+				itemsTime:[],
 				timeIndex: 0,
+				cinemaInfo:'',
+				moviesList:[],
+				movieInfo:'',
+				showsLsit: []
 			}
 		},
 		onLoad: function(options) {
 			let that = this;
-
-
+			this.cinemaid = options.cinemaid;
+			this.date = options.date;
+			this.movieId = options.movieId;
+			
+			this.getFilmCinemaMovies();
+			this.getFilmShowList();
 		},
 		methods: {
+			getFilmCinemaMovies() {
+				let that = this;
+				let action = 'get_film_cinema_movies';
+				let controller = 'films';
+				let data = JSON.stringify({
+					cinemaId: that.cinemaid
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						that.cinemaInfo = res.rs.cinemaInfo;
+						that.moviesList = res.rs.movies;
+						
+						for (let i in that.moviesList) {
+							if (that.moviesList[i].movieId == that.movieId) {
+								that.movieId = that.moviesList[i].movieId;
+								that.swiperCurrentIndex = i;
+								that.movieInfo = that.moviesList[i];
+							}
+						}
+					}
+				})
+			},
+			getFilmShowList() {
+				let that = this;
+				let action = 'get_film_show_list';
+				let controller = 'films';
+				let data = JSON.stringify({
+					cinemaId: that.cinemaid,
+					movieId: that.movieId,
+					date: that.date
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						that.itemsTime = res.rs.dates_list;
+						that.showsLsit = res.rs.shows;
+						for (let i in that.itemsTime) {
+							if (that.itemsTime[i].date == that.date) {
+								that.date = that.itemsTime[i].date;
+								that.timeIndex = i;
+							}
+						}
+					}
+				})
+			},
 			change(e) {
 				this.swiperCurrentIndex = e.detail.current;
+				this.movieId = this.moviesList[this.swiperCurrentIndex].movieId;
+				for (let i in this.moviesList) {
+					if (this.moviesList[i].movieId == this.movieId) {
+						this.movieId = this.moviesList[i].movieId;
+						this.swiperCurrentIndex = i;
+						this.movieInfo = this.moviesList[i];
+					}
+				}
+				
+				this.getFilmShowList();
 				
 			},
 			clickTime(e){
 				this.timeIndex = e.currentTarget.dataset.timeindex;
+				this.date = e.currentTarget.dataset.date;
+				this.getFilmShowList();
 			},
+			clickBuy(){
+				uni.navigateTo({
+					url: '/pagesub/CinemaTicket/CinemaSeatSelect?movieId=' + this.movieInfo.movieId
+				})
+			},
+			clickAdress(){
+				uni.openLocation({
+					latitude: this.cinemaInfo.latitude,
+					longitude: this.cinemaInfo.longitude,
+					name: this.cinemaInfo.cinemaName,
+					success: function () {
+						console.log('success');
+					}
+				});
+			}
 		}
 	}
 </script>
@@ -187,7 +235,7 @@
 	}
 
 	.cd-a-item-left-1-1 {
-		width: 438rpx;
+		width: 430rpx;
 		font-size: 24rpx;
 		font-weight: bold;
 		color: #666666;
@@ -201,6 +249,10 @@
 	}
 
 	.cd-a-item-left-lable {
+		display: flex;
+		align-items: center;
+	}
+	.cd-a-item-left-lable-1 {
 		font-size: 18rpx;
 		color: #999999;
 		margin-top: 24rpx;
@@ -272,11 +324,21 @@
 		font-weight: bold;
 		color: #FA9800;
 	}
+	.cd-c-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
 	.cd-c{
 		font-size: 20rpx;
 		color: #999999;
 		margin-top: 18rpx;
 		text-align: center;
+		width: 596rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	
 	.cth-a{
@@ -342,6 +404,7 @@
 		display: flex;
 		/* align-items: center; */
 		flex-direction: column;
+		    width: 55%;
 	}
 	.cd-item-left-1{
 		display: flex;
@@ -368,7 +431,7 @@
 	.cd-item-left-2-1{
 		font-size: 18rpx;
 		color: #999999;
-		width: 90rpx;
+		width: 134rpx;
 	}
 	.cd-item-left-2-2{
 		font-size: 18rpx;

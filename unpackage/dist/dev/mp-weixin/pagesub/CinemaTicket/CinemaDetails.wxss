@@ -61,7 +61,7 @@ page {
 	margin-top: 24rpx;
 }
 .cd-a-item-left-1-1 {
-	width: 438rpx;
+	width: 430rpx;
 	font-size: 24rpx;
 	font-weight: bold;
 	color: #666666;
@@ -73,6 +73,14 @@ page {
 	margin-left: 32rpx;
 }
 .cd-a-item-left-lable {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.cd-a-item-left-lable-1 {
 	font-size: 18rpx;
 	color: #999999;
 	margin-top: 24rpx;
@@ -164,11 +172,27 @@ swiper-item {
 	font-weight: bold;
 	color: #FA9800;
 }
+.cd-c-view{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 100%;
+}
 .cd-c{
 	font-size: 20rpx;
 	color: #999999;
 	margin-top: 18rpx;
 	text-align: center;
+	width: 596rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .cth-a{
 	/* height: 60rpx; */
@@ -261,6 +285,7 @@ swiper-item {
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
 	        flex-direction: column;
+	    width: 55%;
 }
 .cd-item-left-1{
 	display: -webkit-box;
@@ -293,7 +318,7 @@ swiper-item {
 .cd-item-left-2-1{
 	font-size: 18rpx;
 	color: #999999;
-	width: 90rpx;
+	width: 134rpx;
 }
 .cd-item-left-2-2{
 	font-size: 18rpx;

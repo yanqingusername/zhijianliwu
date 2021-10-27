@@ -276,7 +276,7 @@
 			});
 			
 			uni.getLocation({
-			    type: 'wgs84',
+			    type: 'gcj02',
 			    success: function (res) {
 					that.getCityAddress(res.latitude, res.longitude);
 			    }

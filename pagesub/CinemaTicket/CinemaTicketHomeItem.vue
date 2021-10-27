@@ -86,7 +86,7 @@
 
 			<view class="cth-c-item" :style="index == 0 ? 'padding-top: 0rpx;' : 'padding-top:20rpx;'"
 				v-for="(item,index) in FilmCinemaList" :key="index">
-				<view class="cth-c-bg" @click="clickCinemaDetails">
+				<view class="cth-c-bg" @click="clickCinemaDetails" :data-cinemaid="item.cinemaId">
 					<view class="cth-c-bg-view">
 						<view class="cth-c-bg-1">{{item.cinemaName}}</view>
 						<view class="cth-c-bg-2"><text class="cth-c-bg-2-2">¥{{item.downPrice}}</text><text
@@ -100,9 +100,8 @@
 						<view v-for="(itemInfo,index) in item.services" :key="index" :class="index == 0 ? 'cth-c-bg-label0' : (index == 1 ? 'cth-c-bg-label1' : (index == 2 ? 'cth-c-bg-label2' : 'cth-c-bg-label3'))">{{itemInfo.name}}</view>
 					</view>
 					
-					<view class="cth-c-bg-view" style="margin-top: 18rpx;">
-						<view class="cth-c-bg-3" style="width: 565rpx;">近期场次：09:55 | 12:00 | 14:15 | 16:30 | 18:40 …
-						</view>
+					<view class="cth-c-bg-view" style="margin-top: 18rpx;" v-if="item.near_film_time">
+						<view class="cth-c-bg-3" style="width: 565rpx;">近期场次：{{item.near_film_time}}</view>
 					</view>
 				</view>
 			</view>
@@ -212,7 +211,7 @@
 			setAddress() {
 				let that = this;
 				uni.getLocation({
-					type: 'wgs84',
+					type: 'gcj02',
 					success: function(res) {
 						that.getCityAddress(2,res.latitude, res.longitude);
 					}
@@ -221,7 +220,7 @@
 			getAddress() {
 				let that = this;
 				uni.getLocation({
-					type: 'wgs84',
+					type: 'gcj02',
 					success: function(res) {
 						that.getCityAddress(1,res.latitude, res.longitude);
 					}
@@ -251,9 +250,10 @@
 					}
 				})
 			},
-			clickCinemaDetails() {
+			clickCinemaDetails(e) {
+				let cinemaid = e.currentTarget.dataset.cinemaid;
 				uni.navigateTo({
-					url: '/pagesub/CinemaTicket/CinemaDetails'
+					url: `/pagesub/CinemaTicket/CinemaDetails?cinemaid=${cinemaid}&date=${this.date}&movieId=${this.movieId}`
 				})
 			},
 			getFilmCinemaList(typeNumber) {
