@@ -753,6 +753,13 @@
 				    {
 				        "navigationBarTitleText": ""
 				    }
+				},
+				{
+				    "path" : "CinemaTicket/CinemaCityList",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "城市列表"
+				    }
 				}
 		 ]
 	}],

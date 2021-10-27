@@ -26,25 +26,35 @@
 				<view class="cth-c-top" style="padding-right: 30rpx;height: 100rpx;" v-if="isSearch">
 					<view class="cth-search-top">
 						<image class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_search_10_19.png"></image>
-						<input type="text" name="keyword" @input="onkeyword" :value="keyword" confirm-type="search" focus @confirm="search" placeholder="影院名称或地址" placeholder-style="color: #AAAAAA;font-size: 28rpx;"/>
-						<image class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_close_tab_10_19.png"></image>
+						<input type="text" name="keywords" @input="onkeyword" :value="keywords" confirm-type="search" focus @confirm="search" placeholder="影院名称或地址" placeholder-style="color: #AAAAAA;font-size: 28rpx;"/>
+						<image @click="clearKeyword" class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_close_tab_10_19.png"></image>
 					</view>
 					<view class="cth-search-top-title" @click="clickSearch">取消</view>
 				</view>
 				<view class="cth-c-top-two" v-else>
 					<view class="cth-c-top" style="padding-left: 30rpx;">
 						<view class="cth-c-1">
-							<view @click="clickSelect" class="cth-c-1-1">北京<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
-							<view class="cth-c-1-1" style="margin-left: 10rpx;">全城<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaCityList?cityname='+cityname +'&cityCode='+cityCode" class="cth-c-1-1">{{cityname}}<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click="clickRegions" class="cth-c-1-1" style="margin-left: 10rpx;">全城<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
 							<view @click="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
 						</view>
 						<view class="cth-c-top-img" @click="clickSearch"><image class="cth-c-top-img" src="https://zhijianlw.com/static/web/img/icon_search_tab_10_19.png"></image></view>
 					</view>
 					
+					<view class="cth-select-view" v-if="tabNumber == 2 && isRegions" @click="clickRegions">
+						<view class="cthtop-Regions">
+							<scroll-view scroll-y="true" class="cthtop-Regions-src">
+								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
+									<view v-for="(item,index) in FilmRegionsList" :key="index" :class="indxRegion == index ? 'cthtop-view-label-active':'cthtop-view-label'" @click="clickRegionCode" :data-regioncode="item.regionCode" :data-index="index">{{item.regionName}}</view>
+								</view>
+							</scroll-view>
+						</view>
+					</view>
+					
 					<view class="cth-select-view" v-if="tabNumber == 2 && currTag" @click="clickSelect">
 						<view class="cthtop-view">
 							<scroll-view scroll-y="true">
-								<view class="cthtop-view-1">
+								<!-- <view class="cthtop-view-1">
 									<view class="cthtop-view-left">放映影厅</view>
 									<view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
 								</view>
@@ -57,26 +67,26 @@
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
 									<view v-for="(item,index) in itemsList" :key="index" class="cthtop-view-label" >{{item.title}}</view>
-								</view>
+								</view> -->
 								
 								<view class="cthtop-view-1">
 									<view class="cthtop-view-left">影院品牌</view>
-									<view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
+									<!-- <view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view> -->
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
-									<view v-for="(item,index) in itemsList" :key="index" class="cthtop-view-label" >{{item.title}}</view>
+									<view v-for="(item,index) in FilmCinemaBrands" :key="index" :class="indxBrands == index ? 'cthtop-view-label-active':'cthtop-view-label'" @click="clickBrands" :data-brands="item" :data-index="index">{{item}}</view>
 								</view>
 							</scroll-view>
-							<view class="cth-select-bottom">
-								<view class="cth-select-bottom-left">清空</view>
+							<!-- <view class="cth-select-bottom">
+								<view class="cth-select-bottom-left" @click="clickClear">清空</view>
 								<view class="cth-select-bottom-right">完成</view>
-							</view>
+							</view> -->
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view :style="'margin-top:'+ (tabNumber == 2 ? '170':'90') + 'rpx;'">
+		<view :style="'margin-top:'+ (tabNumber == 2 ? (isSearch ? '190' : '170') :'90') + 'rpx;'">
 			<view v-if="tabNumber == 0 || tabNumber == 1" style="padding: 16rpx 26rpx 20rpx 26rpx; margin-top: 0rpx;position: relative;display: flex;align-items: center;justify-content: center;">
 				<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
 					<swiper-item v-for="(item,index) in swiper" :key="index">
@@ -90,7 +100,7 @@
 			</view>
 			
 			<view v-if="tabNumber == 0" class="cth-b" v-for="(item,index) in cthList" :key="index">
-				<view class="cth-b-bg" @click="clickDetail" data-url="/pagesub/CinemaTicket/CinemaTicketHomeDetail">
+				<view class="cth-b-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
 					<image class="cth-b-bg-1" :src="item.pic"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
@@ -104,7 +114,7 @@
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
 						<view class="cth-b-bg-2-4">主演：{{item.cast}}</view>
 						
-						<view class="cth-b-bg-2-5" @click.stop="clickDetail" data-url="/pagesub/CinemaTicket/CinemaTicketHomeItem">购票</view>
+						<view class="cth-b-bg-2-5" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId='+ item.movieId">购票</view>
 					</view>
 				</view>
 			</view>
@@ -120,7 +130,7 @@
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
 							</view> -->
 						</view>
-						<view class="cth-b-bg-2-2">{{item.publishDate}}</view>
+						<view class="cth-b-bg-2-2"><view style="font-size: 20rpx;color: #666666;margin-right: 14rpx;">{{item.publishDate}}</view><view style="font-size: 26rpx;font-weight: bold;color: #FA6400;">4753</view><view style="font-size: 20rpx;color: #666666;">人想看</view></view>
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
 						<view class="cth-b-bg-2-4">主演：{{item.cast}}</view>
 						
@@ -184,7 +194,7 @@
 					</view>
 				</view> -->
 				
-				<view class="cth-c-item" v-for="(item,index) in FilmCinemaList" :key="index">
+				<view class="cth-c-item" v-if="FilmCinemaList.length > 0" v-for="(item,index) in FilmCinemaList" :key="index">
 					<view class="cth-c-bg">
 						<view class="cth-c-bg-view">
 							<view class="cth-c-bg-1">{{item.cinemaName}}</view>
@@ -202,7 +212,7 @@
 						</view>
 					</view>
 				</view>
-				<view style="height: 20rpx;background: #EEEEEE;"></view>
+				<view v-if="FilmCinemaList.length > 0" style="height: 20rpx;background: #EEEEEE;"></view>
 			</view>
 		</view>
 		
@@ -215,8 +225,12 @@
 	export default {
 		data() {
 			return {
-				FilmCitiesList:[],
-				cityCode: "440300",
+				indxBrands: 0,
+				FilmCinemaBrands: [],
+				indxRegion: 0,
+				FilmRegionsList: [],
+				isRegions: false,
+				cityCode: "",
 				regionCode: "",
 				date: "",
 				keywords: "",
@@ -269,7 +283,23 @@
 			});
 			
 			this.getFilmmovielist(1);
-			this.getFilmCitiesList();
+			
+		},
+		onShow() {
+			if(this.tabNumber == 0 || this.tabNumber == 1){
+				// this.getFilmRegionsList();
+				this.getFilmCinemaBrands();
+			}else{
+				this.cityname = uni.getStorageSync('cityname')
+				this.cityCode = uni.getStorageSync('cityCode')
+				this.getFilmCinemaList(1);
+				// this.getFilmRegionsList();
+				this.getFilmCinemaBrands();
+			}
+			
+			if(this.cityCode){
+				this.getFilmRegionsList();
+			}
 			
 		},
 		methods: {
@@ -304,12 +334,21 @@
 				this.keywords = keywords;
 				this.getFilmCinemaList(1);
 			},
+			clearKeyword(){
+				this.keywords = '';
+				this.getFilmCinemaList(1);
+			},
 			clickSearch(){
 				this.isSearch = !this.isSearch;
 				this.currTag = false;
 			},
 			clickSelect(){
 				this.currTag = !this.currTag;
+				this.isRegions = false;
+			},
+			clickRegions(){
+				this.isRegions = !this.isRegions;
+				this.currTag = false;
 			},
 			getCityAddress(latitude,longitude){
 				let that = this;
@@ -322,9 +361,13 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 				    if(res.sta == 1){
 						that.cityname = res.rs.addressComponent.city
-						// that.cityCode = res.rs.cityCode
+						that.cityCode = res.rs.cityCode
 						that.longitude = longitude
 						that.latitude = latitude
+						
+						uni.setStorageSync('cityname', that.cityname)
+						uni.setStorageSync('cityCode', that.cityCode)
+						that.getFilmRegionsList();
 				    }
 				})
 			},
@@ -389,14 +432,33 @@
 					}
 				})
 			},
-			getFilmCitiesList(){
+			getFilmRegionsList(){
 				let that = this;
-				let action = 'get_film_cities_list';
+				let action = 'get_film_regions_list';
 				let controller = 'films';
 				let data = JSON.stringify({
+					cityCode: this.cityCode
 				});
 				this.$utils.postNew(action,data,controller).then(res=>{
-					that.FilmCitiesList = res.rs;
+					that.FilmRegionsList = res.rs;
+					let obj = {
+						regionCode: "",
+						regionName: "不限区域"
+					}
+					if(that.FilmRegionsList.length > 0){
+						that.FilmRegionsList.unshift(obj)
+					}
+				})
+			},
+			getFilmCinemaBrands(){
+				let that = this;
+				let action = 'get_film_cinema_brands';
+				let controller = 'films';
+				let data = JSON.stringify({});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					that.FilmCinemaBrands = res.rs;
+					let obj = '全部'
+					that.FilmCinemaBrands.unshift(obj)
 				})
 			},
 			clickDetail(e){
@@ -404,6 +466,22 @@
 				uni.navigateTo({
 					url: url
 				})
+			},
+			clickRegionCode(e){
+				this.regionCode = e.currentTarget.dataset.regioncode;
+				this.indxRegion = e.currentTarget.dataset.index;
+				this.getFilmCinemaList(1);
+			},
+			clickBrands(e){
+				this.keywords = e.currentTarget.dataset.brands;
+				this.indxBrands = e.currentTarget.dataset.index;
+				if(this.indxBrands == 0){
+					this.keywords = '';
+				}
+				this.getFilmCinemaList(1);
+			},
+			clickClear(e){
+				
 			}
 		},
 		onPullDownRefresh:function(){
@@ -625,27 +703,24 @@ page{
 			display: flex;
 			align-items: center;
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 26rpx;
 		}
 		.cth-b-bg-2-2-1{
 			font-size: 26rpx;
-			font-weight: bold;
 			color: #FA6400;
 			margin-left: 6rpx;
 		}
 		.cth-b-bg-2-3{
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 20rpx;
 		}
 		.cth-b-bg-2-4{
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 20rpx;
+			line-height: 25rpx;
 		}
 		.cth-b-bg-2-5{
 			display: flex;
@@ -756,11 +831,14 @@ page{
 			font-size: 28rpx;
 			font-weight: bold;
 			color: #333333;
-			width: 100rpx;
+			width: 110rpx;
 			height: 80rpx;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 		}
 		.cth-c-1-1-1{
 			width: 16rpx;
@@ -926,9 +1004,19 @@ page{
 			        /* opacity: 0.34; */
 			        margin-top: 80rpx;
 		}
+		.cthtop-Regions{
+			width: 750rpx;
+			height: 320rpx;
+			background: #FFFFFF;
+			border-radius: 0px 0px 20rpx 20rpx;
+			position: relative;
+		}
+		.cthtop-Regions-src{
+			height: 272rpx !important;
+		}
 		.cthtop-view{
 			width: 750rpx;
-			height: 900rpx;
+			height: 450rpx;
 			background: #FFFFFF;
 			border-radius: 0px 0px 20rpx 20rpx;
 			position: relative;
@@ -965,14 +1053,29 @@ page{
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 206rpx;
-			height: 70rpx;
+			width: 202rpx;
+			height: 66rpx;
 			background: #F6F6F6;
 			border-radius: 10rpx;
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #666666;
 			margin: 0rpx 10rpx 20rpx;
+			border: 2rpx solid #F6F6F6;
+		}
+		.cthtop-view-label-active{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 202rpx;
+			height: 66rpx;
+			border-radius: 10rpx;
+			font-size: 24rpx;
+			font-weight: bold;
+			color: #FFFFFF;
+			margin: 0rpx 10rpx 20rpx;
+			border: 2rpx solid #DF5250;
+			background: #DF5250;
 		}
 		.cth-select-bottom{
 			position: absolute;
@@ -991,7 +1094,7 @@ page{
 			justify-content: center;
 			width: 318rpx;
 			height: 78rpx;
-			border-radius: 44px;
+			border-radius: 44rpx;
 			border: 2rpx solid #CCCCCC;
 			font-size: 30rpx;
 			font-weight: bold;
@@ -1004,7 +1107,7 @@ page{
 			justify-content: center;
 			width: 318rpx;
 			height: 78rpx;
-			border-radius: 44px;
+			border-radius: 44rpx;
 			border: 2rpx solid #DF5250;
 			background: #DF5250;
 			font-size: 30rpx;
@@ -1014,6 +1117,6 @@ page{
 		}
 		
 		scroll-view{
-			height: 760rpx !important;
+			height: 420rpx !important;
 		}
 </style>

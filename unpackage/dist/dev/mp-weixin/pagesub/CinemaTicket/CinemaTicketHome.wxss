@@ -254,27 +254,24 @@ swiper-item{
 			-webkit-align-items: center;
 			        align-items: center;
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 26rpx;
 }
 .cth-b-bg-2-2-1{
 			font-size: 26rpx;
-			font-weight: bold;
 			color: #FA6400;
 			margin-left: 6rpx;
 }
 .cth-b-bg-2-3{
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 20rpx;
 }
 .cth-b-bg-2-4{
 			font-size: 20rpx;
-			font-weight: bold;
-			color: #333333;
+			color: #666666;
 			margin-top: 20rpx;
+			line-height: 25rpx;
 }
 .cth-b-bg-2-5{
 			display: -webkit-box;
@@ -424,7 +421,7 @@ swiper-item{
 			font-size: 28rpx;
 			font-weight: bold;
 			color: #333333;
-			width: 100rpx;
+			width: 110rpx;
 			height: 80rpx;
 			display: -webkit-box;
 			display: -webkit-flex;
@@ -435,6 +432,9 @@ swiper-item{
 			-webkit-box-pack: center;
 			-webkit-justify-content: center;
 			        justify-content: center;
+			overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 }
 .cth-c-1-1-1{
 			width: 16rpx;
@@ -639,9 +639,19 @@ swiper-item{
 			        /* opacity: 0.34; */
 			        margin-top: 80rpx;
 }
+.cthtop-Regions{
+			width: 750rpx;
+			height: 320rpx;
+			background: #FFFFFF;
+			border-radius: 0px 0px 20rpx 20rpx;
+			position: relative;
+}
+.cthtop-Regions-src{
+			height: 272rpx !important;
+}
 .cthtop-view{
 			width: 750rpx;
-			height: 900rpx;
+			height: 450rpx;
 			background: #FFFFFF;
 			border-radius: 0px 0px 20rpx 20rpx;
 			position: relative;
@@ -691,14 +701,35 @@ swiper-item{
 			-webkit-box-pack: center;
 			-webkit-justify-content: center;
 			        justify-content: center;
-			width: 206rpx;
-			height: 70rpx;
+			width: 202rpx;
+			height: 66rpx;
 			background: #F6F6F6;
 			border-radius: 10rpx;
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #666666;
 			margin: 0rpx 10rpx 20rpx;
+			border: 2rpx solid #F6F6F6;
+}
+.cthtop-view-label-active{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+			width: 202rpx;
+			height: 66rpx;
+			border-radius: 10rpx;
+			font-size: 24rpx;
+			font-weight: bold;
+			color: #FFFFFF;
+			margin: 0rpx 10rpx 20rpx;
+			border: 2rpx solid #DF5250;
+			background: #DF5250;
 }
 .cth-select-bottom{
 			position: absolute;
@@ -729,7 +760,7 @@ swiper-item{
 			        justify-content: center;
 			width: 318rpx;
 			height: 78rpx;
-			border-radius: 44px;
+			border-radius: 44rpx;
 			border: 2rpx solid #CCCCCC;
 			font-size: 30rpx;
 			font-weight: bold;
@@ -747,7 +778,7 @@ swiper-item{
 			        justify-content: center;
 			width: 318rpx;
 			height: 78rpx;
-			border-radius: 44px;
+			border-radius: 44rpx;
 			border: 2rpx solid #DF5250;
 			background: #DF5250;
 			font-size: 30rpx;
@@ -756,6 +787,6 @@ swiper-item{
 			margin-left: 20rpx;
 }
 scroll-view{
-			height: 760rpx !important;
+			height: 420rpx !important;
 }
 

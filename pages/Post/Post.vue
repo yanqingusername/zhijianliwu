@@ -17,8 +17,8 @@
 			<view :class="postStyle=='post'?'parse-con':'poster-con'">
 				<!-- <u-parse :content="postContnet" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>-->
 				<view v-for="(item, index) in detail_list" :key="index">
-					<u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse>
-					<!-- <mp-html :content="item.content"/> -->
+					<!-- <u-parse :content="item.content" @navigate="navigate" :className="postStyle=='post'?'parse':'poster'" :imageProp="imageProp"></u-parse> -->
+					<mp-html :content="item.content" domain="https://zhijianlw.com/"/>
 					<view v-if="item.goods_list.length > 0" class="post-goods-list" v-for="(goodData,index) in item.goods_list" :key="index" @click="goToDetails" :data-keynum="goodData.keynum">
 							<view class="new-order-left">
 								<view class="new-order-img">

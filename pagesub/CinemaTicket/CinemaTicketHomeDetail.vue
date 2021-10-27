@@ -1,10 +1,9 @@
 <template>
 	<view >
-		<view style="margin-top: 0rpx;position: relative;display: flex;align-items: center;justify-content: center;">
-			<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
+		<view class="cthd-view" :style="'background-image: url(' + movieInfo.picHd + ');'">
+			<!-- <swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
 				<swiper-item v-for="(item,index) in swiper" :key="index">
-					<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
-					@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
+					<image lazy-load="true" class="own-swiper-img" :src="item" mode="widthFix"></image>
 				</swiper-item>
 			</swiper>
 			<view class="indicator-view" v-if="swiper.length>0">
@@ -13,30 +12,48 @@
 			<view class="position-swiper">
 				<view class="position-swiper-t">{{swiperIndex}}</view>
 				<view class="position-swiper-q">/{{swiper.length}}</view>
+			</view> -->
+			
+			<view class="cthd-b">
+				<view class="cth-b-bg-2-1">
+					<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
+					<view class="cth-b-bg-2-1-2">
+						<view class="cth-b-bg-2-1-2-1">3D</view>
+						<view class="cth-b-bg-2-1-2-2">IMAX</view>
+					</view>
+				</view>
+				<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
+				<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>
+				<view class="cth-b-bg-2-4">
+					<view v-for="(item, index) in imgList" :key="index"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>{{movieInfo.grade}}分
+				</view>
+				<view class="cth-b-bg-2-5">参与演员</view>
+				<view class="cth-b-bg-2-6">{{movieInfo.cast}}</view>
 			</view>
+			
 		</view>
 		
-		<view class="cth-b">
+		<!-- <view class="cth-b">
 			<view class="cth-b-bg">
-				<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
+				<image class="cth-b-bg-1" :src="movieInfo.pic"></image>
 				<view class="cth-b-bg-2">
 					<view class="cth-b-bg-2-1">
-						<view class="cth-b-bg-2-1-1">失控玩家</view>
+						<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
 						<view class="cth-b-bg-2-1-2">
 							<view class="cth-b-bg-2-1-2-1">3D</view>
 							<view class="cth-b-bg-2-1-2-2">IMAX</view>
 						</view>
 					</view>
-					<view class="cth-b-bg-2-2">114分钟/灾难/动作/中国大陆</view>
-					<view class="cth-b-bg-2-3">2021-09-17 18:00 在中国大陆上映</view>
+					<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
+					<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>
 					<view class="cth-b-bg-2-4">
-						<view v-for="item in imgList"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>9.2分
+						<view v-for="item in imgList"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>{{movieInfo.grade}}分
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="cth-content">
+		<!-- <view class="cth-content">
 			<view class="cth-content-title">参演演员</view>
 			<view class="cth-conten-view">
 				<scroll-view scroll-x="true" class="scroll-view-top">
@@ -49,7 +66,7 @@
 					</view>
 				</scroll-view>
 			</view>
-		</view>
+		</view> -->
 		<view style="height: 160rpx;width: 100%;"></view>
 		
 		<view class="cthd-bottom" @click="clickBuy">
@@ -62,6 +79,9 @@
 	export default {
 		data() {
 			return {
+				cityCode: '',
+				movieId: '',
+				movieInfo: '',
 				swiper:[],
 				swiperCurrentIndex: 0,
 				swiperIndex: 1,
@@ -187,33 +207,36 @@
 						"status": '1'
 					},
 				],
-				imgList: [
-					{
-						imgurl: 'https://zhijianlw.com/static/web/img/icon_star_10_20.png'
-					},
-					{
-						imgurl: 'https://zhijianlw.com/static/web/img/icon_star_10_20.png'
-					},
-					{
-						imgurl: 'https://zhijianlw.com/static/web/img/icon_star_10_20.png'
-					},
-					{
-						imgurl: 'https://zhijianlw.com/static/web/img/icon_star_10_20.png'
-					},
-					{
-						imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
-					}
-				]
+				imgList: []
 			} 
 		},
 		onLoad:function(options){
 			let that = this;
-			// 轮播图
-			var data = JSON.stringify({a:0}); 
-			var action = 'get_banner';
-			this.$utils.post(action, data).then(res => {
+			this.cityCode = options.cityCode;
+			this.movieId = options.movieId
+			let data = JSON.stringify({
+				cityCode: this.cityCode,
+				movieId: this.movieId
+			}); 
+			let action = 'get_film_movie_dates_info';
+			let controller = 'films';
+			this.$utils.postNew(action, data, controller).then(res => {
 				console.log("轮播图：",res);
-				this.swiper = res.rs;
+				that.movieInfo = res.rs.movieInfo;
+				that.swiper.push(res.rs.movieInfo.picHd);
+				let imgNumber = parseInt(that.movieInfo.grade/2);
+				that.imgList = [];
+				for(let i = 0; i < 5; i++){
+					if(i < imgNumber){
+						that.imgList.push({
+							imgurl:'https://zhijianlw.com/static/web/img/icon_star_10_20.png',
+						})
+					} else {
+						that.imgList.push({
+							imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
+						})
+					}
+				}
 			});
 			
 		},
@@ -226,6 +249,11 @@
 				  this.swiperIndex = e.detail.current + 1;
 			    }
 			},
+			clickBuy(){
+				uni.navigateTo({
+					url: '/pagesub/CinemaTicket/CinemaTicketHomeItem?movieId=' + this.movieInfo.movieId
+				})
+			}
 			
 		}
 	}
@@ -234,6 +262,17 @@
 <style>
 page{
 	background-color: #FFFFFF;
+}
+
+.cthd-view{
+	margin-top: 0rpx;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 750rpx;
+		    height: 1111rpx;
+				background-size: 750rpx 1111rpx;
 }
 
 /**
@@ -364,7 +403,7 @@ page{
 		.cth-b-bg-2-1-1{
 			font-size: 36rpx;
 			font-weight: bold;
-			color: #333333;
+			color: #CCCCCC;
 		}
 		.cth-b-bg-2-1-2{
 			display: flex;
@@ -372,7 +411,7 @@ page{
 			width: 92rpx;
 			    height: 36rpx;
 			border-radius: 4rpx;
-			border: 1px solid #AAAAAA;
+			border: 1px solid #5B5B5B;
 		}
 		.cth-b-bg-2-1-2-1{
 			display: flex;
@@ -380,11 +419,11 @@ page{
 		    justify-content: center;
 			width: 36rpx;
 			height: 32rpx;
-			background: #AAAAAA;
+			background: #5B5B5B;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
 			font-weight: bold;
-			color: #FFFFFF;
+			color: #CCCCCC;
 		}
 		.cth-b-bg-2-1-2-2{
 		    display: flex;
@@ -392,19 +431,19 @@ page{
 		    justify-content: center;
 			width: 56rpx;
 			height: 32rpx;
-			background: #FFFFFF;
+			/* background: #FFFFFF; */
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
 			font-weight: bold;
-			color: #AAAAAA;
+			color: #CCCCCC;
 		}
 		.cth-b-bg-2-2{
 			display: flex;
 			align-items: center;
 			font-size: 24rpx;
 			font-weight: bold;
-			color: #666666;
-			margin-top: 28rpx;
+			color: #999999;
+			margin-top: 18rpx;
 		}
 		
 		.cth-b-bg-2-3{
@@ -412,21 +451,33 @@ page{
 			align-items: center;
 			font-size: 24rpx;
 			font-weight: bold;
-			color: #666666;
-			margin-top: 28rpx;
+			color: #999999;
+			margin-top: 18rpx;
 		}
 		.cth-b-bg-2-4{
 			display: flex;
 			align-items: center;
-			margin-top: 40rpx;
+			margin-top: 26rpx;
 			font-size: 36rpx;
 			font-weight: bold;
-			color: #FA9800;
+			color: #FFBF00;
 		}
 		.cth-b-bg-2-4-img{
 			width: 22rpx;
 			height: 22rpx;
 			margin-right: 8rpx;
+		}
+		
+		.cth-b-bg-2-5{
+			font-size: 30rpx;
+			font-weight: bold;
+			color: #CCCCCC;
+			margin-top: 28rpx;
+		}
+		.cth-b-bg-2-6{
+			font-size: 24rpx;
+			color: #999999;
+			margin-top: 18rpx;
 		}
 		
 		.cth-content{
@@ -487,9 +538,8 @@ page{
 			align-items: center;
 			justify-content: center;
 			width: 750rpx;
-			height: 126rpx;
+			height: 128rpx;
 			background: #FAFAFA;
-			border-radius: 20rpx 20rpx 0px 0px;
 			position: fixed;
 		    bottom: 0rpx;
 		}
@@ -505,5 +555,17 @@ page{
 			font-size: 32rpx;
 			font-weight: bold;
 			color: #FFFFFF;
+		}
+		
+		
+		
+		.cthd-b{
+			position: absolute;
+			bottom: 0rpx;
+			width: 750rpx;
+			height: 361rpx;
+			background-size: 750rpx 361rpx;
+			background-image: url('https://zhijianlw.com/static/web/img/icon_cthd_bg_2021_10_27.png');
+			padding: 30rpx 26rpx;
 		}
 </style>
