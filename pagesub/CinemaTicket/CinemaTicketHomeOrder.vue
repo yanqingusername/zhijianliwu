@@ -3,10 +3,10 @@
 		<view class="ctho-a">
 			<view class="cth-b">
 				<view class="cth-b-bg">
-					<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
+					<image class="cth-b-bg-1" :src="FilmPrice.orderPicUrl"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
-							<view class="cth-b-bg-2-1-1">失控玩家</view>
+							<view class="cth-b-bg-2-1-1">{{FilmPrice.orderTitle}}</view>
 							<view class="cth-b-bg-2-1-2">
 								<view class="cth-b-bg-2-1-2-1">3D</view>
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
@@ -72,15 +72,70 @@
 		data() {
 			return {
 				checked: false,
-				isBalace: false
+				isBalace: false,
+				showId: '',
+				seatIds: '',
+				quantity: '',
+				originPrice: '',
+				salePrice: '',
+				coupon_number: '',
+				FilmPrice: ''
 			}
 		},
 		onLoad:function(options){
 			let that = this;
+			this.showId = options.showId;
+			this.seatIds = options.seatIds;
 			
-			
+			var data = JSON.stringify({
+				showId: that.showId,
+				seatIds: that.seatIds
+			}); 
+			var action = 'get_film_movie_order_check';
+			let controller = 'films';
+			this.$utils.postNew(action, data, controller).then(res => {
+				if(res.sta == 1){
+					if(res.rs.errCode == 0){
+						that.quantity = res.rs.data.quantity;
+						that.originPrice = res.rs.data.originPrice;
+						that.salePrice = res.rs.data.salePrice;
+						
+						that.getFilmPrice();
+					}else{
+						uni.showToast({
+							title: res.rs.errMessage,
+							icon: 'none',
+							duration: 2000
+						})
+					}
+				}else{
+					uni.showToast({
+						title: res.msg,
+						icon: 'none',
+						duration: 2000
+					})
+				}
+			});
 		},
 		methods: {
+			getFilmPrice(){
+				let memberid = uni.getStorageSync('id');
+				let that = this;
+				var data = JSON.stringify({
+					memberid: memberid,
+					quantity: that.quantity,
+					originPrice: that.originPrice,
+					salePrice: that.salePrice,
+					coupon_number: that.coupon_number,
+					showId: that.showId,
+					seatIds: that.seatIds
+				}); 
+				var action = 'get_film_price';
+				let controller = 'coupon';
+				this.$utils.postNew(action, data, controller).then(res => {
+					that.FilmPrice = res.rs;
+				});
+			},
 			clickPay(){
 				uni.navigateTo({
 					url: '/pagesub/CinemaTicket/CinemaTicketHomeSuccess'

@@ -948,4 +948,16 @@ movable-area {
 		margin-top: 4rpx;
 	    color: #DB3C3A;
 }
+.area-left{
+	width: 30rpx;
+	background: #000000;
+	border-radius: 21rpx;
+	opacity: 0.71;
+}
+.area-left-number{
+	font-size: 19rpx;
+	font-weight: bold;
+	color: #FFFFFF;
+	padding: 6rpx 10rpx;
+}
 

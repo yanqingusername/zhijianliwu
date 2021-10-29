@@ -101,7 +101,7 @@
 					</view>
 					
 					<view class="cth-c-bg-view" style="margin-top: 18rpx;" v-if="item.near_film_time">
-						<view class="cth-c-bg-3" style="width: 565rpx;">近期场次：{{item.near_film_time}}</view>
+						<view class="cth-c-bg-3 text-cut" style="width: 565rpx;">近期场次：{{item.near_film_time}}</view>
 					</view>
 				</view>
 			</view>
@@ -789,7 +789,7 @@
 	}
 
 	.cth-c-bg-3 {
-		width: 420rpx;
+		width: 460rpx;
 		word-wrap: break-word;
 		font-size: 24rpx;
 		font-weight: bold;
@@ -1055,4 +1055,10 @@
 		color: #666666;
 		margin-left: 4rpx;
 	}
+	
+	.text-cut {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
 </style>

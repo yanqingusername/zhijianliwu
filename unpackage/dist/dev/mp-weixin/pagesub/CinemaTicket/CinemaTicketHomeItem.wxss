@@ -481,7 +481,7 @@ swiper-item {
 	margin-left: 4rpx;
 }
 .cth-c-bg-3 {
-	width: 420rpx;
+	width: 460rpx;
 	word-wrap: break-word;
 	font-size: 24rpx;
 	font-weight: bold;
@@ -798,5 +798,10 @@ scroll-view {
 	font-size: 24rpx;
 	color: #666666;
 	margin-left: 4rpx;
+}
+.text-cut {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 }
 

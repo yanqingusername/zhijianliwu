@@ -31,6 +31,10 @@
 						<image :src="item.nowIcon" class='normal' />
 						<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 					</view>
+					
+					<view class="area-left">
+						<view class="area-left-number" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+					</view>
 				</view>
 			</movable-view>
 		</movable-area>
@@ -138,7 +142,8 @@
 				showInfo: '',
 				movieInfo: '',
 				isShow: '',
-				show_list:[]
+				show_list:[],
+				areaLift: [1,2,3,4,5,6,7,8,9]
 			}
 		},
 		onLoad: function(options) {
@@ -616,16 +621,33 @@
 				}
 				
 				let seatId = seatIds.join(",");
-				console.log('---->:',seatId)
-				// var data = JSON.stringify({
-				// 	showId: _this.showId,
-				// 	seatIds: seatId
-				// }); 
-				// var action = 'get_film_movie_order_check';
-				// let controller = 'films';
-				// this.$utils.postNew(action, data, controller).then(res => {
-					
-				// });
+				var data = JSON.stringify({
+					showId: _this.showId,
+					seatIds: seatId
+				}); 
+				var action = 'get_film_movie_order_check';
+				let controller = 'films';
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta == 1){
+						if(res.rs.errCode == 0){
+							uni.navigateTo({
+								url: `/pagesub/CinemaTicket/CinemaTicketHomeOrder?showId=${_this.showId}&seatIds=${seatId}`
+							})
+						}else{
+							uni.showToast({
+								title: res.rs.errMessage,
+								icon: 'none',
+								duration: 2000
+							})
+						}
+					}else{
+						uni.showToast({
+							title: res.msg,
+							icon: 'none',
+							duration: 2000
+						})
+					}
+				});
 			},
 			//生成最佳座位
 			creatBestSeat: function() {
@@ -1858,5 +1880,18 @@
 		    font-size: 22rpx;
 			margin-top: 4rpx;
 		    color: #DB3C3A;
+	}
+	
+	.area-left{
+		width: 30rpx;
+		background: #000000;
+		border-radius: 21rpx;
+		opacity: 0.71;
+	}
+	.area-left-number{
+		font-size: 19rpx;
+		font-weight: bold;
+		color: #FFFFFF;
+		padding: 6rpx 10rpx;
 	}
 </style>
