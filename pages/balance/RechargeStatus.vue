@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="personal-header">
+		<!-- <view class="personal-header">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
@@ -41,6 +41,27 @@
 			</view>
 			
 			
+		</view> -->
+		
+		<view class="recharge-succ" v-if="!isSuccess">
+			<image class="recharge-succ-img" src="https://zhijianlw.com/static/web/img/icon_recharge_status_2021_10_29_02.png"></image>
+			<view class="recharge-succ-text">充值失败</view>
+			<view class="recharge-succ-content">原因：订单支付异常</view>
+			<view class="recharge-succ-bottom-view" @click="$buttonClick(balanceRecharge)">再次充值</view>
+		</view>
+		
+		<view class="" v-if="isSuccess">
+			<view class="recharge-succ">
+				<image class="recharge-succ-img" src="https://zhijianlw.com/static/web/img/icon_recharge_status_2021_10_29_01.png"></image>
+				<view class="recharge-succ-text">充值成功</view>
+				<view class="recharge-succ-price">{{orderInfo.recharge_price}}</view>
+				<view class="recharge-succ-bottom" @click="$buttonClick(balance)">查询余额</view>
+			</view>
+			<view class="recharge-succ-line"></view>
+			<view class="recharge-succ-1">实付金额：¥{{orderInfo.pay_price}}<view class="recharge-succ-2" v-if="istype != 1">（如需开具发票请您联系在线客服处理）</view></view>
+			<view class="recharge-succ-3">充值时间：{{orderInfo.recharge_time}}</view>
+			<view class="recharge-succ-4">订 单 号 ：{{orderInfo.recharge_number}}</view>
+			
 		</view>
 		
 	</view>
@@ -53,7 +74,7 @@
 				value:'',
 				nav:'20',
 				ordernumber: '',
-				istype: '',
+				istype: 2,
 				orderInfo: '',
 				isSuccess: true,
 				isSystemInfo: false
@@ -252,4 +273,89 @@
 		text-align: center;
 		margin-top: 70rpx;
 	}
+	
+	
+	.recharge-succ{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.recharge-succ-img{
+		width: 90rpx;
+		height: 90rpx;
+		margin-top: 74rpx;
+	}
+	.recharge-succ-text{
+		font-size: 30rpx;
+		color: #333333;
+		margin-top: 30rpx;
+	}
+	.recharge-succ-content{
+		font-size: 31rpx;
+		color: #333333;
+		margin-top: 34rpx;
+	}
+	.recharge-succ-bottom-view{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 320rpx;
+		height: 80rpx;
+		background: #DF5250;
+		border-radius: 40rpx;
+		font-size: 30rpx;
+		color: #FFFFFF;
+		margin-top: 128rpx;
+	}
+	
+	.recharge-succ-price{
+		font-size: 50rpx;
+		font-weight: bold;
+		color: #333333;
+		margin-top: 20rpx;
+	}
+	.recharge-succ-bottom{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 154rpx;
+		height: 46rpx;
+		border-radius: 44rpx;
+		border: 1px solid #CCCCCC;
+		font-size: 24rpx;
+		color: #999999;
+		margin-top: 30rpx;
+	}
+	.recharge-succ-line{
+		width: 750rpx;
+		height: 1px;
+		background: #F6F6F6;
+		margin-top: 52rpx;
+	}
+	.recharge-succ-1{
+		font-size: 24rpx;
+		color: #999999;
+		margin-top: 46rpx;
+		margin-left: 38rpx;
+		display: flex;
+		align-items: center;
+	}
+	.recharge-succ-2{
+		font-size: 24rpx;
+		color: #999999;
+	}
+	.recharge-succ-3{
+		font-size: 24rpx;
+		color: #999999;
+		margin-top: 32rpx;
+		margin-left: 38rpx;
+	}
+	.recharge-succ-4{
+		font-size: 24rpx;
+		color: #999999;
+		margin-top: 32rpx;
+		margin-left: 38rpx;
+	}
+	
 </style>

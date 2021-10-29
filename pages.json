@@ -157,8 +157,7 @@
 		{
 			"path" : "pages/balance/RechargeStatus",
 			"style" : {
-				"navigationBarTitleText":"充值",
-				"navigationStyle":"custom"
+				"navigationBarTitleText":"充值结果"
 			}
 		}
         ,{

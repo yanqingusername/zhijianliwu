@@ -43,9 +43,9 @@
           "scene": null
         },
         {
-          "name": "pagesub/CinemaTicket/CinemaSeatSelect",
-          "pathName": "pagesub/CinemaTicket/CinemaSeatSelect",
-          "query": "showId=28660*2*15555*2021-10-28*551563180&cinemaName=%E7%99%BE%E8%80%81%E6%B1%87%E5%BD%B1%E5%9F%8E(%E4%B8%9C%E6%96%B9%E5%B9%BF%E5%9C%BA%E5%BA%97)",
+          "name": "RechargeStatus",
+          "pathName": "pages/balance/RechargeStatus",
+          "query": "",
           "scene": null
         }
       ]

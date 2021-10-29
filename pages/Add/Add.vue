@@ -22,6 +22,8 @@
 		    </view>
 		</uni-swipe-action>
 		
+		<view style="height: 120rpx;"></view>
+		
 		<view class="logistics-button-view">
 			<view class="logistics-button" @click="addto">
 				<image class="logistics-button-img" src="https://zhijianlw.com/static/web/img/icon_xm_09_15_02.png"></image>
@@ -201,7 +203,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 50rpx;
+	/* margin-top: 50rpx; */
+	    position: fixed;
+	    width: 100%;
+	    bottom: 20rpx;
 }
 .logistics-button{
 	display: flex;

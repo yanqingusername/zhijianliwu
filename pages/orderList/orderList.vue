@@ -633,7 +633,7 @@
 				console.log(data)
 				this.$utils.post(action, data).then(res => {
 					console.log('获取参数', res)
-					var serial_number = res.rs.serial_number;
+					// var serial_number = res.rs.serial_number;
 					let arr = [];
 
 					const date = {

@@ -38,7 +38,10 @@ page{
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	margin-top: 50rpx;
+	/* margin-top: 50rpx; */
+	    position: fixed;
+	    width: 100%;
+	    bottom: 20rpx;
 }
 .logistics-button{
 	display: -webkit-box;
