@@ -5,8 +5,8 @@
 		<view class="seatDemosBack" v-if="loadComplete">
 			<view class="seatDemos">
 				<block v-for="(seatTypeItem, index) in seatTypeList" :key="index">
-					<view class="seatDemo" v-if="seatTypeItem.isShow==='1' && seatTypeItem.position==='up'">
-						<image class="seatDemoItem" mode="widthFix" :src="seatTypeItem.icon"></image>
+					<view class="seatDemo">
+						<image class="seatDemoImg" mode="widthFix" :src="seatTypeItem.icon"></image>
 						<view class="seatDemoItem"> {{seatTypeItem.name}}</view>
 					</view>
 				</block>
@@ -21,14 +21,15 @@
 				<view class='seatArea'
 					:style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'">
 					<!--中轴线  -->
-					<view class='alignLine'></view>
+					<!-- <view class='alignLine'></view> -->
 					<view class='hallName'>
 						<text>{{hallName}}</text>
 					</view>
 					<view v-for="(item, index) in seatList" :key="id" class='seatTap' @click.stop='clickSeat'
 						:data-index='index'
-						:style="'left:'+((item.gCol-1)* seatScaleHeight)+'px;top:'+((item.gRow-1) * seatScaleHeight)+'px;width:'+seatScaleHeight+'px;height:'+seatScaleHeight+'px'">
+						:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;width:'+seatScaleHeight+'px;height:'+seatScaleHeight+'px'">
 						<image :src="item.nowIcon" class='normal' />
+						<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 					</view>
 				</view>
 			</movable-view>
@@ -38,18 +39,32 @@
 		<view class="css-bottom">
 			<view class="css-bottom-1">
 				<view class="css-bottom-1-1">
-					<view class="css-bottom-1-1-1">失控玩家</view>
-					<view class="css-bottom-1-1-2"><view class="css-bottom-1-1-2-1">切换场次</view><image class="css-bottom-1-1-2-2" src="https://zhijianlw.com/static/web/img/icon_css_back_2021_10_23.png"></image></view>
+					<view class="css-bottom-1-1-1">{{movieInfo.name}}</view>
+					<view class="css-bottom-1-1-2" @click="clickShow"><view class="css-bottom-1-1-2-1">切换场次</view><image class="css-bottom-1-1-2-2" :src="isShow ? 'https://zhijianlw.com/static/web/img/icon_css_back_2021_10_23_02.png':'https://zhijianlw.com/static/web/img/icon_css_back_2021_10_23.png'"></image></view>
 				</view>
-				<view class="css-bottom-1-1-2" style="margin-top: 16rpx;"><view class="css-bottom-1-2">今天</view><view class="css-bottom-1-3">09月22日 17:20-19:15 英语 3D</view></view>
+				<view class="css-bottom-1-1-2" style="margin-top: 16rpx;"><view class="css-bottom-1-2">{{showInfo.showTimeWeek}}</view><view class="css-bottom-1-3">{{showInfo.showTimeStr}} {{showInfo.showVersionType}}</view></view>
 			</view>
+			
+			<!-- 场次-->
+			<view class='selectSeatInfo' style="padding-left: 26rpx;padding-right: 26rpx;" v-if="isShow">
+				<scroll-view class="scrollTime" scroll-x="true">
+					<view style="display: flex;">
+						<view :class="item.isSelectTime == 1 ? 'scrollTimeItem' : 'scrollTimeItemDefault'" v-for="(item, index) in show_list" :key="index" @click='clickTimes' :data-showid="item.showId" :data-index="index">
+							<view class='scrollTimeTitle'>{{item.showTime}}</view>
+							<view class='scrollTimeContent'>{{item.showVersionType}}</view>
+							<view class='scrollTimePrice'>￥{{item.salePrice}}</view>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			
 			<view class='selectSeatInfo' style="padding-left: 26rpx;padding-right: 26rpx;" v-if="hidden!='hidden'">
 				<scroll-view class="scrollSeat" scroll-x="true">
 					<view style="display: flex;">
 					<!-- 普通座位 -->
 						<view class='scrollItem'v-for="(selectedSeatItem, index) in selectedSeat" :key="index" @click='clickSeat' :data-index='selectedSeatItem.orgIndex'>
 							<view class='scrollTextTop'>
-								{{selectedSeatItem.row}}排{{selectedSeatItem.col}}座
+								{{selectedSeatItem.seatNo}}
 							</view>
 							<view class='scrollTextBottom'>
 								￥{{selectedSeatItem.price}}
@@ -76,6 +91,7 @@
 					</view>
 				</scroll-view>
 			</view>
+			<view style="height: 110rpx;"></view>
 			<!-- 以下是确认选座 -->
 			<view class='css-bottom-comfirm'>
 				<view class='css-bottom-comfirm-1' @click='confirmHandle'>{{totalPrice}}元 确认选座</view>
@@ -101,1370 +117,28 @@
 				seatScaleHeight: '',
 				maxX: '',
 				maxY: '',
-				seatTypeList: [],
-				json: {
-					"errorCode": 0,
-					"errorMsg": "",
-					"name": "4号厅",
-					"seatList": [{
-							"id": "16879097",
-							"row": "1",
-							"col": "1",
-							"gRow": 1,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879101",
-							"row": "1",
-							"col": "4",
-							"gRow": 1,
-							"gCol": 8,
-							"type": "0-2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879104",
-							"row": "1",
-							"col": "7",
-							"gRow": 1,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879099",
-							"row": "1",
-							"col": "2",
-							"gRow": 1,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879102",
-							"row": "1",
-							"col": "5",
-							"gRow": 1,
-							"gCol": 9,
-							"type": "0-2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879105",
-							"row": "1",
-							"col": "8",
-							"gRow": 1,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879100",
-							"row": "1",
-							"col": "3",
-							"gRow": 1,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879103",
-							"row": "1",
-							"col": "6",
-							"gRow": 1,
-							"gCol": 10,
-							"type": "0-2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879107",
-							"row": "1",
-							"col": "9",
-							"gRow": 1,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879113",
-							"row": "2",
-							"col": "1",
-							"gRow": 2,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879117",
-							"row": "2",
-							"col": "4",
-							"gRow": 2,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879120",
-							"row": "2",
-							"col": "7",
-							"gRow": 2,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879124",
-							"row": "2",
-							"col": "10",
-							"gRow": 2,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879114",
-							"row": "2",
-							"col": "2",
-							"gRow": 2,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879118",
-							"row": "2",
-							"col": "5",
-							"gRow": 2,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879121",
-							"row": "2",
-							"col": "8",
-							"gRow": 2,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879125",
-							"row": "2",
-							"col": "11",
-							"gRow": 2,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879116",
-							"row": "2",
-							"col": "3",
-							"gRow": 2,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879119",
-							"row": "2",
-							"col": "6",
-							"gRow": 2,
-							"gCol": 9,
-							"type": "0-3",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879122",
-							"row": "2",
-							"col": "9",
-							"gRow": 2,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879142",
-							"row": "3",
-							"col": "13",
-							"gRow": 3,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879129",
-							"row": "3",
-							"col": "2",
-							"gRow": 3,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879133",
-							"row": "3",
-							"col": "5",
-							"gRow": 3,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879136",
-							"row": "3",
-							"col": "8",
-							"gRow": 3,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879139",
-							"row": "3",
-							"col": "11",
-							"gRow": 3,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879143",
-							"row": "3",
-							"col": "14",
-							"gRow": 3,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879130",
-							"row": "3",
-							"col": "3",
-							"gRow": 3,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879134",
-							"row": "3",
-							"col": "6",
-							"gRow": 3,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879137",
-							"row": "3",
-							"col": "9",
-							"gRow": 3,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879141",
-							"row": "3",
-							"col": "12",
-							"gRow": 3,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879144",
-							"row": "3",
-							"col": "15",
-							"gRow": 3,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879128",
-							"row": "3",
-							"col": "1",
-							"gRow": 3,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879131",
-							"row": "3",
-							"col": "4",
-							"gRow": 3,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879135",
-							"row": "3",
-							"col": "7",
-							"gRow": 3,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879138",
-							"row": "3",
-							"col": "10",
-							"gRow": 3,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879154",
-							"row": "4",
-							"col": "9",
-							"gRow": 4,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879145",
-							"row": "4",
-							"col": "1",
-							"gRow": 4,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879158",
-							"row": "4",
-							"col": "12",
-							"gRow": 4,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879148",
-							"row": "4",
-							"col": "4",
-							"gRow": 4,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879161",
-							"row": "4",
-							"col": "15",
-							"gRow": 4,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879152",
-							"row": "4",
-							"col": "7",
-							"gRow": 4,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879155",
-							"row": "4",
-							"col": "10",
-							"gRow": 4,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879146",
-							"row": "4",
-							"col": "2",
-							"gRow": 4,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879159",
-							"row": "4",
-							"col": "13",
-							"gRow": 4,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879150",
-							"row": "4",
-							"col": "5",
-							"gRow": 4,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879153",
-							"row": "4",
-							"col": "8",
-							"gRow": 4,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879156",
-							"row": "4",
-							"col": "11",
-							"gRow": 4,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879147",
-							"row": "4",
-							"col": "3",
-							"gRow": 4,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879160",
-							"row": "4",
-							"col": "14",
-							"gRow": 4,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879151",
-							"row": "4",
-							"col": "6",
-							"gRow": 4,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879164",
-							"row": "5",
-							"col": "3",
-							"gRow": 5,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879168",
-							"row": "5",
-							"col": "6",
-							"gRow": 5,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879171",
-							"row": "5",
-							"col": "9",
-							"gRow": 5,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879175",
-							"row": "5",
-							"col": "12",
-							"gRow": 5,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879178",
-							"row": "5",
-							"col": "15",
-							"gRow": 5,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879162",
-							"row": "5",
-							"col": "1",
-							"gRow": 5,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879165",
-							"row": "5",
-							"col": "4",
-							"gRow": 5,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879169",
-							"row": "5",
-							"col": "7",
-							"gRow": 5,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879172",
-							"row": "5",
-							"col": "10",
-							"gRow": 5,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879176",
-							"row": "5",
-							"col": "13",
-							"gRow": 5,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879163",
-							"row": "5",
-							"col": "2",
-							"gRow": 5,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879167",
-							"row": "5",
-							"col": "5",
-							"gRow": 5,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879170",
-							"row": "5",
-							"col": "8",
-							"gRow": 5,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879173",
-							"row": "5",
-							"col": "11",
-							"gRow": 5,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879177",
-							"row": "5",
-							"col": "14",
-							"gRow": 5,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879207",
-							"row": "6",
-							"col": "11",
-							"gRow": 7,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879211",
-							"row": "6",
-							"col": "14",
-							"gRow": 7,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879198",
-							"row": "6",
-							"col": "3",
-							"gRow": 7,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879202",
-							"row": "6",
-							"col": "6",
-							"gRow": 7,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879205",
-							"row": "6",
-							"col": "9",
-							"gRow": 7,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879209",
-							"row": "6",
-							"col": "12",
-							"gRow": 7,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879212",
-							"row": "6",
-							"col": "15",
-							"gRow": 7,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879196",
-							"row": "6",
-							"col": "1",
-							"gRow": 7,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879199",
-							"row": "6",
-							"col": "4",
-							"gRow": 7,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879203",
-							"row": "6",
-							"col": "7",
-							"gRow": 7,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879206",
-							"row": "6",
-							"col": "10",
-							"gRow": 7,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879210",
-							"row": "6",
-							"col": "13",
-							"gRow": 7,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879197",
-							"row": "6",
-							"col": "2",
-							"gRow": 7,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879201",
-							"row": "6",
-							"col": "5",
-							"gRow": 7,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879204",
-							"row": "6",
-							"col": "8",
-							"gRow": 7,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879220",
-							"row": "7",
-							"col": "7",
-							"gRow": 8,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879223",
-							"row": "7",
-							"col": "10",
-							"gRow": 8,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879214",
-							"row": "7",
-							"col": "2",
-							"gRow": 8,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879227",
-							"row": "7",
-							"col": "13",
-							"gRow": 8,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879218",
-							"row": "7",
-							"col": "5",
-							"gRow": 8,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879221",
-							"row": "7",
-							"col": "8",
-							"gRow": 8,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879224",
-							"row": "7",
-							"col": "11",
-							"gRow": 8,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879215",
-							"row": "7",
-							"col": "3",
-							"gRow": 8,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879228",
-							"row": "7",
-							"col": "14",
-							"gRow": 8,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879219",
-							"row": "7",
-							"col": "6",
-							"gRow": 8,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879222",
-							"row": "7",
-							"col": "9",
-							"gRow": 8,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879213",
-							"row": "7",
-							"col": "1",
-							"gRow": 8,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879226",
-							"row": "7",
-							"col": "12",
-							"gRow": 8,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879216",
-							"row": "7",
-							"col": "4",
-							"gRow": 8,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879229",
-							"row": "7",
-							"col": "15",
-							"gRow": 8,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879230",
-							"row": "8",
-							"col": "1",
-							"gRow": 9,
-							"gCol": 1,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879233",
-							"row": "8",
-							"col": "4",
-							"gRow": 9,
-							"gCol": 4,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879237",
-							"row": "8",
-							"col": "7",
-							"gRow": 9,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879240",
-							"row": "8",
-							"col": "10",
-							"gRow": 9,
-							"gCol": 11,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879244",
-							"row": "8",
-							"col": "13",
-							"gRow": 9,
-							"gCol": 15,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879231",
-							"row": "8",
-							"col": "2",
-							"gRow": 9,
-							"gCol": 2,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879235",
-							"row": "8",
-							"col": "5",
-							"gRow": 9,
-							"gCol": 6,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879238",
-							"row": "8",
-							"col": "8",
-							"gRow": 9,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879241",
-							"row": "8",
-							"col": "11",
-							"gRow": 9,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879245",
-							"row": "8",
-							"col": "14",
-							"gRow": 9,
-							"gCol": 16,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879232",
-							"row": "8",
-							"col": "3",
-							"gRow": 9,
-							"gCol": 3,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879236",
-							"row": "8",
-							"col": "6",
-							"gRow": 9,
-							"gCol": 7,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879239",
-							"row": "8",
-							"col": "9",
-							"gRow": 9,
-							"gCol": 10,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879243",
-							"row": "8",
-							"col": "12",
-							"gRow": 9,
-							"gCol": 14,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879246",
-							"row": "8",
-							"col": "15",
-							"gRow": 9,
-							"gCol": 17,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879256",
-							"row": "9",
-							"col": "9",
-							"gRow": 10,
-							"gCol": 10,
-							"type": "1",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879260",
-							"row": "9",
-							"col": "12",
-							"gRow": 10,
-							"gCol": 14,
-							"type": "1",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879263",
-							"row": "9",
-							"col": "15",
-							"gRow": 10,
-							"gCol": 17,
-							"type": "2-3",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879247",
-							"row": "9",
-							"col": "1",
-							"gRow": 10,
-							"gCol": 1,
-							"type": "1-2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879250",
-							"row": "9",
-							"col": "4",
-							"gRow": 10,
-							"gCol": 4,
-							"type": "2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879254",
-							"row": "9",
-							"col": "7",
-							"gRow": 10,
-							"gCol": 8,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879257",
-							"row": "9",
-							"col": "10",
-							"gRow": 10,
-							"gCol": 11,
-							"type": "2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879261",
-							"row": "9",
-							"col": "13",
-							"gRow": 10,
-							"gCol": 15,
-							"type": "2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879248",
-							"row": "9",
-							"col": "2",
-							"gRow": 10,
-							"gCol": 2,
-							"type": "2-2",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879252",
-							"row": "9",
-							"col": "5",
-							"gRow": 10,
-							"gCol": 6,
-							"type": "1",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879255",
-							"row": "9",
-							"col": "8",
-							"gRow": 10,
-							"gCol": 9,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879258",
-							"row": "9",
-							"col": "11",
-							"gRow": 10,
-							"gCol": 12,
-							"type": "0",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879262",
-							"row": "9",
-							"col": "14",
-							"gRow": 10,
-							"gCol": 16,
-							"type": "1-3",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879249",
-							"row": "9",
-							"col": "3",
-							"gRow": 10,
-							"gCol": 3,
-							"type": "1",
-							"flag": "0",
-							"price": "69"
-						},
-						{
-							"id": "16879253",
-							"row": "9",
-							"col": "6",
-							"gRow": 10,
-							"gCol": 7,
-							"type": "2",
-							"flag": "0",
-							"price": "69"
-						}
-					],
-					"seatTypeList": [{
-							"name": "可选",
-							"type": "0",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/BbbWyY5D/image.png",
-							"isShow": "1",
-							"position": "up"
-						},
-						{
-							"name": "已选",
-							"type": "0-1",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/1X2dd93h/image.png",
-							"isShow": "1",
-							"position": "up"
-						},
-						{
-							"name": "已售",
-							"type": "0-2",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/LXywzkds/image.png",
-							"isShow": "1",
-							"position": "up"
-						},
-						{
-							"name": "维修",
-							"type": "0-3",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/BZVRbCcY/image.png",
-							"isShow": "1",
-							"position": "up"
-						},
-						{
-							"name": "情侣首座可选",
-							"type": "1",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/bYVfbP8R/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣首座已选",
-							"type": "1-1",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/nrC5TsZG/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣首座已售",
-							"type": "1-2",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/8CS2DPBT/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣首座维修",
-							"type": "1-3",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/QMJRMG01/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣次座可选",
-							"type": "2",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/sxLFRYKL/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣次座已选",
-							"type": "2-1",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/nc68R1Xj/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣次座已售",
-							"type": "2-2",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/P5ZgB8D6/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣次座维修",
-							"type": "2-3",
-							"seats": 1,
-							"icon": "https://i.postimg.cc/3Jy5FqxQ/image.png",
-							"isShow": "0",
-							"position": "up"
-						},
-						{
-							"name": "情侣座",
-							"type": "5",
-							"seats": 2,
-							"icon": "https://i.postimg.cc/85kxJK03/image.png",
-							"isShow": "1",
-							"position": "up"
-						}
-					]
-				},
+				seatTypeList: [
+					{
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png',
+						"name": '可选'
+					},
+					{
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_01.png',
+						"name": '已选'
+					},
+					{
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png',
+						"name": '已售'
+					}
+				],
 				showId: '',
-				cinemaName: ''
+				cinemaName: '',
+				showSeatsList: [],
+				price:'0',
+				showInfo: '',
+				movieInfo: '',
+				isShow: '',
+				show_list:[]
 			}
 		},
 		onLoad: function(options) {
@@ -1482,67 +156,65 @@
 				},
 			})
 			
-			this.getFilmShowSeats();
+			// this.getFilmShowSeats();
 		},
 		onShow() {
-			uni.showLoading({
-				title: '加载中'
-			})
-			var that = this;
-			//---这此替换成自己的接口请求成功后--start--
-			let result = this.json;
-			wx.hideLoading();
-			if (result.errorCode == 0) {
-				let seatList = that.prosessSeatList(result);
-				that.hallName = result.name;
-				that.seatList = seatList;
-				that.seatTypeList = result.seatTypeList;
-				that.selectedSeat = [];
-				that.totalPrice = 0;
-				that.hidden = "hidden";
-				that.seatArea = that.seatArea;
-
-				console.log(that.seatTypeList)
-
-				setTimeout(function() {
-					uni.hideLoading()
-				}, 1000)
-				//计算X和Y坐标最大值
-				that.prosessMaxSeat(seatList);
-				//计算左侧座位栏的数组
-				that.seatToolArr()
-				//按每排生成座位数组对象
-				that.creatSeatMap()
-				//确认最佳坐标座位
-				that.creatBestSeat()
-			} else {
-				uni.hideLoading()
-				uni.showToast({
-					title: '获取座位图失败',
-					icon: 'none',
-					duration: 2000
-				})
-				setTimeout(function() {
-					uni.navigateBack({
-						delta: 1, // 回退前 delta(默认为1) 页面
-					})
-				}, 1000)
-			}
-			//---这此替换成自己的接口请求成功后--end--
+			this.getFilmShowSeats();
 		},
 		methods: {
 			getFilmShowSeats() {
-				let that = this;
+				uni.showLoading({
+					title: '加载中'
+				})
+				var that = this;
+				//---这此替换成自己的接口请求成功后--start--
 				let action = 'get_film_show_seats';
 				let controller = 'films';
 				let data = JSON.stringify({
 					showId: that.showId
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
+					// let result = this.json;
+					wx.hideLoading();
 					if (res.sta == 1) {
-						
+						that.price = res.rs.showInfo.salePrice;
+						that.showInfo = res.rs.showInfo;
+						that.movieInfo = res.rs.movieInfo;
+						let seatList = that.prosessSeatList(res.rs.seatsInfo.seats);
+						that.hallName = res.rs.showInfo.hallName;
+						that.seatList = seatList;
+						that.selectedSeat = [];
+						that.totalPrice = 0;
+						that.hidden = "hidden";
+						that.seatArea = that.seatArea;
+						that.show_list = res.rs.show_list;
+				
+						setTimeout(function() {
+							uni.hideLoading()
+						}, 1000)
+						//计算X和Y坐标最大值
+						that.prosessMaxSeat(seatList);
+						//计算左侧座位栏的数组
+						// that.seatToolArr()
+						//按每排生成座位数组对象
+						that.creatSeatMap()
+						//确认最佳坐标座位
+						that.creatBestSeat()
+					} else {
+						uni.hideLoading()
+						uni.showToast({
+							title: '获取座位图失败',
+							icon: 'none',
+							duration: 2000
+						})
+						setTimeout(function() {
+							uni.navigateBack({
+								delta: 1, // 回退前 delta(默认为1) 页面
+							})
+						}, 1000)
 					}
 				})
+				//---这此替换成自己的接口请求成功后--end--
 			},
 			//解决官方bug
 			handleScale: function(e) {
@@ -1556,57 +228,73 @@
 			/**
 			 * 顶级顶部返回按钮时候
 			 */
-			prosessSeatList: function(response) {
-				let resSeatList = response.seatList
+			prosessSeatList: function(seatList) {
+				let that = this;
+				let resSeatList = seatList
 				resSeatList.forEach(element => {
 					// 获取座位的类型的首字母
-					let firstNumber = element.type.substr(0, 1)
+					let firstNumber = element.loverSeat
 					// 在原来的对象中加入两个属性  otherLoveSeatIndex 对应情侣座位的原数组下标 otherLoveSeatId  对应情侣座位的Id
 					element.otherLoveSeatIndex = null
 					element.otherLoveSeatId = null
 					// 座位的类型的首字母为 '1' 是情侣首座 处理情侣首座位
-					if (firstNumber === '1') {
+					if (firstNumber === '1' || firstNumber === '2') {
 						for (const index in resSeatList) {
-							if (resSeatList[index].gRow === element.gRow &&
-								resSeatList[index].gCol === element.gCol + 1) {
+							if (resSeatList[index].rowNo === element.rowNo &&
+								resSeatList[index].columnNo === element.columnNo + 1) {
 								element.otherLoveSeatIndex = index
-								element.otherLoveSeatId = resSeatList[index].id
+								element.otherLoveSeatId = resSeatList[index].seatId
 							}
 						}
 					}
 					// 座位的类型的首字母为 '2' 是情侣次座 处理情侣次座位
-					if (firstNumber === '2') {
+					if (firstNumber === '0') {
 						for (const index in resSeatList) {
-							if (resSeatList[index].gRow === element.gRow &&
-								resSeatList[index].gCol === element.gCol - 1) {
+							if (resSeatList[index].rowNo === element.rowNo &&
+								resSeatList[index].columnNo === element.columnNo - 1) {
 								element.otherLoveSeatIndex = index
-								element.otherLoveSeatId = resSeatList[index].id
+								element.otherLoveSeatId = resSeatList[index].seatId
 							}
 						}
 					}
 					// 加载座位的图标
-					let seatType = response.seatTypeList;
-					for (const key in seatType) {
+					// let seatType = response.seatTypeList;
+					// for (const key in seatType) {
 						// 加载每个座位的初始图标defautIcon 和 当前图标 nowIcon
-						if (element.type === seatType[key].type) {
-							element.nowIcon = seatType[key].icon
-							element.defautIcon = seatType[key].icon
+						// if (element.type === seatType[key].type) {
+						// 	element.nowIcon = seatType[key].icon
+						// 	element.defautIcon = seatType[key].icon
+						// }
+						// // 根据首字母找到对应的被选中图标
+						// if (firstNumber + '-1' === seatType[key].type) {
+						// 	element.selectedIcon = seatType[key].icon
+						// }
+						// // 根据首字母找到对应的被选中图标
+						// if (firstNumber + '-2' === seatType[key].type) {
+						// 	element.soldedIcon = seatType[key].icon
+						// }
+						// // 根据首字母找到对应的被选中图标
+						// if (firstNumber + '-3' === seatType[key].type) {
+						// 	element.fixIcon = seatType[key].icon
+						// }
+					// }
+					
+					
+					element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
+					element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
+					
+						element.selectedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_01.png';
+						element.soldedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
+						
+						if (element.status == 'LK') {
+							element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
+							element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
+							
 						}
-						// 根据首字母找到对应的被选中图标
-						if (firstNumber + '-1' === seatType[key].type) {
-							element.selectedIcon = seatType[key].icon
-						}
-						// 根据首字母找到对应的被选中图标
-						if (firstNumber + '-2' === seatType[key].type) {
-							element.soldedIcon = seatType[key].icon
-						}
-						// 根据首字母找到对应的被选中图标
-						if (firstNumber + '-3' === seatType[key].type) {
-							element.fixIcon = seatType[key].icon
-						}
-					}
+						element.price = that.price
+					
 					// 如果座位是已经售出 和 维修座位 加入属性canClick 判断座位是否可以点击
-					if (element.defautIcon === element.soldedIcon || element.defautIcon === element.fixIcon) {
+					if (element.status == 'LK') {
 						element.canClick = false
 					} else {
 						element.canClick = true
@@ -1619,14 +307,14 @@
 				let seatList = value
 				let maxY = 0;
 				for (let i = 0; i < seatList.length; i++) {
-					let tempY = seatList[i].gRow;
+					let tempY = seatList[i].rowNo;
 					if (parseInt(tempY) > parseInt(maxY)) {
 						maxY = tempY;
 					}
 				}
 				let maxX = 0;
 				for (var i = 0; i < seatList.length; i++) {
-					var tempX = seatList[i].gCol;
+					var tempX = seatList[i].columnNo;
 					if (parseInt(tempX) > parseInt(maxX)) {
 						maxX = tempX;
 					}
@@ -1661,7 +349,7 @@
 				for (let i = 1; i <= yMax; i++) {
 					let el = ''
 					for (let j = 0; j < seatList.length; j++) {
-						if (parseInt(seatList[j].gRow) === i) {
+						if (parseInt(seatList[j].rowNo) === i) {
 							el = seatList[j].row
 						}
 					}
@@ -1691,7 +379,7 @@
 				let _selectedSeatList = this.selectedSeat
 				let totalPrice = 0
 				for (const key in _selectedSeatList) {
-					let price = parseInt(_selectedSeatList[key].price);
+					let price = parseFloat(_selectedSeatList[key].price);
 					totalPrice += price;
 				}
 				this.totalPrice = totalPrice
@@ -1708,13 +396,13 @@
 					seatList[otherLoveSeatIndex].nowIcon = seatList[otherLoveSeatIndex].defautIcon
 					for (const key in _selectedSeatList) {
 						// 移除id一样的座位
-						if (_selectedSeatList[key].id === seatList[index].id) {
+						if (_selectedSeatList[key].seatId === seatList[index].seatId) {
 							_selectedSeatList.splice(key, 1)
 						}
 					}
 					// 移除对应情侣座位
 					for (const key in _selectedSeatList) {
-						if (_selectedSeatList[key].id === seatList[otherLoveSeatIndex].id) {
+						if (_selectedSeatList[key].seatId === seatList[otherLoveSeatIndex].seatId) {
 							_selectedSeatList.splice(key, 1)
 						}
 					}
@@ -1722,7 +410,7 @@
 					// 改变这些座位的图标为初始图标 并 移除id一样的座位
 					seatList[index].nowIcon = seatList[index].defautIcon
 					for (const key in _selectedSeatList) {
-						if (_selectedSeatList[key].id === seatList[index].id) {
+						if (_selectedSeatList[key].seatId === seatList[index].seatId) {
 							_selectedSeatList.splice(key, 1)
 						}
 					}
@@ -1827,8 +515,8 @@
 				// 标准为 1.左右侧都必须保留 两格座位 + 最大顺延座位(也就是已选座位减去自身)
 				// 2.靠墙和靠已售的座位一律直接通过
 				const checkNum = 2 + selectedSeat.length - 1
-				const gRowBasic = element.gRow
-				const gColBasic = element.gCol
+				const gRowBasic = element.rowNo
+				const gColBasic = element.columnNo
 				let otherLoveSeatIndex = element.otherLoveSeatIndex
 				if (otherLoveSeatIndex != null) {
 					// 如果是情侣座 不检测
@@ -1863,11 +551,11 @@
 					let iter // 根据 gRow gCol direction 找出检查座位左边按顺序排列的checkNum
 					if (direction === '-') {
 						iter = this.seatList.find(function(el) {
-							return el.gRow === gRowBasic && el.gCol === gColBasic - i
+							return el.rowNo === gRowBasic && el.columnNo === gColBasic - i
 						})
 					} else if (direction === '+') {
 						iter = this.seatList.find(function(el) {
-							return el.gRow === gRowBasic && el.gCol === gColBasic + i
+							return el.rowNo === gRowBasic && el.columnNo === gColBasic + i
 						})
 					}
 					if (x === i) {
@@ -1881,7 +569,7 @@
 						}
 						let checkSelect = false
 						for (const index in selectedSeat) {
-							if (selectedSeat[index].id === iter.id) {
+							if (selectedSeat[index].seatId === iter.seatId) {
 								// 已选 顺延一位
 								x++
 								checkSelect = true
@@ -1903,7 +591,7 @@
 						}
 						let checkSelect = false
 						for (const index in selectedSeat) {
-							if (selectedSeat[index].id === iter.id) {
+							if (selectedSeat[index].seatId === iter.seatId) {
 								return 'fail'
 							}
 						}
@@ -1923,16 +611,21 @@
 				let selectSeatInfo = _this.selectedSeat;
 				if (selectSeatInfo) {
 					for (var i = 0; i < selectSeatInfo.length; i++) {
-						seatIds.push(selectSeatInfo[i].id);
+						seatIds.push(selectSeatInfo[i].seatId);
 					}
 				}
-				//这里编写开始创建订单逻辑
-				uni.showToast({
-					title: '这里编写开始创建订单逻辑~',
-					icon: 'none',
-					duration: 2000
-				})
-				return
+				
+				let seatId = seatIds.join(",");
+				console.log('---->:',seatId)
+				// var data = JSON.stringify({
+				// 	showId: _this.showId,
+				// 	seatIds: seatId
+				// }); 
+				// var action = 'get_film_movie_order_check';
+				// let controller = 'films';
+				// this.$utils.postNew(action, data, controller).then(res => {
+					
+				// });
 			},
 			//生成最佳座位
 			creatBestSeat: function() {
@@ -1949,7 +642,7 @@
 				let seatList = this.seatList
 				var obj = {}
 				for (let index in seatList) {
-					let seatRowList = seatList[index].gRow
+					let seatRowList = seatList[index].rowNo
 					if (seatRowList in obj) {
 						// 原本数组下标
 						seatList[index].orgIndex = index
@@ -1998,14 +691,14 @@
 				bestSeatList.reduce(function(prev, cur, index, arr) {
 					if (Array.isArray(prev)) {
 						// 取中心点离 最好坐标 绝对值
-						let n = Math.abs((prev[0].gCol + prev[value - 1].gCol) / 2 - _self.bestX)
-						let m = Math.abs(prev[0].gRow - _self.bestY)
+						let n = Math.abs((prev[0].columnNo + prev[value - 1].columnNo) / 2 - _self.bestX)
+						let m = Math.abs(prev[0].rowNo - _self.bestY)
 						// 勾股定理
 						prev = Math.sqrt(Math.pow(n, 2) + Math.pow(m, 2))
 					}
 					// 取中心点离 最好坐标 绝对值
-					let x = Math.abs((cur[0].gCol + cur[value - 1].gCol) / 2 - _self.bestX)
-					let y = Math.abs(cur[0].gRow - _self.bestY)
+					let x = Math.abs((cur[0].columnNo + cur[value - 1].columnNo) / 2 - _self.bestX)
+					let y = Math.abs(cur[0].rowNo - _self.bestY)
 					// 勾股定理
 					let z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
 					if (z >= prev) {
@@ -2022,7 +715,7 @@
 					if (iterator.otherLoveSeatId !== null) {
 						let checkFor = false
 						for (const item of notEmitSeatArr) {
-							if (iterator.id === item) {
+							if (iterator.seatId === item) {
 								// 情侣座的另外一半不发送事件
 								checkFor = true
 								break
@@ -2038,7 +731,7 @@
 				let _selectedSeatList = _self.selectedSeat
 				let totalPrice = 0
 				for (const key in _selectedSeatList) {
-					let price = parseInt(_selectedSeatList[key].price);
+					let price = parseFloat(_selectedSeatList[key].price);
 					totalPrice += price;
 				}
 				this.totalPrice = totalPrice
@@ -2060,7 +753,7 @@
 				}
 				// 如果这排中 不包含最佳座位 但是左右两侧都有满足座位数 取离中心点近的方向座位数组
 				if (effectiveSeatLeft.length === value && effectiveSeatRight.length === value) {
-					return Math.abs(effectiveSeatLeft[0].gCol - this.bestX) > Math.abs(effectiveSeatRight[0].gCol -
+					return Math.abs(effectiveSeatLeft[0].columnNo - this.bestX) > Math.abs(effectiveSeatRight[0].columnNo -
 						this.bestX) ? effectiveSeatRight : effectiveSeatLeft
 				} else {
 					// 否则 返回 左右两侧 某一侧满足的座位数组
@@ -2088,7 +781,7 @@
 				// 最佳座位根据快速选择座位数 取左右两边正负座位数
 				for (let j = -activeValue; j <= activeValue; j++) {
 					// 确认最佳座位状态
-					let iter = rowSeatList.find((el) => (parseInt(el.gCol) === this.bestX + j))
+					let iter = rowSeatList.find((el) => (parseInt(el.columnNo) === this.bestX + j))
 					// 最佳座位
 					if (iter === undefined) {
 						break
@@ -2147,9 +840,9 @@
 				for (let j = 0; j < activeValue; j++) {
 					let iter
 					if (direction === '-') {
-						iter = rowSeatList.find((el) => (parseInt(el.gCol) === this.bestX - j))
+						iter = rowSeatList.find((el) => (parseInt(el.columnNo) === this.bestX - j))
 					} else if (direction === '+') {
-						iter = rowSeatList.find((el) => (parseInt(el.gCol) === this.bestX + j))
+						iter = rowSeatList.find((el) => (parseInt(el.columnNo) === this.bestX + j))
 					}
 					if (iter === undefined) {
 						activeValue++
@@ -2194,7 +887,7 @@
 				var orgSet = new Set()
 				var loveSeatSet = new Set()
 				for (const iterator of arr) {
-					orgSet.add(iterator.id)
+					orgSet.add(iterator.seatId)
 				}
 				for (const iterator of arr) {
 					if (iterator.otherLoveSeatId !== null) {
@@ -2214,6 +907,15 @@
 				})
 				// 开始计算是否留下空位 ------------ 结束
 				return !result
+			},
+			clickShow(){
+				this.isShow = !this.isShow;
+			},
+			clickTimes(e){
+				let showId = e.currentTarget.dataset.showid;
+				this.showId = showId;
+				this.isShow = false
+				this.getFilmShowSeats();
 			}
 		}
 	}
@@ -2271,7 +973,7 @@
 		background: #F6F6F6;
 		position: relative;
 		margin: 0 auto;
-		width: 80%;
+		width: 45%;
 		box-sizing: border-box;
 		font-size: 25rpx;
 		height: 70rpx;
@@ -2334,8 +1036,13 @@
 	}
 
 	.seatDemo image {
-		width: 45rpx;
-		height: 45rpx;
+		width: 26rpx;
+		height: 26rpx;
+	}
+
+	.seatDemoImg{
+		width: 26rpx;
+		height: 26rpx;
 	}
 
 	/*
@@ -2344,8 +1051,10 @@
 
 	.seatDemoItem {
 		white-space: nowrap;
-		width: 45rpx;
+		margin-left: 10rpx;
 		display: block;
+		font-size: 24rpx;
+		color: #333333;
 	}
 
 	/*
@@ -2370,13 +1079,13 @@
 	*/
 
 	.hallName {
-		width: 200rpx;
+		width: 100%;
 		height: 0;
-		border-top: 40rpx solid #ccc;
+		border-top: 40rpx solid #F6F6F6;
 		border-right: 20rpx solid transparent;
 		border-left: 20rpx solid transparent;
 		line-height: 30rpx;
-		color: white;
+		/* color: white; */
 		position: absolute;
 		top: -70rpx;
 		z-index: 2;
@@ -2390,11 +1099,12 @@
 	*/
 
 	.hallName text {
-		font-size: 20rpx;
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
 		top: -35rpx;
+		font-size: 24rpx;
+		color: #999999;
 	}
 
 	/*
@@ -2447,6 +1157,7 @@
 
 	.seatTap {
 		position: absolute;
+		padding: 4rpx;
 	}
 
 	/*
@@ -3033,7 +1744,7 @@
 	
 	.css-bottom{
 		width: 750rpx;
-		height: 394rpx;
+		/* height: 394rpx; */
 		background: #FFFFFF;
 		border-radius: 20rpx 20rpx 0px 0px;
 		position: fixed;
@@ -3103,4 +1814,49 @@
 		color: #FFFFFF;
 	}
 	
+	.scrollTime{
+		height: 110rpx !important;
+	}
+	.scrollTimeItem {
+		border: 1px solid #DB3C3A;
+		    width: 100rpx;
+		    display: flex;
+		    margin-right: 20rpx;
+		    position: relative;
+		    height: 110rpx;
+		    background: #FFFFFF;
+		    border-radius: 10rpx;
+		    justify-content: center;
+		    align-items: center;
+		    flex-direction: column;
+		    /* padding-left: 20rpx; */
+	}
+	.scrollTimeItemDefault{
+		border: 1px solid #666666;
+		    width: 100rpx;
+		    display: flex;
+		    margin-right: 20rpx;
+		    position: relative;
+		    height: 110rpx;
+		    background: #FFFFFF;
+		    border-radius: 10rpx;
+		    justify-content: center;
+		    align-items: center;
+		    flex-direction: column;
+	}
+	.scrollTimeTitle{
+		font-size: 22rpx;
+		font-weight: bold;
+		    color: #333333;
+	}
+	.scrollTimeContent{
+		font-size: 20rpx;
+		    margin-top: 4rpx;
+		    color: #666666;
+	}
+	.scrollTimePrice{
+		    font-size: 22rpx;
+			margin-top: 4rpx;
+		    color: #DB3C3A;
+	}
 </style>

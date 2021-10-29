@@ -318,7 +318,7 @@ swiper-item {
 .cd-item-left-2-1{
 	font-size: 18rpx;
 	color: #999999;
-	width: 134rpx;
+	min-width: 90rpx;
 }
 .cd-item-left-2-2{
 	font-size: 18rpx;

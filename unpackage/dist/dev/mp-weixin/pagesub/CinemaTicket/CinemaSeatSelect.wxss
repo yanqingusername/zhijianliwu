@@ -45,7 +45,7 @@ page {
 	background: #F6F6F6;
 	position: relative;
 	margin: 0 auto;
-	width: 80%;
+	width: 45%;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 	font-size: 25rpx;
@@ -113,8 +113,12 @@ page {
 	margin-left: 10rpx;
 }
 .seatDemo image {
-	width: 45rpx;
-	height: 45rpx;
+	width: 26rpx;
+	height: 26rpx;
+}
+.seatDemoImg{
+	width: 26rpx;
+	height: 26rpx;
 }
 
 /*
@@ -122,8 +126,10 @@ page {
 */
 .seatDemoItem {
 	white-space: nowrap;
-	width: 45rpx;
+	margin-left: 10rpx;
 	display: block;
+	font-size: 24rpx;
+	color: #333333;
 }
 
 /*
@@ -149,13 +155,13 @@ page {
 *影厅图上方显示影厅名字区域
 */
 .hallName {
-	width: 200rpx;
+	width: 100%;
 	height: 0;
-	border-top: 40rpx solid #ccc;
+	border-top: 40rpx solid #F6F6F6;
 	border-right: 20rpx solid transparent;
 	border-left: 20rpx solid transparent;
 	line-height: 30rpx;
-	color: white;
+	/* color: white; */
 	position: absolute;
 	top: -70rpx;
 	z-index: 2;
@@ -169,12 +175,13 @@ page {
 *影厅图上方显示影厅名字区域字体样式
 */
 .hallName text {
-	font-size: 20rpx;
 	position: absolute;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
 	        transform: translateX(-50%);
 	top: -35rpx;
+	font-size: 24rpx;
+	color: #999999;
 }
 
 /*
@@ -223,6 +230,7 @@ page {
 */
 .seatTap {
 	position: absolute;
+	padding: 4rpx;
 }
 
 /*
@@ -776,7 +784,7 @@ movable-area {
 }
 .css-bottom{
 	width: 750rpx;
-	height: 394rpx;
+	/* height: 394rpx; */
 	background: #FFFFFF;
 	border-radius: 20rpx 20rpx 0px 0px;
 	position: fixed;
@@ -877,5 +885,67 @@ movable-area {
 	font-weight: bold;
 	color: #FFFFFF;
 }
-
+.scrollTime{
+	height: 110rpx !important;
+}
+.scrollTimeItem {
+	border: 1px solid #DB3C3A;
+	    width: 100rpx;
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: flex;
+	    margin-right: 20rpx;
+	    position: relative;
+	    height: 110rpx;
+	    background: #FFFFFF;
+	    border-radius: 10rpx;
+	    -webkit-box-pack: center;
+	    -webkit-justify-content: center;
+	            justify-content: center;
+	    -webkit-box-align: center;
+	    -webkit-align-items: center;
+	            align-items: center;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-direction: normal;
+	    -webkit-flex-direction: column;
+	            flex-direction: column;
+	    /* padding-left: 20rpx; */
+}
+.scrollTimeItemDefault{
+	border: 1px solid #666666;
+	    width: 100rpx;
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: flex;
+	    margin-right: 20rpx;
+	    position: relative;
+	    height: 110rpx;
+	    background: #FFFFFF;
+	    border-radius: 10rpx;
+	    -webkit-box-pack: center;
+	    -webkit-justify-content: center;
+	            justify-content: center;
+	    -webkit-box-align: center;
+	    -webkit-align-items: center;
+	            align-items: center;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-direction: normal;
+	    -webkit-flex-direction: column;
+	            flex-direction: column;
+}
+.scrollTimeTitle{
+	font-size: 22rpx;
+	font-weight: bold;
+	    color: #333333;
+}
+.scrollTimeContent{
+	font-size: 20rpx;
+	    margin-top: 4rpx;
+	    color: #666666;
+}
+.scrollTimePrice{
+	    font-size: 22rpx;
+		margin-top: 4rpx;
+	    color: #DB3C3A;
+}
 

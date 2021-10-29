@@ -33,7 +33,7 @@
 			</view>
 			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text class="cd-b-2">{{movieInfo.grade}}</text></view>
 			<view class="cd-c-view">
-				<view class="cd-c">{{movieInfo.duration}} | {{movieInfo.filmTypes}} | {{movieInfo.cast}}{{'  >'}}</view>
+				<view class="cd-c"><text v-if="movieInfo.duration">{{movieInfo.duration}}</text><text v-if="movieInfo.filmTypes"> | {{movieInfo.filmTypes}}</text><text v-if="movieInfo.cast"> | {{movieInfo.cast}}</text><text style="margin-left: 10rpx;">{{'>'}}</text></view>
 			</view>
 			<view style="height: 30rpx;"></view>
 			
@@ -97,11 +97,16 @@
 			this.date = options.date;
 			this.movieId = options.movieId;
 			
-			this.getFilmCinemaMovies();
-			this.getFilmShowList();
+			if(this.movieId && this.date){
+				this.getFilmCinemaMovies(1);
+				this.getFilmShowList();
+			}else{
+				this.getFilmCinemaMovies(2);
+			}
+			
 		},
 		methods: {
-			getFilmCinemaMovies() {
+			getFilmCinemaMovies(typeNumber) {
 				let that = this;
 				let action = 'get_film_cinema_movies';
 				let controller = 'films';
@@ -112,12 +117,23 @@
 					if (res.sta == 1) {
 						that.cinemaInfo = res.rs.cinemaInfo;
 						that.moviesList = res.rs.movies;
-						
-						for (let i in that.moviesList) {
-							if (that.moviesList[i].movieId == that.movieId) {
-								that.movieId = that.moviesList[i].movieId;
-								that.swiperCurrentIndex = i;
-								that.movieInfo = that.moviesList[i];
+						if(typeNumber == 1){
+							if(that.moviesList.length > 0){
+								for (let i in that.moviesList) {
+									if (that.moviesList[i].movieId == that.movieId) {
+										that.movieId = that.moviesList[i].movieId;
+										that.swiperCurrentIndex = i;
+										that.movieInfo = that.moviesList[i];
+									}
+								}
+							}
+						}else{
+							if(that.moviesList.length > 0){
+								that.movieId = that.moviesList[0].movieId;
+								that.swiperCurrentIndex = 0;
+								that.movieInfo = that.moviesList[0];
+								that.date = that.moviesList[0].publishDate;
+								that.getFilmShowList();
 							}
 						}
 					}
@@ -432,7 +448,7 @@
 	.cd-item-left-2-1{
 		font-size: 18rpx;
 		color: #999999;
-		width: 134rpx;
+		min-width: 90rpx;
 	}
 	.cd-item-left-2-2{
 		font-size: 18rpx;

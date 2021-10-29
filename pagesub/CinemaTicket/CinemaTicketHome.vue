@@ -90,8 +90,8 @@
 			<view v-if="tabNumber == 0 || tabNumber == 1" style="padding: 16rpx 26rpx 20rpx 26rpx; margin-top: 0rpx;position: relative;display: flex;align-items: center;justify-content: center;">
 				<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
 					<swiper-item v-for="(item,index) in swiper" :key="index">
-						<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
-						@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
+						<image lazy-load="true" class="own-swiper-img" :src="item.img" 
+						 mode="widthFix"></image>
 					</swiper-item>
 				</swiper>
 				<view class="indicator-view" v-if="swiper.length>0">
@@ -122,7 +122,7 @@
 			</view>
 			
 			<view v-if="tabNumber == 1" class="cth-b" v-for="(item,index) in cthList" :key="index">
-				<view class="cth-b-bg">
+				<view class="cth-b-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
 					<image class="cth-b-bg-1" :src="item.pic"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
@@ -197,7 +197,8 @@
 				</view> -->
 				
 				<view class="cth-c-item" v-if="FilmCinemaList.length > 0" v-for="(item,index) in FilmCinemaList" :key="index">
-					<view class="cth-c-bg">
+																								<!-- +'&date=2021-10-29'+'&movieId=28764' -->
+					<view class="cth-c-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaDetails?cinemaid=' + item.cinemaId">
 						<view class="cth-c-bg-view">
 							<view class="cth-c-bg-1">{{item.cinemaName}}</view>
 							<view class="cth-c-bg-2">
@@ -271,8 +272,9 @@
 			let that = this;
 			// 轮播图
 			var data = JSON.stringify({a:0}); 
-			var action = 'get_banner';
-			this.$utils.post(action, data).then(res => {
+			var action = 'get_film_atlas';
+			let controller = 'filmset';
+			this.$utils.postNew(action, data, controller).then(res => {
 				console.log("轮播图：",res);
 				this.swiper = res.rs;
 			});
@@ -500,6 +502,11 @@
 						that.getFilmCinemaList(1);
 					}
 				});
+			},
+			clickMyOrder(){
+				uni.navigateTo({
+					url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+				})
 			}
 		},
 		onPullDownRefresh:function(){
