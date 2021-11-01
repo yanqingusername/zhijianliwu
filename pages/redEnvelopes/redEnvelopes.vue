@@ -202,32 +202,32 @@
 			})
 
 			//获取旧的礼包信息，主要是获取领取人信息
-			let old_cardbag_number = e.old_cardbag_number
-			let data1 = JSON.stringify({
-				cardbag_number: old_cardbag_number,
-				cardbag_detail_id: "0",
-				merberid: memberid
-			})
-			var action1 = "get_cardbag_detail";
-			this.$utils.post(action1, data1).then(res => {
-				if(res.sta == 1){
-					console.log('礼包信息')
-					console.log(res)
-					this.cardbag_in_people = res.cardbag_in_people
-					this.cardbag = res.cardbag
-					this.cardbag_theme = res.cardbag_theme
-					this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
-					this.price=res.cardbag.price
-					this.receive_info = res.receive_info
-					if (res.cardbag_theme.zhufu_type == "1") {
-						this.gift = '1'
-					} else if (res.cardbag_theme.zhufu_type == "0") {
-						this.gift = '0'
-					} else {
-						this.gift = '2'
-					}
-				}
-			})
+			// let old_cardbag_number = e.old_cardbag_number
+			// let data1 = JSON.stringify({
+			// 	cardbag_number: old_cardbag_number,
+			// 	cardbag_detail_id: "0",
+			// 	merberid: memberid
+			// })
+			// var action1 = "get_cardbag_detail";
+			// this.$utils.post(action1, data1).then(res => {
+			// 	if(res.sta == 1){
+			// 		console.log('礼包信息')
+			// 		console.log(res)
+			// 		this.cardbag_in_people = res.cardbag_in_people
+			// 		this.cardbag = res.cardbag
+			// 		this.cardbag_theme = res.cardbag_theme
+			// 		this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
+			// 		this.price=res.cardbag.price
+			// 		this.receive_info = res.receive_info
+			// 		if (res.cardbag_theme.zhufu_type == "1") {
+			// 			this.gift = '1'
+			// 		} else if (res.cardbag_theme.zhufu_type == "0") {
+			// 			this.gift = '0'
+			// 		} else {
+			// 			this.gift = '2'
+			// 		}
+			// 	}
+			// })
 			
 			let data2 = JSON.stringify({
 				cardbag_number: cardbag_number,

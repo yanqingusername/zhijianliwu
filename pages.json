@@ -486,8 +486,10 @@
 		{
 		    "path" : "pages/shopping/shop",
 		    "style" : {
-				"navigationBarTitleText":"购物车",
-				"navigationStyle":"custom"
+				"navigationBarTitleText":"",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#EB1616"
+				// "navigationStyle":"custom"
 			}
 		}
         ,{

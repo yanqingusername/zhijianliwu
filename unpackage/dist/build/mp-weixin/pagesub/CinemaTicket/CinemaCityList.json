@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "城市列表",
+  "usingComponents": {
+    "uniindexedlist": "/components/uni-indexed-list/uni-indexed-list"
+  }
+}

@@ -253,7 +253,7 @@
 			<!-- 礼篮 -->
 			<view class="details-alt-logo lilan" style="margin: 0;padding: 0;" @click="lilan">
 				<!-- <image class="img" :src="$utils.osspath_url('/xcx-static/details/add.png')" mode=""></image> -->
-				<image class="new-img" src="../../static/lilan.png" mode="widthFix"></image>
+				<image class="new-img" src="https://zhijianlw.com/static/web/img/lilan.png" mode="widthFix"></image>
 			</view>
 			<!-- 求礼物 -->
 			<view class="details-alt-logo gifts" style="margin: 0;padding: 0;">

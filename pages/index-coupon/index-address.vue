@@ -7,7 +7,7 @@
 		</view>
 
 		<view class="addre" v-else @click="choiceAddress">
-			<view class="text">选择地址</view>
+			<view class="text-day">选择地址</view>
 			<text class="icon icon-z-right"></text>
 		</view>
 
@@ -49,9 +49,10 @@
 					<text class="day">配送</text>
 					<text class="date">{{'预计3-5天送达'}}</text>
 				</view>
-				<view class="liuyan">
-					<text class="say">给商家留言</text>
-					<textarea class="message" type="text" v-if="showInput" v-model="remark" placeholder="选填，可备注联系人，备用电话，订单说明等" ></textarea>
+				<view class="apply-refund-view">
+					<view class="say" style="font-weight: bold;margin-bottom: 20rpx;margin-left: 12rpx;">给商家留言</view>				
+					<!-- <view class="message-text"><textarea class="message" type="text" v-if="showInput" v-model="remark" placeholder="选填，可备注联系人，备用电话，订单说明等" ></textarea></view>				 -->
+					<view class="apply-refund-text"><textarea maxlength="100" type="text" v-if="showInput" v-model="remark" placeholder="留言选填，可备注联系人、备用电话、订单说明等；" /></view>	
 				</view>
 			</view>
 		</view>
@@ -193,6 +194,9 @@
 </script>
 
 <style>
+	page{
+		background: #FAFAFA;
+	}
 	.address{
 		padding-bottom: 110rpx;
 	}
@@ -211,6 +215,7 @@
 		right: 32rpx;
 		top: 50%;
 		transform: translateY(-50%);
+		margin-top: 2rpx;
 	}
 
 	.phone {
@@ -225,6 +230,12 @@
 		font-size: 26rpx;
 		color: #666;
 		line-height: 1.8em;
+	}
+	
+	.text-day{
+		font-weight: bold;
+		color: #333;
+		font-size: 30rpx;
 	}
 
 	.a-tea {
@@ -321,8 +332,8 @@
 		font-size: 24rpx;
 		color: #666;
 	}
-
-	.message {
+	
+	.message-text{
 		font-size: 24rpx;
 		color: #999;
 		width: 80%;
@@ -330,9 +341,37 @@
 		/* text-align: right; */
 		display: inline-block;
 		align-items: baseline;
-		margin-left: 40rpx;
-		height: 40rpx;
+		/* margin-left: 40rpx; */
+		height: 84rpx;
 	}
+
+	.message {
+		font-size: 24rpx;
+		color: #999;
+		width: 100%;
+		flex: 1;
+		/* text-align: right; */
+		display: inline-block;
+		align-items: baseline;
+		height: 84rpx;
+	}
+	
+	.apply-refund-view{
+			
+			margin-top: 0rpx;
+		}
+	.apply-refund-text{
+		width: 700rpx;
+		height: 175rpx;
+		background: #FAFAFA;
+		border-radius: 6rpx;
+			padding: 24rpx 12rpx;
+		}
+		.apply-refund-text textarea{
+			font-size: 26rpx;
+			color: #AAAAAA;
+			height: 175rpx;
+		}
 
 	.button {
 		position: fixed;

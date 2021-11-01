@@ -47,6 +47,12 @@
           "pathName": "pages/balance/RechargeStatus",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index-coupon/index-address",
+          "pathName": "pages/index-coupon/index-address",
+          "query": "",
+          "scene": null
         }
       ]
     }

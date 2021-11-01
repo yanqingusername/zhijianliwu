@@ -3,7 +3,7 @@
 		<view class="cths-a">
 			<image class="cths-a-img" src="https://zhijianlw.com/static/web/img/icon_success_2021_10_21.png"></image>
 			<view class="cths-a-title">购票成功</view>
-			<view class="cths-a-text">失控玩家(2张)</view>
+			<view class="cths-a-text">{{movieName}}({{quantity}}张)</view>
 			<view class="cths-a-view">
 				<view class="cths-a-view-left">返回首页</view>
 				<view class="cths-a-view-right" @click="clickOrderDetail">查看电影票</view>
@@ -16,12 +16,14 @@
 	export default {
 		data() {
 			return {
-				
+				quantity:'',
+				movieName: ''
 			}
 		},
 		onLoad:function(options){
 			let that = this;
-			
+			this.quantity = options.quantity;
+			this.movieName = options.movieName;
 			
 		},
 		methods: {

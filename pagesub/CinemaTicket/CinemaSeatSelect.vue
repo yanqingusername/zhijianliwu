@@ -143,7 +143,7 @@
 				movieInfo: '',
 				isShow: '',
 				show_list:[],
-				areaLift: [1,2,3,4,5,6,7,8,9]
+				areaLift: []
 			}
 		},
 		onLoad: function(options) {
@@ -182,29 +182,48 @@
 					// let result = this.json;
 					wx.hideLoading();
 					if (res.sta == 1) {
-						that.price = res.rs.showInfo.salePrice;
-						that.showInfo = res.rs.showInfo;
-						that.movieInfo = res.rs.movieInfo;
-						let seatList = that.prosessSeatList(res.rs.seatsInfo.seats);
-						that.hallName = res.rs.showInfo.hallName;
-						that.seatList = seatList;
-						that.selectedSeat = [];
-						that.totalPrice = 0;
-						that.hidden = "hidden";
-						that.seatArea = that.seatArea;
-						that.show_list = res.rs.show_list;
-				
-						setTimeout(function() {
-							uni.hideLoading()
-						}, 1000)
-						//计算X和Y坐标最大值
-						that.prosessMaxSeat(seatList);
-						//计算左侧座位栏的数组
-						// that.seatToolArr()
-						//按每排生成座位数组对象
-						that.creatSeatMap()
-						//确认最佳坐标座位
-						that.creatBestSeat()
+						if(res.rs && res.rs.showInfo){
+							that.price = res.rs.showInfo.salePrice;
+							that.showInfo = res.rs.showInfo;
+							that.hallName = res.rs.showInfo.hallName;
+						}
+						
+						if(res.rs && res.rs.movieInfo){
+							that.movieInfo = res.rs.movieInfo;
+						}
+						
+						if(res.rs && res.rs.seatsInfo){
+							let seatList = that.prosessSeatList(res.rs.seatsInfo.seats);
+							that.seatList = seatList;
+							let areaList = []
+							if(res.rs.seatsInfo && res.rs.seatsInfo.seats.length > 0){
+								res.rs.seatsInfo.seats.forEach(element => {
+									areaList.push(element.seatNo.split('排')[0])
+								})
+							}
+							that.areaLift = [...new Set(areaList)]
+							
+							that.selectedSeat = [];
+							that.totalPrice = 0;
+							that.hidden = "hidden";
+							that.seatArea = that.seatArea;
+							
+							setTimeout(function() {
+								uni.hideLoading()
+							}, 1000)
+							//计算X和Y坐标最大值
+							that.prosessMaxSeat(seatList);
+							//计算左侧座位栏的数组
+							// that.seatToolArr()
+							//按每排生成座位数组对象
+							that.creatSeatMap()
+							//确认最佳坐标座位
+							that.creatBestSeat()
+						}
+						
+						if(res.rs && res.rs.show_list){
+							that.show_list = res.rs.show_list;
+						}
 					} else {
 						uni.hideLoading()
 						uni.showToast({
@@ -262,29 +281,6 @@
 							}
 						}
 					}
-					// 加载座位的图标
-					// let seatType = response.seatTypeList;
-					// for (const key in seatType) {
-						// 加载每个座位的初始图标defautIcon 和 当前图标 nowIcon
-						// if (element.type === seatType[key].type) {
-						// 	element.nowIcon = seatType[key].icon
-						// 	element.defautIcon = seatType[key].icon
-						// }
-						// // 根据首字母找到对应的被选中图标
-						// if (firstNumber + '-1' === seatType[key].type) {
-						// 	element.selectedIcon = seatType[key].icon
-						// }
-						// // 根据首字母找到对应的被选中图标
-						// if (firstNumber + '-2' === seatType[key].type) {
-						// 	element.soldedIcon = seatType[key].icon
-						// }
-						// // 根据首字母找到对应的被选中图标
-						// if (firstNumber + '-3' === seatType[key].type) {
-						// 	element.fixIcon = seatType[key].icon
-						// }
-					// }
-					
-					
 					element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
 					element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
 					
@@ -298,7 +294,7 @@
 						}
 						element.price = that.price
 					
-					// 如果座位是已经售出 和 维修座位 加入属性canClick 判断座位是否可以点击
+					// 加入属性canClick 判断座位是否可以点击
 					if (element.status == 'LK') {
 						element.canClick = false
 					} else {
@@ -1883,6 +1879,10 @@
 	}
 	
 	.area-left{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 		width: 30rpx;
 		background: #000000;
 		border-radius: 21rpx;

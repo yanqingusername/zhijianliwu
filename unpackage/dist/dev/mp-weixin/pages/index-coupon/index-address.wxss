@@ -1,4 +1,7 @@
 
+page{
+	background: #FAFAFA;
+}
 .address{
 	padding-bottom: 110rpx;
 }
@@ -16,6 +19,7 @@
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	        transform: translateY(-50%);
+	margin-top: 2rpx;
 }
 .phone {
 	font-size: 32rpx;
@@ -28,6 +32,11 @@
 	font-size: 26rpx;
 	color: #666;
 	line-height: 1.8em;
+}
+.text-day{
+	font-weight: bold;
+	color: #333;
+	font-size: 30rpx;
 }
 .a-tea {
 	-webkit-box-sizing: border-box;
@@ -125,7 +134,7 @@
 	font-size: 24rpx;
 	color: #666;
 }
-.message {
+.message-text{
 	font-size: 24rpx;
 	color: #999;
 	width: 80%;
@@ -137,8 +146,38 @@
 	-webkit-box-align: baseline;
 	-webkit-align-items: baseline;
 	        align-items: baseline;
-	margin-left: 40rpx;
-	height: 40rpx;
+	/* margin-left: 40rpx; */
+	height: 84rpx;
+}
+.message {
+	font-size: 24rpx;
+	color: #999;
+	width: 100%;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	/* text-align: right; */
+	display: inline-block;
+	-webkit-box-align: baseline;
+	-webkit-align-items: baseline;
+	        align-items: baseline;
+	height: 84rpx;
+}
+.apply-refund-view{
+		
+		margin-top: 0rpx;
+}
+.apply-refund-text{
+	width: 700rpx;
+	height: 175rpx;
+	background: #FAFAFA;
+	border-radius: 6rpx;
+		padding: 24rpx 12rpx;
+}
+.apply-refund-text textarea{
+		font-size: 26rpx;
+		color: #AAAAAA;
+		height: 175rpx;
 }
 .button {
 	position: fixed;
@@ -150,7 +189,6 @@
 	line-height: 105rpx;
 	border-radius: 0!important;
 }
-
 /**
  * 
  */
@@ -233,7 +271,6 @@
 	line-height: 33rpx;
 	margin-top: 18rpx;
 }
-
 /**
  * 
 */

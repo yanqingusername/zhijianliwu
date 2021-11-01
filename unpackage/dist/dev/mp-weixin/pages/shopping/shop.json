@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "购物车",
-  "navigationStyle": "custom",
+  "navigationBarTitleText": "",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#EB1616",
   "usingComponents": {
     "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
   }

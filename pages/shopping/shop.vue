@@ -1,13 +1,13 @@
 <template>
 	<view class="shop z-gift">
-		<view class="shop-header-backgrounds">
-			<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image>
+		<view class="shop-header-backgrounds-bg">
+			<!-- <image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_header_back.png"></image> -->
 		</view>
 		<!-- <view class="shop-header">
 			<image class="shop-header-xiong" :src="$utils.osspath_url('/xcx-static/xiong.png')" mode=""></image>
 			<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
 		</view> -->
-		<view style="margin-top: -100rpx">
+		<view style="margin-top: -140rpx">
 			<view class="box" v-if="statutype == 'exchange' && is_exchange_type == 1">
 				<view class="box-content">
 					<view class="shop-gift-buys-top">
@@ -545,6 +545,13 @@
 	@import '../../common/gift.css';
 	page{
 		background: #FAFAFA;
+	}
+	
+	.shop-header-backgrounds-bg{
+		width: 100%;
+		height: 308rpx;
+	    background-image: url(https://zhijianlw.com/static/web/img/icon_lilan_bg_2021_11_01.png);
+	    background-size: 100% 308rpx;
 	}
 	
 	.icon-back-img{

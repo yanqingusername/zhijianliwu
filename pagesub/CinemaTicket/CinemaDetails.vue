@@ -57,8 +57,8 @@
 				</view>
 				<view class="cd-item-right">
 					<view class="cd-item-right-1">¥<text class="cd-item-right-1-1">{{item.salePrice}}</text><text class="cd-item-right-1-2">起</text></view>
-					<!-- <view class="cd-item-right-2">满座</view> -->
-					<view class="cd-item-right-3" @click="clickBuy" :data-showid="item.showId">购票</view>
+					<view v-if="item.isSell == 0" class="cd-item-right-2">满座</view>
+					<view v-if="item.isSell == 1" class="cd-item-right-3" @click="clickBuy" :data-showid="item.showId">购票</view>
 				</view>
 			</view>
 		</view>

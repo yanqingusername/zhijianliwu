@@ -13,7 +13,7 @@
 		<view class="sale-line" v-if="isreception == 0"></view>
 		<view class="sale-content flex-between" v-if="isreception == 0" @click="routeHandler" data-typerefund="3">
 			<view class="sale-content-left">
-				<image class="sale-content-img" src="../../static/icon_return_goods.png"></image>
+				<image class="sale-content-img" src="https://zhijianlw.com/static/web/img/icon_return_goods.png"></image>
 				<view class="sale-content-title">退货</view>
 			</view>
 			<view class="sale-content-right">
