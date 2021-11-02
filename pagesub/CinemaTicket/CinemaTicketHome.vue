@@ -1,5 +1,5 @@
 <template>
-	<view >
+	<view @touchmove="handletouchmove" @touchstart="handletouchstart" @touchend="handletouchend">
 		<view style="position: fixed;top: 0rpx;z-index: 1;width: 100%;">
 			<view class="cth-a">
 				<view class="cth-a-1">
@@ -9,15 +9,15 @@
 					</view>
 					<view class="cth-a-2-2-default"></view>
 				</view>
-				<view class="cth-a-2" style="margin-left: 40rpx;" @click="clickTabs" data-tabnumber="0">
+				<view class="cth-a-2" style="margin-left: 40rpx;" @click.stop="clickTabs" data-tabnumber="0">
 					<view :class="tabNumber == 0 ? 'cth-a-2-1' : 'cth-a-2-1-default'">热映</view>
 					<view :class="tabNumber == 0 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
 				</view>
-				<view class="cth-a-2" @click="clickTabs" data-tabnumber="1">
+				<view class="cth-a-2" @click.stop="clickTabs" data-tabnumber="1">
 					<view :class="tabNumber == 1 ? 'cth-a-2-1' : 'cth-a-2-1-default'">待映</view>
 					<view :class="tabNumber == 1 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
 				</view>
-				<view class="cth-a-2" @click="clickTabs" data-tabnumber="2">
+				<view class="cth-a-2" @click.stop="clickTabs" data-tabnumber="2">
 					<view :class="tabNumber == 2 ? 'cth-a-2-1' : 'cth-a-2-1-default'">影院</view>
 					<view :class="tabNumber == 2 ? 'cth-a-2-2' : 'cth-a-2-2-default'"></view>
 				</view>
@@ -27,36 +27,36 @@
 					<view class="cth-search-top">
 						<image class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_search_10_19.png"></image>
 						<input type="text" name="keywords" @input="onkeyword" :value="keywords" confirm-type="search" focus @confirm="search" placeholder="影院名称或地址" placeholder-style="color: #AAAAAA;font-size: 28rpx;"/>
-						<image @click="clearKeyword" class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_close_tab_10_19.png"></image>
+						<image @click.stop="clearKeyword" class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_close_tab_10_19.png"></image>
 					</view>
-					<view class="cth-search-top-title" @click="clickSearch">取消</view>
+					<view class="cth-search-top-title" @click.stop="clickSearch">取消</view>
 				</view>
 				<view class="cth-c-top-two" v-else>
 					<view class="cth-c-top" style="padding-left: 30rpx;">
 						<view class="cth-c-1">
-							<view @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaCityList?cityname='+cityname +'&cityCode='+cityCode" class="cth-c-1-1">{{cityname}}<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
-							<view @click="clickRegions" class="cth-c-1-1" style="margin-left: 10rpx;">全城<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
-							<view @click="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaCityList?cityname='+cityname +'&cityCode='+cityCode" class="cth-c-1-1">{{cityname}}<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click.stop="clickRegions" class="cth-c-1-1" style="margin-left: 10rpx;">全城<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click.stop="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
 						</view>
-						<view class="cth-c-top-img" @click="clickSearch"><image class="cth-c-top-img" src="https://zhijianlw.com/static/web/img/icon_search_tab_10_19.png"></image></view>
+						<view class="cth-c-top-img" @click.stop="clickSearch"><image class="cth-c-top-img" src="https://zhijianlw.com/static/web/img/icon_search_tab_10_19.png"></image></view>
 					</view>
 					
-					<view class="cth-select-view" v-if="tabNumber == 2 && isRegions" @click="clickRegions">
+					<view class="cth-select-view" v-if="tabNumber == 2 && isRegions" @click.stop="clickRegions">
 						<view class="cthtop-Regions">
 							<scroll-view scroll-y="true" class="cthtop-Regions-src">
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
-									<view v-for="(item,index) in FilmRegionsList" :key="index" :class="indxRegion == index ? 'cthtop-view-label-active':'cthtop-view-label'" @click="clickRegionCode" :data-regioncode="item.regionCode" :data-index="index">{{item.regionName}}</view>
+									<view v-for="(item,index) in FilmRegionsList" :key="index" :class="indxRegion == index ? 'cthtop-view-label-active':'cthtop-view-label'" @click.stop="clickRegionCode" :data-regioncode="item.regionCode" :data-index="index">{{item.regionName}}</view>
 								</view>
 							</scroll-view>
 						</view>
 					</view>
 					
-					<view class="cth-select-view" v-if="tabNumber == 2 && currTag" @click="clickSelect">
+					<view class="cth-select-view" v-if="tabNumber == 2 && currTag" @click.stop="clickSelect">
 						<view class="cthtop-view">
 							<scroll-view scroll-y="true">
 								<!-- <view class="cthtop-view-1">
 									<view class="cthtop-view-left">放映影厅</view>
-									<view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
+									<view class="cthtop-view-right" @click.stop="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
 									<view v-for="(item,index) in itemsList" :key="index" class="cthtop-view-label" >{{item.title}}</view>
@@ -71,14 +71,14 @@
 								
 								<view class="cthtop-view-1">
 									<view class="cthtop-view-left">影院品牌</view>
-									<!-- <view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view> -->
+									<!-- <view class="cthtop-view-right" @click.stop="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view> -->
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
 									<view v-for="(item,index) in FilmCinemaBrands" :key="index" :class="indxBrands == index ? 'cthtop-view-label-active':'cthtop-view-label'" @click="clickBrands" :data-brands="item" :data-index="index">{{item}}</view>
 								</view>
 							</scroll-view>
 							<!-- <view class="cth-select-bottom">
-								<view class="cth-select-bottom-left" @click="clickClear">清空</view>
+								<view class="cth-select-bottom-left" @click.stop="clickClear">清空</view>
 								<view class="cth-select-bottom-right">完成</view>
 							</view> -->
 						</view>
@@ -100,7 +100,7 @@
 			</view>
 			
 			<view v-if="tabNumber == 0" class="cth-b" v-for="(item,index) in cthList" :key="index">
-				<view class="cth-b-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
+				<view class="cth-b-bg" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
 					<image class="cth-b-bg-1" :src="item.pic"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
@@ -122,7 +122,7 @@
 			</view>
 			
 			<view v-if="tabNumber == 1" class="cth-b" v-for="(item,index) in cthList" :key="index">
-				<view class="cth-b-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
+				<view class="cth-b-bg" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaTicketHomeDetail?cityCode=' + cityCode +'&movieId=' + item.movieId">
 					<image class="cth-b-bg-1" :src="item.pic"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
@@ -150,24 +150,24 @@
 						<input type="text" name="keyword" @input="onkeyword" :value="keyword" confirm-type="search" focus @confirm="search" placeholder="影院名称或地址" placeholder-style="color: #AAAAAA;font-size: 28rpx;"/>
 						<image class="cth-search-top-1" src="https://zhijianlw.com/static/web/img/icon_close_tab_10_19.png"></image>
 					</view>
-					<view class="cth-search-top-title" @click="clickSearch">取消</view>
+					<view class="cth-search-top-title" @click.stop="clickSearch">取消</view>
 				</view>
 				<view class="cth-c-top-two" v-else>
 					<view class="cth-c-top" style="padding-left: 30rpx;">
 						<view class="cth-c-1">
 							<view class="cth-c-1-1">北京<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
 							<view class="cth-c-1-1" style="margin-left: 10rpx;">全城<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
-							<view @click="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
+							<view @click.stop="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image class="cth-c-1-1-1" src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image></view>
 						</view>
-						<view class="cth-c-top-img" @click="clickSearch"><image class="cth-c-top-img" src="https://zhijianlw.com/static/web/img/icon_search_tab_10_19.png"></image></view>
+						<view class="cth-c-top-img" @click.stop="clickSearch"><image class="cth-c-top-img" src="https://zhijianlw.com/static/web/img/icon_search_tab_10_19.png"></image></view>
 					</view>
 					
-					<view class="cth-select-view" v-if="tabNumber == 2 && currTag" @click="clickSelect">
+					<view class="cth-select-view" v-if="tabNumber == 2 && currTag" @click.stop="clickSelect">
 						<view class="cthtop-view">
 							<scroll-view scroll-y="true">
 								<view class="cthtop-view-1">
 									<view class="cthtop-view-left">放映影厅</view>
-									<view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
+									<view class="cthtop-view-right" @click.stop="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
 									<view v-for="(item,index) in itemsList" :key="index" class="cthtop-view-label" >{{item.title}}</view>
@@ -182,7 +182,7 @@
 								
 								<view class="cthtop-view-1">
 									<view class="cthtop-view-left">影院品牌</view>
-									<view class="cthtop-view-right" @click="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
+									<view class="cthtop-view-right" @click.stop="clickAll">展开<image class="cthtop-view-right-img" src="https://zhijianlw.com/static/web/img/icon_down_10_19.png"></image></view>
 								</view>
 								<view style="display: flex;padding: 20rpx 30rpx 26rpx 34rpx;flex-wrap: wrap;">
 									<view v-for="(item,index) in itemsList" :key="index" class="cthtop-view-label" >{{item.title}}</view>
@@ -198,7 +198,7 @@
 				
 				<view class="cth-c-item" v-if="FilmCinemaList.length > 0" v-for="(item,index) in FilmCinemaList" :key="index">
 																								<!-- +'&date=2021-10-29'+'&movieId=28764' -->
-					<view class="cth-c-bg" @click="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaDetails?cinemaid=' + item.cinemaId">
+					<view class="cth-c-bg" @click.stop="clickDetail" :data-url="'/pagesub/CinemaTicket/CinemaDetails?cinemaid=' + item.cinemaId">
 						<view class="cth-c-bg-view">
 							<view class="cth-c-bg-1">{{item.cinemaName}}</view>
 							<view class="cth-c-bg-2">
@@ -219,7 +219,7 @@
 			</view>
 		</view>
 		
-		<view class="cth-positon" v-if="tabNumber == 0" @click="clickMyOrder"></view>
+		<view class="cth-positon" :animation="slide_up" v-if="tabNumber == 0" @click.stop="clickMyOrder"></view>
 		
 	</view>
 </template>
@@ -265,7 +265,9 @@
 					{
 						'title': 'IMAX厅',
 					}
-				]
+				],
+				flag: 0,
+				slide_up:'',
 			} 
 		},
 		onLoad:function(options){
@@ -507,7 +509,43 @@
 				uni.navigateTo({
 					url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
 				})
-			}
+			},
+			handletouchmove: function(event) {
+				console.log(event)
+				if (this.flag !== 0) {
+					return;
+				}
+				this.fadeOut();
+			},
+			handletouchstart: function(event) {
+				
+			},
+			handletouchend: function(event) {
+				this.flag = 0
+				this.fadeIn();
+			},
+			//渐显
+			    fadeIn() {
+			      var animation = wx.createAnimation({
+			        duration: 400,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+			      animation.opacity(1).step();
+				  animation.translateY(0).step()
+			      this.slide_up = animation.export()
+			    },
+			    //渐隐消失
+			    fadeOut() {
+			      var animation = wx.createAnimation({
+			        duration: 400,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+				  animation.translateY(40).step()
+				  animation.opacity(0).step();
+			      this.slide_up = animation.export()
+			    },
 		},
 		onPullDownRefresh:function(){
 			if(this.tabNumber == 0 || this.tabNumber == 1){
@@ -824,6 +862,7 @@ page{
 			display: flex;
 			align-items: center;
 		    justify-content: center;
+			opacity: 1;
 		}
 		
 		.cth-c{

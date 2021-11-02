@@ -228,6 +228,12 @@ page{
 			font-weight: bold;
 			color: #DF5250;
 			margin-left: 10rpx;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
 }
 .ctho-d-1-2-1{
 			font-size: 28rpx;

@@ -23,8 +23,11 @@
 		methods: {
 			goToTheme: function(e) {
 				let id = e.currentTarget.dataset.id;
+				// uni.navigateTo({
+				// 	url: "../product-list/product-list?type=module&key=" + id
+				// })
 				uni.navigateTo({
-					url: "../product-list/product-list?type=module&key=" + id
+					url: "/pagesub/CinemaTicket/CinemaTicketHome"
 				})
 			}
 		},
@@ -62,7 +65,7 @@
 	flex-direction: column;
 	justify-content: center; */
 	/* margin: 0 26rpx; */
-	width: 22.2%;
+	width: 20%;
 }
 .own-grid-item:first-child{
 	/* margin-left: 45rpx; */

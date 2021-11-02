@@ -1,6 +1,6 @@
 <template>
 	<view style="width: 100%;overflow-x: hidden;display: flex;flex-direction: column;box-sizing: border-box;">
-		<view class="personal-header" :style="'height:' + (isSystemInfo ? '100' : '70') + 'px;'">
+		<view class="personal-header" ><!-- :style="'height:' + (isSystemInfo ? '120' : '90') + 'px;" -->
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
 				<view style="display: flex;position: absolute;align-items: center;left: 20rpx;" @click="$buttonClick(clickOrderHome)">
@@ -11,6 +11,7 @@
 			</view>
 		</view>
 		
+		<view style="height: 180rpx;"></view>
 		
 		<view class="ctol-tabs">
 			<view class="ctol-tabs-item">
@@ -46,13 +47,13 @@
 							</view>
 							
 							<view v-if="item.status == 0 || item.status == 1" class="cth-b-bg-2-6">{{item.order_status_info}}</view>
-							<view v-else class="cth-b-bg-2-7">已退单</view>
+							<view v-else class="cth-b-bg-2-7">{{item.order_status_info}}</view>
 						</view>
 					</view>
 				</view>
 				
-				<view class="ctol-bottom" v-if="item.status == 1 || item.status == 2 || item.status == 4 || item.status == 5">
-					<image class="ctol-bottom-img" src="https://zhijianlw.com/static/web/img/icon_down_time_2021_10_21.png"></image><view class="ctol-bottom-title">距离影片放映 <uni-countdown :showColon="true" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view>
+				<view class="ctol-bottom" v-if="(item.status == 1 || item.status == 2 || item.status == 4 || item.status == 5) && item.count_down_time">
+					<image class="ctol-bottom-img" src="https://zhijianlw.com/static/web/img/icon_down_time_2021_10_21.png"></image><view class="ctol-bottom-title">距离影片放映 <uni-countdown :showColon="true" :show-day="false" :hour="item.countdown.hour" :minute="item.countdown.minute" :second="item.countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view>
 				</view>
 				
 				
@@ -105,7 +106,7 @@
 			uni.getSystemInfo({
 				success: res=>{
 					 // 导航高度
-					this.nav = res.statusBarHeight 
+					that.nav = res.statusBarHeight 
 				}
 			})
 			
@@ -236,10 +237,11 @@ page{
 	flex-direction: column;
 }
 .personal-header{
-		 height: 160px;
+		 height: 180rpx;
 		 background: #FFFFFF;
 		 width: 100%;
-		 position: relative;
+		 position: fixed;
+		 z-index: 99;
 	}
 .personal-header-interstall{
 		    margin-top: 16rpx;
@@ -487,5 +489,7 @@ page{
 						font-weight: bold;
 						color: #666666;
 						margin-left: 10rpx;
+						display: flex;
+						align-items: center;
 					}
 </style>

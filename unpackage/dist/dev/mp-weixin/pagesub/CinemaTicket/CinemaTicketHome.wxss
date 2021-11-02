@@ -380,6 +380,7 @@ swiper-item{
 		    -webkit-box-pack: center;
 		    -webkit-justify-content: center;
 		            justify-content: center;
+			opacity: 1;
 }
 .cth-c{
 }

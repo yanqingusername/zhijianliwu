@@ -9,7 +9,7 @@
 							<view class="cth-b-bg-2-1-1">{{filmOrderInfo.orderTitle}}</view>
 							<view :class="(filmOrderInfo.status == 0 || filmOrderInfo.status == 1) ? 'cth-b-bg-2-1-2' : 'cth-b-bg-2-1-2-1'">{{filmOrderInfo.order_status_info}}</view>
 						</view>
-						<view class="cth-b-bg-2-2"><view class="cth-b-bg-2-2-2">{{filmOrderInfo.showTime}}开场</view><view v-if="filmOrderInfo.status == 0" class="cth-b-bg-2-2-1">剩余时间：<uni-countdown :showColon="true" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view></view>
+						<view class="cth-b-bg-2-2"><view class="cth-b-bg-2-2-2">{{filmOrderInfo.showTime}}开场</view><view v-if="filmOrderInfo.status == 0 && filmOrderInfo.wait_pay_time" class="cth-b-bg-2-2-1">剩余时间：<uni-countdown :showColon="true" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view></view>
 						<view class="cth-b-bg-2-3">{{filmOrderInfo.hallName}}</view>
 						<view class="cth-b-bg-2-4">{{filmOrderInfo.seatsNoStr}}</view>
 						<view class="cth-b-bg-2-1" style="margin-top: 16rpx;">
@@ -29,7 +29,7 @@
 			<view class="ctho-d-1">
 				<view class="ctho-d-1-1">取票码</view>
 				<view class="ctho-d-1-3" v-if="filmOrderInfo.status == 3"><view class="ctho-d-1-2-1">放映结束</view></view>
-				<view class="ctho-d-1-3" v-else>
+				<view class="ctho-d-1-3" v-if="(filmOrderInfo.status == 1 || filmOrderInfo.status == 2 || filmOrderInfo.status == 4 || filmOrderInfo.status == 5) && filmOrderInfo.count_down_time">
 					<image class="ctho-d-1-3-img" src="https://zhijianlw.com/static/web/img/icon_down_time_2021_10_21.png"></image>
 					<view class="ctho-d-1-2">距离影片放映 <uni-countdown :showColon="true" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view>
 				</view>
@@ -257,120 +257,128 @@
 				});
 				this.$utils.post(action, data).then(res => {
 					console.log("获取流水号", res);
-					let serial_number = res.rs.serial_number;
-					let openid = uni.getStorageSync('openid');
-					// 获取ip
-					uni.request({
-						url: 'https://zhijianlw.com/api.php/index/getip',
-						success: (res) => {
-							console.log(res.data);
-							let action = 'add_paylog_to_wx';
-							let data = JSON.stringify({
-								serial_number: serial_number,
-								ip: res.data.ip,
-								openid: openid,
-								type: 'film',
-							});
-							this.$utils.post(action, data).then(res => {
-								console.log('获取参数', res)
-								let arr = [];
-								const date = {
-									// 合作方标识
-									appId: 'appId=wx9c53a99b078435f5',
-									timeStamp: 'timeStamp=' + that.timeStamp,
-									nonceStr: 'nonceStr=' + that.nums,
-									package: 'package=prepay_id=' + res.rs.prepay_id,
-									signType: 'signType=MD5',
-								}
-										
-								console.log('拼接前', date)
-										
-								for (let i in date) {
-									arr.push(date[i])
-								}
-										
-								arr.sort();
-										
-								let stringA = '';
-										
-								// 拼接字符串
-								for (let i in arr) {
-									if (i == arr.length - 1) {
-										stringA += arr[i];
-									} else {
-										stringA += arr[i] + '&';
+					if(res.sta == 1){
+						let serial_number = res.rs.serial_number;
+						let openid = uni.getStorageSync('openid');
+						// 获取ip
+						uni.request({
+							url: 'https://zhijianlw.com/api.php/index/getip',
+							success: (res) => {
+								console.log(res.data);
+								let action = 'add_paylog_to_wx';
+								let data = JSON.stringify({
+									serial_number: serial_number,
+									ip: res.data.ip,
+									openid: openid,
+									type: 'film',
+								});
+								this.$utils.post(action, data).then(res => {
+									console.log('获取参数', res)
+									let arr = [];
+									const date = {
+										// 合作方标识
+										appId: 'appId=wx9c53a99b078435f5',
+										timeStamp: 'timeStamp=' + that.timeStamp,
+										nonceStr: 'nonceStr=' + that.nums,
+										package: 'package=prepay_id=' + res.rs.prepay_id,
+										signType: 'signType=MD5',
 									}
-								}
-								// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
-								let stringSignTemp = stringA +
-									'&key=dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv';
-										
-								console.log('拼接后', stringSignTemp)
-								let sign = MD5.hexMD5(stringSignTemp);
-								console.log(sign)
-										
-								uni.hideLoading();
-										
-								uni.requestPayment({
-									timeStamp: String(that.timeStamp),
-									nonceStr: that.nums,
-									package: 'prepay_id=' + res.rs.prepay_id,
-									signType: 'MD5',
-									paySign: sign.toUpperCase(),
-									success(res) {
-										uni.hideLoading();
-										// 腾讯有数
-										let timestamp=new Date().getTime();
-										sr.track('custom_order', {
-										    "order": {
-										        "order_id": channelOrderNo,
-										        "order_time": timestamp,
-										        "order_status": "pay"
-										    },
-										    "sub_orders": [{
-										        "sub_order_id": channelOrderNo,
-										        "order_amt": that.price_zhe,
-										        "pay_amt": that.price_zhe
-										    }],
-										})
-																
-										uni.redirectTo({
-											url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
-										})
-									},
-									fail(res) {
-										// 腾讯有数
-										let timestamp=new Date().getTime();
-										sr.track('custom_order', {
-										    "order": {
-										        "order_id": channelOrderNo,
-										        "order_time": timestamp,
-										        "order_status": "cancel_pay"
-										    },
-										    "sub_orders": [{
-										        "sub_order_id": channelOrderNo,
-										        "order_amt": that.price_zhe,
-										        "pay_amt": that.price_zhe
-										    }],
-										})
-										
-										uni.hideLoading();
-										uni.showToast({
-											title: '支付失败',
-											icon: 'none'
-										})
-										that.commodity = ''
-										// uni.redirectTo({
-										// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
-										// })
-										uni.redirectTo({
-											url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
-										})
-									},
+											
+									console.log('拼接前', date)
+											
+									for (let i in date) {
+										arr.push(date[i])
+									}
+											
+									arr.sort();
+											
+									let stringA = '';
+											
+									// 拼接字符串
+									for (let i in arr) {
+										if (i == arr.length - 1) {
+											stringA += arr[i];
+										} else {
+											stringA += arr[i] + '&';
+										}
+									}
+									// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
+									let stringSignTemp = stringA +
+										'&key=dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv';
+											
+									console.log('拼接后', stringSignTemp)
+									let sign = MD5.hexMD5(stringSignTemp);
+									console.log(sign)
+											
+									uni.hideLoading();
+											
+									uni.requestPayment({
+										timeStamp: String(that.timeStamp),
+										nonceStr: that.nums,
+										package: 'prepay_id=' + res.rs.prepay_id,
+										signType: 'MD5',
+										paySign: sign.toUpperCase(),
+										success(res) {
+											uni.hideLoading();
+											// 腾讯有数
+											let timestamp=new Date().getTime();
+											sr.track('custom_order', {
+											    "order": {
+											        "order_id": channelOrderNo,
+											        "order_time": timestamp,
+											        "order_status": "pay"
+											    },
+											    "sub_orders": [{
+											        "sub_order_id": channelOrderNo,
+											        "order_amt": that.price_zhe,
+											        "pay_amt": that.price_zhe
+											    }],
+											})
+																	
+											uni.redirectTo({
+												url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
+											})
+										},
+										fail(res) {
+											// 腾讯有数
+											let timestamp=new Date().getTime();
+											sr.track('custom_order', {
+											    "order": {
+											        "order_id": channelOrderNo,
+											        "order_time": timestamp,
+											        "order_status": "cancel_pay"
+											    },
+											    "sub_orders": [{
+											        "sub_order_id": channelOrderNo,
+											        "order_amt": that.price_zhe,
+											        "pay_amt": that.price_zhe
+											    }],
+											})
+											
+											uni.hideLoading();
+											uni.showToast({
+												title: '支付失败',
+												icon: 'none'
+											})
+											that.commodity = ''
+											// uni.redirectTo({
+											// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+											// })
+											uni.redirectTo({
+												url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
+											})
+										},
+									})
 								})
-							})
-						}
-					});
+							}
+						});
+					}else{
+						uni.hideLoading();
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
 				})
 				// uni.navigateTo({
 				// 	url: '/pagesub/CinemaTicket/CinemaTicketHomeSuccess'
@@ -572,6 +580,8 @@ page{
 			font-weight: bold;
 			color: #DF5250;
 			margin-left: 10rpx;
+			display: flex;
+			align-items: center;
 		}
 		
 		.ctho-d-1-2-1{

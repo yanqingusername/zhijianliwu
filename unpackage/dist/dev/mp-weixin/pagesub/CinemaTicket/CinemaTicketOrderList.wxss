@@ -14,10 +14,11 @@ page{
 	        flex-direction: column;
 }
 .personal-header{
-		 height: 160px;
+		 height: 180rpx;
 		 background: #FFFFFF;
 		 width: 100%;
-		 position: relative;
+		 position: fixed;
+		 z-index: 99;
 }
 .personal-header-interstall{
 		    margin-top: 16rpx;
@@ -346,5 +347,11 @@ page{
 						font-weight: bold;
 						color: #666666;
 						margin-left: 10rpx;
+						display: -webkit-box;
+						display: -webkit-flex;
+						display: flex;
+						-webkit-box-align: center;
+						-webkit-align-items: center;
+						        align-items: center;
 }
 
