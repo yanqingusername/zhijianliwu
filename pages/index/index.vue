@@ -163,9 +163,9 @@
 			if (sign) {
 				this.sta = '200';
 			}else{
-				uni.navigateTo({
-					url: '../signin/signin'
-				})
+				// uni.navigateTo({
+				// 	url: '../signin/signin'
+				// })
 			}
 			uni.showToast({
 				icon: "loading",
