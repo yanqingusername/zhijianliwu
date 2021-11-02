@@ -162,6 +162,9 @@ page{
 		color: #333333;
 		margin-left: 0rpx;
 		width: 480rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 }
 .cth-item-view-2{
 		font-size: 30rpx;

@@ -1,12 +1,22 @@
 <template>
 	<view >
-		<view class="cths-a">
+		<view class="cths-a" v-if="isnumber == 2">
 			<image class="cths-a-img" src="https://zhijianlw.com/static/web/img/icon_success_2021_10_21.png"></image>
 			<view class="cths-a-title">购票成功</view>
 			<view class="cths-a-text">{{movieName}}({{quantity}}张)</view>
 			<view class="cths-a-view">
-				<view class="cths-a-view-left">返回首页</view>
+				<view class="cths-a-view-left" @click="clickOrderHome">返回首页</view>
 				<view class="cths-a-view-right" @click="clickOrderDetail">查看电影票</view>
+			</view>
+		</view>
+		
+		<view class="cths-a" v-if="isnumber == 1">
+			<image class="cths-a-img" src="https://zhijianlw.com/static/web/img/icon_recharge_status_2021_10_29_02.png"></image>
+			<view class="cths-a-title">购票失败</view>
+			<view class="cths-a-text">{{movieName}}({{quantity}}张)</view>
+			<view class="cths-a-view">
+				<view class="cths-a-view-left" @click="clickOrderHome">返回首页</view>
+				<view class="cths-a-view-right" @click="clickBuy">重新购买</view>
 			</view>
 		</view>
 	</view>
@@ -17,21 +27,34 @@
 		data() {
 			return {
 				quantity:'',
-				movieName: ''
+				movieName: '',
+				channelOrderNo: '',
+				isnumber: "2" //2成功  1 失败
 			}
 		},
 		onLoad:function(options){
 			let that = this;
 			this.quantity = options.quantity;
 			this.movieName = options.movieName;
-			
+			this.channelOrderNo = options.channelOrderNo;
+			this.isnumber = options.isnumber;
 		},
 		methods: {
 			clickOrderDetail(){
-				uni.navigateTo({
-					url: '/pagesub/CinemaTicket/CinemaTicketHomeOrderDetail'
+				uni.redirectTo({
+					url: `/pagesub/CinemaTicket/CinemaTicketHomeOrderDetail?channelOrderNo=${this.channelOrderNo}`
 				})
-			}
+			},
+			clickOrderHome(){
+				uni.redirectTo({
+					url: `/pagesub/CinemaTicket/CinemaTicketHome`
+				})
+			},
+			clickBuy(){
+				uni.redirectTo({
+					url: `/pagesub/CinemaTicket/CinemaTicketHome`
+				})
+			},
 		}
 	}
 </script>

@@ -3,8 +3,8 @@
 		<view class="personal-header" :style="'height:' + (isSystemInfo ? '100' : '70') + 'px;'">
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
-				<view style="display: flex;position: absolute;align-items: center;left: 20rpx;">
-					<image @click="$buttonClick(backbutton)" class="icon-back-img" src="https://zhijianlw.com/static/web/img/icon_cime_back_2021_10_21.png"></image>
+				<view style="display: flex;position: absolute;align-items: center;left: 20rpx;" @click="$buttonClick(clickOrderHome)">
+					<image class="icon-back-img" src="https://zhijianlw.com/static/web/img/icon_cime_back_2021_10_21.png"></image>
 					<view class="personal-header-lable">首页</view>
 				</view>
 				<view class="personal-header-title">我的订单</view>
@@ -14,7 +14,7 @@
 		
 		<view class="ctol-tabs">
 			<view class="ctol-tabs-item">
-				<view class="cth-a-2" v-for="(item,index) in itemsTime" :key="index" @click="clickTime" :data-timeindex="index">
+				<view class="cth-a-2" v-for="(item,index) in itemsTime" :key="index" @click="clickTabs" :data-timeindex="index" :data-values="item.value">
 					<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.title}}</view>
 					<view :class="[timeIndex == index ? 'cth-a-2-2' : 'cth-a-2-2-default']"></view>
 				</view>
@@ -22,37 +22,37 @@
 		</view>
 		
 		<view class="ctol-list">
-			<view class="ctol-list-item" @click="clickCinemaDetails" v-for="(item,index) in itemsTime" :key="index">
+			<view class="ctol-list-item" @click="clickOrderDetail" v-for="(item,index) in cthList" :key="index" :data-channelorderno="item.channelOrderNo">
 				<view class="cth-item-view">
-					<view class="cth-item-view-1">保利万和国际影城昌乐中百店</view>
-					<view class="cth-item-view-2">已支付</view>
+					<view class="cth-item-view-1">{{item.cinemaName}}</view>
+					<view class="cth-item-view-2">{{item.pay_status_info}}</view>
 				</view>
 				<view class="cth-item-line"></view>
 				
 				<view class="cth-b">
 					<view class="cth-b-bg">
-						<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
+						<image class="cth-b-bg-1" :src="item.orderPicUrl"></image>
 						<view class="cth-b-bg-2">
 							<view class="cth-b-bg-2-1">
-								<view class="cth-b-bg-2-1-1">失控玩家 2张</view>
+								<view class="cth-b-bg-2-1-1">{{item.movieName}} {{item.quantity}}张</view>
 								<view class="cth-b-bg-2-1-2"></view>
 							</view>
-							<view class="cth-b-bg-2-2">2021-10-12 19:20开场</view>
-							<view class="cth-b-bg-2-3">2号激光4K全景声厅</view>
-							<view class="cth-b-bg-2-4">7排7座，7排8座</view>
+							<view class="cth-b-bg-2-2">{{item.showTime}}开场</view>
+							<view class="cth-b-bg-2-3">{{item.hallName}}</view>
+							<view class="cth-b-bg-2-4">{{item.seatsNoStr}}</view>
 							<view class="cth-b-bg-2-1" style="margin-top: 16rpx;">
-								<view class="cth-b-bg-2-5">总价：¥ 80.00</view>
-								<view class="cth-b-bg-2-5">实付：¥ 60.00</view>
+								<view class="cth-b-bg-2-5">总价：¥ {{item.orderprice}}</view>
+								<view class="cth-b-bg-2-5">实付：¥ {{item.orderprice_discount}}</view>
 							</view>
 							
-							<!-- <view class="cth-b-bg-2-6">出票中</view> -->
-							<view class="cth-b-bg-2-7">已退单</view>
+							<view v-if="item.status == 0 || item.status == 1" class="cth-b-bg-2-6">{{item.order_status_info}}</view>
+							<view v-else class="cth-b-bg-2-7">已退单</view>
 						</view>
 					</view>
 				</view>
 				
-				<view class="ctol-bottom">
-					<image class="ctol-bottom-img" src="https://zhijianlw.com/static/web/img/icon_down_time_2021_10_21.png"></image><view class="ctol-bottom-title">距离影片放映 01时 28分</view>
+				<view class="ctol-bottom" v-if="item.status == 1 || item.status == 2 || item.status == 4 || item.status == 5">
+					<image class="ctol-bottom-img" src="https://zhijianlw.com/static/web/img/icon_down_time_2021_10_21.png"></image><view class="ctol-bottom-title">距离影片放映 <uni-countdown :showColon="true" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FFFFFF" color="#FB503D" splitorColor="#FB503D" style="padding: 0rpx;"></uni-countdown></view>
 				</view>
 				
 				
@@ -65,29 +65,39 @@
 </template>
 
 <script>
+	var timer = null;
+	var times = 0;
 	export default {
 		data() {
 			return {
 				nav:'20',
 				isSystemInfo: false,
 				timeIndex: 0,
+				typeValue: '',
 				itemsTime: [
 					{
-						"title": "全部"
+						"title": "全部",
+						"value": ''
 					},
 					{
-						"title": "待支付"
+						"title": "待支付",
+						"value": '0'
 					},
 					{
-						"title": "已支付"
+						"title": "已支付",
+						"value": '1'
 					},
 					{
-						"title": "已完成"
+						"title": "已完成",
+						"value": '2'
 					},
 					{
-						"title": "已取消"
+						"title": "已取消",
+						"value": '3'
 					}
-				]
+				],
+				cthList: [],
+				countdown: ''
 			}
 		},
 		onLoad:function(options){
@@ -100,14 +110,119 @@
 			})
 			
 			this.isSystemInfo = this.$utils.isSystemInfo();
-			
+			this.getFilmOrderList(1);
 		},
 		methods: {
-			clickTabs(e){
-				this.tabNumber = e.currentTarget.dataset.tabnumber;
+			clickOrderHome(){
+				uni.redirectTo({
+					url: `/pagesub/CinemaTicket/CinemaTicketHome`
+				})
 			},
-			
-		}
+			clickTabs(e){
+				this.timeIndex = e.currentTarget.dataset.timeindex;
+				this.typeValue = e.currentTarget.dataset.values;
+				this.getFilmOrderList(1);
+			},
+			getFilmOrderList(typeNumber){
+				if(typeNumber == 1){
+					this.pageIndex = 1;
+				}
+				
+				let that = this;
+				let action = 'get_film_order_list';
+				let controller = 'filmset';
+				let memberid = uni.getStorageSync('id');
+				let data = JSON.stringify({
+					type: this.typeValue,
+					memberid: memberid,
+					size: this.pageSize,
+					page: this.pageIndex,
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					if(typeNumber == 1){
+						that.pageIndex++;
+						that.cthList = res.rs;
+						that.isAll = false;
+					} else {
+						if(res.rs.list.length>0){
+							that.cthList = that.cthList.concat(res.rs);
+							that.pageIndex++;
+						}else{
+							that.isAll = true;
+						}
+					}
+					
+					if(that.cthList.length>0){
+						that.cthList.forEach((item) =>{
+							if(item.count_down_time){
+								that.getCountdown(item.count_down_time);
+								item.countdown = that.countdown
+							}
+						})
+						that.cthList = that.cthList
+					}
+				})
+			},
+			getCountdown(endTime) {
+				var that = this;
+				// var _endDateTime = new Date(endTime).getTime();
+				// // timer = setInterval(function() {
+				// 	var _newDateTime = new Date().getTime();
+				// 		times = _endDateTime - _newDateTime;
+				// 		if (times <= 0) {
+				// 			return
+				// 		}
+				// 		that.setTime(times / 1000)
+				// 	// }, 1000);
+				if (endTime <= 0) {
+					return
+				}
+				that.setTime(endTime)
+			},
+			setTime(times) {
+					var that = this;
+					if (times <= 0) {
+						// clearInterval(timer);
+						return;
+					}
+					var day = 0,
+						hour = 0,
+						minute = 0,
+						second = 0; //时间默认值
+					day = Math.floor(times / (60 * 60 * 24));
+					hour = Math.floor(times / (60 * 60)) - (day * 24);
+					minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+					second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+					if (day <= 9) day = '0' + day;
+					if (hour <= 9) hour = '0' + hour;
+					if (minute <= 9) minute = '0' + minute;
+					if (second <= 9) second = '0' + second;
+					//
+					var countdown = {
+						day: day,
+						hour: hour,
+						minute: minute,
+						second: second,
+					}
+					that.countdown = countdown
+					// times--;
+				},
+			clickOrderDetail(e){
+				let channelorderno = e.currentTarget.dataset.channelorderno;
+				uni.redirectTo({
+					url: `/pagesub/CinemaTicket/CinemaTicketHomeOrderDetail?channelOrderNo=${channelorderno}`
+				})
+			},
+		},
+		onPullDownRefresh:function(){
+			this.getFilmOrderList(1);
+			setTimeout(()=>{
+				uni.stopPullDownRefresh();
+			}, 500);
+		},
+		onReachBottom:function(){
+			this.getFilmOrderList(2);
+		},
 	}
 </script>
 
@@ -231,6 +346,9 @@ page{
 		color: #333333;
 		margin-left: 0rpx;
 		width: 480rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.cth-item-view-2{
 		font-size: 30rpx;

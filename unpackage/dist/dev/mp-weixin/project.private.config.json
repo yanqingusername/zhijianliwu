@@ -49,8 +49,8 @@
           "scene": null
         },
         {
-          "name": "pages/index-coupon/index-address",
-          "pathName": "pages/index-coupon/index-address",
+          "name": "pagesub/CinemaTicket/CinemaTicketOrderList",
+          "pathName": "pagesub/CinemaTicket/CinemaTicketOrderList",
           "query": "",
           "scene": null
         }

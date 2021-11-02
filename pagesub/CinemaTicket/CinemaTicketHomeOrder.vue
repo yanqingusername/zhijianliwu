@@ -294,12 +294,13 @@
 					showId: that.showId,
 					seatIds: that.seatIds,
 					coupon_number: that.coupon_number,
-					use_balance: that.is_balance ? '1' : '0'
+					use_balance: that.is_balance ? '1' : '0',
+					allowChanged : that.checked ? "1" : "0"
 				}); 
 				var action = 'set_movie_order_submit';
 				let controller = 'films';
 				this.$utils.postNew(action, data, controller).then(res => {
-					console.log('---->:',res)
+					console.log('---->:',res.rs)
 					if(res.sta == 1){
 						
 						// if(res.rs.errCode == 0){
@@ -313,8 +314,8 @@
 						// 		duration: 2000
 						// 	})
 						// }
-						let  channelOrderNo=res.channelOrderNo
-						if (res.pay_status == 1) {
+						let  channelOrderNo=res.rs.channelOrderNo
+						if (res.rs.pay_status == 1) {
 							// 腾讯有数
 							let timestamp=new Date().getTime();
 							sr.track('custom_order', {
@@ -330,13 +331,13 @@
 							    }],
 							})
 							uni.redirectTo({
-								url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}`
+								url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
 							})
-						} else if (res.pay_status == 0) {
+						} else if (res.rs.pay_status == 0) {
 							// 获取流水单号
 							let action = 'get_buy_order_pay_info';
 							let data = JSON.stringify({
-								ordernumber: res.channelOrderNo
+								ordernumber: res.rs.channelOrderNo
 							});
 							this.$utils.post(action, data).then(res => {
 								console.log("获取流水号", res);
@@ -352,7 +353,7 @@
 											serial_number: serial_number,
 											ip: res.data.ip,
 											openid: openid,
-											type: 'buy_order',
+											type: 'film',
 										});
 										this.$utils.post(action, data).then(res => {
 											console.log('获取参数', res)
@@ -360,7 +361,7 @@
 											const date = {
 												// 合作方标识
 												appId: 'appId=wx9c53a99b078435f5',
-												timeStamp: 'timeStamp=' + this.timeStamp,
+												timeStamp: 'timeStamp=' + that.timeStamp,
 												nonceStr: 'nonceStr=' + that.nums,
 												package: 'package=prepay_id=' + res.rs.prepay_id,
 												signType: 'signType=MD5',
@@ -395,7 +396,7 @@
 											uni.hideLoading();
 						
 											uni.requestPayment({
-												timeStamp: String(this.timeStamp),
+												timeStamp: String(that.timeStamp),
 												nonceStr: that.nums,
 												package: 'prepay_id=' + res.rs.prepay_id,
 												signType: 'MD5',
@@ -418,7 +419,7 @@
 													})
 																			
 													uni.redirectTo({
-														url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}`
+														url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
 													})
 												},
 												fail(res) {
@@ -443,8 +444,11 @@
 														icon: 'none'
 													})
 													that.commodity = ''
+													// uni.redirectTo({
+													// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+													// })
 													uni.redirectTo({
-														url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+														url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
 													})
 												},
 											})
@@ -463,8 +467,8 @@
 							    },
 							    "sub_orders": [{
 							        "sub_order_id": channelOrderNo,
-							        "order_amt": this.price_zhe,
-							        "pay_amt": this.price_zhe
+							        "order_amt": that.price_zhe,
+							        "pay_amt": that.price_zhe
 							    }],
 							})
 							
