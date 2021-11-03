@@ -7,6 +7,6 @@
         "左滑删除"
     ],
     "dependencies": {
-        "sr-sdk-wxapp": "^1.4.2"
+        "sr-sdk-wxapp": "^1.7.4"
     }
 }
