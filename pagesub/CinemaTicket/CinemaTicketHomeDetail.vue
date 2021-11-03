@@ -17,10 +17,10 @@
 			<view class="cthd-b">
 				<view class="cth-b-bg-2-1">
 					<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
-					<view class="cth-b-bg-2-1-2">
+					<!-- <view class="cth-b-bg-2-1-2">
 						<view class="cth-b-bg-2-1-2-1">3D</view>
 						<view class="cth-b-bg-2-1-2-2">IMAX</view>
-					</view>
+					</view> -->
 				</view>
 				<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
 				<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>

@@ -145,7 +145,7 @@
 						that.cthList = res.rs;
 						that.isAll = false;
 					} else {
-						if(res.rs.list.length>0){
+						if(res.rs.length>0){
 							that.cthList = that.cthList.concat(res.rs);
 							that.pageIndex++;
 						}else{

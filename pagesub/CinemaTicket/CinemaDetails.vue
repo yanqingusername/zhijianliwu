@@ -33,7 +33,7 @@
 			</view>
 			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text class="cd-b-2">{{movieInfo.grade}}</text></view>
 			<view class="cd-c-view">
-				<view class="cd-c"><text v-if="movieInfo.duration">{{movieInfo.duration}}</text><text v-if="movieInfo.filmTypes"> | {{movieInfo.filmTypes}}</text><text v-if="movieInfo.cast"> | {{movieInfo.cast}}</text><text style="margin-left: 10rpx;">{{'>'}}</text></view>
+				<view class="cd-c"><text v-if="movieInfo.duration">{{movieInfo.duration}}分钟</text><text v-if="movieInfo.filmTypes"> | {{movieInfo.filmTypes}}</text><text v-if="movieInfo.cast"> | {{movieInfo.cast}}</text><text style="margin-left: 10rpx;">{{'>'}}</text></view>
 			</view>
 			<view style="height: 30rpx;"></view>
 			
