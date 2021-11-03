@@ -39,7 +39,7 @@
 						</view>
 						<view class="reception-address-view-right" ></view>
 					</view>
-					<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+					<image src="https://zhijianlw.com/static/web/img/icon_location_reception.png" class="reception-address-icon"></image>
 				</view>
 			</view>
 			<view class="line-bottom"></view>

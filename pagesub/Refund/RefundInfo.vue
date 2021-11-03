@@ -121,7 +121,7 @@
 							</view>
 							<view class="reception-address-view-right" ></view>
 						</view>
-						<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+						<image src="https://zhijianlw.com/static/web/img/icon_location_reception.png" class="reception-address-icon"></image>
 					</view>
 					<view class="line-bottom" v-if="typerefund == 2 && (cancel_info.status == 4 || cancel_info.status == 5)"></view>
 					
@@ -144,7 +144,7 @@
 							</view>
 							<view class="reception-address-view-right" ></view>
 						</view>
-						<image src="../../static/icon_location_reception.png" class="reception-address-icon"></image>
+						<image src="https://zhijianlw.com/static/web/img/icon_location_reception.png" class="reception-address-icon"></image>
 					</view>
 					<view class="line-bottom" v-if="typerefund == 3 && (cancel_info.status == 4 || cancel_info.status == 6)"></view>
 					
