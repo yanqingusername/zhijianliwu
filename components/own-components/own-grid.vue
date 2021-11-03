@@ -23,12 +23,12 @@
 		methods: {
 			goToTheme: function(e) {
 				let id = e.currentTarget.dataset.id;
-				// uni.navigateTo({
-				// 	url: "../product-list/product-list?type=module&key=" + id
-				// })
 				uni.navigateTo({
-					url: "/pagesub/CinemaTicket/CinemaTicketHome"
+					url: "../product-list/product-list?type=module&key=" + id
 				})
+				// uni.navigateTo({
+				// 	url: "/pagesub/CinemaTicket/CinemaTicketHome"
+				// })
 			}
 		},
 		computed:{
