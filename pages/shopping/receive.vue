@@ -13,7 +13,7 @@
 					<text class="wishes-fu-head-title">{{name}}</text>
 				</view>
 				
-				<view class="wishes-name zhufu">{{zhufu_msg}}</view>
+				<view class="wishes-name zhufu">{{order_zhufu_msg}}</view>
 			</view>
 			<view class="wishes-line">
 				<text class="wishes-line-font">熊猫送了您一份礼物赶紧领取吧</text>
@@ -90,7 +90,7 @@
 					<text class="wishes-fu-head-title">{{name}}</text>
 				</view>
 				
-				<view class="wishes-name zhufu">{{zhufu_msg}}</view>
+				<view class="wishes-name zhufu">{{order_zhufu_msg}}</view>
 			</view>
 		</view>
 	</view>
@@ -159,6 +159,7 @@
 				second: 0,
 				timer:'',
 				totalDuration: '00:00:00',
+				order_zhufu_msg: ''
 			}
 		},
 		onLoad: function(e) {	
@@ -187,6 +188,7 @@
 			var action1 = 'get_cardbag_detail';
 			this.$utils.post(action1, data1).then(res => {
 				console.log('礼包详情', res)
+				this.order_zhufu_msg = res.order_zhufu_msg
 				this.zhufu_msg = res.cardbag_theme.zhufu_msg
 				this.zhufu_mp3 = res.cardbag_theme.zhufu_mp3
 				this.zhufu_mp4=res.cardbag_theme.zhufu_mp4

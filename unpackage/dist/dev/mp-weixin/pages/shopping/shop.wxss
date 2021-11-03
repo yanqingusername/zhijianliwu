@@ -399,4 +399,26 @@ page{
     width: 700rpx !important;
     height: 288rpx !important;
 }
+.msg-view{
+	font-size: 26rpx;
+	color: #333333;
+	margin-top: 30rpx;
+	margin-left: 18rpx;
+}
+.apply-refund-text{
+	padding: 30rpx 0rpx;
+}
+.apply-refund-text textarea{
+	font-size: 28rpx;
+	    color: #999999;
+	    height: 100rpx;
+	    width: 660rpx;
+}
+.apply-refund-number{
+	font-size: 28rpx;
+	color: #999999;
+	position: absolute;
+	right: 20rpx;
+	bottom: 20rpx;
+}
 

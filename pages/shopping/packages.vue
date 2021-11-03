@@ -165,7 +165,8 @@
 				new_coupon_number: '',
 				new_balance: '0.00',
 				new_balance_price: '',
-				new_freight: ''
+				new_freight: '',
+				remark: ''
 			}
 		},
 		onLoad:function(e) {
@@ -174,6 +175,8 @@
 			this.fenshu=e.fenshu
 			//获取玩法
 			this.wanfa=e.wanfa
+			
+			this.remark=e.remark
 			
 			// 余额s
 			this.use_balance = 1;
@@ -379,8 +382,8 @@
 						use_balance: this.use_balance,
 						use_zj_balance: this.use_zj_balance,
 						fenshu:this.fenshu,
-						buy_type:type
-						
+						buy_type:type,
+						zhufu_msg: this.remark
 					});
 					console.log(data)
 					var action = 'create_cardbag';

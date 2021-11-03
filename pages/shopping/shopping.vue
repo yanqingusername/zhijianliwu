@@ -76,6 +76,12 @@
 					<view class="shop-gift-address shop-list">
 						<text class="">{{numberss == 1 ? '手慢无':'随机领取一件礼物'}}</text>
 					</view>
+					<view class="msg-view">写祝福语</view>
+					<view class="shop-gift-address shop-list" style="margin-top: 13rpx;height: 130rpx;line-height: 130rpx;padding-top: 26rpx;position: relative;">
+						<view class="apply-refund-text"><textarea @input='inputRemark' :placeholder="remark" maxlength='20'/></view>
+						<view class="apply-refund-number" v-if="remarkNumber > 0">{{remarkNumber}}{{'/20'}}</view>
+					</view>
+					
 					<!-- <view class="shop-gift-pin shop-list" @click="chooseGift">
 						<text>选择礼物封面</text>
 						<view class="right">
@@ -181,7 +187,9 @@
 				zhufu_type:0,
 				id:'',
 				setgiftssuccess: '2',
-				setwishessuccess: '2'
+				setwishessuccess: '2',
+				remark: '大吉大利，恭喜发财！',
+				remarkNumber: 0
 			}
 
 		},
@@ -243,6 +251,10 @@
 			this.caltotalmoney()
 		},
 		methods: {
+			inputRemark(e){
+				this.remark = e.detail.value;
+				this.remarkNumber = e.detail.value.length;
+			},
 			box_gift() {
 				// uni.reLaunch({
 				// 	url: '../index/index' //跳转首页
@@ -493,7 +505,7 @@
 						if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
 							this.$forceUpdate();
 							uni.navigateTo({
-								url: '../shopping/packages?type=0&fenshu=1&wanfa=4'
+								url: '../shopping/packages?type=0&fenshu=1&wanfa=4&remark='+this.remark
 							})
 						}
 					})
@@ -554,5 +566,30 @@
 	.shop-header-xiong {
 	    width: 700rpx;
 	    height: 288rpx;
+	}
+	
+	.msg-view{
+		font-size: 26rpx;
+		color: #333333;
+		margin-top: 30rpx;
+		margin-left: 18rpx;
+	}
+	
+	
+	.apply-refund-text{
+		padding: 30rpx 0rpx;
+	}
+	.apply-refund-text textarea{
+		font-size: 28rpx;
+		    color: #999999;
+		    height: 100rpx;
+		    width: 660rpx;
+	}
+	.apply-refund-number{
+		font-size: 28rpx;
+		color: #999999;
+		position: absolute;
+		right: 20rpx;
+		bottom: 20rpx;
 	}
 </style>
