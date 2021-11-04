@@ -89,12 +89,8 @@ page{
 		border-bottom: 1px solid #EEEEEE;
 		/* border: 1px solid #000; */
 		background-color: #fff;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 		padding-left: 40rpx;
 }
 .must-list-bg{
@@ -102,15 +98,9 @@ page{
 		width: 140rpx;
 		height: 140rpx;
 		background-color: #F3F3F3;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		justify-content: center;
+		align-items: center;
 }
 .must-list-img{
 		width: 100rpx;
@@ -150,12 +140,8 @@ page{
 		position: absolute;
 		bottom: 30rpx;
 		right: 0;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .must-add-jian{
 		width: 50rpx;
@@ -228,15 +214,9 @@ page{
 		    position: absolute;
 		    margin-top: 300rpx;
 		/* top: 621rpx; */
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: end;
-		-webkit-justify-content: flex-end;
-		        justify-content: flex-end;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		justify-content: flex-end;
+		align-items: center;
 }
 .sum-price{
 		margin-right: 50rpx;
@@ -271,12 +251,8 @@ page{
 		color: #333333;
 		font-size: 15px;
 		font-weight: bold;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
+		justify-content: center;
 		margin-top: 50rpx;
 }
 .you-left{
@@ -294,19 +270,13 @@ page{
 		background-color: #fff;
 		margin-top: -88rpx;
 		margin-left: 463rpx;
-		    display: -webkit-box;
-		    display: -webkit-flex;
 		    display: flex;
-		    -webkit-box-align: center;
-		    -webkit-align-items: center;
-		            align-items: center;
+		    align-items: center;
 }
 .l-price{
 		color: #FB503D;
 		font-weight: bold;
 		font-size: 16.5px;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
 		padding-top: 30rpx;
 		    padding-left: 53rpx;
@@ -319,39 +289,25 @@ page{
 .l-date{
 		color: #999999;
 		font-size: 9px;
-		    display: -webkit-box;
-		    display: -webkit-flex;
 		    display: flex;
-		    -webkit-box-align: end;
-		    -webkit-align-items: flex-end;
-		            align-items: flex-end;
-		    -webkit-box-pack: center;
-		    -webkit-justify-content: center;
-		            justify-content: center;
+		    align-items: flex-end;
+		    justify-content: center;
 		    margin-top: 32rpx;
 }
 .l-moth{
 		color: #333333;
 		font-size: 14px;
 		font-weight: bold;
-		    display: -webkit-box;
-		    display: -webkit-flex;
 		    display: flex;
-		    -webkit-box-pack: end;
-		    -webkit-justify-content: flex-end;
-		            justify-content: flex-end;
+		    justify-content: flex-end;
 		    margin-top: -114rpx;
 		    margin-right: 30rpx;
 }
 .l-quan{
 		color: #666666;
 		font-size: 10px;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: end;
-		-webkit-justify-content: flex-end;
-		        justify-content: flex-end;
+		justify-content: flex-end;
 		margin-top: 13rpx;
 		margin-right: 55rpx;
 }
@@ -380,35 +336,26 @@ page{
 		margin-top: 20rpx;
 }
 .must-guige{
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
+		flex: 1;
 		height: auto;
 		position: static;
 }
 .must-list-xq{
 		padding: 20rpx 38rpx;
 		height: auto;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 }
 .must-list-bg{
 		width: 140rpx;
 		height:140rpx;
 }
 .guige-1{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 		margin-bottom: 20rpx;
 }
 .guige-1 .must-guige-title{
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
+		flex: 1;
 		margin: 0;
 		font-size: 30rpx;
 		color: #333;
@@ -422,12 +369,8 @@ page{
 		margin: 0;
 }
 .guige-2{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .guige-2 .must-guige-box{
 		font-weight: 500;
@@ -439,27 +382,20 @@ page{
 		position: static;
 		text-align: right;
 		display: inline-block!important;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
+		flex: 1;
 		color: #333;
 		font-size: 28rpx;
 }
 .message{
 		position: static;
 		background-color: #fff;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 		padding: 20rpx 38rpx;
 }
 .message>view{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
 		padding: 20rpx 0;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .message .message-title{
 		position: static;
@@ -470,9 +406,7 @@ page{
 		position: static;
 		font-size: 30rpx;
 		color: #333;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1; 
+		flex: 1; 
 		text-align: right;
 }
 .must{
@@ -538,14 +472,10 @@ page{
 	margin-right: 0;
 }
 .heji{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	padding: 12rpx 35rpx;
 	bottom: 0!important;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	height: auto!important;
 }
 .pay {
@@ -553,9 +483,7 @@ page{
 	left: 408rpx;
 	top: -22rpx; */
 	text-align: right;
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
+	flex: 1;
 	width: 60%;
 	display: inline-block;
 }
@@ -587,12 +515,8 @@ page{
 .heji{
 	position: fixed;
 	bottom: 10rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .must-address{
 	background-color: #fff;
@@ -602,13 +526,8 @@ page{
 	margin-top: 320rpx;
 }
 .new-youhuijuan{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	flex-direction: column;
 	height: 640rpx;
 	/* padding-bottom: 20rpx; */
 	background: #FAFAFA;
@@ -619,11 +538,7 @@ page{
     color: #333333;
     font-size: 15px;
     font-weight: bold;
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
     margin-top: 30rpx;
 	margin-bottom: 40rpx;
@@ -649,19 +564,13 @@ page{
 }
 .juan-wrap{
 	padding: 0rpx 26rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .juan-list{
-	-webkit-box-shadow: 0px 0px 4px 0px rgba(231, 231, 231, 0.5);
-	        box-shadow: 0px 0px 4px 0px rgba(231, 231, 231, 0.5);
+	box-shadow: 0px 0px 4px 0px rgba(231, 231, 231, 0.5);
 	margin-bottom: 20rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	border-radius: 20rpx;
 	background-color: #fff;
 }
@@ -669,9 +578,7 @@ page{
 	text-align: left;
 	border-right: 1rpx dotted #FFCAC3;
 	position: relative;
-	-webkit-box-flex:1;
-	-webkit-flex:1;
-	        flex:1;
+	flex:1;
 	padding: 20rpx 20rpx 20rpx 32rpx;
 }
 .juan-list-left .z-circle{
@@ -683,12 +590,8 @@ page{
 	height: 40rpx;
 }
 .z-box{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	margin-bottom: 24rpx;
 }
 .juan-list-left .z-circle-top{
@@ -732,9 +635,7 @@ page{
 	font-size: 28rpx;
 	vertical-align: bottom;
 	text-align: left;
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
+	flex: 1;
 }
 .juan-list-left .juan-list-left-bottom{
 	font-size: 24rpx;
@@ -745,8 +646,7 @@ page{
 	text-align: center;
 	height: 100%;
 	width: 212rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-right: 0rpx;
 }
 .juan-list-right .checks, .juan-list-right .checked{

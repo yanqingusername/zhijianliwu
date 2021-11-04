@@ -177,6 +177,15 @@
 			}
 		},
 		onShareAppMessage: function(e) {
+			// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": this.title,
+			  "share_path": '/pages/Post/Post?id=' + this.gifts_article_id,
+			  "share_image_url": this.share_img,
+			  "share_to": "friends",
+			})
+
 			return {
 				imageUrl: this.share_img,
 				title: this.title,

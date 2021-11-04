@@ -11,8 +11,7 @@
 	/* margin-top: 50rpx; */
 	/* margin-left: 100rpx; */
 	padding: 50rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .card input {
 	width: 628rpx;

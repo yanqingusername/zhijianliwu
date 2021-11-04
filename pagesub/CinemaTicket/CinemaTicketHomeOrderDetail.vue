@@ -330,8 +330,8 @@
 											    },
 											    "sub_orders": [{
 											        "sub_order_id": channelOrderNo,
-											        "order_amt": that.price_zhe,
-											        "pay_amt": that.price_zhe
+											        "order_amt": that.filmOrderInfo.paymoney,
+											        "pay_amt": that.filmOrderInfo.paymoney
 											    }],
 											})
 																	
@@ -350,8 +350,8 @@
 											    },
 											    "sub_orders": [{
 											        "sub_order_id": channelOrderNo,
-											        "order_amt": that.price_zhe,
-											        "pay_amt": that.price_zhe
+											        "order_amt": that.filmOrderInfo.paymoney,
+											        "pay_amt": that.filmOrderInfo.paymoney
 											    }],
 											})
 											

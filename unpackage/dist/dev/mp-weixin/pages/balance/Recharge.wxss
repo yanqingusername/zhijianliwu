@@ -44,16 +44,9 @@ page{
 	position: absolute;
 	top: 50rpx;
 	right: 50rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 .new-balance-top-view{
 	width: 116rpx;
@@ -63,15 +56,9 @@ page{
 	font-size: 24rpx;
 	color: #FFFFFF;
 	line-height: 33rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	margin-top: 10rpx;
 }
 .balance-content {
@@ -83,8 +70,7 @@ page{
 	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
-	-webkit-box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
-	        box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
+	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
@@ -95,8 +81,7 @@ page{
 	width: 210rpx;
 	height: 272rpx;
 	background: #FFFFFF;
-	-webkit-box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
-	        box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
+	box-shadow: 0px 0px 10rpx 0px rgba(222, 222, 222, 0.5);
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
@@ -186,15 +171,9 @@ page{
 	font-size: 30rpx;
 	color: #FFFFFF;
 	line-height: 42rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	margin: 80rpx auto 0 auto;
 }
 .new-recharge-exchange {

@@ -1,7 +1,6 @@
 
 page{
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 
@@ -11,22 +10,14 @@ page{
 	/* height: 600rpx; */
 }
 .gift-small-con-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	padding: 30rpx 60rpx;
 	background: #FFFFFF;
 }
 .gift-small-con {
     /* width: 94%; */
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     /* justify-content: space-around; */
     /* padding: 30rpx 60rpx; */
@@ -47,15 +38,9 @@ page{
 	left: 37rpx; */
 	width: 76rpx;
 	height: 76rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	    -webkit-box-align: center;
-	    -webkit-align-items: center;
-	            align-items: center;
-	    -webkit-box-pack: center;
-	    -webkit-justify-content: center;
-	            justify-content: center;
+	    align-items: center;
+	    justify-content: center;
 }
 .icon-card-morenlogo{
 	width: 64rpx;
@@ -66,22 +51,13 @@ page{
 	width: 76rpx;
 	height: 76rpx;
 	background: #000000;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	    top: 0rpx;
 	    left: 0rpx;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
+		flex-direction: column;
 		opacity: 0.7;
 }
 .icon-card-morenlogo-view-title{
@@ -126,15 +102,9 @@ page{
 	border: 1px solid #E95F5D;
 	font-size: 16rpx;
 	color: #DB3C3A;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	bottom: 40rpx;
 	left: 40rpx;
@@ -146,15 +116,9 @@ page{
 	border: 1px solid #E95F5D;
 	font-size: 16rpx;
 	color: #DB3C3A;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	bottom: 15rpx;
     right: 0rpx;
@@ -209,8 +173,7 @@ page{
 	padding: 24rpx;
 	width: 100%;
 	position: relative;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-small-content-card-top{
     width: 100%;
@@ -251,16 +214,14 @@ page{
 	/* position: absolute;
 	top: 160rpx;
 	left: 10rpx; */
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-card-btn{
 	margin-top: 20rpx;
 	/* border: 1px solid #EDEDED; */
 	text-align: center;
 	/* padding: 20rpx; */
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-card-btn button{
 	width: 214rpx;
@@ -268,19 +229,14 @@ page{
 	color: red;
 }
 .gift-small-bottom{
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-top: 20rpx;
 	border-top: 1rpx solid #E6E6E6; 
 	/* position: relative; */
 	/* top: 523rpx; */
 	/* left: 1rpx; */
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .gift-small-bottom-img{
 	display: inline-block;
@@ -306,15 +262,11 @@ page{
 }
 .my-reg {
     padding:20rpx 30rpx;
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll
 }
 .my-regs{
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     margin-right: 8px;
 }
@@ -332,15 +284,9 @@ page{
 	    z-index: 99;
 	    bottom: 0rpx;
 		width: 100%;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
+		align-items: center;
+		justify-content: center;
 		    background: #FFFFFF;
 }
 .gift-btn{
@@ -363,22 +309,13 @@ page{
 	text-align: left;
 }
 .swiper-container {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .swiper-itemDefault{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
 	height: 750rpx;
@@ -387,14 +324,9 @@ page{
 	border-radius: 6rpx;
 }
 .swiper-item {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
 	height: 834rpx;
@@ -403,12 +335,8 @@ page{
 	border-radius: 6rpx;
 }
 .swiper-tall {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	height: 850rpx;
 }
 .icon-card-select-1{
@@ -448,17 +376,12 @@ page{
 	    /* border-bottom: 1px solid #EEEEEE; */
 }
 .popup-pic{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	width: 750rpx;
 	/* height: 318rpx; */
 	background: #FFFFFF;
 	border-radius: 10rpx 10rpx 3rpx 3rpx;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	flex-direction: column;
 }
 .popup-pic-text{
 	font-size: 34rpx;

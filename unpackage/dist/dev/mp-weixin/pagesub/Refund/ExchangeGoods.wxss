@@ -5,69 +5,40 @@ page{
 .sale-view{
 	    /* background: #FFFFFF; */
 	    margin-top: 22rpx;
-	    display: -webkit-box;
-	    display: -webkit-flex;
 	    display: flex;
-	    -webkit-box-orient: vertical;
-	    -webkit-box-direction: normal;
-	    -webkit-flex-direction: column;
-	            flex-direction: column;
-	    -webkit-box-align: center;
-	    -webkit-align-items: center;
-	            align-items: center;
+	    flex-direction: column;
+	    align-items: center;
 	    padding: 10rpx 0rpx 150rpx 0rpx;
 }
 .new-order-li-center{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	position: relative;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
+	justify-content: space-between;
 	padding: 25rpx 0rpx;
 	border-bottom: 2rpx solid #EEEEEE;
 	width: 100%;
 	background: #FFFFFF;
 }
 .exchange-view-item{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	padding: 0rpx 45rpx 0rpx 38rpx;
 }
 .exchange-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	justify-content: space-between;
+	align-items: center;
 }
 .exchange-view-width{
 	/* width: 80%; */
 }
 .new-order-left{
 	width: 140rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .new-order-img{
 	width: 140rpx;
@@ -78,26 +49,15 @@ page{
 	height: 140rpx;
 }
 .new-order-right{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	flex-direction: column;
 	width: 380rpx;
 	margin-left: 20rpx;
 }
 .new-order-item{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	justify-content: space-between;
+	align-items: center;
 }
 .new-order-item-title{
 	font-size: 30rpx;
@@ -137,29 +97,17 @@ page{
 	height: 200rpx;
 }
 .exchange-bottom{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	position: fixed;
 	bottom: 10rpx;
     z-index: 77;
 }
 .exchange-button{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	width: 660rpx;
 	height: 80rpx;
 	background: #EC1815;

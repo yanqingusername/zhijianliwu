@@ -4,17 +4,12 @@
 		top: 1080rpx;
 }
 .sticky-box {
-	    display: -webkit-box;
-	    display: -webkit-flex;
 	    display: flex;
 	    position: -webkit-sticky;
 	    position: sticky;
 	    top: 0px;
 	    z-index: 9999;
-	    -webkit-box-orient: horizontal;
-	    -webkit-box-direction: normal;
-	    -webkit-flex-direction: row;
-	            flex-direction: row;
+	    flex-direction: row;
 	    margin: 0px;
 	    padding: 1px 0 1px 0;
 	    background-color: #F4F5F6;
@@ -39,8 +34,7 @@
 	width: 100%;
 	position: relative;
 	/* height: 460rpx; */
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	/* background: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/bgs.png) no-repeat center center/100% 100%; */
 	/* background: linear-gradient(133deg, #F32C14 0%, #EB1515 100%); */
 	/* background-repeat: no-repeat; */
@@ -65,8 +59,7 @@
 	/* display: flex; */
 	/* height: 95rpx; */
 	width: 100%;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	/* align-items: center; */
 	/* justify-content: center; */
 	/* margin-left: 30rpx; */
@@ -94,8 +87,7 @@
 	padding: 0rpx 16rpx;
 	background: #F9F9F9;
 	width: 100%;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	/* display: flex;
 	justify-content: space-around;
 	align-items: center; */
@@ -118,8 +110,6 @@
 	font-size: 24rpx;
 }
 .owm-index-tab-bar {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	height: 64rpx;
 }

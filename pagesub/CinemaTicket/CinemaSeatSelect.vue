@@ -17,24 +17,33 @@
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
 		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width: 750rpx;margin-top:20rpx;'">
 			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width: 750rpx;'"
-				scale="true" direction="all" scale-max="2" scale-min="1" out-of-bounds="true">
+				scale="true" direction="all" scale-max="1.5" scale-min="0.5" out-of-bounds="true">
 				<view class='seatArea'
 					:style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'">
 					<!--中轴线  -->
 					<!-- <view class='alignLine'></view> -->
-					<view class='hallName'>
+					<!-- <view class='hallName'>
 						<text>{{hallName}}</text>
+					</view> -->
+					
+					<view class="visual_screen">
+					   <view class="screen"></view>
 					</view>
-					<view v-for="(item, index) in seatList" :key="id" class='seatTap' @click.stop='clickSeat'
-						:data-index='index'
-						:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;width:'+seatScaleHeight+'px;height:'+seatScaleHeight+'px'">
-						<image :src="item.nowIcon" class='normal' />
-						<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
+					<view class="visual_title" v-if="hallName">{{hallName}}</view>
+					
+					<view style="margin-top: 20rpx;">
+						<view v-for="(item, index) in seatList" :key="id" class='seatTap' @click.stop='clickSeat'
+							:data-index='index'
+							:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;width:'+seatScaleHeight+'px;height:'+seatScaleHeight+'px'">
+							<image :src="item.nowIcon" class='normal' />
+							<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
+						</view>
+						
+						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;'">
+							<view class="area-left-number" :style="'top:'+(item * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+						</view>
 					</view>
 					
-					<view class="area-left">
-						<view class="area-left-number" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
-					</view>
 				</view>
 			</movable-view>
 		</movable-area>
@@ -325,8 +334,8 @@
 				let seatScale = 1;
 				let seatScaleX = 1;
 				let seatScaleY = 1;
-				let seatAreaWidth = 630 * this.rpxToPx
-				let seatAreaHeight = this.seatArea - 200 * this.rpxToPx
+				let seatAreaWidth = 500 * this.rpxToPx
+				let seatAreaHeight = this.seatArea - 155 * this.rpxToPx
 				if (seatRealWidth > seatAreaWidth) {
 					seatScaleX = seatAreaWidth / seatRealWidth
 				}
@@ -1893,5 +1902,41 @@
 		font-weight: bold;
 		color: #FFFFFF;
 		padding: 6rpx 10rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/**
+	 * 
+	 */
+	.visual_screen {
+	  height: 30rpx;
+	  width: 100%;
+	  display: flex;
+	  justify-content: center;
+	  overflow: hidden;
+	  margin-bottom: 10rpx;
+	  position: absolute;
+	  top: -70rpx;
+	}
+	.screen {
+	  margin-top: 0;
+	  padding: 0;
+	  height: 30vw;
+	  width: 100vw;
+	  box-sizing: border-box;
+	  border: 15rpx solid #c9cdd3;
+	  border-radius: 50%;
+	}
+	.visual_title {
+	  font-size: 23rpx;
+	  width: 100%;
+	  height: 20rpx;
+	  text-align: center;
+	  color: #6d6d6d;
+	  margin-bottom: 0rpx;
+	  position: absolute;
+	  top: -30rpx;
 	}
 </style>

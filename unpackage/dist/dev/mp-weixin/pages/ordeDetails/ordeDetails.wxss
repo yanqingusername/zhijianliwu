@@ -30,9 +30,7 @@ page {
 	height: 140rpx;
 }
 .order-purchase-top-introduce{
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
+	flex: 1;
 	padding-right: 26rpx;
 }
 .order-purchase-right{
@@ -59,15 +57,9 @@ page {
     bottom: -45rpx;
 }
 .new-balance-button-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	padding: 0rpx 30rpx;
 	position: fixed;
     bottom: 0;

@@ -81,7 +81,7 @@
 
 <script>
 	import config from '../../common/config.js';
-	
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -240,6 +240,15 @@
 			if(this.typestring == 1){
 				path = "pages/shopping/CBlessingCardWe?cardbag_number=" + this.cardbag.cardbag_number
 			}
+
+			// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": this.cardbag_theme.send_talk_msg,
+			  "share_path": path,
+			  "share_image_url": this.cardbag_theme.share_background,
+			  "share_to": "friends",
+			})
 			
 			return {
 				title: this.cardbag_theme.send_talk_msg,

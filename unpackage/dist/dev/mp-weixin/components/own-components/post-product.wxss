@@ -1,14 +1,9 @@
 
 .goodslist.data-v-5b2cebe9 {
   padding: 20rpx 24rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding-bottom: 10rpx;
 }
 .goods.data-v-5b2cebe9 {
@@ -49,28 +44,17 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 }
 .goods-bottom.data-v-5b2cebe9{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	position: absolute;
 	bottom: 10rpx;
 	right: 0rpx;
 	margin-right: 20rpx;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: row;
+	align-items: center;
 }
 .goods-bottom-img.data-v-5b2cebe9{
 	width: 40rpx;

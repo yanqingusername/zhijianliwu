@@ -16,25 +16,14 @@
 		/* position: relative;
 		padding-right: 150rpx; */
 		padding-left: 26rpx;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
-		display: -webkit-box;
-		display: -webkit-flex;
+		box-sizing: border-box;
 		display: flex;
-		    -webkit-box-align: center;
-		    -webkit-align-items: center;
-		            align-items: center;
-		    -webkit-box-pack: justify;
-		    -webkit-justify-content: space-between;
-		            justify-content: space-between;
+		    align-items: center;
+		    justify-content: space-between;
 }
 .owm-index-tab-bar{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .owm-index-tab-bar-box{
 		width: 80%;
@@ -85,24 +74,13 @@
 		line-height: 40rpx;
 		margin: 0 20rpx;
 		position: relative;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .owm-index-tab-bar-view{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
+		align-items: center;
+		flex-direction: column;
 }
 .owm-index-tab-bar-item {
 		text-align: center;
@@ -148,20 +126,13 @@
 		/* width: 600rpx; */
 }
 .popup-center-view{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 			width: 644rpx;
 			height: 469rpx;
 			background: #FFFFFF;
 			border-radius: 10rpx;
-			-webkit-box-orient: vertical;
-			-webkit-box-direction: normal;
-			-webkit-flex-direction: column;
-			        flex-direction: column;
+			flex-direction: column;
 }
 .popup-center-view-img{
 			width: 68rpx;
@@ -176,27 +147,15 @@
 			padding: 0rpx 36rpx 0rpx 66rpx;
 }
 .popup-center-view-bottom{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			justify-content: center;
+			align-items: center;
 			margin-top: 54rpx;
 }
 .popup-center-view-button{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			justify-content: center;
+			align-items: center;
 			width: 196rpx;
 			height: 72rpx;
 			background: #E1B87A;
@@ -217,15 +176,9 @@
 		 * 优惠卷
 		 */
 .coupon-view{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			width: 711rpx;
 			height: 716rpx;
 			position: relative;
@@ -235,19 +188,10 @@
 			height: 716rpx;
 }
 .coupon-content{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
-			-webkit-box-orient: vertical;
-			-webkit-box-direction: normal;
-			-webkit-flex-direction: column;
-			        flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
 			position: absolute;
 			top: 95rpx;
 }
@@ -266,15 +210,9 @@
 			text-align: center;
 }
 .coupon-view-two{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			width: 700rpx;
 			height: 905rpx;
 			position: relative;
@@ -300,15 +238,9 @@
 			  position: relative;
 }
 .coupon-content-two{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			position: relative;
 			width: 515rpx;
 			height: 124rpx;
@@ -321,12 +253,8 @@
 .coupon-content-title-two{
 			position: absolute;
 			left: 30rpx;
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: baseline;
-			-webkit-align-items: baseline;
-			        align-items: baseline;
+			align-items: baseline;
 }
 .coupon-content-view{
 			position: absolute;
@@ -347,8 +275,7 @@
 		 * 
 		 */
 .own-swiper{
-			-webkit-box-sizing: border-box;
-			        box-sizing: border-box;
+			box-sizing: border-box;
 			width: 100%;
 			height: 280rpx;
 			border-radius: 10rpx;
@@ -376,19 +303,13 @@ swiper-item{
 }
 .swiper-box .wx-swiper-dot{
 		 width: 12rpx;
-		 display: -webkit-inline-box;
-		 display: -webkit-inline-flex;
 		 display: inline-flex;
 		 height: 4rpx;
-		 -webkit-box-pack:justify;
-		 -webkit-justify-content:space-between;
-		         justify-content:space-between;
+		 justify-content:space-between;
 }
 .swiper-box .wx-swiper-dot::before{
 		 content: '';
-		 -webkit-box-flex: 1;
-		 -webkit-flex-grow: 1;
-		         flex-grow: 1; 
+		 flex-grow: 1; 
 		 background: #000;
 		 opacity: 0.2;
 		 border-radius: 8rpx
@@ -400,15 +321,9 @@ swiper-item{
 .indicator-view{
 			position: absolute;
 			bottom: 20rpx;
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			justify-content: center;
+			align-items: center;
 }
 .indicator-view-item{
 			width: 36rpx;

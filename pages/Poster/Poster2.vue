@@ -35,6 +35,7 @@
 
 <script>
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -83,6 +84,15 @@
 		onShareAppMessage: function(e) {
 			// 推广
 			if (this.parent_member) {
+				// 腾讯有数
+				sr.track('page_share_app_message', {
+				"from_type": "menu",
+				"share_title": this.share_msg,
+				"share_path": '/pages/signin/signin?scene=' + this.parent_member,
+				"share_image_url": this.tempFilePath,
+				"share_to": "friends",
+				})
+
 				return {
 					title: this.share_msg,
 					// path:'/pages/redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number +'&name=' + this.sign.name + '&head_img=' + this.sign.head_img+'&id=' + id,
@@ -93,6 +103,14 @@
 			}
 			// 商品领取
 			else if (this.cardbag_number) {
+				// 腾讯有数
+				sr.track('page_share_app_message', {
+				"from_type": "menu",
+				"share_title": this.share_msg,
+				"share_path": '/pages/redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number,
+				"share_image_url": this.tempFilePath,
+				"share_to": "friends",
+				})
 				return {
 					title: this.share_msg,
 					// path:'/pages/redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number +'&name=' + this.sign.name + '&head_img=' + this.sign.head_img+'&id=' + id,

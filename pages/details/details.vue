@@ -563,7 +563,7 @@
 			  "from_type": "menu",
 			  "share_title": "我发现了一份不错的礼物，快来看看吧！",
 			  "share_path": '/pages/details/details?keynum=' + this.keynum,
-			  "share_image_url": "",
+			  "share_image_url": this.alt.head_img,
 			  "share_to": "friends",
 			})
 

@@ -16,27 +16,14 @@ page{
     /* padding-top: 21rpx; */
 }
 .search-type-nav {
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+    align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 .search-type-nav-ar{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .search-type-title{
 	font-size: 30rpx;
@@ -57,26 +44,16 @@ page{
 	height: 20rpx;
 }
 .post-search-top{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-justify-content: space-around;
-	        justify-content: space-around;
+	align-items: center;
+	justify-content: space-around;
 	padding: 0rpx 30rpx 0rpx 24rpx;
 	height: 100rpx;
 }
 .search-ul{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: start;
-	-webkit-justify-content: start;
-	        justify-content: start;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	justify-content: start;
+	flex-wrap: wrap;
 }
 .post-search-li{
 	padding: 0rpx 26rpx;
@@ -85,12 +62,8 @@ page{
 	height: 46rpx;
 	background: #F5F5F5;
 	border-radius: 23rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	color: #666666;
 	font-size: 24rpx;
 }
@@ -130,19 +103,10 @@ page{
     margin-bottom: 26rpx;
 }
 .post-list {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .post-bottom{
 	color: #888888;
@@ -163,16 +127,9 @@ page{
 	width: 90rpx;
 }
 .apply-success-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 .apply-success-img{
 	width: 255rpx;
@@ -187,42 +144,26 @@ page{
 	line-height: 48rpx;
 }
 .popup-search{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background: #FFFFFF;
 	/* border-radius: 10rpx 10rpx 3rpx 3rpx; */
 	width: 234rpx;
 	height: 450rpx;
 	background: #FFFFFF;
-	-webkit-box-shadow: 0px 0px 8rpx 0px rgba(212, 212, 212, 0.5);
-	        box-shadow: 0px 0px 8rpx 0px rgba(212, 212, 212, 0.5);
+	box-shadow: 0px 0px 8rpx 0px rgba(212, 212, 212, 0.5);
 	position: absolute;
     top: 200rpx;
     right: 0rpx;
 }
 .popup-search-item{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	height: 64rpx;
 	width: 100%;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	justify-content: center;
 }
 .popup-search-title{
 	font-size: 26rpx;

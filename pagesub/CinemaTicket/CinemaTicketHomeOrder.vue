@@ -326,8 +326,8 @@
 							    },
 							    "sub_orders": [{
 							        "sub_order_id": channelOrderNo,
-							        "order_amt": that.price_zhe,
-							        "pay_amt": that.price_zhe
+							        "order_amt": that.FilmPrice.price_zhe,
+							        "pay_amt": that.FilmPrice.price_zhe
 							    }],
 							})
 							uni.redirectTo({
@@ -413,8 +413,8 @@
 													    },
 													    "sub_orders": [{
 													        "sub_order_id": channelOrderNo,
-													        "order_amt": that.price_zhe,
-													        "pay_amt": that.price_zhe
+													        "order_amt": that.FilmPrice.price_zhe,
+													        "pay_amt": that.FilmPrice.price_zhe
 													    }],
 													})
 																			
@@ -433,8 +433,8 @@
 													    },
 													    "sub_orders": [{
 													        "sub_order_id": channelOrderNo,
-													        "order_amt": that.price_zhe,
-													        "pay_amt": that.price_zhe
+													        "order_amt": that.FilmPrice.price_zhe,
+													        "pay_amt": that.FilmPrice.price_zhe
 													    }],
 													})
 													
@@ -467,8 +467,8 @@
 							    },
 							    "sub_orders": [{
 							        "sub_order_id": channelOrderNo,
-							        "order_amt": that.price_zhe,
-							        "pay_amt": that.price_zhe
+							        "order_amt": that.FilmPrice.price_zhe,
+							        "pay_amt": that.FilmPrice.price_zhe
 							    }],
 							})
 							

@@ -221,8 +221,7 @@
   overflow: hidden;
 }
 .box-slideLeft view {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .box-slideLeft .touch-item {
   position: absolute;
@@ -235,7 +234,6 @@
   position: relative;
   width: 100%;
   z-index: 5;
-  -webkit-transition: left 0.2s ease-in-out;
   transition: left 0.2s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
@@ -258,18 +256,9 @@
   font-size: 44rpx;
 }
 .box-slideLeft .cf-shuCenter {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 

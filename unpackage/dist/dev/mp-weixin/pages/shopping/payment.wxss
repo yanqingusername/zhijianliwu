@@ -1,8 +1,6 @@
 .payment-top{
 	width: 100%;
 	height: 500rpx;
-	background:-webkit-gradient(linear,left top, right top,color-stop(55%, #FF3B3B),to(#FF9E56));
-	background:-webkit-linear-gradient(left,#FF3B3B 55%,#FF9E56 100%);
 	background:linear-gradient(90deg,#FF3B3B 55%,#FF9E56 100%); 
 	position: relative;
 }
@@ -62,8 +60,6 @@
 	position: absolute;
 	top: 50rpx;
 	left: 80rpx;
-	background:-webkit-gradient(linear,left top, right top,color-stop(25%, #E6E6E6),to(#CCCCCC));
-	background:-webkit-linear-gradient(left,#E6E6E6 25%,#CCCCCC 100%);
 	background:linear-gradient(90deg,#E6E6E6 25%,#CCCCCC 100%);
 }
 .right-line{
@@ -72,8 +68,6 @@
 	position: absolute;
 	top: 50rpx;
 	right: 80rpx;
-	background:-webkit-gradient(linear,left top, right top,color-stop(25%, #CCCCCC),to(#E6E6E6));
-	background:-webkit-linear-gradient(left,#CCCCCC 25%,#E6E6E6 100%);
 	background:linear-gradient(90deg,#CCCCCC 25%,#E6E6E6 100%);
 }
 .hot{
@@ -89,13 +83,9 @@
 	/* background-color: pink; */
 	position: absolute;
 	top: 100rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-justify-content: space-around;
-	        justify-content: space-around;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }
 .list1{
 	width: 45%;
@@ -139,13 +129,9 @@
 	/* background-color: blue; */
 	position: absolute;
 	top: 580rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-justify-content: space-around;
-	        justify-content: space-around;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }
 .list2{
 	width: 45%;
@@ -159,7 +145,6 @@
 	height: 499rpx;
 }
 .z-payment-top{
-	background: -webkit-linear-gradient(296deg, #FF3B3B 0%, #FF9E56 100%);
 	background: linear-gradient(154deg, #FF3B3B 0%, #FF9E56 100%);
 	padding: 160rpx 180rpx 58rpx 138rpx;
 	height: auto!important;
@@ -213,14 +198,12 @@
 .z-left-line{
 	width: 238rpx;
 	height: 2rpx;
-	background: -webkit-linear-gradient(207deg, #CCCCCC 0, rgba(230, 230, 230, 0) 100% );
 	background: linear-gradient(243deg, #CCCCCC 0, rgba(230, 230, 230, 0) 100% );
 	border-radius: 3rpx;
 }
 .z-right-line{
 	width: 238rpx;
 	height: 2rpx;
-	background: -webkit-linear-gradient(207deg, rgba(230, 230, 230, 0) 0%, #CCCCCC 100%);
 	background: linear-gradient(243deg, rgba(230, 230, 230, 0) 0%, #CCCCCC 100%);
 	border-radius: 3rpx;
 }
@@ -269,12 +252,8 @@
 	text-overflow: ellipsis;
 }
 .z-price{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: baseline;
-	-webkit-align-items: baseline;
-	        align-items: baseline;
+	align-items: baseline;
 }
 .z-price .price{
 	color: #FB4133;
@@ -283,9 +262,7 @@
 	font-weight: bold;
 }
 .z-price .look{
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
+	flex: 1;
 	color: #999;
 	font-size: 24rpx;
 	width: 50%;

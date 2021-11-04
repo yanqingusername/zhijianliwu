@@ -22,6 +22,7 @@
 
 <script> 
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		data() {
 			return {
@@ -105,6 +106,15 @@
 			imageUrl: this.url+this.background,
 			desc:'指间送礼',
 		});
+		// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": this.title,
+			  "share_path": '/pages/redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number,
+			  "share_image_url": this.$utils.imageUrl(this.background),
+			  "share_to": "friends",
+			})
+
 		return{
 			title:this.title,
 			// path:'/pages/redEnvelopes/redEnvelopes?cardbag_number=' + this.cardbag_number +'&name=' + this.sign.name + '&head_img=' + this.sign.head_img,

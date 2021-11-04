@@ -4,14 +4,9 @@ page{
 }
 .imgslist {
 	  padding: 30rpx 15rpx;
-	  display: -webkit-box;
-	  display: -webkit-flex;
 	  display: flex;
-	  -webkit-flex-wrap: wrap;
-	          flex-wrap: wrap;
-	  -webkit-box-pack: justify;
-	  -webkit-justify-content: space-between;
-	          justify-content: space-between;
+	  flex-wrap: wrap;
+	  justify-content: space-between;
 	  background: #FFFFFF;
 }
 .imgs {

@@ -12,12 +12,8 @@
 	border-radius: 9rpx !important;
 	background: #242424;
 	padding-top: 30rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	justify-content: center;
 }
 canvas {
 	width: 254px;

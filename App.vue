@@ -1,5 +1,6 @@
 <script>
 	import utils from './common/utils.js'
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		onLaunch: function() {
 			//新版本更新
@@ -39,7 +40,10 @@
 			}
 		},
 		onShow: function() {
-
+			var openid = uni.getStorageSync('openid');
+			sr.setUser({
+					open_id: openid
+				})
 		},
 		onHide: function() {
 

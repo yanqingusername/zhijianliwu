@@ -1,7 +1,6 @@
 
 page{
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 /* 发送页 */
@@ -26,8 +25,6 @@ page{
 }
 .gift-small-con {
     /* width: 94%; */
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     /* justify-content: space-around; */
     padding: 0rpx 0rpx;
@@ -66,8 +63,7 @@ page{
 	padding: 24rpx;
 	width: 100%;
 	position: relative;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-small-content-card-top{
     width: 100%;
@@ -108,16 +104,14 @@ page{
 	/* position: absolute;
 	top: 160rpx;
 	left: 10rpx; */
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-card-btn{
 	margin-top: 20rpx;
 	/* border: 1px solid #EDEDED; */
 	text-align: center;
 	/* padding: 20rpx; */
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .gift-card-btn button{
 	width: 214rpx;
@@ -125,19 +119,14 @@ page{
 	color: red;
 }
 .gift-small-bottom{
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-top: 20rpx;
 	border-top: 1rpx solid #E6E6E6; 
 	/* position: relative; */
 	/* top: 523rpx; */
 	/* left: 1rpx; */
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .gift-small-bottom-img{
 	display: inline-block;
@@ -162,15 +151,11 @@ page{
 }
 .my-reg {
     padding:20rpx 30rpx;
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll
 }
 .my-regs{
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     margin-right: 8px;
 }
@@ -206,22 +191,13 @@ textarea{
 	text-align: left;
 }
 .swiper-container {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 }
 .swiper-item {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
 	height: 272rpx;
@@ -230,12 +206,8 @@ textarea{
 	border-radius: 6rpx;
 }
 .swiper-tall {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	height: 300rpx;
 }
 

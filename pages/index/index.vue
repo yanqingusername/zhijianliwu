@@ -271,6 +271,15 @@
 			console.log(e.scrollTop)
 		},
 		onShareAppMessage: function(e) {
+
+			// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": "指间礼物",
+			  "share_path": '/pages/index/index',
+			  "share_image_url": '',
+			  "share_to": "friends",
+			})
 		
 			return {
 				// title:this.alt.goodsname,

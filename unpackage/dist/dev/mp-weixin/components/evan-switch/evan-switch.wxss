@@ -29,10 +29,8 @@
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.1);
   border-style: solid;
-  -webkit-transition: background-color 0.3s;
   transition: background-color 0.3s;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
 }
 .evan-switch--disabled.data-v-65d8598c {
   opacity: 0.3;
@@ -43,9 +41,7 @@
   top: 0;
   background-color: #fff;
   border-radius: 50%;
-  -webkit-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-  -webkit-transition: -webkit-transform 0.3s;
+  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;

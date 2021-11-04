@@ -32,15 +32,9 @@ page{
  	    margin-top: 16rpx;
  	    height: 60rpx;
  	    position: relative;
- 		display: -webkit-box;
- 		display: -webkit-flex;
  		display: flex;
- 	    -webkit-box-align: center;
- 	    -webkit-align-items: center;
- 	            align-items: center;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
+ 	    align-items: center;
+		justify-content: center;
 }
 .personal-header-title{
  	font-size: 36rpx;
@@ -48,25 +42,15 @@ page{
 	font-weight: bold;
 }
 .personal-center{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
+	align-items: center;
+	justify-content: space-between;
 	margin: 22rpx 40rpx 0rpx 40rpx;
 	position: relative;
 }
 .personal-center-left{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	width: 50%;
 }
 .personal-sign-img{
@@ -75,14 +59,9 @@ page{
 	border-radius: 50%;
 }
 .personal-center-name{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	/* align-items: center; */
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	flex-direction: column;
 	margin-left: 12rpx;
 }
 .personal-sign-name{
@@ -91,8 +70,6 @@ page{
 	color: #333333;
 }
 .personal-center-grap{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	margin-top: 22rpx;
 }
@@ -104,28 +81,15 @@ page{
 	margin-right: 12rpx;
 }
 .personal-center-right{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	width: 50%;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
+	justify-content: space-between;
 }
 .personal-center-right-li{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 .personal-center-right-price{
 	 font-size: 32rpx;
@@ -142,16 +106,10 @@ page{
 	 bottom: 0;
 	 width: 684rpx;
 	 height: 86rpx;
-	 background: -webkit-gradient(linear, right top, left top, from(#363A3A), to(#151E1F));
-	 background: -webkit-linear-gradient(right, #363A3A 0%, #151E1F 100%);
 	 background: linear-gradient(270deg, #363A3A 0%, #151E1F 100%);
 	 border-radius: 16rpx 16rpx 0px 0px;
-	 display: -webkit-box;
-	 display: -webkit-flex;
 	 display: flex;
-	 -webkit-box-align: center;
-	 -webkit-align-items: center;
-	         align-items: center;
+	 align-items: center;
 	 margin-left: 34rpx;
 }
 .personal-bottom-img{
@@ -167,16 +125,10 @@ page{
 	 background: angular-gradient(199deg, #FFE7C9 0%, #EFD298 100%);
 }
 .personal-bottom-view{
-	 display: -webkit-box;
-	 display: -webkit-flex;
 	 display: flex;
-	 -webkit-box-align: center;
-	 -webkit-align-items: center;
-	         align-items: center;
+	 align-items: center;
 	 width: 132rpx;
 	 height: 44rpx;
-	 background: -webkit-gradient(linear, left top, right top, from(#F0D399), to(#FFE7C9));
-	 background: -webkit-linear-gradient(left, #F0D399 0%, #FFE7C9 100%);
 	 background: linear-gradient(90deg, #F0D399 0%, #FFE7C9 100%);
 	 border-radius: 22rpx;
 	 font-size: 22rpx;
@@ -185,9 +137,7 @@ page{
 	 line-height: 30rpx;
 	 position: absolute;
 	 right: 20rpx;
-	 -webkit-box-pack: center;
-	 -webkit-justify-content: center;
-	         justify-content: center
+	 justify-content: center
 }
 .personal-item{
 	 width: 700rpx;
@@ -195,16 +145,9 @@ page{
 	 background: #FFFFFF;
 	 border-radius: 10rpx;
 	 margin-top: 20rpx;
-	 display: -webkit-box;
-	 display: -webkit-flex;
 	 display: flex;
-	 -webkit-box-orient: vertical;
-	 -webkit-box-direction: normal;
-	 -webkit-flex-direction: column;
-	         flex-direction: column;
-	 -webkit-box-align: center;
-	 -webkit-align-items: center;
-	         align-items: center;
+	 flex-direction: column;
+	 align-items: center;
 }
 .personal-item-text{
 	 font-size: 32rpx;
@@ -222,16 +165,9 @@ page{
 }
 .personal-item-li{
 	width: 96rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	align-items: center;
 	margin: 0rpx;
 	    padding: 0;
 	    background: #FFFFFF;
@@ -256,15 +192,9 @@ page{
 	 height:60rpx;
 	 margin:0 auto;
 	 margin-top: 40rpx;
-	 display: -webkit-box;
-	 display: -webkit-flex;
 	 display: flex;
-	 -webkit-box-align: center;
-	 -webkit-align-items: center;
-	         align-items: center;
-	 -webkit-box-pack: center;
-	 -webkit-justify-content: center;
-	         justify-content: center;
+	 align-items: center;
+	 justify-content: center;
 }
 .personal-line{
 	 width: 242rpx;

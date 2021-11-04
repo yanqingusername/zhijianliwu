@@ -31,8 +31,7 @@
 		width: 140rpx;
 		height: 140rpx;
 		padding: 10rpx;
-		-webkit-box-sizing: border-box;
-		        box-sizing: border-box;
+		box-sizing: border-box;
 		background: #FAFAFA;
 		display: inline-block;
 		vertical-align: middle;
@@ -141,15 +140,9 @@
 		width: 160rpx;
 		height: 150rpx;
 		background-color: #FAFAFA;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		justify-content: center;
+		align-items: center;
 }
 .pers {
 		width: 130rpx;

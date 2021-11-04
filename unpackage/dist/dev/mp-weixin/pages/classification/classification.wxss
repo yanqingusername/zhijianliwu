@@ -3,14 +3,9 @@ page{
 	background: #FFFFFF;
 }
 .post-search-top{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-justify-content: space-around;
-	        justify-content: space-around;
+	align-items: center;
+	justify-content: space-around;
 	padding: 0rpx 30rpx 0rpx 24rpx;
 	height: 100rpx;
 }
@@ -55,16 +50,9 @@ page{
 	width: 90rpx;
 }
 .apply-success-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 .apply-success-img{
 	width: 255rpx;
@@ -79,8 +67,6 @@ page{
 	line-height: 48rpx;
 }
 .post-list {
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
 	/* justify-content: center; */
 	/* align-items: center; */
@@ -100,15 +86,9 @@ page{
     text-align: center;
 	font-size: 30rpx;
 	color: #333333;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
+	align-items: center;
+    justify-content: center;
 }
 .classifi-left-li-active {
     width: 180rpx;
@@ -124,11 +104,8 @@ page{
 }
 .classifi-list {
   padding: 20rpx 22rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-wrap: wrap;
-          flex-wrap: wrap;
+  flex-wrap: wrap;
   padding-bottom: 10rpx;
 }
 .classifi-goods {
@@ -136,16 +113,9 @@ page{
     margin-bottom: 30rpx;
     background: #FFFFFF;
     border-radius: 10rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	align-items: center;
+	flex-direction: column;
 }
 .classifi-bottom-img{
 	width: 110rpx;

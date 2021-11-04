@@ -4,32 +4,20 @@ page {
 }
 .ccl-view{
 	height: 80rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	padding-left: 20rpx;
 }
 .ccl-view-name-view{
 	height: 100rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	background: #FFFFFF;
 }
 .ccl-view-name{
 	height: 60rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+	align-items: center;
 	background: #FFFFFF;
 	border-radius: 4rpx;
 	border: 2rpx solid #DF5250;

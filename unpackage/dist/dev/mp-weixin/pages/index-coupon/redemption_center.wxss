@@ -15,22 +15,19 @@
 }
 .wrapper{
 	padding: 0 16rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	font-size: 0;
 }
 .tea {
 	display: inline-block;
 	width: 50%;
 	padding: 0 10rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	margin-bottom: 40rpx;
 }
 .tea>view{
 	background-color: #fff;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .tea-img {
 	width: 100%;

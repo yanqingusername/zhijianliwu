@@ -3,29 +3,16 @@ page{
 	background: #FFFFFF;
 }
 .share-bag-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .share-bag {
 	width: 750rpx;
 	height: 1275rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	justify-content: center;
 	margin: auto;
 }
 .poster {
@@ -37,15 +24,9 @@ page{
 	margin-top: -19rpx; */
 }
 .share-view{
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	margin-top: 48rpx;
 	width: 642rpx;
 	height: 82rpx;

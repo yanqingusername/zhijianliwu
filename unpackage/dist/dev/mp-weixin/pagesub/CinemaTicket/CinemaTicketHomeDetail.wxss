@@ -5,15 +5,9 @@ page{
 .cthd-view{
 	margin-top: 0rpx;
 	position: relative;
-	display: -webkit-box;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	align-items: center;
+	justify-content: center;
 	width: 750rpx;
 		    height: 1111rpx;
 				background-size: 750rpx 1111rpx;
@@ -23,8 +17,7 @@ page{
 		 * 
 		 */
 .own-swiper{
-			-webkit-box-sizing: border-box;
-			        box-sizing: border-box;
+			box-sizing: border-box;
 			width: 100%;
 			height: 488rpx;
 			border-radius: 0rpx;
@@ -53,19 +46,13 @@ swiper-item{
 }
 .swiper-box .wx-swiper-dot{
 		 width: 12rpx;
-		 display: -webkit-inline-box;
-		 display: -webkit-inline-flex;
 		 display: inline-flex;
 		 height: 4rpx;
-		 -webkit-box-pack:justify;
-		 -webkit-justify-content:space-between;
-		         justify-content:space-between;
+		 justify-content:space-between;
 }
 .swiper-box .wx-swiper-dot::before{
 		 content: '';
-		 -webkit-box-flex: 1;
-		 -webkit-flex-grow: 1;
-		         flex-grow: 1; 
+		 flex-grow: 1; 
 		 background: #000;
 		 opacity: 0.2;
 		 border-radius: 8rpx
@@ -77,15 +64,9 @@ swiper-item{
 .indicator-view{
 			position: absolute;
 			bottom: 32rpx;
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			justify-content: center;
+			align-items: center;
 }
 .indicator-view-item{
 			width: 36rpx;
@@ -103,15 +84,9 @@ swiper-item{
 			margin-right: 6rpx;
 }
 .position-swiper{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			width: 60rpx;
 		    height: 30rpx;
 			background: #000000;
@@ -142,15 +117,9 @@ swiper-item{
 			background: #FFFFFF; */
 			/* border-radius: 1px; */
 			/* padding: 20rpx 17rpx; */
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: justify;
-			-webkit-justify-content: space-between;
-			        justify-content: space-between;
+			align-items: center;
+			justify-content: space-between;
 }
 .cth-b-bg-1{
 			width: 190rpx;
@@ -163,12 +132,8 @@ swiper-item{
 			position: relative;
 }
 .cth-b-bg-2-1{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 }
 .cth-b-bg-2-1-1{
 			font-size: 36rpx;
@@ -176,8 +141,6 @@ swiper-item{
 			color: #CCCCCC;
 }
 .cth-b-bg-2-1-2{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
 			margin-left: 10rpx;
 			width: 92rpx;
@@ -186,15 +149,9 @@ swiper-item{
 			border: 1px solid #5B5B5B;
 }
 .cth-b-bg-2-1-2-1{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-		    -webkit-box-align: center;
-		    -webkit-align-items: center;
-		            align-items: center;
-		    -webkit-box-pack: center;
-		    -webkit-justify-content: center;
-		            justify-content: center;
+		    align-items: center;
+		    justify-content: center;
 			width: 36rpx;
 			height: 32rpx;
 			background: #5B5B5B;
@@ -204,15 +161,9 @@ swiper-item{
 			color: #CCCCCC;
 }
 .cth-b-bg-2-1-2-2{
-		    display: -webkit-box;
-		    display: -webkit-flex;
 		    display: flex;
-		    -webkit-box-align: center;
-		    -webkit-align-items: center;
-		            align-items: center;
-		    -webkit-box-pack: center;
-		    -webkit-justify-content: center;
-		            justify-content: center;
+		    align-items: center;
+		    justify-content: center;
 			width: 56rpx;
 			height: 32rpx;
 			/* background: #FFFFFF; */
@@ -222,36 +173,24 @@ swiper-item{
 			color: #CCCCCC;
 }
 .cth-b-bg-2-2{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #999999;
 			margin-top: 18rpx;
 }
 .cth-b-bg-2-3{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 			font-size: 24rpx;
 			font-weight: bold;
 			color: #999999;
 			margin-top: 18rpx;
 }
 .cth-b-bg-2-4{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 			margin-top: 26rpx;
 			font-size: 36rpx;
 			font-weight: bold;
@@ -284,12 +223,8 @@ swiper-item{
 }
 .cth-conten-view{
 			height: 350rpx;
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
+			align-items: center;
 			background: #FFFFFF;
 			margin-top: 18rpx;
 }
@@ -297,16 +232,9 @@ swiper-item{
 			height: 350rpx !important;
 }
 .scroll-view-item{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-		    -webkit-box-align: center;
-		    -webkit-align-items: center;
-		            align-items: center;
-			-webkit-box-orient: vertical;
-			-webkit-box-direction: normal;
-			-webkit-flex-direction: column;
-			        flex-direction: column;
+		    align-items: center;
+			flex-direction: column;
 }
 scroll-view{
 			height: 350rpx !important;
@@ -332,15 +260,9 @@ scroll-view{
 			margin-top: 14rpx;
 }
 .cthd-bottom{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			width: 750rpx;
 			height: 128rpx;
 			background: #FAFAFA;
@@ -348,18 +270,11 @@ scroll-view{
 		    bottom: 0rpx;
 }
 .cthd-bottom-title{
-			display: -webkit-box;
-			display: -webkit-flex;
 			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			        align-items: center;
-			-webkit-box-pack: center;
-			-webkit-justify-content: center;
-			        justify-content: center;
+			align-items: center;
+			justify-content: center;
 			width: 700rpx;
 			height: 88rpx;
-			background: -webkit-linear-gradient(29deg, #E96C56 0%, #ED2430 100%);
 			background: linear-gradient(61deg, #E96C56 0%, #ED2430 100%);
 			border-radius: 44rpx;
 			font-size: 32rpx;

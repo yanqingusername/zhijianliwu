@@ -19,16 +19,9 @@ page {
 	    border-radius: 10rpx;
 	    margin: 100rpx auto 0rpx ;
 	    /* padding-top: 200rpx; */
-	    display: -webkit-box;
-	    display: -webkit-flex;
 	    display: flex;
-	    -webkit-box-orient: vertical;
-	    -webkit-box-direction: normal;
-	    -webkit-flex-direction: column;
-	            flex-direction: column;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+	    flex-direction: column;
+		align-items: center;
 		min-height: 1000rpx;
 		padding-bottom: 30rpx;
 }
@@ -54,17 +47,10 @@ page {
 		/* position: absolute;
 		top: 100px;
 		left: 180rpx; */
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
 		/* justify-content: center; */
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		        flex-direction: column;
+		align-items: center;
+		flex-direction: column;
 		border-radius: 10rpx;
 }
 .bag-tea-img {
@@ -91,12 +77,8 @@ page {
 		width: 100%;
 		height: 100rpx;
 		/* border-bottom: 1px solid #E6E6E6; */
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .bag-gift-title-font {
 		margin-left: 40rpx;
@@ -188,24 +170,14 @@ button[type=default] {
 	    position: absolute;
 	    top: 200rpx;
 	    left: 72rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
-		-webkit-flex-wrap: wrap;
-		        flex-wrap: wrap;
+		justify-content: center;
+		flex-wrap: wrap;
 }
 .many-com {
-	    display: -webkit-box;
-	    display: -webkit-flex;
 	    display: flex;
-	    -webkit-box-pack: center;
-	    -webkit-justify-content: center;
-	            justify-content: center;
-	    -webkit-flex-wrap: wrap;
-	            flex-wrap: wrap;
+	    justify-content: center;
+	    flex-wrap: wrap;
 	        margin-top: 50rpx;
 	    /* height: 370rpx; */
 	    position: relative;
@@ -213,14 +185,9 @@ button[type=default] {
 .many {
 		/* width: 100%; */
 		/* border: 1px solid #000000; */
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		        justify-content: center;
-		-webkit-flex-wrap: wrap;
-		        flex-wrap: wrap;
+		justify-content: center;
+		flex-wrap: wrap;
 		    margin-top: 0rpx;
 		    height: 370rpx;
 		/* position: absolute;
@@ -231,16 +198,10 @@ button[type=default] {
 		height: 240rpx;
 		border: 1px solid #CCB586;
 		border-radius: 10rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-justify-content: space-around;
-		        justify-content: space-around;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
-		-webkit-flex-wrap: wrap;
-		        flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+		flex-wrap: wrap;
 }
 .bag-tea-title1 {
 		margin-top: -80rpx;
@@ -327,12 +288,8 @@ button[type=default] {
 		border: 1rpx solid #CCB586;
 		border-radius: 10rpx;
 		padding: 30rpx 30rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .gift2-list .gift-img2{
 		width: 100rpx;
@@ -340,9 +297,7 @@ button[type=default] {
 }
 .gift2-list .gift-xq2{
 		text-align: left;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
+		flex: 1;
 		padding-left: 30rpx;
 }
 .gift2-list .gift-xq2{
@@ -386,17 +341,10 @@ button[type=default] {
 	 * 
 	 */
 .audio-box-view{
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
 		text-align: center;
-	    -webkit-box-orient: vertical;
-	    -webkit-box-direction: normal;
-	    -webkit-flex-direction: column;
-	            flex-direction: column;
-	    -webkit-box-align: center;
-	    -webkit-align-items: center;
-	            align-items: center;
+	    flex-direction: column;
+	    align-items: center;
 		position: absolute;
 	    top: 220rpx;
 }
@@ -427,12 +375,8 @@ button[type=default] {
 		font-weight: 500;
 		color: #E0E0E0;
 		margin-top: 30rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
 		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		        align-items: center;
+		align-items: center;
 }
 .audio-box-view-text{
 		font-size: 30rpx;

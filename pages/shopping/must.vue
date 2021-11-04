@@ -422,8 +422,8 @@
 						    },
 						    "sub_orders": [{
 						        "sub_order_id": ordernumber,
-						        "order_amt": this.price_zhe,
-						        "pay_amt": this.price_zhe
+						        "order_amt": that.new_price_zhe,
+						        "pay_amt": that.new_price_zhe
 						    }],
 						})
 
@@ -536,8 +536,8 @@
 															    },
 															    "sub_orders": [{
 															        "sub_order_id": ordernumber,
-															        "order_amt": that.price_zhe,
-															        "pay_amt": that.price_zhe
+															        "order_amt": that.new_price_zhe,
+															        "pay_amt": that.new_price_zhe
 															    }],
 															})
 
@@ -583,8 +583,8 @@
 												    },
 												    "sub_orders": [{
 												        "sub_order_id": ordernumber,
-												        "order_amt": that.price_zhe,
-												        "pay_amt": that.price_zhe
+												        "order_amt": that.new_price_zhe,
+												        "pay_amt": that.new_price_zhe
 												    }],
 												})
 												
@@ -615,8 +615,8 @@
 						    },
 						    "sub_orders": [{
 						        "sub_order_id": ordernumber,
-						        "order_amt": this.price_zhe,
-						        "pay_amt": this.price_zhe
+						        "order_amt": that.new_price_zhe,
+						        "pay_amt": that.new_price_zhe
 						    }],
 						})
 						
