@@ -1,7 +1,7 @@
 <template>
 	<!-- <view class="post-list"> -->
 	<view class="goodslist">
-			<view class="goods" @click="goToPost(post.keynum)" v-for="post in postList" :key="post.id">
+			<view class="goods" @click="details" :data-keynum="post.keynum" :data-dataitem="post" v-for="post in postList" :key="post.id">
 				<view class="goods-head">
 					<image :src="$utils.imageUrl(post.head_img)" mode=""class="goods-head-img" ></image>
 					<!-- <image src="@/static/post-play-button.png" mode=""class="goods-head-label" ></image> -->
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+	import sr from 'sr-sdk-wxapp';
 	export default {
 		props:{
 			postList: {
@@ -51,7 +52,28 @@
 				uni.navigateTo({
 					url:'../../pages/details/details?keynum='+keynum
 				})
-			}
+			},
+			details:function(e){
+				// 腾讯有数
+				let dataitem = e.currentTarget.dataset.dataitem;
+				sr.track('trigger_sku_component',
+					{
+					   "sku": {
+						 "sku_id": dataitem.sku, // 若商品无sku_id时，可传spu_id信息
+						 "sku_name": dataitem.goodsname // 若商品无sku_name时，可传spu_name信息
+					   },
+					   "spu": {
+							"spu_id": dataitem.sku, // 若商品无spu_id时，可传sku_id信息
+							"spu_name": dataitem.goodsname // 若商品无spu_name时，可传sku_name信息
+						},
+					   "primary_image_url": dataitem.head_img
+					})
+				  
+				let index = e.currentTarget.dataset.keynum;
+				uni.navigateTo({
+					url: '/pages/details/details?keynum=' + index,
+				})
+			},
 		},
 		computed:{
 			

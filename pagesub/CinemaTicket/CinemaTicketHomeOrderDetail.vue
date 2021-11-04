@@ -330,8 +330,8 @@
 											    },
 											    "sub_orders": [{
 											        "sub_order_id": channelOrderNo,
-											        "order_amt": that.filmOrderInfo.paymoney,
-											        "pay_amt": that.filmOrderInfo.paymoney
+											        "order_amt": parseFloat(that.filmOrderInfo.paymoney),
+											        "pay_amt": parseFloat(that.filmOrderInfo.paymoney)
 											    }],
 											})
 																	
@@ -350,8 +350,8 @@
 											    },
 											    "sub_orders": [{
 											        "sub_order_id": channelOrderNo,
-											        "order_amt": that.filmOrderInfo.paymoney,
-											        "pay_amt": that.filmOrderInfo.paymoney
+											        "order_amt": parseFloat(that.filmOrderInfo.paymoney),
+											        "pay_amt": parseFloat(that.filmOrderInfo.paymoney)
 											    }],
 											})
 											
