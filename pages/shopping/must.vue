@@ -422,8 +422,8 @@
 						    },
 						    "sub_orders": [{
 						        "sub_order_id": ordernumber,
-						        "order_amt": parseFloat(that.new_price_zhe),
-						        "pay_amt": parseFloat(that.new_price_zhe)
+						        "order_amt": parseFloat(that.new_price_yuanshi),
+						        "pay_amt": parseFloat(that.new_price_yuanshi)
 						    }],
 						})
 
@@ -494,7 +494,7 @@
 										}
 										// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
 										let stringSignTemp = stringA +
-											'&key=dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv';
+											'&key=45579fcdb646746f02d9e041d50975b4';
 
 										console.log('拼接后', stringSignTemp)
 										let sign = MD5.hexMD5(stringSignTemp);
@@ -536,8 +536,8 @@
 															    },
 															    "sub_orders": [{
 															        "sub_order_id": ordernumber,
-															        "order_amt": parseFloat(that.new_price_zhe),
-															        "pay_amt": parseFloat(that.new_price_zhe)
+															        "order_amt": parseFloat(that.new_price_yuanshi),
+															        "pay_amt": parseFloat(that.new_price_yuanshi)
 															    }],
 															})
 
@@ -583,8 +583,8 @@
 												    },
 												    "sub_orders": [{
 												        "sub_order_id": ordernumber,
-												        "order_amt": parseFloat(that.new_price_zhe),
-												        "pay_amt": parseFloat(that.new_price_zhe)
+												        "order_amt": parseFloat(that.new_price_yuanshi),
+												        "pay_amt": parseFloat(that.new_price_yuanshi)
 												    }],
 												})
 												
@@ -615,8 +615,8 @@
 						    },
 						    "sub_orders": [{
 						        "sub_order_id": ordernumber,
-						        "order_amt": parseFloat(that.new_price_zhe),
-						        "pay_amt": parseFloat(that.new_price_zhe)
+						        "order_amt": parseFloat(that.new_price_yuanshi),
+						        "pay_amt": parseFloat(that.new_price_yuanshi)
 						    }],
 						})
 						
@@ -674,7 +674,7 @@
 
 					}
 					// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
-					let stringSignTemp = stringA + '&key=dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv';
+					let stringSignTemp = stringA + '&key=45579fcdb646746f02d9e041d50975b4';
 
 					console.log('拼接后', stringSignTemp)
 					let sign = MD5.hexMD5(stringSignTemp);

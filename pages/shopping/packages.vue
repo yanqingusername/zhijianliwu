@@ -127,6 +127,7 @@
 	import MD5 from "../../common/md5.js";
 	import drawQrcode from "../../common/weapp.qrcode.min.js";
 	import config from '../../common/config.js';
+	import sr from 'sr-sdk-wxapp';
 	export default{
 		data(){
 			return{
@@ -391,11 +392,26 @@
 						console.log("付款");
 						console.log(res);
 						if (res.pay_status == 1) {
+							this.cardbag_number=res.cardbag_number
+							let cardbag_number=res.cardbag_number
+							// 腾讯有数
+							let timestamp=new Date().getTime();
+							sr.track('custom_order', {
+								"order": {
+									"order_id": this.cardbag_number,
+									"order_time": timestamp,
+									"order_status": "pay"
+								},
+								"sub_orders": [{
+									"sub_order_id": this.cardbag_number,
+									"order_amt": parseFloat(that.new_price_yuanshi),
+									"pay_amt": parseFloat(that.new_price_yuanshi)
+								}],
+							})
+
 							uni.showToast({
 								title: "支付成功"
 							})
-							this.cardbag_number=res.cardbag_number
-							let cardbag_number=res.cardbag_number
 							uni.redirectTo({
 								url:'../shopping/succes?cardbag_number='+this.cardbag_number
 							})
@@ -459,7 +475,7 @@
 												}
 											}
 											// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
-											let stringSignTemp = stringA + '&key=dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv';
+											let stringSignTemp = stringA + '&key=45579fcdb646746f02d9e041d50975b4';
 											
 											console.log('拼接后', stringSignTemp)
 											let sign = MD5.hexMD5(stringSignTemp);
@@ -475,6 +491,21 @@
 												signType: 'MD5',
 												paySign: sign.toUpperCase(),
 												success(res) {
+													// 腾讯有数
+															let timestamp=new Date().getTime();
+															sr.track('custom_order', {
+																"order": {
+																	"order_id": cardbag_number,
+																	"order_time": timestamp,
+																	"order_status": "cancel_pay"
+																},
+																"sub_orders": [{
+																	"sub_order_id": cardbag_number,
+																	"order_amt": parseFloat(that.new_price_yuanshi),
+																	"pay_amt": parseFloat(that.new_price_yuanshi)
+																}],
+															})
+
 												uni.showToast({
 													title: '支付成功',
 													icon: 'none'
@@ -500,6 +531,21 @@
 														method: 'GET',
 														// 成功回调
 														success: (res) => {
+															// 腾讯有数
+															let timestamp=new Date().getTime();
+															sr.track('custom_order', {
+																"order": {
+																	"order_id": cardbag_number,
+																	"order_time": timestamp,
+																	"order_status": "cancel_pay"
+																},
+																"sub_orders": [{
+																	"sub_order_id": cardbag_number,
+																	"order_amt": parseFloat(that.new_price_yuanshi),
+																	"pay_amt": parseFloat(that.new_price_yuanshi)
+																}],
+															})
+
 															console.log('微信成功回调', res)
 															uni.showToast({
 																title: '支付成功',
@@ -518,6 +564,22 @@
 												fail:(res) =>{
 													let cardbag_number=uni.getStorageSync("cardbag_number")
 													this.cardbag_number=cardbag_number
+
+													// 腾讯有数
+													let timestamp=new Date().getTime();
+													sr.track('custom_order', {
+														"order": {
+															"order_id": cardbag_number,
+															"order_time": timestamp,
+															"order_status": "cancel_pay"
+														},
+														"sub_orders": [{
+															"sub_order_id": cardbag_number,
+															"order_amt": parseFloat(that.new_price_yuanshi),
+															"pay_amt": parseFloat(that.new_price_yuanshi)
+														}],
+													})
+													
 													uni.hideLoading();
 													console.log(res)
 													uni.showToast({
@@ -537,7 +599,22 @@
 									}
 								});
 							})
-							}else {
+						}else {
+							let cardbag_number=res.cardbag_number
+								// 腾讯有数
+								let timestamp=new Date().getTime();
+								sr.track('custom_order', {
+										"order": {
+										"order_id": cardbag_number,
+										"order_time": timestamp,
+										"order_status": "cancel_pay"
+									},
+									"sub_orders": [{
+										"sub_order_id": cardbag_number,
+											"order_amt": parseFloat(that.new_price_yuanshi),
+											"pay_amt": parseFloat(that.new_price_yuanshi)
+										}],
+									})
 							uni.showToast({
 								icon: "none",	
 								title: res.msg?res.msg:"支付错误"

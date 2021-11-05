@@ -25,10 +25,10 @@
 				</view>
 				<view class="own-index-coupon-image-box threes right-item"  @click="share" style="overflow: hidden;">
 					<view class="z-top-infor">
-						<text class="member">开通企业会员</text> 
-						<text class="mine">自营商品折上折</text>
-						<!-- <text class="member">看电影</text> 
-						<text class="mine">特惠专享低至五折</text> -->
+						<!-- <text class="member">开通企业会员</text> 
+						<text class="mine">自营商品折上折</text> -->
+						<text class="member">看电影</text> 
+						<text class="mine">特惠专享低至五折</text>
 					</view>
 					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/mem.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
 				</view>
@@ -84,17 +84,17 @@
 						})
 					
 				})*/
-				// uni.navigateTo({
-				// 	url: "/pagesub/CinemaTicket/CinemaTicketHome"
-				// })
-				let level_name = uni.getStorageSync("level_name");
-				let typestring = 1;
-				if(level_name=='企业会员'){
-					typestring = 2;
-				}
 				uni.navigateTo({
-					url:`../Member/Member?typestring=${typestring}`
+					url: "/pagesub/CinemaTicket/CinemaTicketHome"
 				})
+				// let level_name = uni.getStorageSync("level_name");
+				// let typestring = 1;
+				// if(level_name=='企业会员'){
+				// 	typestring = 2;
+				// }
+				// uni.navigateTo({
+				// 	url:`../Member/Member?typestring=${typestring}`
+				// })
 			}
 		},
 		computed:{

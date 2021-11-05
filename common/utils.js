@@ -606,7 +606,7 @@ async function wxPay(orderNumber, type) {
 	// appId
 	let appId = "wx9c53a99b078435f5";
 	// key 
-	let key = "dEEHizJM4cZtBy3Dlj4gVKwHMlM32IPv";
+	let key = "45579fcdb646746f02d9e041d50975b4";
 	// 获取时间戳
 	let timeStamp = String(Date.now());
 	// 获取随机字符串
