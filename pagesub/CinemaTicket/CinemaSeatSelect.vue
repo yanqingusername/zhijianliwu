@@ -15,11 +15,11 @@
 		<!--以下是座位图区域  -->
 		<!-- 这里官方有个bug https://developers.weixin.qq.com/community/develop/doc/82f5ab098a15982c89076af83e3631a1 -->
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
-		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width: 750rpx;margin-top:20rpx;'">
-			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width: 750rpx;'"
-				scale="true" direction="all" scale-max="1.5" scale-min="0.5" out-of-bounds="true">
-				<view class='seatArea'
-					:style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'">
+		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;'">
+			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth + 'rpx;'"
+				scale="true" direction="all" scale-max="2" scale-min="0.8" out-of-bounds="true" @scale="scaleEventHandle">
+				<view class='seatArea' style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+					<!-- :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'"> -->
 					<!--中轴线  -->
 					<!-- <view class='alignLine'></view> -->
 					<!-- <view class='hallName'>
@@ -31,15 +31,15 @@
 					</view>
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
-					<view style="margin-top: 20rpx;">
-						<view v-for="(item, index) in seatList" :key="id" class='seatTap' @click.stop='clickSeat'
+					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 20rpx;position: relative;display: flex;'">
+						<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 							:data-index='index'
-							:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;width:'+seatScaleHeight+'px;height:'+seatScaleHeight+'px'">
+							:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;'">
 							<image :src="item.nowIcon" class='normal' />
 							<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 						</view>
 						
-						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;'">
+						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: -10px;'">
 							<view class="area-left-number" :style="'top:'+(item * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
 						</view>
 					</view>
@@ -88,7 +88,7 @@
 				</scroll-view>
 			</view>
 			<!-- 快速选座 -->
-			<view class='selectSeatInfo' v-if="hidden=='hidden'">
+			<!-- <view class='selectSeatInfo' v-if="hidden=='hidden'">
 				<scroll-view class="scrollSeat" scroll-x="true">
 					<view class='quickItem' @click='quickSeat' data-num='1'>
 						1人座
@@ -103,7 +103,7 @@
 						4人座
 					</view>
 				</scroll-view>
-			</view>
+			</view> -->
 			<view style="height: 110rpx;"></view>
 			<!-- 以下是确认选座 -->
 			<view class='css-bottom-comfirm'>
@@ -152,7 +152,10 @@
 				movieInfo: '',
 				isShow: '',
 				show_list:[],
-				areaLift: []
+				areaLift: [],
+				scaleNumber: 1,
+				seatAreaWidth: 750,
+				throttle: null
 			}
 		},
 		onLoad: function(options) {
@@ -249,6 +252,24 @@
 				})
 				//---这此替换成自己的接口请求成功后--end--
 			},
+			scaleEventHandle: function(e){
+				// 节流阀  => 50 毫秒监听一次
+				      if (this.throttle) return;
+				      
+				      this.throttle = setTimeout(() => {
+				        clearTimeout(this.throttle);
+				        this.throttle = null;
+				      }, 100)
+					  
+				let scaleNumber = e.detail.scale
+				if(parseFloat(scaleNumber) <= 1){
+					this.seatAreaWidth = 750
+				} else if(parseFloat(scaleNumber) > 1.5){
+					this.seatAreaWidth = 1200
+				} else {
+					this.seatAreaWidth = 1000
+				}
+			},
 			//解决官方bug
 			handleScale: function(e) {
 				if (this.timer) {
@@ -329,13 +350,13 @@
 						maxX = tempX;
 					}
 				}
-				let seatRealWidth = parseInt(maxX) * 70 * this.rpxToPx
-				let seatRealheight = parseInt(maxY) * 70 * this.rpxToPx
+				let seatRealWidth = parseInt(maxX) * 30 * this.rpxToPx
+				let seatRealheight = parseInt(maxY) * 30 * this.rpxToPx
 				let seatScale = 1;
 				let seatScaleX = 1;
 				let seatScaleY = 1;
-				let seatAreaWidth = 500 * this.rpxToPx
-				let seatAreaHeight = this.seatArea - 155 * this.rpxToPx
+				let seatAreaWidth = 750 * this.rpxToPx
+				let seatAreaHeight = this.seatArea - 200 * this.rpxToPx
 				if (seatRealWidth > seatAreaWidth) {
 					seatScaleX = seatAreaWidth / seatRealWidth
 				}
@@ -348,7 +369,7 @@
 				this.maxY = parseInt(maxY)
 				this.maxX = parseInt(maxX)
 				this.seatScale = seatScale
-				this.seatScaleHeight = seatScale * 70 * this.rpxToPx
+				this.seatScaleHeight = seatScale * 30 * this.rpxToPx
 
 			},
 			// 座位左边栏的数组
@@ -1163,8 +1184,8 @@
 	.normal {
 		position: relative;
 		/* margin: 10rpx; */
-		width: 100%;
-		height: 100%;
+		width:10px;
+		height:10px
 	}
 
 	/*
@@ -1917,8 +1938,8 @@
 	  justify-content: center;
 	  overflow: hidden;
 	  margin-bottom: 10rpx;
-	  position: absolute;
-	  top: -70rpx;
+	  /* position: absolute;
+	  top: -70rpx; */
 	}
 	.screen {
 	  margin-top: 0;
@@ -1936,7 +1957,7 @@
 	  text-align: center;
 	  color: #6d6d6d;
 	  margin-bottom: 0rpx;
-	  position: absolute;
-	  top: -30rpx;
+	  /* position: absolute;
+	  top: -30rpx; */
 	}
 </style>

@@ -84,9 +84,19 @@
 						})
 					
 				})*/
-				uni.navigateTo({
-					url: "/pagesub/CinemaTicket/CinemaTicketHome"
-				})
+				
+				var sign = uni.getStorageSync('sign');
+				if (sign) {
+					uni.navigateTo({
+						url: "/pagesub/CinemaTicket/CinemaTicketHome"
+					})
+				}else{
+					uni.navigateTo({
+						url: '/pages/signin/signin'
+					})
+				}
+				
+				
 				// let level_name = uni.getStorageSync("level_name");
 				// let typestring = 1;
 				// if(level_name=='企业会员'){

@@ -251,7 +251,7 @@
 				let that = this;
 				let channelOrderNo = e.currentTarget.dataset.ordernumber;
 				// 获取流水单号
-				let action = 'get_buy_order_pay_info';
+				let action = 'get_film_order_pay_info';
 				let data = JSON.stringify({
 					ordernumber: channelOrderNo
 				});

@@ -195,8 +195,8 @@ page {
 .normal {
 	position: relative;
 	/* margin: 10rpx; */
-	width: 100%;
-	height: 100%;
+	width:10px;
+	height:10px
 }
 
 /*
@@ -878,8 +878,8 @@ movable-area {
   justify-content: center;
   overflow: hidden;
   margin-bottom: 10rpx;
-  position: absolute;
-  top: -70rpx;
+  /* position: absolute;
+  top: -70rpx; */
 }
 .screen {
   margin-top: 0;
@@ -897,7 +897,7 @@ movable-area {
   text-align: center;
   color: #6d6d6d;
   margin-bottom: 0rpx;
-  position: absolute;
-  top: -30rpx;
+  /* position: absolute;
+  top: -30rpx; */
 }
 
