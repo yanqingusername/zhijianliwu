@@ -184,7 +184,6 @@
 					title: '加载中'
 				})
 				var that = this;
-				//---这此替换成自己的接口请求成功后--start--
 				let action = 'get_film_show_seats';
 				let controller = 'films';
 				let data = JSON.stringify({
@@ -250,7 +249,6 @@
 						}, 1000)
 					}
 				})
-				//---这此替换成自己的接口请求成功后--end--
 			},
 			scaleEventHandle: function(e){
 				// 节流阀  => 50 毫秒监听一次
@@ -528,7 +526,7 @@
 				} else {
 					if (that.totalPrice === 0) {
 						uni.showToast({
-							title: '锁座失败了~,金额为0',
+							title: '座位锁定失败~,金额为0',
 							icon: 'none',
 							duration: 2000
 						})

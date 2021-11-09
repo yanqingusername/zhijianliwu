@@ -3,7 +3,7 @@
 		<view class="ctho-a">
 			<view class="cth-b">
 				<view class="cth-b-bg">
-					<image class="cth-b-bg-1" src="https://slxcx.oss-cn-beijing.aliyuncs.com/static/upload/images/202109/98D7C3CC826DEFED016988476E2BE120.png"></image>
+					<image class="cth-b-bg-1" src="{{filmOrderInfo.orderPicUrl}}"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
 							<view class="cth-b-bg-2-1-1">{{filmOrderInfo.orderTitle}}</view>
