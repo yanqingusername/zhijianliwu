@@ -3,7 +3,7 @@
 		<view class="ctho-a">
 			<view class="cth-b">
 				<view class="cth-b-bg">
-					<image class="cth-b-bg-1" src="{{filmOrderInfo.orderPicUrl}}"></image>
+					<image class="cth-b-bg-1" :src="filmOrderInfo.orderPicUrl"></image>
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
 							<view class="cth-b-bg-2-1-1">{{filmOrderInfo.orderTitle}}</view>
@@ -444,6 +444,9 @@ page{
 			font-size: 30rpx;
 			font-weight: bold;
 			color: #333333;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.cth-b-bg-2-1-2{
 			font-size: 26rpx;

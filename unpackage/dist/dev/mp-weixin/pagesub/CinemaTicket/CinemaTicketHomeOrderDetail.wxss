@@ -42,6 +42,9 @@ page{
 			font-size: 30rpx;
 			font-weight: bold;
 			color: #333333;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 }
 .cth-b-bg-2-1-2{
 			font-size: 26rpx;
