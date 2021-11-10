@@ -69,7 +69,7 @@
 		</view>
 		
 		
-		<view class="ctho-d" v-if="filmOrderInfo.status == 1 || filmOrderInfo.status == 2 || filmOrderInfo.status == 3 || filmOrderInfo.status == 4 || filmOrderInfo.status == 5">
+		<view class="ctho-d" v-if="filmOrderInfo.status == 1 || filmOrderInfo.status == 2 || filmOrderInfo.status == 3 || filmOrderInfo.status == 4 || filmOrderInfo.status == 5 || filmOrderInfo.status == 6">
 			<view class="ctho-d-1" style="height: 40rpx;">
 				<view class="ctho-d-1-1">订单信息</view>
 				<view class="ctho-d-1-3"></view>

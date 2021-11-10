@@ -765,7 +765,7 @@ page{
 		.cth-b-bg-2-2{
 			display: flex;
 			align-items: center;
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #666666;
 			margin-top: 26rpx;
 		}
@@ -775,15 +775,18 @@ page{
 			margin-left: 6rpx;
 		}
 		.cth-b-bg-2-3{
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #666666;
 			margin-top: 20rpx;
 		}
 		.cth-b-bg-2-4{
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #666666;
 			margin-top: 20rpx;
 			line-height: 25rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.cth-b-bg-2-5{
 			display: flex;

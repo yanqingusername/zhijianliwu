@@ -32,14 +32,15 @@
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
 					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 20rpx;position: relative;display: flex;'">
-						<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
-							:data-index='index'
-							:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;'">
-							<image :src="item.nowIcon" class='normal' />
-							<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
+						<view style="position: relative;display: flex;">
+							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
+								:data-index='index'
+								:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;'">
+								<image :src="item.nowIcon" class='normal' />
+								<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
+							</view>
 						</view>
-						
-						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: -10px;'">
+						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: 10px;'">
 							<view class="area-left-number" :style="'top:'+(item * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
 						</view>
 					</view>
@@ -155,7 +156,10 @@
 				areaLift: [],
 				scaleNumber: 1,
 				seatAreaWidth: 750,
-				throttle: null
+				throttle: null,
+				cinemaid: '',
+				movieId: '',
+				date: ''
 			}
 		},
 		onLoad: function(options) {
@@ -197,6 +201,12 @@
 							that.price = res.rs.showInfo.salePrice;
 							that.showInfo = res.rs.showInfo;
 							that.hallName = res.rs.showInfo.hallName;
+							
+							that.cinemaid = res.rs.showInfo.cinemaId;
+							that.movieId = res.rs.showInfo.movieId;
+							that.date = res.rs.showInfo.date;
+							
+							that.getFilmShowList();
 						}
 						
 						if(res.rs && res.rs.movieInfo){
@@ -232,9 +242,6 @@
 							that.creatBestSeat()
 						}
 						
-						if(res.rs && res.rs.show_list){
-							that.show_list = res.rs.show_list;
-						}
 					} else {
 						uni.hideLoading()
 						uni.showToast({
@@ -962,7 +969,25 @@
 				this.showId = showId;
 				this.isShow = false
 				this.getFilmShowSeats();
-			}
+			},
+			getFilmShowList() {
+				let that = this;
+				let action = 'get_simplify_film_show_list';
+				let controller = 'filmset';
+				let data = JSON.stringify({
+					cinemaId: that.cinemaid,
+					movieId: that.movieId,
+					date: that.date,
+					showId: that.showId
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						if(res.rs && res.rs.show_list){
+							that.show_list = res.rs.show_list;
+						}
+					}
+				})
+			},
 		}
 	}
 </script>
@@ -1914,7 +1939,7 @@
 		width: 30rpx;
 		background: #000000;
 		border-radius: 21rpx;
-		opacity: 0.71;
+		opacity: 0.29;
 	}
 	.area-left-number{
 		font-size: 19rpx;
