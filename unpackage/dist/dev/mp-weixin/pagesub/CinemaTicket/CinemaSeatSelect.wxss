@@ -240,7 +240,7 @@ movable-area {
 */
 .movableOne {
 	box-sizing: border-box;
-	padding: 70rpx 60rpx 100rpx;
+	padding: 0rpx 60rpx 100rpx;
 	color: #F6F6F6;
 }
 

@@ -299,10 +299,10 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: 5px;
+		margin-right: 5px;
 		height: 180rpx;
-		width: 136rpx;
+		/* width: 136rpx; */
 		text-align: center;
 		border-radius: 6rpx;
 	}
@@ -313,9 +313,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin-left: auto;
-		margin-right: auto;
-		width: 170rpx;
+		margin-left: 5px;
+		margin-right: 5px;
+		/* width: 170rpx; */
 	    height: 216rpx;
 		text-align: center;
 		border-radius: 6rpx;
