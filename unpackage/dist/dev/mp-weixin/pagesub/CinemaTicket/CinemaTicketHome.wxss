@@ -166,13 +166,14 @@ swiper-item{
 			height: 30rpx;
 			border-radius: 3rpx;
 			border: 1px solid #AAAAAA;
+			background: #aaa;
 }
 .cth-b-bg-2-1-2-1{
 			display: flex;
 		    align-items: center;
 		    justify-content: center;
 			width: 30rpx;
-			height: 26rpx;
+			/* height: 26rpx; */
 			background: #AAAAAA;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 14rpx;
@@ -184,7 +185,7 @@ swiper-item{
 		    align-items: center;
 		    justify-content: center;
 			width: 46rpx;
-			height: 26rpx;
+			/* height: 26rpx; */
 			background: #FFFFFF;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 14rpx;

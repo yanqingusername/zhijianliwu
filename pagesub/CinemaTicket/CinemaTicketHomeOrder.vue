@@ -7,10 +7,10 @@
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
 							<view class="cth-b-bg-2-1-1">{{film_order_info.movieName}}</view>
-							<!-- <view class="cth-b-bg-2-1-2">
+							<view class="cth-b-bg-2-1-2" v-if="film_order_info.versionTypesStatus ==1">
 								<view class="cth-b-bg-2-1-2-1">3D</view>
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
-							</view> -->
+							</view>
 						</view>
 						<view class="cth-b-bg-2-2">{{film_order_info.showTimeWeek}} {{film_order_info.showTimeStr}} {{film_order_info.language}} {{film_order_info.planType}}</view>
 						<view class="cth-b-bg-2-3">{{film_order_info.hallName}} {{film_order_info.seatsNoStr}}</view>
@@ -541,16 +541,17 @@ page{
 			display: flex;
 			margin-left: 10rpx;
 			width: 92rpx;
-			    height: 36rpx;
+			    height: 32rpx;
 			border-radius: 4rpx;
 			border: 1px solid #AAAAAA;
+			background: #aaa;
 		}
 		.cth-b-bg-2-1-2-1{
 			display: flex;
 		    align-items: center;
 		    justify-content: center;
 			width: 36rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #AAAAAA;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
@@ -562,7 +563,7 @@ page{
 		    align-items: center;
 		    justify-content: center;
 			width: 56rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #FFFFFF;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;

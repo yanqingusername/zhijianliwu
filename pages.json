@@ -761,6 +761,27 @@
 				    {
 				        "navigationBarTitleText": "城市列表"
 				    }
+				},
+				{
+				    "path" : "YearCard/YearCardDetail",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "订单详情"
+				    }
+				},
+				{
+				    "path" : "YearCard/YearCardOrderList",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "兑换记录"
+				    }
+				},
+				{
+				    "path" : "YearCard/YearCardShopList",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "兑换列表"
+				    }
 				}
 		 ]
 	}],

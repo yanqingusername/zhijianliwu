@@ -144,7 +144,7 @@ swiper-item{
 			display: flex;
 			margin-left: 10rpx;
 			width: 92rpx;
-			    height: 36rpx;
+			    height: 32rpx;
 			border-radius: 4rpx;
 			border: 1px solid #5B5B5B;
 }
@@ -153,7 +153,7 @@ swiper-item{
 		    align-items: center;
 		    justify-content: center;
 			width: 36rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #5B5B5B;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
@@ -165,7 +165,7 @@ swiper-item{
 		    align-items: center;
 		    justify-content: center;
 			width: 56rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			/* background: #FFFFFF; */
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;

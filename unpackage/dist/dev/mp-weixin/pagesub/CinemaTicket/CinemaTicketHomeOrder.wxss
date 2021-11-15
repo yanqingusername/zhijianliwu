@@ -456,16 +456,17 @@ page{
 			display: flex;
 			margin-left: 10rpx;
 			width: 92rpx;
-			    height: 36rpx;
+			    height: 32rpx;
 			border-radius: 4rpx;
 			border: 1px solid #AAAAAA;
+			background: #aaa;
 }
 .cth-b-bg-2-1-2-1{
 			display: flex;
 		    align-items: center;
 		    justify-content: center;
 			width: 36rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #AAAAAA;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
@@ -477,7 +478,7 @@ page{
 		    align-items: center;
 		    justify-content: center;
 			width: 56rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #FFFFFF;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;

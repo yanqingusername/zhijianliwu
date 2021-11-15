@@ -109,7 +109,10 @@
         "CinemaTicket/CinemaDetails",
         "CinemaTicket/CinemaTicketOrderList",
         "CinemaTicket/CinemaSeatSelect",
-        "CinemaTicket/CinemaCityList"
+        "CinemaTicket/CinemaCityList",
+        "YearCard/YearCardDetail",
+        "YearCard/YearCardOrderList",
+        "YearCard/YearCardShopList"
       ]
     }
   ],

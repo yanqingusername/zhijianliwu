@@ -57,6 +57,35 @@
 		<view class="details-btm flex" :data-keynum="alt.keynum" @click="confirm_order" v-if="isShow==1">
 			<view class="balance-view">去兑换</view>
 		</view>
+		
+		<!-- 绑卡 -->
+		<view class="success-pop" style="z-index: 33;" v-if="showPop">
+			<view class="pop-center clearfix">
+				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
+				<form @submit="submit">
+					<view class="card">
+						<h3>礼品卡/册兑换:</h3>
+						<uni-forms :value="formData" ref="form">
+							<uni-forms-item name="pass">
+								<input type="text" name="cardpass" v-if="showInput" v-model="formData.pass" placeholder="请输入礼品卡/册密码" @input="binddata('pass',$event.detail.value)" />
+							</uni-forms-item>
+							<button form-type="submit" class="sub">立即绑定</button>
+						</uni-forms>
+					</view>
+				</form>
+			</view>
+		</view>
+		
+		<!-- 绑定成功提示 -->
+		<view class="success-pop" style="z-index: 33;" v-if="isPopSucc">
+			<view class="pop-center clearfix">
+				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
+				<view class="p" style="margin-bottom:40rpx;margin-top:40rpx;">{{popTitle}}</view>
+				<view v-if="isDialogPop" class="n" hover-class="none" @click="clickHandler">确定</view>
+				<view v-if="!isDialogPop" class="n" hover-class="none" @click="close">确定</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -87,73 +116,121 @@
 				goods_item: '',
 				isShow: 1,
 				swiperCurrentIndex: 1,
-				isOrder: 0
+				isOrder: 0,
+				type:'',
+				formData: {
+					pass: ''
+				},
+				showInput: true,
+				showPop: false,
+				formData: {
+					pass: ''
+				},
+				showInput: true,
+				showPop: false,
+				isPopSucc: false,
+				popTitle: '',
+				isDialogPop: false
 			}
 		},
 		onLoad: function(e) {
-			if (e.keynum) {
-				this.keynum = e.keynum;
-				this.isShow = e.isShow;
-			}
-
-			if(e && e.isOrder){
-				this.isOrder =  e.isOrder;
-			}
-
-			this.level_name = uni.getStorageSync('level_name');
-			this.level = uni.getStorageSync('level')
-
-			this.id = uni.getStorageSync('id');
-			let id = uni.getStorageSync('id');
-
-			var data = '{"keynum":"' + this.keynum + '","memberid":"' + id + '"}';
-			var action = 'get_goods_detail';
-			this.$utils.post(action, data).then(res => {
-				this.goodsinfo = res.rs.goodsinfo;
-
-				//新增腾讯有数
-				sr.track('browse_sku_page',
-				  {
-				    "sku": {
-				      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
-				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
-				    },
-					"spu": {
-						"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
-						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
-					},
-				    "primary_image_url": this.goodsinfo.head_img
-				  })
-
-				// 首图					  
-				this.head_img = res.rs.goodsinfo.head_img;
-				// 多图
-				if (res.rs.goodsinfo.images) {
-					let details = res.rs.goodsinfo.images.split('|');
-					details.unshift(res.rs.goodsinfo.head_img)
-					this.details = details;
-				}
-
-				// 内容
-				this.alt = res.rs.goodsinfo;
-
-				// 商品详情
-				this.btmdetails = res.rs.goodsinfo.details.replace(/<img /g, '<img class="rich_img" ');
+			if(e && e.scene){
+				var scene = decodeURIComponent(e.scene)
+				let keynumstr= scene.split("&")[0];
+				let typestr= scene.split('&')[1];
+				let keynum = keynumstr.split("=");
+				let type = typestr.split("=");
 				
-				this.goodsid = res.rs.goodsinfo.id;
-
-			})
+				uni.showToast({
+					icon: "loading",
+					title: "加载中"
+				})
+				this.keynum = keynum[1];
+				this.type = type[1];
+			}else{
+				if (e.keynum) {
+					this.keynum = e.keynum;
+					this.isShow = e.isShow;
+				}
+				
+				if(e && e.isOrder){
+					this.isOrder =  e.isOrder;
+				}
+				
+				if(e && e.type){
+					this.type = e.type;
+				}
+			}
+				
+			this.getInfo();
+			
 		},
 		computed: {
 			
 		},
 		methods: {
-			confirm_order:function (e){
-				console.log(e);
-				let keynum = e.currentTarget.dataset.keynum;
-				uni.navigateTo({
-					url: './index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder
+			getInfo(){
+				this.level_name = uni.getStorageSync('level_name');
+				this.level = uni.getStorageSync('level')
+				
+				this.id = uni.getStorageSync('id');
+				let id = uni.getStorageSync('id');
+				
+				var data = '{"keynum":"' + this.keynum + '","memberid":"' + id + '"}';
+				var action = 'get_goods_detail';
+				this.$utils.post(action, data).then(res => {
+					this.goodsinfo = res.rs.goodsinfo;
+				
+					//新增腾讯有数
+					sr.track('browse_sku_page',
+					  {
+					    "sku": {
+					      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
+					      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+					    },
+						"spu": {
+							"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
+							"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+						},
+					    "primary_image_url": this.goodsinfo.head_img
+					  })
+				
+					// 首图			
+					this.head_img = res.rs.goodsinfo.head_img;
+					// 多图
+					if (res.rs.goodsinfo.images) {
+						let details = res.rs.goodsinfo.images.split('|');
+						details.unshift(res.rs.goodsinfo.head_img)
+						this.details = details;
+					}
+				
+					// 内容
+					this.alt = res.rs.goodsinfo;
+				
+					// 商品详情
+					this.btmdetails = res.rs.goodsinfo.details.replace(/<img /g, '<img class="rich_img" ');
+					
+					this.goodsid = res.rs.goodsinfo.id;
+				
 				})
+			},
+			confirm_order:function (e){
+				let keynum = e.currentTarget.dataset.keynum;
+				this.keynum = keynum;
+				if(this.type == 2){
+					var memberid = uni.getStorageSync('id')
+					if(memberid){
+						this.showPop = true;
+					}else{
+						uni.reLaunch({
+							url: '../signin/signin?receive=exd&type=' + this.type +'&cardbag_number=' + keynum
+						})
+					}
+				}else{
+					uni.navigateTo({
+						url: './index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder
+					})
+				}
 			},
 			changeswiper(e) {
 			    let {current, source} = e.detail
@@ -161,7 +238,66 @@
 			    //根据官方 source 来进行判断swiper的change事件是通过什么来触发的，autoplay是自动轮播。touch是用户手动滑动。其他的就是未知问题。抖动问题主要由于未知问题引起的，所以做了限制，只有在自动轮播和用户主动触发才去改变current值，达到规避了抖动bug
 			      this.swiperCurrentIndex = e.detail.current + 1;
 			    }
-			  },
+			},
+			close: function(){
+				this.showInput = true;
+				this.showPop = false;
+				this.formData.pass = '';
+				this.isPopSucc = false;
+				this.popTitle = '';
+				this.isDialogPop = false;
+			},
+			submit: function(e) {
+				var mid = uni.getStorageSync('id');
+				if (mid == '') {
+					uni.showToast({
+						title: "请先登录！",
+						icon: 'none'
+					})
+					return false;
+				}
+				const cardpass = e.detail.value.cardpass;
+				if (cardpass == '') {
+					uni.showToast({
+						title: "请输入礼品册上的密码！",
+						icon: 'none'
+					})
+					return false;
+				}
+			
+				var action = 'bind_giftcard';
+				var data = '{"memberid":"' + mid + '","cardpwd":"' + cardpass + '","type":1}';
+				this.$utils.post(action, data).then(res => {
+					console.log(res)
+					if (res.sta == 1) {
+						this.showInput = true;
+						this.showPop = false;
+						this.formData.pass = '';
+						this.isPopSucc = true;
+						this.popTitle = res.msg;
+						this.isDialogPop = true;
+					} else {
+						this.showInput = true;
+						this.showPop = false;
+						this.formData.pass = '';
+						this.isPopSucc = true;
+						this.popTitle = res.msg;
+						this.isDialogPop = false;
+						// uni.showToast({
+						// 	title: res.msg,
+						// 	icon: 'none'
+						// })
+					}
+				})
+			},
+			clickHandler(){
+				this.showInput = true;
+				this.showPop = false;
+				this.formData.pass = '';
+				uni.redirectTo({
+					url: './index-address?good_keynum=' + this.keynum + '&isOrder=' + this.isOrder
+				})
+			},
 		}
 	}
 </script>
@@ -420,7 +556,7 @@
 		margin-top: 20rpx;
 	}
 
-	.close {
+	/* .close {
 		width: 350rpx;
 		height: 50rpx;
 		line-height: 50rpx;
@@ -428,7 +564,7 @@
 		margin-top: 122rpx;
 		margin-left: 0;
 		color: #007AFF;
-	}
+	} */
 
 	.per {
 		color: #4C4C4C;
@@ -675,5 +811,32 @@
 		font-weight: 500;
 		color: #FFFFFF;
 		margin-top: 4rpx;
+	}
+	
+	
+	.card {
+		/* margin-top: 50rpx; */
+		/* margin-left: 100rpx; */
+		padding-top: 30rpx;
+		box-sizing: border-box;
+	}
+	
+	.card input {
+		width: 340rpx;
+		border: 2rpx solid #999999;
+	    height: 76rpx;
+	    margin-top: 36rpx;
+		/* padding-bottom: 20rpx; */
+	    font-size: 26rpx;
+	    color: #999999;
+	    padding-left: 20rpx;
+	}
+	
+	.sub {
+		    display: block;
+		    width: 300rpx;
+		    background-color: #EC1815;
+		    color: #fff;
+			font-size: 28rpx;
 	}
 </style>

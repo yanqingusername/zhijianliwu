@@ -15,7 +15,7 @@
 		<!--以下是座位图区域  -->
 		<!-- 这里官方有个bug https://developers.weixin.qq.com/community/develop/doc/82f5ab098a15982c89076af83e3631a1 -->
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
-		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;'">
+		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;position: relative;'">
 			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth + 'rpx;'"
 				scale="true" direction="all" scale-max="2" scale-min="0.8" out-of-bounds="true" @scale="scaleEventHandle">
 				<view class='seatArea' style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
@@ -40,13 +40,14 @@
 								<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 							</view>
 						</view>
-						<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: 10px;'">
-							<view class="area-left-number" :style="'top:'+(item * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
-						</view>
+						
 					</view>
 					
 				</view>
 			</movable-view>
+			<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: 10px;margin-top:80rpx;'">
+				<view class="area-left-number" :style="'top:'+((index+1) * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+			</view>
 		</movable-area>
 		<!--下部分座位示例图  -->
 		<!-- 用户选中的座位详情 -->
@@ -1257,7 +1258,7 @@
 
 	.movableOne {
 		box-sizing: border-box;
-		padding: 70rpx 60rpx 100rpx;
+		padding: 0rpx 60rpx 100rpx;
 		color: #F6F6F6;
 	}
 

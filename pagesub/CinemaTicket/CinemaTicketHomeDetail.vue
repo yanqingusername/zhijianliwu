@@ -17,10 +17,10 @@
 			<view class="cthd-b">
 				<view class="cth-b-bg-2-1">
 					<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
-					<!-- <view class="cth-b-bg-2-1-2">
+					<view class="cth-b-bg-2-1-2" v-if="movieInfo.versionTypesStatus ==1">
 						<view class="cth-b-bg-2-1-2-1">3D</view>
 						<view class="cth-b-bg-2-1-2-2">IMAX</view>
-					</view> -->
+					</view>
 				</view>
 				<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
 				<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>
@@ -409,7 +409,7 @@ page{
 			display: flex;
 			margin-left: 10rpx;
 			width: 92rpx;
-			    height: 36rpx;
+			    height: 32rpx;
 			border-radius: 4rpx;
 			border: 1px solid #5B5B5B;
 		}
@@ -418,7 +418,7 @@ page{
 		    align-items: center;
 		    justify-content: center;
 			width: 36rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			background: #5B5B5B;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;
@@ -430,7 +430,7 @@ page{
 		    align-items: center;
 		    justify-content: center;
 			width: 56rpx;
-			height: 32rpx;
+			/* height: 32rpx; */
 			/* background: #FFFFFF; */
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 17rpx;

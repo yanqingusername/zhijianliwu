@@ -28,7 +28,7 @@
 		</view> -->
 		<!-- 我购买的 -->
 		<view v-if="screenPurchase.length > 0" class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="new-order-li" @click="handlerOrderInfo" :data-ordernumber="item.ordernumber">
+			<view class="new-order-li" @click="handlerOrderInfo" :data-ordernumber="item.ordernumber"  :data-isnianka="item.is_nianka">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">兑换编号：{{item.ordernumber}}</view>
 					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} ></view>
@@ -55,8 +55,8 @@
 						<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
 					</view>
 					<view class="new-order-botton-view" v-if="item.card_type == 1">
-						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
-						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
+						<view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
 						<view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="refundHandler" :data-ordernumber="item.ordernumber">换货/售后</view>
 					</view>
 				</view>
@@ -141,11 +141,18 @@
 			},
 			//去兑换
 			go_exchange: function(e) {
-				console.log(e);
 				let cardid = e.currentTarget.dataset.cardid;
-				uni.redirectTo({
-					url: './redemption_center?cardid=' + cardid
-				})
+				let is_nianka = e.currentTarget.dataset.isnianka;
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				if(is_nianka == 1){
+					uni.redirectTo({
+						url: '/pagesub/YearCard/YearCardShopList?cardid=' + cardid + '&ordernumber='+ ordernumber
+					})
+				}else{
+					uni.redirectTo({
+						url: './redemption_center?cardid=' + cardid + '&ordernumber='+ ordernumber
+					})
+				}
 			},
 			//去充值
 			goRecharge: function(e) {
@@ -183,9 +190,16 @@
 			// 详情
 			handlerOrderInfo: function(e){
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: './ExchangeOrderInfo?ordernumber=' + ordernumber
-				})
+				let is_nianka = e.currentTarget.dataset.isnianka;
+				if(is_nianka == 1){
+					uni.navigateTo({
+						url: '/pagesub/YearCard/YearCardDetail?ordernumber='+ ordernumber
+					})
+				}else{
+					uni.navigateTo({
+						url: './ExchangeOrderInfo?ordernumber=' + ordernumber
+					})
+				}
 			},
 		}
 	}

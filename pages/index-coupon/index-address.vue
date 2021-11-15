@@ -83,13 +83,21 @@
 				remark: "",
 				showInput: true,
 				showPop: false,
-				isOrder: 0
+				isOrder: 0,
+				isYear: 0,
+				ordernumber: ''
 			}
 		},
 		onLoad: function(e) {
 
 			if(e && e.isOrder){
 				this.isOrder =  e.isOrder;
+			}
+			if(e && e.isYear){
+				this.isYear =  e.isYear;
+			}
+			if(e && e.ordernumber){
+				this.ordernumber =  e.ordernumber;
 			}
 
 			console.log(e);
@@ -127,14 +135,20 @@
 			clickHandler(){
 				this.showPop = false;
 				this.showInput = true;
-				if(this.isOrder == 1){
-					uni.navigateBack({
-				        delta:1
-				    })
-				} else {
+				if(this.isYear == 1){
 					uni.redirectTo({
-						url:"./ExchangeOrder"
-					});
+						url: '/pagesub/YearCard/YearCardOrderList?ordernumber='+this.ordernumber
+					})
+				}else{
+					if(this.isOrder == 1){
+						uni.navigateBack({
+					        delta:1
+					    })
+					} else {
+						uni.redirectTo({
+							url:"./ExchangeOrder"
+						});
+					}
 				}
 			},
 			

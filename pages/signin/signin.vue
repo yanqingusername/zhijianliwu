@@ -28,7 +28,9 @@
 				isChecked: true,
 				AuthStatus: true, // true: 用户信息 false : 手机号
 				telstring: '',
-				keynum: ''
+				keynum: '',
+				type:'',
+				ordernumber: ''
 			}
 		}, 
 		
@@ -45,9 +47,16 @@
 			 this.receive = e.receive;
 			 this.cardbag_number = e.cardbag_number;
 		 }
+		 if(e.type){
+			 this.type = e.type;
+		 }
 		 if(e.keynum){
 			 this.keynum = e.keynum;
 		 }
+		 if(e.ordernumber){
+			 this.ordernumber = e.ordernumber;
+		 }
+		 
 		 // 是否扫码
 		 if(e.scene){
 			 this.parent_member = e.scene;
@@ -357,6 +366,45 @@
 							setTimeout(function(e){
 								uni.reLaunch({
 									url:'../details/details?keynum=' + that.keynum
+								})
+							},500) 
+						}
+					})  
+				}else if(this.receive == '2'){
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:`/pages/index-coupon/redemption_center?cardid=${that.cardbag_number}&type=${that.receive}&ordernumber=${that.ordernumber}`
+								})
+							},500) 
+						}
+					})  
+				}else if(this.receive == 'exd'){
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:`/pages/index-coupon/ExchangeDetails?keynum=${that.cardbag_number}&type=${that.type}`
+								})
+							},500) 
+						}
+					})  
+				}else if(this.receive == 'giftcard'){
+					uni.showToast({
+						title:'登录成功',  
+						icon:"success",
+						mask:'true', 
+						success: (res) => {
+							setTimeout(function(e){
+								uni.reLaunch({
+									url:`/pages/index-coupon/index-coupon`
 								})
 							},500) 
 						}

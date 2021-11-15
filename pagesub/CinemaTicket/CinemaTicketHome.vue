@@ -105,10 +105,10 @@
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
 							<view class="cth-b-bg-2-1-1">{{item.name}}</view>
-							<!-- <view class="cth-b-bg-2-1-2">
+							<view class="cth-b-bg-2-1-2" v-if="item.versionTypesStatus ==1">
 								<view class="cth-b-bg-2-1-2-1">3D</view>
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
-							</view> -->
+							</view>
 						</view>
 						<view class="cth-b-bg-2-2">评分<text class="cth-b-bg-2-2-1">{{item.grade}}</text></view>
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
@@ -127,10 +127,10 @@
 					<view class="cth-b-bg-2">
 						<view class="cth-b-bg-2-1">
 							<view class="cth-b-bg-2-1-1">{{item.name}}</view>
-							<!-- <view class="cth-b-bg-2-1-2">
+							<view class="cth-b-bg-2-1-2" v-if="item.versionTypesStatus ==1">
 								<view class="cth-b-bg-2-1-2-1">3D</view>
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
-							</view> -->
+							</view>
 						</view>
 						<view class="cth-b-bg-2-2"><view style="font-size: 20rpx;color: #666666;margin-right: 14rpx;">{{item.publishDate}}</view><view style="font-size: 26rpx;font-weight: bold;color: #FA6400;">4753</view><view style="font-size: 20rpx;color: #666666;">人想看</view></view>
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
@@ -737,13 +737,14 @@ page{
 			height: 30rpx;
 			border-radius: 3rpx;
 			border: 1px solid #AAAAAA;
+			background: #aaa;
 		}
 		.cth-b-bg-2-1-2-1{
 			display: flex;
 		    align-items: center;
 		    justify-content: center;
 			width: 30rpx;
-			height: 26rpx;
+			/* height: 26rpx; */
 			background: #AAAAAA;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 14rpx;
@@ -755,7 +756,7 @@ page{
 		    align-items: center;
 		    justify-content: center;
 			width: 46rpx;
-			height: 26rpx;
+			/* height: 26rpx; */
 			background: #FFFFFF;
 			/* border-radius: 3rpx 0px 0px 3px; */
 			font-size: 14rpx;

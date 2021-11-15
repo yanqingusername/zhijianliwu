@@ -38,7 +38,7 @@
 		</view>
 		<!-- 我购买的 -->
 		<view v-if="screenPurchase.length > 0" class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="new-order-li" @click="receptiondetails" :data-ordernumber="item.ordernumber" :data-status="item.status" :data-cardtype="item.card_type">
+			<view class="new-order-li" @click="receptiondetails" :data-ordernumber="item.ordernumber" :data-status="item.status" :data-cardtype="item.card_type" :data-isnianka="item.is_nianka">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">订单号：{{item.ordernumber}}</view>
 					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} <image style="width: 20rpx;height: 24rpx;margin-left: 0rpx;margin-right: -4rpx;" src="../../static/return_arrow_r_g.png"/></view>
@@ -97,8 +97,8 @@
 					</view>
 					
 					<view class="new-order-botton-view" v-if="nav==3">
-						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3)" @click.stop="goTransfer" :data-ordernumber="item.ordernumber" :data-isexchangetype="item.is_exchange_type">转赠</view>
-						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid">去兑换</view>
+						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3) && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber" :data-isexchangetype="item.is_exchange_type">转赠</view>
+						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="1" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
@@ -1419,11 +1419,18 @@
 			},
 			//去兑换
 			go_exchange: function(e) {
-				console.log(e);
 				let cardid = e.currentTarget.dataset.cardid;
-				uni.navigateTo({
-					url: '../index-coupon/redemption_center?cardid=' + cardid + '&isOrder=1'
-				})
+				let is_nianka = e.currentTarget.dataset.isnianka;
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				if(is_nianka == 1){
+					uni.navigateTo({
+						url: '/pagesub/YearCard/YearCardShopList?cardid=' + cardid + '&isOrder=1&ordernumber='+ ordernumber
+					})
+				}else{
+					uni.navigateTo({
+						url: '../index-coupon/redemption_center?cardid=' + cardid + '&isOrder=1' + '&ordernumber='+ ordernumber
+					})
+				}
 			},
 			//去充值
 			goRecharge: function(e) {
@@ -1490,6 +1497,7 @@
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let status = e.currentTarget.dataset.status;
 				let cardtype = e.currentTarget.dataset.cardtype;
+				let is_nianka = e.currentTarget.dataset.isnianka;
 				if(ordernumber){
 					if(this.nav == 1){
 						uni.navigateTo({
@@ -1500,14 +1508,20 @@
 							url: './MySendOrderInfo?ordernumber='+ ordernumber //我送出的
 						})
 					} else {
-						if((status == 0 || status == 1) &&cardtype==2) {
+						if(is_nianka == 1){
 							uni.navigateTo({
-								url: './ReceptionDetails?ordernumber='+ ordernumber //收礼详情
+								url: '/pagesub/YearCard/YearCardDetail?ordernumber='+ ordernumber
 							})
-						} else {
-							uni.navigateTo({
-								url: './ReceptionOrderInfo?ordernumber='+ ordernumber //我收到的
-							})
+						}else{
+							if((status == 0 || status == 1) &&cardtype==2) {
+								uni.navigateTo({
+									url: './ReceptionDetails?ordernumber='+ ordernumber //收礼详情
+								})
+							} else {
+								uni.navigateTo({
+									url: './ReceptionOrderInfo?ordernumber='+ ordernumber //我收到的
+								})
+							}
 						}
 					}
 				}

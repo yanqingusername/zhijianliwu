@@ -53,6 +53,18 @@
           "pathName": "pagesub/CinemaTicket/CinemaTicketOrderList",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pagesub/YearCard/YearCardDetail",
+          "pathName": "pagesub/YearCard/YearCardDetail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index-coupon/redemption_center",
+          "pathName": "pages/index-coupon/redemption_center",
+          "query": "",
+          "scene": null
         }
       ]
     }

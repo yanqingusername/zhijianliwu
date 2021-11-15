@@ -103,7 +103,7 @@
 						</view>
 						<view class="new-order-botton-view" v-if="orderInfo.card_type == 1">
 							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
-							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="go_exchange" :data-cardid="orderInfo.cardid">去兑换</view>
+							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="go_exchange" :data-cardid="orderInfo.cardid" :data-ordernumber="orderInfo.ordernumber">去兑换</view>
 							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view>
 							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 4" @click.stop="goConversionDetails" :data-ordernumber="orderInfo.ordernumber">转赠详情</view>
 						</view>
@@ -186,8 +186,9 @@
 			go_exchange: function(e) {
 				console.log(e);
 				let cardid = e.currentTarget.dataset.cardid;
+				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
-					url: './redemption_center?cardid=' + cardid
+					url: './redemption_center?cardid=' + cardid + '&ordernumber='+ ordernumber
 				})
 			},
 			//转赠详情 我送出的

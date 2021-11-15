@@ -61,9 +61,12 @@
 
 				var mid = uni.getStorageSync('id');
 				if (mid == '') {
-					uni.showToast({
-						title: "请先登录！",
-						icon: 'none'
+					// uni.showToast({
+					// 	title: "请先登录！",
+					// 	icon: 'none'
+					// })
+					uni.reLaunch({
+						url: '../signin/signin?receive=giftcard'
 					})
 					return false;
 				}
