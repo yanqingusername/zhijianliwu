@@ -35,6 +35,8 @@
 			this.cardid= e.cardid;
 			this.ordernumber= e.ordernumber;
 			uni.setStorageSync("dh_cardid",this.cardid)
+		},
+		onShow() {
 			uni.showToast({
 				icon: "loading",
 				title: "加载中"

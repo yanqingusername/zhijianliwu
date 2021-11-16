@@ -50,6 +50,9 @@
 		},
 		onLoad:function(options){
 			this.ordernumber = options.ordernumber;
+			
+		},
+		onShow() {
 			let that = this;
 			let action = "get_exchange_order_info";
 			let controller = 'order';

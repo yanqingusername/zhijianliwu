@@ -61,6 +61,7 @@
 							<view class="new-order-botton-gray" v-if="(item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3) && item.is_nianka==0" @click.stop="refundHandler" :data-ordernumber="item.ordernumber">换货/售后</view>
 						</view>
 						<view class="new-order-botton-view" v-else>
+							<view class="new-order-botton-gray" v-if="item.is_exchange == 1" @click.stop="clickHandler" :data-ordernumber="item.ordernumber" >兑换记录</view>
 							<view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
 							<view class="new-order-botton" v-if="item.order_status_type == 0 && item.is_cardbag_logo == 0" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
 						</view>
@@ -93,6 +94,9 @@
 			}
 		},
 		onLoad: function(e) {
+			
+		},
+		onShow() {
 			uni.showToast({
 				icon: "loading",
 				title: "加载中"
@@ -206,6 +210,12 @@
 						url: './ExchangeOrderInfo?ordernumber=' + ordernumber
 					})
 				}
+			},
+			clickHandler: function(e){
+				let ordernumber = e.currentTarget.dataset.ordernumber;
+				uni.navigateTo({
+					url: '/pagesub/YearCard/YearCardOrderList?ordernumber='+ordernumber
+				})
 			},
 		}
 	}

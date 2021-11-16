@@ -43,6 +43,9 @@
 		},
 		onLoad: function(e) {
 			this.ordernumber = e.ordernumber;
+			
+		},
+		onShow() {
 			uni.showToast({
 				icon: "loading",
 				title: "加载中"
