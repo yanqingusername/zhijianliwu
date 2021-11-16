@@ -50,7 +50,7 @@
 					<text class="date">{{'预计3-5天送达'}}</text>
 				</view>
 				<view class="apply-refund-view">
-					<view class="say" style="font-weight: bold;margin-bottom: 20rpx;margin-left: 12rpx;">给商家留言</view>				
+					<!-- <view class="say" style="font-weight: bold;margin-bottom: 20rpx;margin-left: 12rpx;">给商家留言</view>				 -->
 					<!-- <view class="message-text"><textarea class="message" type="text" v-if="showInput" v-model="remark" placeholder="选填，可备注联系人，备用电话，订单说明等" ></textarea></view>				 -->
 					<view class="apply-refund-text"><textarea maxlength="100" type="text" v-if="showInput" v-model="remark" placeholder="留言选填，可备注联系人、备用电话、订单说明等；" /></view>	
 				</view>

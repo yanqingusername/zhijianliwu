@@ -17,8 +17,8 @@
 				<view class="ycd_view_bottom_1"></view>
 				<view class="ycd_view_bottom_2">
 					<view class="ycd_click_3" v-if="orderInfo.is_exchange == 1" @click="clickHandler" :data-ordernumber="orderInfo.ordernumber" >兑换记录</view>
-					<view class="ycd_click_2" v-if="orderInfo.is_exchange == 0" @click="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
-					<view class="ycd_click_1" v-if="orderInfo.is_cheange_complete == 0" @click="clickHandlerShop" :data-ordernumber="orderInfo.ordernumber" :data-cardid="orderInfo.cardid">去兑换</view>
+					<view class="ycd_click_2" v-if="orderInfo.is_exchange == 0" @click="goTransfer" :data-ordernumber="orderInfo.ordernumber" :data-iscardbaglogo="orderInfo.is_cardbag_logo">转赠</view>
+					<view class="ycd_click_1" v-if="orderInfo.is_cheange_complete == 0 && orderInfo.is_cardbag_logo == 0" @click="clickHandlerShop" :data-ordernumber="orderInfo.ordernumber" :data-cardid="orderInfo.cardid">去兑换</view>
 				</view>
 			</view>
 		</view>
@@ -33,12 +33,8 @@
 				<view class="reception-order-time">{{orderInfo.bind_time}}</view>
 			</view>
 			<view class="reception-order-view" style="margin-top: 12rpx;">
-				<view class="reception-order-text" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">兑换成功：</view>
-				<view class="reception-order-time" v-if="orderInfo.card_type == 1 && (orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3)">{{orderInfo.exchange_time }}</view>
-				<view class="reception-order-text" v-if="orderInfo.order_status_type == 4 ">转赠成功：</view>
-				<view class="reception-order-time" v-if="orderInfo.order_status_type == 4 ">{{orderInfo.give_time }}</view>
-				<view class="reception-order-text" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">充值成功：</view>
-				<view class="reception-order-time" v-if="orderInfo.card_type == 0 && orderInfo.order_status_type == 3 ">{{orderInfo.recharge_time  }}</view>
+				<view class="reception-order-text" >{{orderInfo.giftgiving_status_info}}</view>
+				<view class="reception-order-time" >{{orderInfo.giftgiving_time }}</view>
 			</view>
 		</view>
 	</view>
@@ -95,9 +91,16 @@
 			},
 			goTransfer: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: `/pages/shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=1`
-				})
+				let iscardbaglogo = e.currentTarget.dataset.iscardbaglogo;
+				if(iscardbaglogo == 0){
+					uni.navigateTo({
+						url: `/pages/shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=1`
+					})
+				}else{
+					uni.navigateTo({
+						url: '/pages/index-coupon/ConversionDetails?cardbag=' + ordernumber +'&cardbag_detail_id=' + '0' + '&cardbag_number=' + ordernumber
+					});
+				}
 			},
 		}
 	}

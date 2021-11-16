@@ -24,7 +24,7 @@
 				</view>
 				<view class="new-order-li-bottom">
 					<view class="new-order-nickname">兑换时间：{{item.add_time}}</view>
-					<view class="new-order-botton-gray" @click.stop="logisticInfo" :data-ordernumber="item.ordernumber">查看物流</view>
+					<view class="new-order-botton-gray" v-if="item.wulliu_status == 2 || item.wulliu_status == 3" @click.stop="logisticInfo" :data-ordernumber="item.ordernumber">查看物流</view>
 				</view>
 			</view>
 		</view>
