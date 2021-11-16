@@ -31,7 +31,7 @@
 			<view class="new-order-li" @click="handlerOrderInfo" :data-ordernumber="item.ordernumber"  :data-isnianka="item.is_nianka">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">兑换编号：{{item.ordernumber}}</view>
-					<view class="new-order-li-top-orderstatus">{{item.order_status_info}} ></view>
+					<view class="new-order-li-top-orderstatus" v-if="item.order_status_info">{{item.order_status_info}} ></view>
 				</view>
 				<view class="new-order-li-center">
 					<view class="new-order-left">
