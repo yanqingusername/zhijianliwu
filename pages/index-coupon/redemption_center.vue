@@ -156,7 +156,7 @@
 						})
 					}
 				}else{
-					uni.redirectTo({
+					uni.navigateTo({
 						url: './index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder
 					})
 				}
@@ -236,7 +236,7 @@
 						url: `/pages/shopping/shop?type=1&statutype=exchange&ordernumber=${this.ordernumber}&is_exchange_type=1`
 					})
 				}else{
-					uni.redirectTo({
+					uni.navigateTo({
 						url: './index-address?good_keynum=' + this.keynum + '&isOrder=' + this.isOrder
 					})
 				}

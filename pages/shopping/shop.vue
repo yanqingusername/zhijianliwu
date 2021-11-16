@@ -18,7 +18,7 @@
 							<view class="price-bottom flex-between">
 								<view>
 									<text style="font-size: 24rpx; color: #FB4133;">￥<text class="shop-gift-buys-price">0.00</text></text>
-									<text style="font-size: 24rpx; color: #999999;">￥<text class="shop-gift-buys-price-text">{{orderInfo.price}}</text></text>
+									<text style="font-size: 24rpx; color: #999999;margin-left: 30rpx;">￥<text class="shop-gift-buys-price-text">{{orderInfo.price}}</text></text>
 								</view>
 								<view class="flex-vertically">
 									<view class="cart-count" style="background-color: #FFFFFF;text-align: right;">x1</view>

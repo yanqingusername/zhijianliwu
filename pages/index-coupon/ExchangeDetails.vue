@@ -294,7 +294,7 @@
 				this.showInput = true;
 				this.showPop = false;
 				this.formData.pass = '';
-				uni.redirectTo({
+				uni.navigateTo({
 					url: './index-address?good_keynum=' + this.keynum + '&isOrder=' + this.isOrder
 				})
 			},

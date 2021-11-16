@@ -17,7 +17,7 @@
 				<view class="add-li flex-vertically" style="border-bottom: 2rpx solid #E6E6E6;">
 					<view class="add-left">地区</view>
 					<input type="text" name="add" :value="add.prov" disabled=true @tap="openAddres2" :placeholder="addr.province || '地区信息'" />
-					<view class="add-img">
+					<view class="add-img" @click="onChangeLocation">
 						<image class="add-img" src="https://zhijianlw.com/static/web/img/location-add-add.png" mode=""></image>
 					</view>
 				</view>
@@ -79,7 +79,9 @@
 				index: '',
 				addto: '',
 				ordernumber: '',
-				checked: false
+				checked: false,
+				latitude:'',
+				longitude:''
 			}
 		},
 		components: {
@@ -114,6 +116,15 @@
 				this.ordernumber = e.ordernumber;
 			}
 
+			let that = this;
+			uni.getLocation({
+			    type: 'gcj02',
+				altitude: true,
+			    success: function (res) {
+					that.latitude = res.latitude;
+					that.longitude = res.longitude;
+			    }
+			});
 
 		},
 		computed:{
@@ -304,9 +315,98 @@
 				this.province = e.provinceCode;
 				this.city = e.cityCode;
 				this.county = e.areaCode;
-			}
-
-
+			},
+			//获取当前位置
+			onChangeLocation(e){
+				let that = this;
+				uni.chooseLocation({
+					latitude: that.latitude,
+					longitude: that.longitude,
+					success: function (res) {
+						if (res.errMsg == 'chooseLocation:ok') {
+							let latitude = res.latitude;
+							let longitude = res.longitude;
+							that.getCityAddress(latitude,longitude);
+						}
+					},
+					fail: function (res) {
+						if (res.errMsg == 'chooseLocation:fail cancel') {
+							that.getSettingLocation();
+						}
+					}
+				});
+			},
+			getSettingLocation() {
+				let that = this;
+				uni.getSetting({
+					success(res) {
+						if (!res.authSetting['scope.userLocation']) {
+							uni.authorize({
+								scope: 'scope.userLocation',
+								success() {
+									uni.getLocation({
+									    type: 'gcj02',
+										altitude: true,
+									    success: function (res) {
+											that.latitude = res.latitude;
+											that.longitude = res.longitude;
+											that.onChangeLocation();
+									    }
+									});
+								},
+								fail(res) {
+									uni.showModal({
+										title: '提示',
+										content: '此功能需要您的位置授权',
+										success: res => {
+											if (res.confirm) {
+												uni.openSetting({
+													success: res => {
+														if (res.authSetting['scope.userLocation']) {
+															uni.getLocation({
+															    type: 'gcj02',
+																altitude: true,
+															    success: function (res) {
+																	that.latitude = res.latitude;
+																	that.longitude = res.longitude;
+																	that.onChangeLocation();
+															    }
+															});
+														} else {
+															uni.showToast({
+																title: '授权失败',
+																icon: 'none'
+															})
+														}
+													}
+												})
+											}
+										}
+									})
+								}
+							})
+						}
+					}
+				})
+			},
+			getCityAddress(latitude,longitude){
+				let that = this;
+				let action = 'get_city_info';
+				let controller = 'filmset';
+				let data = JSON.stringify({
+					latitude: latitude,
+					longitude: longitude
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+					if(res.sta == 1){
+						that.add.prov = res.rs.addressComponent.province+'-'+res.rs.addressComponent.city+'-'+res.rs.addressComponent.district;
+						that.province = '-1';
+						that.city = '-1';
+						that.county = '-1';
+						that.add.address= res.rs.addressComponent.street+res.rs.addressComponent.street_number;
+					}
+				})
+			},
 		}
 	}
 </script>

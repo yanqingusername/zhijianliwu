@@ -65,7 +65,7 @@
 			//去兑换
 			go_exchange: function(e) {
 				let keynum = e.currentTarget.dataset.keynum;
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/index-coupon/index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder + '&isYear=1'+ '&ordernumber=' + this.ordernumber
 				})
 			},

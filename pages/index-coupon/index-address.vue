@@ -131,6 +131,9 @@
 			close: function(){
 				this.showInput = true;
 				this.showPop = false;
+				uni.navigateBack({
+					delta:1
+				});
 			},
 			clickHandler(){
 				this.showPop = false;
