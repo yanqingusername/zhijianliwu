@@ -381,6 +381,27 @@
 			
 			//立即付款
 			forsubmit: function(e) {
+				// 调用订阅消息
+				uni.requestSubscribeMessage({
+					tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
+						success(res) {
+							console.log(res)
+							wx.showToast({
+								title: res.errMsg,
+								icon: 'none',
+								mask: true,
+							})
+						},
+						fail(res) {
+							console.log('失败',res) 
+							wx.showToast({
+								title: res.errMsg,
+								icon: 'none',
+								mask: true,
+							})
+						}
+					})
+					
 				console.log("立即付款")
 				// console.log(e)
 				var that = this;

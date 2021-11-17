@@ -189,7 +189,7 @@
 }
 .z-payment-bottom-hot{
 	text-align: center;
-	margin-bottom: 40rpx;
+	margin-bottom: 20rpx;
 }
 .z-payment-bottom-hot text{
 	display: inline-block;
@@ -220,6 +220,7 @@
 	display: inline-block;
 	width: 50%;
 	padding: 0 10rpx;
+	margin-top: 20rpx;
 }
 .z-list1 > view{
 	background-color: #fff;
@@ -227,13 +228,13 @@
 }
 .z-list1_img{
 	padding: 20rpx;
-	margin-bottom: 14rpx;
+	/* margin-bottom: 14rpx; */
 }
 .z-list1_img image{
 	width: 100%;
 }
 .z-list-bottom{
-	padding: 14rpx 20rpx 20rpx;
+	padding: 0rpx 20rpx 20rpx;
 }
 .z-list-bottom .list1-title{
 	margin: 0 0 20rpx;
@@ -269,5 +270,40 @@
 	text-align: right;
 	display: inline-block;
 	margin: 0;
+}
+.own-other-info-box{
+	/* margin: 20rpx 20rpx 16rpx 20rpx; */
+}
+.price-i{
+	font-size: 24rpx;
+	color: #FB4133;
+}
+.qi{
+	width: 40rpx;
+	margin-left: 6rpx;
+}
+.own-price-box{
+	margin-top: 14rpx;
+	/*margin-left: 20rpx;
+	margin-right: 20rpx; */
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+.own-discount-price{
+	font-size: 12px;
+	text-decoration: line-through;
+	color: #898989;
+}
+.own-price-box .number{
+	float: right;
+	font-size: 26rpx;
+	font-weight: bold;
+	color: #999;
+}
+.goods-number{
+	font-size: 24rpx;
+	color: #999999;
+	/* line-height: 33rpx; */
 }
 
