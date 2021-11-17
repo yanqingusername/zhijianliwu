@@ -404,10 +404,11 @@
 						that.province = '-1';
 						that.city = '-1';
 						that.county = '-1';
+						let recommend = res.rs.formatted_addresses.recommend;
 						let district = res.rs.address_component.district;
 						if(district){
-							let index = address.lastIndexOf(district);
-							address = address.substring(index+1,address.length);
+							let index = recommend.lastIndexOf(district);
+							let address = recommend.substring((index+district.length),recommend.length);
 							that.add.address = address;
 						}
 					}
