@@ -326,7 +326,8 @@
 						if (res.errMsg == 'chooseLocation:ok') {
 							let latitude = res.latitude;
 							let longitude = res.longitude;
-							that.getCityAddress(latitude,longitude);
+							let address = res.address;
+							that.getCityAddress(latitude,longitude,address);
 						}
 					},
 					fail: function (res) {
@@ -389,7 +390,7 @@
 					}
 				})
 			},
-			getCityAddress(latitude,longitude){
+			getCityAddress(latitude,longitude,address){
 				let that = this;
 				let action = 'get_city_info';
 				let controller = 'filmset';
@@ -403,7 +404,12 @@
 						that.province = '-1';
 						that.city = '-1';
 						that.county = '-1';
-						that.add.address= res.rs.addressComponent.street+res.rs.addressComponent.street_number;
+						let district = res.rs.addressComponent.district;
+						if(district){
+							let index = address.lastIndexOf(district);
+							address = address.substring(index+1,address.length);
+							that.add.address = address;
+						}
 					}
 				})
 			},
