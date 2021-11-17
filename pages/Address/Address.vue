@@ -400,11 +400,11 @@
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
 					if(res.sta == 1){
-						that.add.prov = res.rs.addressComponent.province+'-'+res.rs.addressComponent.city+'-'+res.rs.addressComponent.district;
+						that.add.prov = res.rs.address_component.province+'-'+res.rs.address_component.city+'-'+res.rs.address_component.district;
 						that.province = '-1';
 						that.city = '-1';
 						that.county = '-1';
-						let district = res.rs.addressComponent.district;
+						let district = res.rs.address_component.district;
 						if(district){
 							let index = address.lastIndexOf(district);
 							address = address.substring(index+1,address.length);

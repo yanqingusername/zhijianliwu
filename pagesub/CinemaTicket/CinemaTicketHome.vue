@@ -366,7 +366,7 @@
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
 				    if(res.sta == 1){
-						that.cityname = res.rs.addressComponent.city
+						that.cityname = res.rs.address_component.city
 						that.cityCode = res.rs.cityCode
 						that.longitude = longitude
 						that.latitude = latitude

@@ -237,7 +237,7 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 					if (res.sta == 1) {
 						if(typeString ==2){
-							that.cityname = res.rs.addressComponent.city;
+							that.cityname = res.rs.address_component.city;
 							that.cityCode = res.rs.cityCode;
 							that.regionCode = '';
 							if(that.itemsTime.length > 0){
@@ -245,7 +245,7 @@
 							}
 							that.keywords = '';
 						}
-						that.addressname = res.rs.formatted_address;
+						that.addressname = res.rs.address;
 						that.longitude = longitude;
 						that.latitude = latitude;
 						that.getFilmCinemaList(1);
