@@ -96,6 +96,9 @@ page{
 			color: #999999;
 			font-weight: bold;
 			margin-top: 16rpx;
+			/* overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap; */
 }
 .cth-b-bg-2-5{
 			display: flex;

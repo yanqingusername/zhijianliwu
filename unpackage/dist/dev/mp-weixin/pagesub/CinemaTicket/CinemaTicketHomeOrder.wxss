@@ -498,6 +498,9 @@ page{
 			font-size: 24rpx;
 			color: #666666;
 			margin-top: 22rpx;
+			/* overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap; */
 }
 .cth-b-bg-2-4{
 			display: flex;

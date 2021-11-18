@@ -210,7 +210,7 @@
 				},
 			clickOrderDetail(e){
 				let channelorderno = e.currentTarget.dataset.channelorderno;
-				uni.redirectTo({
+				uni.navigateTo({
 					url: `/pagesub/CinemaTicket/CinemaTicketHomeOrderDetail?channelOrderNo=${channelorderno}`
 				})
 			},
@@ -423,6 +423,7 @@ page{
 				color: #999999;
 				font-weight: bold;
 				margin-top: 16rpx;
+				width: 330rpx;
 			}
 			.cth-b-bg-2-4{
 				display: flex;
