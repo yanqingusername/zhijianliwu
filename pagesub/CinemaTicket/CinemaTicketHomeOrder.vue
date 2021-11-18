@@ -58,8 +58,8 @@
 		<view class="ctho-e">
 			<view class="ctho-e-1">购票须知</view>
 			<view class="ctho-line"></view>
-			<view class="ctho-e-2" style="margin-top: 20rpx;">1.由于影院系统不稳定等因素，存在出票失败的情况，会进行退款 </view>
-			<view class="ctho-e-2">2.付款成功后5-40分钟为您出票，此电影票为特价电影票，青确认时间和场次无误，付款成功后将无法退票和改签。下单即代表您同意《用户购票协议》</view>
+			<view class="ctho-e-2" style="margin-top: 20rpx;">1.由于影院系统不稳定等因素，存在出票失败的情况，会进行退票退款；</view>
+			<view class="ctho-e-2">2.付款成功后5-40分钟为您出票，此电影票为特价电影票，请确认时间和场次无误，付款成功后将无法退票和改签。下单即代表您已阅读该项须知；</view>
 			
 		</view>
 		

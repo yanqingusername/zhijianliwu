@@ -386,7 +386,7 @@
 					tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
 						success(res) {
 							console.log(res)
-							wx.showToast({
+							uni.showToast({
 								title: res.errMsg,
 								icon: 'none',
 								mask: true,
@@ -394,7 +394,7 @@
 						},
 						fail(res) {
 							console.log('失败',res) 
-							wx.showToast({
+							uni.showToast({
 								title: res.errMsg,
 								icon: 'none',
 								mask: true,

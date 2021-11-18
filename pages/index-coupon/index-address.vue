@@ -62,9 +62,9 @@
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" v-if="showPop">
-			<view class="pop-center clearfix" style="padding: 52rpx;">
+			<view class="pop-center clearfix" style="padding: 52rpx;top: 45%;">
 				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
-				<view class="p">恭喜您，成功兑换礼品！</view>
+				<view class="p" style="margin-bottom: 80rpx;margin-top: 80rpx;">恭喜您，成功兑换礼品！</view>
 				<!-- <navigator class="n" hover-class="none" url="./change">立即查看</navigator> -->
 				<view class="n" hover-class="none" @click="clickHandler">立即查看</view>
 			</view>
@@ -212,7 +212,7 @@
 
 <style>
 	page{
-		background: #FAFAFA;
+		background: #FFFFFF;
 	}
 	.address{
 		padding-bottom: 110rpx;
@@ -221,8 +221,9 @@
 	.addre {
 		padding: 40rpx 100rpx 30rpx 56rpx;
 		background-color: #fff;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */
 		position: relative;
+		border-top: 20rpx solid #FAFAFA;
 	}
 
 	.addre .icon {
@@ -260,8 +261,9 @@
 		width: 100%;
 		height: 360rpx;
 		background-color: #fff;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */
 		position: relative;
+		border-top: 20rpx solid #FAFAFA;
 	}
 
 	.top {
@@ -378,7 +380,7 @@
 			margin-top: 0rpx;
 		}
 	.apply-refund-text{
-		width: 700rpx;
+		width: 674rpx;
 		height: 175rpx;
 		background: #FAFAFA;
 		border-radius: 6rpx;
@@ -388,6 +390,7 @@
 			font-size: 26rpx;
 			color: #AAAAAA;
 			height: 175rpx;
+			width: 650rpx;
 		}
 
 	.button {
