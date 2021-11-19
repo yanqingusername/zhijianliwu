@@ -1,6 +1,6 @@
 
 page{
-	background-color: #FFFFFF;
+	background-color: #000000;
 }
 .cthd-view{
 	margin-top: 0rpx;
@@ -176,7 +176,7 @@ swiper-item{
 			display: flex;
 			align-items: center;
 			font-size: 24rpx;
-			font-weight: bold;
+			/* font-weight: bold; */
 			color: #999999;
 			margin-top: 18rpx;
 }
@@ -184,14 +184,14 @@ swiper-item{
 			display: flex;
 			align-items: center;
 			font-size: 24rpx;
-			font-weight: bold;
+			/* font-weight: bold; */
 			color: #999999;
 			margin-top: 18rpx;
 }
 .cth-b-bg-2-4{
 			display: flex;
 			align-items: center;
-			margin-top: 26rpx;
+			margin-left: 26rpx;
 			font-size: 36rpx;
 			font-weight: bold;
 			color: #FFBF00;
@@ -265,7 +265,7 @@ scroll-view{
 			justify-content: center;
 			width: 750rpx;
 			height: 128rpx;
-			background: #FAFAFA;
+			/* background: #FAFAFA; */
 			position: fixed;
 		    bottom: 0rpx;
 }
@@ -285,9 +285,9 @@ scroll-view{
 			position: absolute;
 			bottom: 0rpx;
 			width: 750rpx;
-			height: 361rpx;
-			background-size: 750rpx 361rpx;
-			background-image: url('https://zhijianlw.com/static/web/img/icon_cthd_bg_2021_10_27.png');
-			padding: 30rpx 26rpx;
+			height: 130rpx;
+			background-size: 750rpx 130rpx;
+			background-image: url('https://zhijianlw.com/static/web/img/icon_cthd_bg_2021_11_19.png');
+			padding: 0rpx 26rpx;
 }
 

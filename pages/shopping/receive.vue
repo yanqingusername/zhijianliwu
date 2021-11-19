@@ -461,6 +461,29 @@
 			open: function(e) {
 				let that = this;
 				if (this.sign == '200') {
+					// 调用订阅消息
+					uni.requestSubscribeMessage({
+						tmplIds: ['t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8','MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk'],
+						success(res) {
+							let action = "add_wx_subscribe_log";
+							let controller = 'subscribe';
+							let memberid = uni.getStorageSync('id')
+							let data = JSON.stringify({
+								memberid: memberid,
+								template_id:"t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8,MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk"
+							});
+							
+							this.$utils.postNew(action,data,controller).then(res=>{
+								if(res.sta == 1){
+									
+								}
+							})
+						},
+						fail(res) {
+							
+						}
+					});
+					
 					// uni.showLoading({
 					// 	title: '正在领取'
 					// })

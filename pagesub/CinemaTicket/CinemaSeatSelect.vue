@@ -17,7 +17,7 @@
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
 		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;position: relative;'">
 			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth + 'rpx;'"
-				scale="true" direction="all" scale-max="2" scale-min="0.8" out-of-bounds="true" @scale="scaleEventHandle">
+				scale="true" direction="all" scale-max="2" scale-min="1" out-of-bounds="true" @scale="scaleEventHandle" @htouchmove="htouchmoveHandle" @vtouchmove="vtouchmoveHandle">
 				<view class='seatArea' style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
 					<!-- :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'"> -->
 					<!--中轴线  -->
@@ -31,7 +31,7 @@
 					</view>
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
-					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 20rpx;position: relative;display: flex;'">
+					<view id="seatHeightId" :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 20rpx;position: relative;display: flex;'">
 						<view style="position: relative;display: flex;">
 							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 								:data-index='index'
@@ -45,8 +45,8 @@
 					
 				</view>
 			</movable-view>
-			<view class="area-left" :style="'position: absolute;top:'+((seatList[0].rowNo-1) * seatScaleHeight)+'px;left: 10px;margin-top:80rpx;'">
-				<view class="area-left-number" :style="'top:'+((index+1) * seatScaleHeight)+'px;height:'+seatScaleHeight+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+			<view class="area-left" :style="'position: absolute;top:'+(nameTop)+'px;left: 10px;margin-top:0rpx;'">
+				<view class="area-left-number" :style="'top:'+((index+1) * seatScaleHeight*seatScaleLeft)+'px;height:'+(seatScaleHeight*seatScaleLeft)+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
 			</view>
 		</movable-area>
 		<!--下部分座位示例图  -->
@@ -160,7 +160,9 @@
 				throttle: null,
 				cinemaid: '',
 				movieId: '',
-				date: ''
+				date: '',
+				seatScaleLeft: 1,
+				nameTop: 10
 			}
 		},
 		onLoad: function(options) {
@@ -173,7 +175,7 @@
 			
 			uni.getSystemInfo({
 				success: (res) => {
-					that.seatArea = res.screenHeight - (500 * res.screenWidth / 750)
+					that.seatArea = res.screenHeight - (750 * res.screenWidth / 750)
 					that.rpxToPx = res.screenWidth / 750
 				},
 			})
@@ -241,6 +243,15 @@
 							that.creatSeatMap()
 							//确认最佳坐标座位
 							that.creatBestSeat()
+							
+							var zthat = this;
+							var query = wx.createSelectorQuery();
+							query.select('#seatHeightId').boundingClientRect();
+							query.exec(function(res){
+								if(res && res[0]){
+									zthat.nameTop = parseInt(res[0].top) + 15;
+								}
+							})
 						}
 						
 					} else {
@@ -265,16 +276,52 @@
 				      this.throttle = setTimeout(() => {
 				        clearTimeout(this.throttle);
 				        this.throttle = null;
-				      }, 100)
+				      }, 50)
 					  
-				let scaleNumber = e.detail.scale
-				if(parseFloat(scaleNumber) <= 1){
-					this.seatAreaWidth = 750
-				} else if(parseFloat(scaleNumber) > 1.5){
-					this.seatAreaWidth = 1200
-				} else {
-					this.seatAreaWidth = 1000
-				}
+				let scaleNumber = e.detail.scale;
+				this.seatAreaWidth = parseInt((750*scaleNumber))
+				this.seatScaleLeft = scaleNumber;
+				
+				var zthat = this;
+				var query = wx.createSelectorQuery();
+				query.select('#seatHeightId').boundingClientRect();
+				query.exec(function(res){
+					if(res && res[0]){
+						zthat.nameTop = parseInt(res[0].top) - 15;
+					}
+				});
+				
+				// let scaleX = Math.abs(parseFloat(e.detail.x));
+				// console.log('--xx-->:',e.detail.x)
+				// console.log('---->:',scaleX)
+				// if(parseFloat(scaleNumber) <= 1){
+				// 	this.seatAreaWidth = 750
+				// } else if(parseFloat(scaleNumber) > 1.5){
+				// 	this.seatAreaWidth = 1200
+				// } else {
+				// 	this.seatAreaWidth = 1000
+				// }
+				
+			},
+			htouchmoveHandle: function(event){
+				var zthat = this;
+				var query = wx.createSelectorQuery();
+				query.select('#seatHeightId').boundingClientRect();
+				query.exec(function(res){
+					if(res && res[0]){
+						zthat.nameTop = parseInt(res[0].top) - 15;
+					}
+				});
+			},
+			vtouchmoveHandle: function(event){
+				var zthat = this;
+				var query = wx.createSelectorQuery();
+				query.select('#seatHeightId').boundingClientRect();
+				query.exec(function(res){
+					if(res && res[0]){
+						zthat.nameTop = parseInt(res[0].top) - 15;
+					}
+				});
 			},
 			//解决官方bug
 			handleScale: function(e) {
@@ -419,7 +466,7 @@
 					let price = parseFloat(_selectedSeatList[key].price);
 					totalPrice += price;
 				}
-				this.totalPrice = totalPrice
+				this.totalPrice = (Math.round(totalPrice*100)/100)
 			},
 			// 处理已选的座位
 			processSelected: function(index) {
@@ -788,7 +835,7 @@
 					let price = parseFloat(_selectedSeatList[key].price);
 					totalPrice += price;
 				}
-				this.totalPrice = totalPrice
+				this.totalPrice = (Math.round(totalPrice*100)/100)
 			},
 			// 找寻每排的最佳座位数组
 			seachBestSeatByRow: function(rowSeatList, value) {
@@ -1258,7 +1305,7 @@
 
 	.movableOne {
 		box-sizing: border-box;
-		padding: 0rpx 60rpx 100rpx;
+		padding: 0rpx 60rpx 0rpx;
 		color: #F6F6F6;
 	}
 
@@ -1887,49 +1934,51 @@
 	}
 	
 	.scrollTime{
-		height: 110rpx !important;
+		height: 140rpx !important;
 	}
 	.scrollTimeItem {
-		border: 1px solid #DB3C3A;
-		    width: 100rpx;
 		    display: flex;
-		    margin-right: 20rpx;
+		    margin-right: 10rpx;
 		    position: relative;
-		    height: 110rpx;
-		    background: #FFFFFF;
-		    border-radius: 10rpx;
 		    justify-content: center;
-		    align-items: center;
+		    /* align-items: center; */
 		    flex-direction: column;
+			min-width: 206rpx;
+			height: 136rpx;
+			background: #FFF9F8;
+			border-radius: 10rpx;
+			border: 1px solid #FF4F4F;
+			padding-left: 20rpx;
 		    /* padding-left: 20rpx; */
 	}
 	.scrollTimeItemDefault{
-		border: 1px solid #666666;
-		    width: 100rpx;
 		    display: flex;
-		    margin-right: 20rpx;
+		    margin-right: 10rpx;
 		    position: relative;
-		    height: 110rpx;
-		    background: #FFFFFF;
-		    border-radius: 10rpx;
 		    justify-content: center;
-		    align-items: center;
+		    /* align-items: center; */
 		    flex-direction: column;
+			min-width: 210rpx;
+			height: 140rpx;
+			background: #F6F6F6;
+			border-radius: 10rpx;
+			padding-left: 20rpx;
 	}
 	.scrollTimeTitle{
-		font-size: 22rpx;
+		font-size: 24rpx;
 		font-weight: bold;
 		    color: #333333;
 	}
 	.scrollTimeContent{
-		font-size: 20rpx;
-		    margin-top: 4rpx;
+		font-size: 24rpx;
+		    margin-top: 8rpx;
 		    color: #666666;
 	}
 	.scrollTimePrice{
-		    font-size: 22rpx;
-			margin-top: 4rpx;
-		    color: #DB3C3A;
+		    font-size: 24rpx;
+			margin-top: 8rpx;
+		    color: #F7481B;
+			font-weight: bold;
 	}
 	
 	.area-left{
@@ -1946,7 +1995,7 @@
 		font-size: 19rpx;
 		font-weight: bold;
 		color: #FFFFFF;
-		padding: 6rpx 10rpx;
+		padding: 8rpx 10rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;

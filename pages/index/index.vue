@@ -476,6 +476,30 @@
 			},
 			submitcoupon(){
 				this.$refs['couponcenter'].close();
+				let that = this;
+				// 调用订阅消息
+				uni.requestSubscribeMessage({
+					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM'],
+					success(res) {
+						let action = "add_wx_subscribe_log";
+						let controller = 'subscribe';
+						let memberid = uni.getStorageSync('id')
+						let data = JSON.stringify({
+							memberid: memberid,
+							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM"
+						});
+						
+						this.$utils.postNew(action,data,controller).then(res=>{
+							if(res.sta == 1){
+								
+							}
+						})
+					},
+					fail(res) {
+						
+					}
+				});
+					
 				uni.navigateTo({
 					url:'../Coupon/Coupon'
 				})

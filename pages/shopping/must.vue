@@ -383,25 +383,27 @@
 			forsubmit: function(e) {
 				// 调用订阅消息
 				uni.requestSubscribeMessage({
-					tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
-						success(res) {
-							console.log(res)
-							uni.showToast({
-								title: res.errMsg,
-								icon: 'none',
-								mask: true,
-							})
-						},
-						fail(res) {
-							console.log('失败',res) 
-							uni.showToast({
-								title: res.errMsg,
-								icon: 'none',
-								mask: true,
-							})
-						}
-					})
-					
+					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
+					success(res) {
+						let action = "add_wx_subscribe_log";
+						let controller = 'subscribe';
+						let memberid = uni.getStorageSync('id')
+						let data = JSON.stringify({
+							memberid: memberid,
+							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+						});
+						
+						this.$utils.postNew(action,data,controller).then(res=>{
+							if(res.sta == 1){
+								
+							}
+						})
+					},
+					fail(res) {
+						
+					}
+				});
+				
 				console.log("立即付款")
 				// console.log(e)
 				var that = this;

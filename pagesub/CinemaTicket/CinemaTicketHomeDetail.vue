@@ -15,22 +15,39 @@
 			</view> -->
 			
 			<view class="cthd-b">
-				<view class="cth-b-bg-2-1">
+				<!-- <view class="cth-b-bg-2-1" style="margin-top: 60rpx;">
 					<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
 					<view class="cth-b-bg-2-1-2" v-if="movieInfo.versionTypesStatus ==1">
 						<view class="cth-b-bg-2-1-2-1">3D</view>
 						<view class="cth-b-bg-2-1-2-2">IMAX</view>
 					</view>
+					<view class="cth-b-bg-2-4">
+						<view v-for="(item, index) in imgList" :key="index"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>{{movieInfo.grade}}分
+					</view>
 				</view>
 				<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
 				<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>
+				<view class="cth-b-bg-2-5">参演演员</view>
+				<view class="cth-b-bg-2-6">{{movieInfo.cast}}</view> -->
+			</view>
+			
+		</view>
+		
+		<view class="" style="padding: 0rpx 30rpx;">
+			<view class="cth-b-bg-2-1" style="margin-top: 0rpx;">
+				<view class="cth-b-bg-2-1-1">{{movieInfo.name}}</view>
+				<view class="cth-b-bg-2-1-2" v-if="movieInfo.versionTypesStatus ==1">
+					<view class="cth-b-bg-2-1-2-1">3D</view>
+					<view class="cth-b-bg-2-1-2-2">IMAX</view>
+				</view>
 				<view class="cth-b-bg-2-4">
 					<view v-for="(item, index) in imgList" :key="index"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>{{movieInfo.grade}}分
 				</view>
-				<view class="cth-b-bg-2-5">参与演员</view>
-				<view class="cth-b-bg-2-6">{{movieInfo.cast}}</view>
 			</view>
-			
+			<view class="cth-b-bg-2-2">{{movieInfo.duration}}分钟/{{movieInfo.filmTypes}}/{{movieInfo.movieArea}}</view>
+			<view class="cth-b-bg-2-3">{{movieInfo.publishDate}} 在{{movieInfo.movieArea}}上映</view>
+			<view class="cth-b-bg-2-5">参演演员</view>
+			<view class="cth-b-bg-2-6">{{movieInfo.cast}}</view>
 		</view>
 		
 		<!-- <view class="cth-b">
@@ -261,7 +278,7 @@
 
 <style>
 page{
-	background-color: #FFFFFF;
+	background-color: #000000;
 }
 
 .cthd-view{
@@ -441,7 +458,7 @@ page{
 			display: flex;
 			align-items: center;
 			font-size: 24rpx;
-			font-weight: bold;
+			/* font-weight: bold; */
 			color: #999999;
 			margin-top: 18rpx;
 		}
@@ -450,14 +467,14 @@ page{
 			display: flex;
 			align-items: center;
 			font-size: 24rpx;
-			font-weight: bold;
+			/* font-weight: bold; */
 			color: #999999;
 			margin-top: 18rpx;
 		}
 		.cth-b-bg-2-4{
 			display: flex;
 			align-items: center;
-			margin-top: 26rpx;
+			margin-left: 26rpx;
 			font-size: 36rpx;
 			font-weight: bold;
 			color: #FFBF00;
@@ -539,7 +556,7 @@ page{
 			justify-content: center;
 			width: 750rpx;
 			height: 128rpx;
-			background: #FAFAFA;
+			/* background: #FAFAFA; */
 			position: fixed;
 		    bottom: 0rpx;
 		}
@@ -563,9 +580,9 @@ page{
 			position: absolute;
 			bottom: 0rpx;
 			width: 750rpx;
-			height: 361rpx;
-			background-size: 750rpx 361rpx;
-			background-image: url('https://zhijianlw.com/static/web/img/icon_cthd_bg_2021_10_27.png');
-			padding: 30rpx 26rpx;
+			height: 130rpx;
+			background-size: 750rpx 130rpx;
+			background-image: url('https://zhijianlw.com/static/web/img/icon_cthd_bg_2021_11_19.png');
+			padding: 0rpx 26rpx;
 		}
 </style>

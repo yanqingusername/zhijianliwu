@@ -364,6 +364,29 @@
 			},
 			//立即付款
 			forsubmit: function(e){
+				// 调用订阅消息
+				uni.requestSubscribeMessage({
+					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
+					success(res) {
+						let action = "add_wx_subscribe_log";
+						let controller = 'subscribe';
+						let memberid = uni.getStorageSync('id')
+						let data = JSON.stringify({
+							memberid: memberid,
+							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+						});
+						
+						this.$utils.postNew(action,data,controller).then(res=>{
+							if(res.sta == 1){
+								
+							}
+						})
+					},
+					fail(res) {
+						
+					}
+				});
+				
 				console.log("立即付款")
 				let type=uni.getStorageSync("type")
 				this.type=type

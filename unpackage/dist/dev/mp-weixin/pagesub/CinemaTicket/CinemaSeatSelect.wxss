@@ -240,7 +240,7 @@ movable-area {
 */
 .movableOne {
 	box-sizing: border-box;
-	padding: 0rpx 60rpx 100rpx;
+	padding: 0rpx 60rpx 0rpx;
 	color: #F6F6F6;
 }
 
@@ -804,49 +804,51 @@ movable-area {
 	color: #FFFFFF;
 }
 .scrollTime{
-	height: 110rpx !important;
+	height: 140rpx !important;
 }
 .scrollTimeItem {
-	border: 1px solid #DB3C3A;
-	    width: 100rpx;
 	    display: flex;
-	    margin-right: 20rpx;
+	    margin-right: 10rpx;
 	    position: relative;
-	    height: 110rpx;
-	    background: #FFFFFF;
-	    border-radius: 10rpx;
 	    justify-content: center;
-	    align-items: center;
+	    /* align-items: center; */
 	    flex-direction: column;
+		min-width: 206rpx;
+		height: 136rpx;
+		background: #FFF9F8;
+		border-radius: 10rpx;
+		border: 1px solid #FF4F4F;
+		padding-left: 20rpx;
 	    /* padding-left: 20rpx; */
 }
 .scrollTimeItemDefault{
-	border: 1px solid #666666;
-	    width: 100rpx;
 	    display: flex;
-	    margin-right: 20rpx;
+	    margin-right: 10rpx;
 	    position: relative;
-	    height: 110rpx;
-	    background: #FFFFFF;
-	    border-radius: 10rpx;
 	    justify-content: center;
-	    align-items: center;
+	    /* align-items: center; */
 	    flex-direction: column;
+		min-width: 210rpx;
+		height: 140rpx;
+		background: #F6F6F6;
+		border-radius: 10rpx;
+		padding-left: 20rpx;
 }
 .scrollTimeTitle{
-	font-size: 22rpx;
+	font-size: 24rpx;
 	font-weight: bold;
 	    color: #333333;
 }
 .scrollTimeContent{
-	font-size: 20rpx;
-	    margin-top: 4rpx;
+	font-size: 24rpx;
+	    margin-top: 8rpx;
 	    color: #666666;
 }
 .scrollTimePrice{
-	    font-size: 22rpx;
-		margin-top: 4rpx;
-	    color: #DB3C3A;
+	    font-size: 24rpx;
+		margin-top: 8rpx;
+	    color: #F7481B;
+		font-weight: bold;
 }
 .area-left{
 	display: flex;
@@ -862,7 +864,7 @@ movable-area {
 	font-size: 19rpx;
 	font-weight: bold;
 	color: #FFFFFF;
-	padding: 6rpx 10rpx;
+	padding: 8rpx 10rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;
