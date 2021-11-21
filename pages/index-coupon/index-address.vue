@@ -219,7 +219,7 @@
 	}
 	
 	.addre {
-		padding: 40rpx 100rpx 30rpx 56rpx;
+		padding: 40rpx 100rpx 30rpx 38rpx;
 		background-color: #fff;
 		/* margin-top: 20rpx; */
 		position: relative;

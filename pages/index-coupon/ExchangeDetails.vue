@@ -276,6 +276,7 @@
 						this.isPopSucc = true;
 						this.popTitle = res.msg;
 						this.isDialogPop = true;
+						uni.setStorageSync("dh_cardid",res.rs.cardid)
 					} else {
 						this.showInput = true;
 						this.showPop = false;
@@ -283,6 +284,7 @@
 						this.isPopSucc = true;
 						this.popTitle = res.msg;
 						this.isDialogPop = false;
+						uni.setStorageSync("dh_cardid",res.rs.cardid)
 						// uni.showToast({
 						// 	title: res.msg,
 						// 	icon: 'none'

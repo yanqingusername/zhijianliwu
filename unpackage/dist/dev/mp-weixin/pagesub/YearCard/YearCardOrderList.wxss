@@ -132,7 +132,7 @@ page{
 	font-size: 28rpx;
 	color: #333333;
 	line-height: 40rpx;
-	width: 492rpx;
+	width: 480rpx;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

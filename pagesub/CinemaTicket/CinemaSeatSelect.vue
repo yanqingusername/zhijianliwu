@@ -17,7 +17,7 @@
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
 		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;position: relative;'">
 			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth + 'rpx;'"
-				scale="true" direction="all" scale-max="2" scale-min="1" out-of-bounds="true" @scale="scaleEventHandle" @htouchmove="htouchmoveHandle" @vtouchmove="vtouchmoveHandle">
+				scale="true" direction="all" scale-value="1" scale-max="2" scale-min="1" out-of-bounds="true" @scale="scaleEventHandle" @htouchmove="htouchmoveHandle" @vtouchmove="vtouchmoveHandle">
 				<view class='seatArea' style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
 					<!-- :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'"> -->
 					<!--中轴线  -->
@@ -31,11 +31,11 @@
 					</view>
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
-					<view id="seatHeightId" :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 20rpx;position: relative;display: flex;'">
-						<view style="position: relative;display: flex;">
+					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'">
+						<view id="seatHeightId" style="position: relative;display: flex;width: 100%;margin-top: 30rpx;">
 							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 								:data-index='index'
-								:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((item.rowNo-1) * seatScaleHeight)+'px;'">
+								:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((areaLiftNumber[0] == 1 ? (item.rowNo-1):(item.rowNo-2)) * seatScaleHeight)+'px;'">
 								<image :src="item.nowIcon" class='normal' />
 								<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 							</view>
@@ -155,6 +155,7 @@
 				isShow: '',
 				show_list:[],
 				areaLift: [],
+				areaLiftNumber: [],
 				scaleNumber: 1,
 				seatAreaWidth: 750,
 				throttle: null,
@@ -162,7 +163,8 @@
 				movieId: '',
 				date: '',
 				seatScaleLeft: 1,
-				nameTop: 10
+				nameTop: 0,
+				oldTop: 0
 			}
 		},
 		onLoad: function(options) {
@@ -220,12 +222,15 @@
 							let seatList = that.prosessSeatList(res.rs.seatsInfo.seats);
 							that.seatList = seatList;
 							let areaList = []
+							let areaListNumber = []
 							if(res.rs.seatsInfo && res.rs.seatsInfo.seats.length > 0){
 								res.rs.seatsInfo.seats.forEach(element => {
 									areaList.push(element.seatNo.split('排')[0])
+									areaListNumber.push(element.rowNo)
 								})
 							}
 							that.areaLift = [...new Set(areaList)]
+							that.areaLiftNumber = [...new Set(areaListNumber)]
 							
 							that.selectedSeat = [];
 							that.totalPrice = 0;
@@ -248,8 +253,10 @@
 							var query = wx.createSelectorQuery();
 							query.select('#seatHeightId').boundingClientRect();
 							query.exec(function(res){
+								let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 								if(res && res[0]){
-									zthat.nameTop = parseInt(res[0].top) + 15;
+									zthat.nameTop = parseInt(res[0].top);
+									zthat.oldTop = parseInt(res[0].top);
 								}
 							})
 						}
@@ -278,18 +285,31 @@
 				        this.throttle = null;
 				      }, 50)
 					  
+				let topNumber = (this.seatScaleLeft*this.seatScaleHeight)-(e.detail.scale*this.seatScaleHeight);
+				
 				let scaleNumber = e.detail.scale;
 				this.seatAreaWidth = parseInt((750*scaleNumber))
 				this.seatScaleLeft = scaleNumber;
 				
-				var zthat = this;
-				var query = wx.createSelectorQuery();
-				query.select('#seatHeightId').boundingClientRect();
-				query.exec(function(res){
-					if(res && res[0]){
-						zthat.nameTop = parseInt(res[0].top) - 15;
+					
+					
+					if(parseFloat(scaleNumber) < 1.2){
+						this.nameTop = this.oldTop;
+					} else {
+						setTimeout(()=>{
+							var zthat = this;
+							var query = wx.createSelectorQuery();
+							query.select('#seatHeightId').boundingClientRect();
+							query.exec(function(res){
+								let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
+								if(res && res[0]){
+									zthat.nameTop = parseInt(res[0].top)-50;
+								}
+							});
+						},50)
 					}
-				});
+				
+				
 				
 				// let scaleX = Math.abs(parseFloat(e.detail.x));
 				// console.log('--xx-->:',e.detail.x)
@@ -308,8 +328,9 @@
 				var query = wx.createSelectorQuery();
 				query.select('#seatHeightId').boundingClientRect();
 				query.exec(function(res){
+					let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 					if(res && res[0]){
-						zthat.nameTop = parseInt(res[0].top) - 15;
+						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
 			},
@@ -318,8 +339,9 @@
 				var query = wx.createSelectorQuery();
 				query.select('#seatHeightId').boundingClientRect();
 				query.exec(function(res){
+					let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 					if(res && res[0]){
-						zthat.nameTop = parseInt(res[0].top) - 15;
+						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
 			},

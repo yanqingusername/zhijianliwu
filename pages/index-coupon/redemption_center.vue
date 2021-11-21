@@ -104,7 +104,7 @@
 				})
 				this.cardid = cardid[1];
 				this.type = type[1];
-				uni.setStorageSync("dh_cardid",cardid[1])
+				
 				this.getCardGoods();
 			}else{
 				if(e && e.isOrder){
@@ -212,6 +212,7 @@
 						this.popTitle = res.msg;
 						this.bindNumber = res.rs.ordernumber;
 						this.ordernumber = res.rs.ordernumber;
+						uni.setStorageSync("dh_cardid",res.rs.cardid)
 					} else {
 						this.showInput = true;
 						this.showPop = false;
@@ -220,6 +221,7 @@
 						this.popTitle = res.msg;
 						this.bindNumber = res.rs.ordernumber;
 						this.ordernumber = res.rs.ordernumber;
+						uni.setStorageSync("dh_cardid",res.rs.cardid)
 						// uni.showToast({
 						// 	title: res.msg,
 						// 	icon: 'none'
@@ -230,6 +232,7 @@
 			clickHandler(){
 				this.showInput = true;
 				this.showPop = false;
+				this.isPopSucc = false;
 				this.formData.pass = '';
 				if(this.isTransfer){
 					uni.navigateTo({

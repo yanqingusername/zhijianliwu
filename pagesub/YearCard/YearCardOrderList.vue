@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view v-if="screenPurchase.length > 0" class="order-purchase-view" v-for="(item,index) in screenPurchase" :key="index">
-			<view class="new-order-li" @click="handlerOrderInfo" :data-keynum="item.clientkeynum">
+			<view class="new-order-li">
 				<view class="new-order-li-top">
 					<view class="new-order-li-top-ordersn">兑换编号：{{item.ordernumber}}</view>
-					<view class="new-order-li-top-orderstatus">{{item.wulliu_status_info}} ></view>
+					<view class="new-order-li-top-orderstatus">{{item.wulliu_status_info}}</view>
 				</view>
-				<view class="new-order-li-center">
+				<view class="new-order-li-center" @click="handlerOrderInfo" :data-keynum="item.clientkeynum">
 					<view class="new-order-left">
 						<view class="new-order-img">
 							<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
@@ -235,7 +235,7 @@
 		font-size: 28rpx;
 		color: #333333;
 		line-height: 40rpx;
-		width: 492rpx;
+		width: 480rpx;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
