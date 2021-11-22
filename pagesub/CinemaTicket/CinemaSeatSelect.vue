@@ -31,7 +31,7 @@
 					</view>
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
-					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'">
+					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'" @touchmove='move' @touchstart="start" @touchend="end">
 						<view id="seatHeightId" style="position: relative;display: flex;width: 100%;margin-top: 30rpx;">
 							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 								:data-index='index'
@@ -47,6 +47,19 @@
 			</movable-view>
 			<view class="area-left" :style="'position: absolute;top:'+(nameTop)+'px;left: 10px;margin-top:0rpx;'">
 				<view class="area-left-number" :style="'top:'+((index+1) * seatScaleHeight*seatScaleLeft)+'px;height:'+(seatScaleHeight*seatScaleLeft)+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+			</view>
+			
+			<view v-if="isShowBg" class="area-bg" style="position: absolute;top:0px;left: 0px;margin-top:0rpx;padding: 0rpx 20rpx 20rpx;">
+				<view :style="'width:'+(6 * maxX)+ 'px;height:'+(6 * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'">
+					<view style="position: relative;display: flex;width: 100%;">
+						<view v-for="(item, index) in seatList" :key="index" class='seatTap'
+							:data-index='index'
+							:style="'left:'+((item.columnNo-1)* 6)+'px;top:'+((areaLiftNumber[0] == 1 ? (item.rowNo-1):(item.rowNo-2)) * 6)+'px;font-size: 14rpx;'">
+							<image :src="item.nowIcon" class='normal' style="width: 4px;height: 4px;"/>
+						</view>
+					</view>
+					<view :style="'width:'+((6 * maxX)/2)+ 'px;height:'+((6 * maxY)/2)+'px;top:'+((6 * maxY)/4) +'px;left:'+((6 * maxX)/4) +'px;border: 1px solid #ED2430;position: absolute;display: flex;'"></view>
+				</view>
 			</view>
 		</movable-area>
 		<!--下部分座位示例图  -->
@@ -164,7 +177,8 @@
 				date: '',
 				seatScaleLeft: 1,
 				nameTop: 0,
-				oldTop: 0
+				oldTop: 0,
+				isShowBg: false
 			}
 		},
 		onLoad: function(options) {
@@ -1057,6 +1071,17 @@
 						}
 					}
 				})
+			},
+			start: function(e) {
+				this.isShowBg = true;
+			},
+			end: function(e) {
+				setTimeout(()=>{
+					this.isShowBg = false;
+				},2000);
+			},
+			move: function(e) {
+				this.isShowBg = true;
 			},
 		}
 	}
@@ -2054,5 +2079,14 @@
 	  margin-bottom: 0rpx;
 	  /* position: absolute;
 	  top: -30rpx; */
+	}
+	
+	.area-bg{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		background: #000000;
+		opacity: 0.29;
 	}
 </style>
