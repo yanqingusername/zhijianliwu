@@ -1,5 +1,6 @@
 <template>
-	<view @touchmove="handletouchmove" @touchstart="handletouchstart" @touchend="handletouchend">
+	<!-- <view @touchmove="handletouchmove" @touchstart="handletouchstart" @touchend="handletouchend"> -->
+	<view>
 		<view style="position: fixed;top: 0rpx;z-index: 1;width: 100%;">
 			<view class="cth-a">
 				<view class="cth-a-1">
@@ -225,6 +226,7 @@
 </template>
 
 <script>
+	let timer;
 	export default {
 		data() {
 			return {
@@ -546,6 +548,18 @@
 				  animation.opacity(0).step();
 			      this.slide_up = animation.export()
 			    },
+		},
+		
+		onPageScroll:function(object){ 
+			let that = this;
+			clearTimeout(timer) // 每次滚动前 清除一次
+			// that.canSwip = false;  
+			that.fadeOut();
+			timer = setTimeout(function() { 
+				console.log('滚动结束了');
+				// that.canSwip = true; 
+				that.fadeIn();
+			}, 500);
 		},
 		onPullDownRefresh:function(){
 			if(this.tabNumber == 0 || this.tabNumber == 1){
