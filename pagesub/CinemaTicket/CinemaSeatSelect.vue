@@ -119,7 +119,7 @@
 					</view>
 				</scroll-view>
 			</view> -->
-			<view style="height: 110rpx;"></view>
+			<view style="height: 120rpx;"></view>
 			<!-- 以下是确认选座 -->
 			<view class='css-bottom-comfirm'>
 				<view class='css-bottom-comfirm-1' @click='confirmHandle'>{{totalPrice}}元 确认选座</view>
@@ -1057,7 +1057,7 @@
 			clickTimes(e){
 				let showId = e.currentTarget.dataset.showid;
 				this.showId = showId;
-				this.isShow = false
+				// this.isShow = false
 				this.getFilmShowSeats();
 			},
 			getFilmShowList() {
