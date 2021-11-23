@@ -58,7 +58,7 @@
 							<image :src="item.nowIcon" class='normal' style="width: 4px;height: 4px;"/>
 						</view>
 					</view>
-					<view :style="'width:'+((6 * maxX)/2)+ 'px;height:'+((6 * maxY)/2)+'px;top:'+((6 * maxY)/4) +'px;left:'+((6 * maxX)/4) +'px;border: 1px solid #ED2430;position: absolute;display: flex;'"></view>
+					<view :style="'width:'+((6 * maxX)/2)+ 'px;height:'+((6 * maxY)/3)+'px;top:'+(syTop) +'px;left:'+(sxLeft) +'px;border: 1px solid #ED2430;position: absolute;display: flex;box-sizing: border-box;'"></view>
 				</view>
 			</view>
 		</movable-area>
@@ -178,7 +178,11 @@
 				seatScaleLeft: 1,
 				nameTop: 0,
 				oldTop: 0,
-				isShowBg: false
+				isShowBg: false,
+				sy: 0,
+				sx: 0,
+				syTop: 0,
+				sxLeft: 0
 			}
 		},
 		onLoad: function(options) {
@@ -273,6 +277,8 @@
 									zthat.oldTop = parseInt(res[0].top);
 								}
 							})
+							that.syTop = (6 * that.maxY)/3;
+							that.sxLeft = (6 * that.maxX)/4;
 						}
 						
 					} else {
@@ -1074,6 +1080,11 @@
 			},
 			start: function(e) {
 				this.isShowBg = true;
+				// 触摸位置
+				let sy = e.touches[0].clientY/4;
+				let sx = e.touches[0].clientX/4;
+				this.sy = sy;
+				this.sx = sx;
 			},
 			end: function(e) {
 				setTimeout(()=>{
@@ -1082,6 +1093,33 @@
 			},
 			move: function(e) {
 				this.isShowBg = true;
+				// 计算手指滑动距离
+				var deltaY = parseInt((e.touches[0].clientY)/4) - this.sy;
+				var deltaX = parseInt((e.touches[0].clientX)/4) - this.sx;
+				if (deltaY > 0) {
+					this.syTop = this.syTop - Math.abs(parseInt(deltaY));
+					if(this.syTop <=0){
+						this.syTop = 0;
+					}
+				}else{
+					this.syTop = this.syTop + Math.abs(parseInt(deltaY));
+					let syTopMax = ((6 * this.maxY)/3) + ((6 * this.maxY)/3) + 10;
+					if(this.syTop > syTopMax){
+						this.syTop = syTopMax;
+					}
+				}
+				if (deltaX > 0) {
+					this.sxLeft = this.sxLeft - Math.abs(parseInt(deltaX));
+					if(this.sxLeft <=0){
+						this.sxLeft = 0;
+					}
+				}else{
+					this.sxLeft = this.sxLeft + Math.abs(parseInt(deltaX));
+					let sxLeftMax = ((6 * this.maxX)/2) + 5;
+					if(this.sxLeft > sxLeftMax){
+						this.sxLeft = sxLeftMax;
+					}
+				}
 			},
 		}
 	}
