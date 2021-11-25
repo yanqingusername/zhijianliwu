@@ -31,7 +31,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text class="cd-b-2">{{movieInfo.grade}}</text></view>
+			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text :class="movieInfo.grade == '0' ? 'cd-b-2-1':'cd-b-2'">{{movieInfo.grade == '0' ? '暂无': movieInfo.grade}}</text></view>
 			<view class="cd-c-view">
 				<view class="cd-c"><text v-if="movieInfo.duration">{{movieInfo.duration}}分钟</text><text v-if="movieInfo.filmTypes"> | {{movieInfo.filmTypes}}</text><text v-if="movieInfo.cast"> | {{movieInfo.cast}}</text><text style="margin-left: 10rpx;">{{'>'}}</text></view>
 			</view>
@@ -338,6 +338,12 @@
 	.cd-b-2{
 		margin-left: 6rpx;
 		font-size: 30rpx;
+		font-weight: bold;
+		color: #FA9800;
+	}
+	.cd-b-2-1{
+		margin-left: 6rpx;
+		font-size: 26rpx;
 		font-weight: bold;
 		color: #FA9800;
 	}

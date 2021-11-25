@@ -48,17 +48,24 @@
 			
 			<view class="cthod-view" v-if="filmOrderInfo.status == 4 || filmOrderInfo.status == 5">
 				<image class="cthod-view-img-fail" src="https://zhijianlw.com/static/web/img/icon_buy_failed_2021_10_21.png"></image>
-				<view class="cthod-view-fail-text">出票失败，订单已自动取消</view>
+				<view class="cthod-view-fail-text">{{filmOrderInfo.cancelReason}}</view>
 				<view style="height: 26rpx;"></view>
 			</view>
 			
 			<view class="cthod-view" v-if="filmOrderInfo.status == 2 || filmOrderInfo.status == 3">
 				<view class="cthod-view" v-for="(item, index) in listItems" :key="index">
 					<image class="cthod-view-img-su" :src="item.seat_ids_img"></image>
-					<view class="cthod-view-su-text">1张电影票</view>
+					<view class="cthod-view-su-text">{{item.quantityNo}}</view>
+					<view class="cthod-view-su-text" v-if="item.seatNo" style="color: #666666;">{{item.seatNo}}</view>
 					<view class="cthod-view-su-view">
-						<view class="cthod-view-su-lable">取票码</view>
-						<view class="cthod-view-su-number">{{item.seat_ids_number}}</view>
+						<view class="cthod-view-su-view-1">
+							<view class="cthod-view-su-lable">取票码</view>
+							<view class="cthod-view-su-number">{{item.seat_ids_number}}</view>
+						</view>
+						<view class="cthod-view-su-view-1" v-if="item.verification_code">
+							<view class="cthod-view-su-lable">验证码</view>
+							<view class="cthod-view-su-number">{{item.verification_code}}</view>
+						</view>
 					</view>
 				</view> 
 				<view class="cthod-view-bottom">任意取票机均可取票</view>
@@ -491,9 +498,9 @@ page{
 		.cth-b-bg-2-2-2{
 			display: flex;
 			align-items: center;
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #999999;
-			font-weight: bold;
+			/* font-weight: bold; */
 		}
 		
 		.cth-b-bg-2-2-1{
@@ -511,23 +518,28 @@ page{
 		}
 		
 		.cth-b-bg-2-3{
-			display: flex;
+			/* display: flex; */
 			align-items: center;
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #999999;
-			font-weight: bold;
+			/* font-weight: bold; */
 			margin-top: 16rpx;
+			width: 330rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.cth-b-bg-2-4{
 			display: flex;
 			align-items: center;
-			font-size: 20rpx;
+			font-size: 24rpx;
 			color: #999999;
-			font-weight: bold;
+			/* font-weight: bold; */
 			margin-top: 16rpx;
-			/* overflow: hidden;
+			width: 330rpx;
+			overflow: hidden;
 			text-overflow: ellipsis;
-			white-space: nowrap; */
+			white-space: nowrap;
 		}
 		.cth-b-bg-2-5{
 			display: flex;
@@ -742,13 +754,19 @@ page{
 		.cthod-view-su-view{
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			flex-direction: column;
 			margin-top: 34rpx;
 			width: 646rpx;
-			height: 76rpx;
 			background: #FAFAFA;
 			border-radius: 10rpx;
 			border: 2rpx solid #EEEEEE;
+		}
+		.cthod-view-su-view-1{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 72rpx;
+			width: 646rpx;
 		}
 		.cthod-view-su-lable{
 			font-size: 32rpx;

@@ -14,23 +14,23 @@ page {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	margin-top: 20rpx;
+	margin-top: 24rpx;
 }
 .cth-a-2-1 {
 	font-size: 24rpx;
 	font-weight: bold;
-	color: #333333;
+	color: #DB3C3A;
 }
 .cth-a-2-1-default {
 	font-size: 24rpx;
-	color: #999999;
+	color: #333333;
 }
 .cth-a-2-2 {
 	width: 28rpx;
 	height: 4rpx;
 	background: #DB3C3A;
 	border-radius: 2rpx;
-	margin-top: 12rpx;
+	margin-top: 6rpx;
 }
 .cth-a-2-2-default {
 	width: 28rpx;
@@ -573,7 +573,7 @@ scroll-view {
 	height: 420rpx !important;
 }
 .scroll-view-top {
-	height: 60rpx !important;
+	height: 70rpx !important;
 }
 .cth-c-content {
 	font-size: 24rpx;

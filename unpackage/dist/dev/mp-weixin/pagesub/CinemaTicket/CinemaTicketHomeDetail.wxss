@@ -201,6 +201,14 @@ swiper-item{
 			height: 22rpx;
 			margin-right: 8rpx;
 }
+.cth-b-bg-2-4-1{
+			display: flex;
+			align-items: center;
+			margin-left: 16rpx;
+			font-size: 28rpx;
+			/* font-weight: bold; */
+			color: #F7B500;
+}
 .cth-b-bg-2-5{
 			font-size: 30rpx;
 			font-weight: bold;

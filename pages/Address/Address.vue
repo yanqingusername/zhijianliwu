@@ -401,9 +401,9 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 					if(res.sta == 1){
 						that.add.prov = res.rs.address_component.province+'-'+res.rs.address_component.city+'-'+res.rs.address_component.district;
-						that.province = '-1';
-						that.city = '-1';
-						that.county = '-1';
+						that.province = res.rs.provinceId;
+						that.city = res.rs.cityId;
+						that.county = res.rs.areaId;
 						let recommend = res.rs.formatted_addresses.recommend;
 						let district = res.rs.address_component.district;
 						if(district){

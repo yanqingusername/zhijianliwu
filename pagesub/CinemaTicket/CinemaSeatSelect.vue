@@ -39,14 +39,17 @@
 								<image :src="item.nowIcon" class='normal' />
 								<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 							</view>
+							<!-- <view id="seatLeftId" class="area-left" :style="'position: absolute;top:0px;left:'+leftNumber +'rpx;margin-top:0rpx;height:'+(seatScaleHeight * maxY)+ 'px;'">
+								<view class="area-left-number" :style="'top:'+((areaLiftNumber[0] == 1 ? (item-1):(item-2)) * seatScaleHeight)+'px;'" v-for="(item, index) in areaLiftNumber" :key="index"><view style="width:10px;height:10px;font-size: 19rpx;font-weight: bold;color: #FFFFFF;display: flex;align-items: center;justify-content: center;">{{item}}</view></view>
+							</view> -->
 						</view>
 						
 					</view>
 					
 				</view>
 			</movable-view>
-			<view class="area-left" :style="'position: absolute;top:'+(nameTop)+'px;left: 10px;margin-top:0rpx;'">
-				<view class="area-left-number" :style="'top:'+((index+1) * seatScaleHeight*seatScaleLeft)+'px;height:'+(seatScaleHeight*seatScaleLeft)+'px;'" v-for="(item, index) in areaLift" :key="index">{{item}}</view>
+			<view class="area-left" :style="'position: absolute;top:'+(nameTop)+'px;left: 10px;margin-top:0rpx;height:'+(seatScaleHeight * maxY * seatScaleLeft)+ 'px;'">
+				<view class="area-left-number" :style="'top:'+((areaLiftNumber[0] == 1 ? (item-1):(item-2)) * seatScaleHeight * seatScaleLeft)+'px;padding:'+ (2 * seatScaleLeft) +'px;'" v-for="(item, index) in areaLiftNumber" :key="index"><view :style="'width:'+(10*seatScaleLeft)+'px;height:'+(10*seatScaleLeft)+'px;font-size: 19rpx;font-weight: bold;color: #FFFFFF;display: flex;align-items: center;justify-content: center;'">{{item}}</view></view>
 			</view>
 			
 			<view v-if="isShowBg" class="area-bg" style="position: absolute;top:0px;left: 0px;margin-top:0rpx;padding: 0rpx 20rpx 20rpx;">
@@ -147,15 +150,15 @@
 				maxY: '',
 				seatTypeList: [
 					{
-						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png',
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_03.png',
 						"name": '可选'
 					},
 					{
-						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_01.png',
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_01.png',
 						"name": '已选'
 					},
 					{
-						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png',
+						"icon": 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_02.png',
 						"name": '已售'
 					}
 				],
@@ -182,7 +185,9 @@
 				sy: 0,
 				sx: 0,
 				syTop: 0,
-				sxLeft: 0
+				sxLeft: 0,
+				leftNumber: 0,
+				isFirst: false,
 			}
 		},
 		onLoad: function(options) {
@@ -200,13 +205,15 @@
 				},
 			})
 			
-			// this.getFilmShowSeats();
+			this.getFilmShowSeats(2);
 		},
 		onShow() {
-			this.getFilmShowSeats();
+			if(this.isFirst){
+				this.getFilmShowSeats(1);
+			}
 		},
 		methods: {
-			getFilmShowSeats() {
+			getFilmShowSeats(number) {
 				uni.showLoading({
 					title: '加载中'
 				})
@@ -219,6 +226,7 @@
 				this.$utils.postNew(action, data, controller).then(res => {
 					// let result = this.json;
 					wx.hideLoading();
+					that.isFirst = true;
 					if (res.sta == 1) {
 						if(res.rs && res.rs.showInfo){
 							that.price = res.rs.showInfo.salePrice;
@@ -273,8 +281,13 @@
 							query.exec(function(res){
 								let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 								if(res && res[0]){
-									zthat.nameTop = parseInt(res[0].top);
-									zthat.oldTop = parseInt(res[0].top);
+									if(number == 1){
+										zthat.nameTop = parseInt(res[0].top) - 50;
+										zthat.oldTop = parseInt(res[0].top) - 50;
+									}else{
+										zthat.nameTop = parseInt(res[0].top);
+										zthat.oldTop = parseInt(res[0].top);
+									}
 								}
 							})
 							that.syTop = (6 * that.maxY)/3;
@@ -311,11 +324,29 @@
 				this.seatAreaWidth = parseInt((750*scaleNumber))
 				this.seatScaleLeft = scaleNumber;
 				
-					
+				this.syTop = ((6 * that.maxY)/3) * scaleNumber;
+				this.sxLeft = ((6 * that.maxX)/4) * scaleNumber;
+				
+				// var lthat = this;
+				// var queryLeft = wx.createSelectorQuery();
+				// queryLeft.select('#seatLeftId').boundingClientRect();
+				// queryLeft.exec(function(res){
+				// 	console.log(res)
+				// 	if(res && res[0]){
+				// 		let leftNum = parseInt(res[0].left);
+				// 		if(leftNum<0){
+				// 			lthat.leftNumber = 0;
+				// 		}else{
+				// 			lthat.leftNumber = 0;
+				// 		}
+				// 	}
+				// });
 					
 					if(parseFloat(scaleNumber) < 1.2){
 						this.nameTop = this.oldTop;
+						// this.leftNumber = this.seatAreaWidth - 750*scaleNumber;
 					} else {
+						// this.leftNumber = (this.seatAreaWidth - 750)/2;
 						setTimeout(()=>{
 							var zthat = this;
 							var query = wx.createSelectorQuery();
@@ -353,6 +384,21 @@
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
+				// var lthat = this;
+				// var queryLeft = wx.createSelectorQuery();
+				// queryLeft.select('#seatLeftId').boundingClientRect();
+				// queryLeft.exec(function(res){
+				// 	console.log(res)
+				// 	if(res && res[0]){
+				// 		let leftNum = parseInt(res[0].left);
+				// 		console.log('--leftNum-->:',leftNum)
+				// 		if(leftNum<0){
+				// 			lthat.leftNumber = Math.abs(leftNum);
+				// 		}else{
+				// 			lthat.leftNumber = leftNum;
+				// 		}
+				// 	}
+				// });
 			},
 			vtouchmoveHandle: function(event){
 				var zthat = this;
@@ -364,6 +410,22 @@
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
+				
+				// var lthat = this;
+				// var queryLeft = wx.createSelectorQuery();
+				// queryLeft.select('#seatLeftId').boundingClientRect();
+				// queryLeft.exec(function(res){
+				// 	console.log(res)
+				// 	if(res && res[0]){
+				// 		let leftNum = parseInt(res[0].left);
+				// 		console.log('--leftNum-->:',leftNum)
+				// 		if(leftNum<0){
+				// 			lthat.leftNumber = Math.abs(leftNum);
+				// 		}else{
+				// 			lthat.leftNumber = leftNum;
+				// 		}
+				// 	}
+				// });
 			},
 			//解决官方bug
 			handleScale: function(e) {
@@ -406,15 +468,15 @@
 							}
 						}
 					}
-					element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
-					element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_03.png'
+					element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_03.png'
+					element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_03.png'
 					
-						element.selectedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_01.png';
-						element.soldedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
+						element.selectedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_01.png';
+						element.soldedIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_02.png'
 						
 						if (element.status == 'LK') {
-							element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
-							element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_10_28_02.png'
+							element.nowIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_02.png'
+							element.defautIcon = 'https://zhijianlw.com/static/web/img/icon_film_2021_11_25_02.png'
 							
 						}
 						element.price = that.price
@@ -476,7 +538,7 @@
 					let el = ''
 					for (let j = 0; j < seatList.length; j++) {
 						if (parseInt(seatList[j].rowNo) === i) {
-							el = seatList[j].row
+							el = seatList[j].rowNo
 						}
 					}
 					seatToolArr.push(el)
@@ -1058,7 +1120,7 @@
 				let showId = e.currentTarget.dataset.showid;
 				this.showId = showId;
 				// this.isShow = false
-				this.getFilmShowSeats();
+				this.getFilmShowSeats(1);
 			},
 			getFilmShowList() {
 				let that = this;
@@ -2077,13 +2139,11 @@
 		opacity: 0.29;
 	}
 	.area-left-number{
-		font-size: 19rpx;
-		font-weight: bold;
-		color: #FFFFFF;
-		padding: 8rpx 10rpx;
+		padding: 4rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		position: absolute;
 	}
 	
 	/**

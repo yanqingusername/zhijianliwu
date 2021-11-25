@@ -158,7 +158,7 @@
 		<!-- 赠礼须知 -->
 		<view v-else v-if="alt.is_currency_type == 0 || alt.is_currency_type == 2">
 			<!-- <u-parse :content="btmnotice" style="background: #fff;"></u-parse> -->
-			<image lazy-load="true" src="https://zhijianlw.com/static/web/img/lizengxuzhi_2021_08_26.jpg" mode="widthFix" style="width: 100%;height: 100%;"></image>
+			<image lazy-load="true" src="https://zhijianlw.com/static/web/img/lizengxuzhi_2021_11_25.jpg" mode="widthFix" style="width: 100%;height: 100%;"></image>
 			<view class="z-zlxz">
 				<view class='z-zlxz-title' style="margin-top: 40rpx;">
 					<text class="icon-hg"></text>

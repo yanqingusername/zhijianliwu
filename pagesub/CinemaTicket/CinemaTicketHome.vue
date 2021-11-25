@@ -111,7 +111,7 @@
 								<view class="cth-b-bg-2-1-2-2">IMAX</view>
 							</view>
 						</view>
-						<view class="cth-b-bg-2-2">评分<text class="cth-b-bg-2-2-1">{{item.grade}}</text></view>
+						<view class="cth-b-bg-2-2">评分<text :class="item.grade == '暂无' ? 'cth-b-bg-2-2-2':'cth-b-bg-2-2-1'">{{item.grade}}</text></view>
 						<view class="cth-b-bg-2-3">导演：{{item.director}}</view>
 						<view class="cth-b-bg-2-4">主演：{{item.cast}}</view>
 						
@@ -785,7 +785,13 @@ page{
 			margin-top: 26rpx;
 		}
 		.cth-b-bg-2-2-1{
-			font-size: 26rpx;
+			font-size: 28rpx;
+			color: #FA6400;
+			font-weight: bold;
+			margin-left: 6rpx;
+		}
+		.cth-b-bg-2-2-2{
+			font-size: 24rpx;
 			color: #FA6400;
 			margin-left: 6rpx;
 		}

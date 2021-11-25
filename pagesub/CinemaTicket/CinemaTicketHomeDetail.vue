@@ -40,7 +40,8 @@
 					<view class="cth-b-bg-2-1-2-1">3D</view>
 					<view class="cth-b-bg-2-1-2-2">IMAX</view>
 				</view>
-				<view class="cth-b-bg-2-4">
+				<view class="cth-b-bg-2-4-1" v-if="movieInfo.grade == 0">暂无评分</view>
+				<view class="cth-b-bg-2-4" v-else>
 					<view v-for="(item, index) in imgList" :key="index"><image class="cth-b-bg-2-4-img" :src="item.imgurl"></image></view>{{movieInfo.grade}}分
 				</view>
 			</view>
@@ -241,17 +242,21 @@
 				console.log("轮播图：",res);
 				that.movieInfo = res.rs.movieInfo;
 				that.swiper.push(res.rs.movieInfo.picHd);
-				let imgNumber = parseInt(that.movieInfo.grade/2);
-				that.imgList = [];
-				for(let i = 0; i < 5; i++){
-					if(i < imgNumber){
-						that.imgList.push({
-							imgurl:'https://zhijianlw.com/static/web/img/icon_star_10_20.png',
-						})
-					} else {
-						that.imgList.push({
-							imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
-						})
+				if(that.movieInfo.grade == '0'){
+					
+				}else{
+					let imgNumber = parseInt(that.movieInfo.grade/2);
+					that.imgList = [];
+					for(let i = 0; i < 5; i++){
+						if(i < imgNumber){
+							that.imgList.push({
+								imgurl:'https://zhijianlw.com/static/web/img/icon_star_10_20.png',
+							})
+						} else {
+							that.imgList.push({
+								imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
+							})
+						}
 					}
 				}
 			});
@@ -483,6 +488,14 @@ page{
 			width: 22rpx;
 			height: 22rpx;
 			margin-right: 8rpx;
+		}
+		.cth-b-bg-2-4-1{
+			display: flex;
+			align-items: center;
+			margin-left: 16rpx;
+			font-size: 28rpx;
+			/* font-weight: bold; */
+			color: #F7B500;
 		}
 		
 		.cth-b-bg-2-5{

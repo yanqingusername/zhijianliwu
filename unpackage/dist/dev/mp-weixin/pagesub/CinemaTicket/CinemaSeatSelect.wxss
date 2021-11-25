@@ -861,13 +861,11 @@ movable-area {
 	opacity: 0.29;
 }
 .area-left-number{
-	font-size: 19rpx;
-	font-weight: bold;
-	color: #FFFFFF;
-	padding: 8rpx 10rpx;
+	padding: 4rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: absolute;
 }
 
 /**

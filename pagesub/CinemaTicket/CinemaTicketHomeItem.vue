@@ -1,17 +1,6 @@
 <template>
 	<view>
 		<view style="position: fixed;top: 0rpx;z-index: 1;width: 100%;">
-			<view class="cth-a">
-				<scroll-view scroll-x="true" class="scroll-view-top">
-					<view style="display: flex;padding-left: 44rpx;">
-						<view class="cth-a-2" style="padding-right: 36rpx;" v-for="(item,index) in itemsTime"
-							:key="index" @click="clickTime" :data-timeindex="index" :data-timedata="item.date" >
-							<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.name}}</view>
-							<view :class="[timeIndex == index ? 'cth-a-2-2' : 'cth-a-2-2-default']"></view>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
 
 			<view v-if="tabNumber == 2">
 				<view class="cth-c-top" style="padding-right: 30rpx;height: 100rpx;" v-if="isSearch">
@@ -79,6 +68,19 @@
 					</view>
 				</view>
 			</view>
+			
+			<view class="cth-a">
+				<scroll-view scroll-x="true" class="scroll-view-top">
+					<view style="display: flex;padding-left: 15px;">
+						<view class="cth-a-2" style="padding-right: 36rpx;" v-for="(item,index) in itemsTime"
+							:key="index" @click="clickTime" :data-timeindex="index" :data-timedata="item.date" >
+							<view :class="[timeIndex == index ? 'cth-a-2-1' : 'cth-a-2-1-default']">{{item.name}}</view>
+							<view :class="[timeIndex == index ? 'cth-a-2-2' : 'cth-a-2-2-default']"></view>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			
 		</view>
 		<view
 			:style="'margin-top:'+ (tabNumber == 2 ? (isSearch ? '160' : '140') :'90') + 'rpx;padding-bottom:120rpx;'">
@@ -395,18 +397,18 @@
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		margin-top: 20rpx;
+		margin-top: 24rpx;
 	}
 
 	.cth-a-2-1 {
 		font-size: 24rpx;
 		font-weight: bold;
-		color: #333333;
+		color: #DB3C3A;
 	}
 
 	.cth-a-2-1-default {
 		font-size: 24rpx;
-		color: #999999;
+		color: #333333;
 	}
 
 	.cth-a-2-2 {
@@ -414,7 +416,7 @@
 		height: 4rpx;
 		background: #DB3C3A;
 		border-radius: 2rpx;
-		margin-top: 12rpx;
+		margin-top: 6rpx;
 	}
 
 	.cth-a-2-2-default {
@@ -1022,7 +1024,7 @@
 	}
 
 	.scroll-view-top {
-		height: 60rpx !important;
+		height: 70rpx !important;
 	}
 
 	.cth-c-content {
