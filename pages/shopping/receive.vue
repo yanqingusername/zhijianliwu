@@ -473,7 +473,7 @@
 								template_id:"t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8,MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk"
 							});
 							
-							this.$utils.postNew(action,data,controller).then(res=>{
+							that.$utils.postNew(action,data,controller).then(res=>{
 								if(res.sta == 1){
 									
 								}

@@ -364,6 +364,7 @@
 			},
 			//立即付款
 			forsubmit: function(e){
+				let rthat = this;
 				// 调用订阅消息
 				uni.requestSubscribeMessage({
 					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE,hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
@@ -376,7 +377,7 @@
 							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE,hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
 						});
 						
-						this.$utils.postNew(action,data,controller).then(res=>{
+						rthat.$utils.postNew(action,data,controller).then(res=>{
 							if(res.sta == 1){
 								
 							}

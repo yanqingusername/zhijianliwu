@@ -259,6 +259,7 @@
 			}
 		},
 		onShareAppMessage(res) {
+			let rthat = this;
 			// 调用订阅消息
 			uni.requestSubscribeMessage({
 				tmplIds: ['MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk','UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM'],
@@ -271,7 +272,7 @@
 						template_id:"MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk,UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM"
 					});
 					
-					this.$utils.postNew(action,data,controller).then(res=>{
+					rthat.$utils.postNew(action,data,controller).then(res=>{
 						if(res.sta == 1){
 							
 						}

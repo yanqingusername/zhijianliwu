@@ -489,7 +489,7 @@
 							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM"
 						});
 						
-						this.$utils.postNew(action,data,controller).then(res=>{
+						that.$utils.postNew(action,data,controller).then(res=>{
 							if(res.sta == 1){
 								
 							}

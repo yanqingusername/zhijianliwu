@@ -212,7 +212,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 384rpx;
+	width: 100%;
+    margin: 0rpx 20rpx;
 	height: 80rpx;
 	background: #F55856;
 	border-radius: 10rpx;
