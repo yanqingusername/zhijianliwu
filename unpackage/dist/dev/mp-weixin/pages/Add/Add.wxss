@@ -26,17 +26,17 @@ page{
 	/* margin-top: 50rpx; */
 	    position: fixed;
 	    width: 100%;
-	    bottom: 20rpx;
+	    bottom: 0rpx;
 }
 .logistics-button{
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-    margin: 0rpx 20rpx;
+    /* margin: 0rpx 20rpx; */
 	height: 80rpx;
 	background: #F55856;
-	border-radius: 10rpx;
+	border-radius: 0rpx;
 }
 .logistics-button-img{
 	width: 42rpx;

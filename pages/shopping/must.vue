@@ -769,7 +769,7 @@
 				this.delivery_mode_index = e.target.value
 			},
 			open() {
-				this.$refs.popup.open('bottom')
+				this.$refs.popup.open()
 			},
 			pay() {
 				uni.navigateTo({

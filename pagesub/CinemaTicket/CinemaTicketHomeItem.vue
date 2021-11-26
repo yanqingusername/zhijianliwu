@@ -794,7 +794,7 @@
 		width: 460rpx;
 		word-wrap: break-word;
 		font-size: 24rpx;
-		font-weight: bold;
+		/* font-weight: bold; */
 		color: #666666;
 	}
 

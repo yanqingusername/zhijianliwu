@@ -281,7 +281,7 @@
 			        } 
 			    },
 				open() {
-					this.$refs.popup.open('bottom')
+					this.$refs.popup.open()
 				},
 				
 			clickPay(){
@@ -672,6 +672,7 @@ page{
 			align-items: center;
 			font-size: 20rpx;
 			color: #999999;
+			font-weight: normal;
 		}
 		.ctho-d-1-3{
 			display: flex;

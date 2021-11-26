@@ -420,13 +420,13 @@
 		 	})
 		 },
 		   open() {
-		      this.$refs.popup.open('')
+		      this.$refs.popup.open()
 		   },
 		   toggle:function(e) {
 			   if(this.statutype == 'exchange'){
 				   
 			   }else{
-				   this.$refs.popup.open('')
+				   this.$refs.popup.open()
 			   }
 		   	},
 		   	close:function(e) {

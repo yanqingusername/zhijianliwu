@@ -256,13 +256,16 @@
 		font-size: 24rpx;
 		font-weight: bold;
 		color: #666666;
+		/* overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap; */
 	}
 
 	.cd-a-item-left-1-2 {
 		font-size: 24rpx;
 		font-weight: bold;
 		color: #666666;
-		margin-left: 32rpx;
+		margin-left: 10rpx;
 	}
 
 	.cd-a-item-left-lable {
@@ -294,6 +297,17 @@
 		display: flex;
 		align-items: flex-end;
 		border-radius: 6rpx;
+		/* width: 170rpx !important;
+		height: 216rpx !important;
+		text-align: center; */
+	}
+	.swiper-containerDefault {
+		display: flex;
+		align-items: flex-end;
+		border-radius: 6rpx;
+		height: 180rpx !important;
+		width: 136rpx !important;
+		text-align: center;
 	}
 	.swiper-itemDefault{
 		display: flex;

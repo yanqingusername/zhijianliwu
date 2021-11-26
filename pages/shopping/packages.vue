@@ -262,7 +262,7 @@
 		},
 		methods:{
 			open(){
-				 this.$refs.popup.open('bottom')
+				 this.$refs.popup.open()
 			},
 			// 余额选中
 			 switch2Change(){

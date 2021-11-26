@@ -368,10 +368,10 @@
 				});
 			},
 			open() {
-				this.$refs.popup.open('')
+				this.$refs.popup.open()
 			},
 			toggle: function(e) {
-				this.$refs.popup.open('')
+				this.$refs.popup.open()
 			},
 			close: function(e) {
 				this.$refs.popup.close()
