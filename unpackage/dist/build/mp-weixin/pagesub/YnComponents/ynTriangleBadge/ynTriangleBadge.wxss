@@ -1,0 +1,1 @@
+.trianglePanel{display:flex;align-self:flex-end;color:#fff}.textbox{align-self:flex-start;display:flex;justify-content:center;align-items:center;z-index:1;margin:1px;white-space:pre;word-break:break-all}.triangle-topright{z-index:0;width:0;height:0}

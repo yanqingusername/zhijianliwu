@@ -16,8 +16,8 @@
 		<!-- 这里官方有个bug https://developers.weixin.qq.com/community/develop/doc/82f5ab098a15982c89076af83e3631a1 -->
 		<!-- bindscale="handleScale" bindchange="handleChange" bindtouchstart="handleMoveStart" bindtouchend='handleMoveEnd' -->
 		<movable-area scale-area="true" class="defaultArea" :style="'height:'+ seatArea + 'px; width:750rpx;margin-top:20rpx;position: relative;'">
-			<movable-view class='movableOne' bindscale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth + 'rpx;'"
-				scale="true" direction="all" scale-value="1" scale-max="2" scale-min="1" out-of-bounds="true" @scale="scaleEventHandle" @htouchmove="htouchmoveHandle" @vtouchmove="vtouchmoveHandle">
+			<movable-view class='movableOne' @scale="handleScale" :style="'height'+seatArea+'px; width:'+ seatAreaWidth* seatScaleLeft + 'rpx;'"
+				scale="true" direction="all" scale-value="1" scale-max="2" scale-min="1" out-of-bounds="true" @htouchmove="htouchmoveHandle" @vtouchmove="vtouchmoveHandle">
 				<view class='seatArea' style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
 					<!-- :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px'"> -->
 					<!--中轴线  -->
@@ -31,7 +31,7 @@
 					</view>
 					<view class="visual_title" v-if="hallName">{{hallName}}</view>
 					
-					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'" @touchmove='move' @touchstart="start" @touchend="end">
+					<view :style="'width:'+(seatScaleHeight * maxX)+ 'px;height:'+(seatScaleHeight * maxY)+ 'px;margin-top: 0rpx;position: relative;display: flex;'">
 						<view id="seatHeightId" style="position: relative;display: flex;width: 100%;margin-top: 30rpx;">
 							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 								:data-index='index'
@@ -188,6 +188,7 @@
 				sxLeft: 0,
 				leftNumber: 0,
 				isFirst: false,
+				seatToolArrList: []
 			}
 		},
 		onLoad: function(options) {
@@ -200,7 +201,7 @@
 			
 			uni.getSystemInfo({
 				success: (res) => {
-					that.seatArea = res.screenHeight - (750 * res.screenWidth / 750)
+					that.seatArea = res.screenHeight - (500 * res.screenWidth / 750)
 					that.rpxToPx = res.screenWidth / 750
 				},
 			})
@@ -269,7 +270,7 @@
 							//计算X和Y坐标最大值
 							that.prosessMaxSeat(seatList);
 							//计算左侧座位栏的数组
-							// that.seatToolArr()
+							that.seatToolArr()
 							//按每排生成座位数组对象
 							that.creatSeatMap()
 							//确认最佳坐标座位
@@ -384,21 +385,6 @@
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
-				// var lthat = this;
-				// var queryLeft = wx.createSelectorQuery();
-				// queryLeft.select('#seatLeftId').boundingClientRect();
-				// queryLeft.exec(function(res){
-				// 	console.log(res)
-				// 	if(res && res[0]){
-				// 		let leftNum = parseInt(res[0].left);
-				// 		console.log('--leftNum-->:',leftNum)
-				// 		if(leftNum<0){
-				// 			lthat.leftNumber = Math.abs(leftNum);
-				// 		}else{
-				// 			lthat.leftNumber = leftNum;
-				// 		}
-				// 	}
-				// });
 			},
 			vtouchmoveHandle: function(event){
 				var zthat = this;
@@ -410,25 +396,21 @@
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
 				});
-				
-				// var lthat = this;
-				// var queryLeft = wx.createSelectorQuery();
-				// queryLeft.select('#seatLeftId').boundingClientRect();
-				// queryLeft.exec(function(res){
-				// 	console.log(res)
-				// 	if(res && res[0]){
-				// 		let leftNum = parseInt(res[0].left);
-				// 		console.log('--leftNum-->:',leftNum)
-				// 		if(leftNum<0){
-				// 			lthat.leftNumber = Math.abs(leftNum);
-				// 		}else{
-				// 			lthat.leftNumber = leftNum;
-				// 		}
-				// 	}
-				// });
 			},
 			//解决官方bug
 			handleScale: function(e) {
+				let scaleNumber = e.detail.scale;
+				this.seatScaleLeft = scaleNumber;
+				
+				var zthat = this;
+				var query = wx.createSelectorQuery();
+				query.select('#seatHeightId').boundingClientRect();
+				query.exec(function(res){
+					if(res && res[0]){
+						zthat.nameTop = parseInt(res[0].top)-50;
+					}
+				});
+				
 				if (this.timer) {
 					clearTimeout(this.timer)
 				}
@@ -507,12 +489,12 @@
 						maxX = tempX;
 					}
 				}
-				let seatRealWidth = parseInt(maxX) * 30 * this.rpxToPx
-				let seatRealheight = parseInt(maxY) * 30 * this.rpxToPx
+				let seatRealWidth = parseInt(maxX) * 70 * this.rpxToPx
+				let seatRealheight = parseInt(maxY) * 70 * this.rpxToPx
 				let seatScale = 1;
 				let seatScaleX = 1;
 				let seatScaleY = 1;
-				let seatAreaWidth = 750 * this.rpxToPx
+				let seatAreaWidth = 630 * this.rpxToPx
 				let seatAreaHeight = this.seatArea - 200 * this.rpxToPx
 				if (seatRealWidth > seatAreaWidth) {
 					seatScaleX = seatAreaWidth / seatRealWidth
@@ -526,7 +508,7 @@
 				this.maxY = parseInt(maxY)
 				this.maxX = parseInt(maxX)
 				this.seatScale = seatScale
-				this.seatScaleHeight = seatScale * 30 * this.rpxToPx
+				this.seatScaleHeight = seatScale * 70 * this.rpxToPx
 
 			},
 			// 座位左边栏的数组
@@ -543,7 +525,7 @@
 					}
 					seatToolArr.push(el)
 				}
-				this.seatToolArr = seatToolArr
+				this.seatToolArrList = seatToolArr
 			},
 			back: function() {
 				wx.navigateBack({

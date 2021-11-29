@@ -121,7 +121,7 @@ swiper-item {
 	border-radius: 6rpx;
 }
 .cd-b{
-	margin-top: 30rpx;
+	margin-top: 0rpx;
 	display: flex;
 	align-items: center;
 	font-size: 30rpx;

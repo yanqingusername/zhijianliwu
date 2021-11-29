@@ -314,13 +314,13 @@ page{
 			width: 646rpx;
 }
 .cthod-view-su-lable{
-			font-size: 32rpx;
+			font-size: 28rpx;
 			font-weight: bold;
 			color: #999999;
 			margin-left: 40rpx;
 }
 .cthod-view-su-number{
-			font-size: 38rpx;
+			font-size: 30rpx;
 			font-weight: bold;
 			color: #333333;
 			margin-right: 22rpx;

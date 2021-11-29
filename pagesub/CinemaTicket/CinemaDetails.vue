@@ -19,9 +19,9 @@
 			</view>
 		</view>
 
-		<view class="" style="padding-top: 40rpx;background: #FFFFFF;">
+		<view class="" style="padding-top: 12rpx;background: #FFFFFF;">
 			<view class="">
-				<swiper class="swiper-tall" :indicator-dots="indicatorDots" :autoplay="autoplay"
+				<!-- <swiper class="swiper-tall" :indicator-dots="indicatorDots" :autoplay="autoplay"
 					:previous-margin="previousMargin" :next-margin="nextMargin" :circular="circular" @change="change"
 					:current="swiperCurrentIndex">
 					<swiper-item class="swiper-container" v-for="(item,index) in moviesList" :key="index">
@@ -29,7 +29,21 @@
 							:src="item.pic">
 						</image>
 					</swiper-item>
-				</swiper>
+				</swiper> -->
+				<ynGallery 
+					 :galleryheight="150" 
+					  bkstart="#FFFFFF" 
+					  bkend="#FFFFFF" 
+					 :imgviewwidth="85" 
+					 :imgviewheight="105" 
+					 :showbadge="true"
+					  badegtype="trian" 
+					  badegwidth="25" 
+					  badegheight="25" 
+					 :showdec="true" 
+					 :images="moviesList" 
+					 @clickimg="onclickimg">
+					</ynGallery>
 			</view>
 			<view class="cd-b">{{movieInfo.name}}<text class="cd-b-1">评分</text><text :class="movieInfo.grade == '0' ? 'cd-b-2-1':'cd-b-2'">{{movieInfo.grade == '0' ? '暂无': movieInfo.grade}}</text></view>
 			<view class="cd-c-view">
@@ -71,7 +85,12 @@
 </template>
 
 <script>
+	import ynGallery from '@/pagesub/YnComponents/ynGallery/ynGallery.vue'
+	
 	export default {
+		components: {
+			"ynGallery":ynGallery
+		},
 		data() {
 			return {
 				cinemaid: '',
@@ -174,6 +193,11 @@
 				
 				this.getFilmShowList();
 				
+			},
+			onclickimg(e){
+				this.movieId = e.movieId;
+				this.movieInfo = e;
+				this.getFilmShowList();
 			},
 			clickTime(e){
 				this.timeIndex = e.currentTarget.dataset.timeindex;
@@ -336,7 +360,7 @@
 	}
 	
 	.cd-b{
-		margin-top: 30rpx;
+		margin-top: 0rpx;
 		display: flex;
 		align-items: center;
 		font-size: 30rpx;

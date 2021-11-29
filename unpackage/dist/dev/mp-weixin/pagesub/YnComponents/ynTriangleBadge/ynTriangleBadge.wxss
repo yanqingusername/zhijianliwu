@@ -1,0 +1,29 @@
+
+.trianglePanel{
+   display: flex;
+   align-self:flex-end;
+   color: white;
+   /* border: red 1px solid; */
+}
+.textbox{
+	align-self: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	margin: 1px;
+	/* 字符空格不忽略 */
+	white-space: pre;     
+	word-break: break-all;
+}
+
+/* 右上三角	上 左有宽度  下 右 无宽度 */
+.triangle-topright{
+/*   top:0;
+   left:0; */
+   z-index: 0;
+   width:0;
+   height:0;
+}
+
+

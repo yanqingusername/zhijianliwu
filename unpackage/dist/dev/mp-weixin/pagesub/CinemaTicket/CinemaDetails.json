@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "影院详情",
-  "usingComponents": {}
+  "usingComponents": {
+    "yn-gallery": "/pagesub/YnComponents/ynGallery/ynGallery"
+  }
 }

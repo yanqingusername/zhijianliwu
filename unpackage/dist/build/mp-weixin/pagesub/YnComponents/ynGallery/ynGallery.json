@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "yn-triangle-badge": "/pagesub/YnComponents/ynTriangleBadge/ynTriangleBadge"
+  }
+}
