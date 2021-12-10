@@ -265,12 +265,6 @@
 			}
 		},
 		{
-			"path" : "pages/index-coupon/ExchangeIndex",
-			"style" : {
-				"navigationBarTitleText":"兑换中心"
-			}
-		},
-		{
 			"path" : "pages/index-coupon/ExchangeOrder",
 			"style" : {
 				"navigationBarTitleText":"兑换订单"

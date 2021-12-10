@@ -375,4 +375,46 @@ page{
 	right: 20rpx;
 	bottom: 20rpx;
 }
+.delete-view{
+	width: 110rpx;
+	height: 48rpx;
+	border-radius: 24rpx;
+	border: 1px solid #ED2430;
+	font-size: 24rpx;
+	color: #DB3C3A;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.pop-center-view{
+	width: 567rpx;
+	height: 364rpx;
+	background: #FFFFFF;
+    border-radius: 3rpx;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    /* padding: 55rpx; */
+    text-align: center;
+}
+.pop-center-view-close {
+    cursor: pointer;
+    position: absolute;
+    top: 12rpx;
+    right: 12rpx;
+    width: 50rpx;
+	height: 50rpx;
+}
+.pop-center-view-bottom{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 142rpx;
+	height: 48rpx;
+	border: 1px solid #ED2430;
+	font-size: 24rpx;
+	color: #DB3C3A;
+}
 

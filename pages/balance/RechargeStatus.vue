@@ -58,7 +58,9 @@
 				<view class="recharge-succ-bottom" @click="$buttonClick(balance)">查询余额</view>
 			</view>
 			<view class="recharge-succ-line"></view>
-			<view class="recharge-succ-1">实付金额：¥{{orderInfo.pay_price}}<view class="recharge-succ-2" v-if="istype != 1">（如需开具发票请您联系在线客服处理）</view></view>
+			<view v-if="istype != 1" class="recharge-succ-1">实付金额：¥{{orderInfo.pay_price}}<view class="recharge-succ-2">（如需开具发票请您联系在线客服处理）</view></view>
+			<view v-else class="recharge-succ-1">实付金额：¥{{'0.00'}}</view>
+			
 			<view class="recharge-succ-3">充值时间：{{orderInfo.recharge_time}}</view>
 			<view class="recharge-succ-4">订 单 号 ：{{orderInfo.recharge_number}}</view>
 			

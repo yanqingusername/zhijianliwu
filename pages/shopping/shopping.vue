@@ -13,7 +13,7 @@
 			
 			<view class="box" v-else>
 				<view class="box-content">
-					<view class="shop-gift-buys-top" v-for="item in goodsinfo" :key="item.id">
+					<view class="shop-gift-buys-top" style="border-bottom: 1rpx solid #EDEDED;" v-for="item in goodsinfo" :key="item.id">
 						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
 						<view class="top-right">
 							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
@@ -35,7 +35,26 @@
 							
 						</view>
 					</view>
-					<view class="shop-gift-buys-bottom">
+					<view class="shop-gift-buys-top" style="border-bottom: 1rpx solid #EDEDED;" v-for="item in undercarriage_list" :key="item.id">
+						<view style="position: relative;">
+							<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
+							<view style="width: 92rpx;height: 92rpx;background: #5D5D5D;opacity: 0.69;display: flex;align-items: center;justify-content: center;color: #FFFFFF;font-size: 28rpx;position: absolute;top: 24rpx;left: 24rpx;border-radius: 50%;">失效</view>
+						</view>
+						
+						<view class="top-right">
+							<view class="shop-gift-buys-title" style="color: #AAAAAA;">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
+							<view class="price-bottom flex-between">
+								<view class="shop-gift-buys-ltitle" style="color: #AAAAAA;">{{item.goods_spec_item}}</view>
+								<view class="flex-vertically">
+									<view class="delete-view" @click="goDel(item.goodsinfo.id)">移除</view>
+								</view>
+							</view>
+							<view>
+								<text style="font-size: 24rpx; color: #333333;">失效商品，已下架</text>
+							</view>
+						</view>
+					</view>
+					<view class="shop-gift-buys-bottom" style="border-top: none;">
 						<text class="shop-gift-buys-bottom-num" v-if="show==='1'">共{{numberss}}件礼物</text>
 						<text class="shop-gift-buys-bottom-num" v-else>共{{numberss}}件礼物/份</text>
 						<view class="right">
@@ -165,6 +184,43 @@
 				</view>
 			 </view>
 		</view>
+		
+		<!-- 失效 -->
+		<view class="success-pop" style="z-index: 120;" v-if="isShowPop && unShopList.length > 0">
+			<view class="pop-center-view clearfix" v-if="unShopList.length == 1">
+				<image @click="goDel('')" class="pop-center-view-close" src="https://zhijianlw.com/static/web/img/icon_2021_12_09_01.png" mode="widthFix"></image>
+				<view class="shop-gift-buys-top" style="margin-top: 80rpx;padding: 0rpx 30rpx;" v-for="item in unShopList" :key="item.id">
+					<view style="position: relative;">
+						<img class="img shop-gift-buys-img" style="margin-right: 10rpx;" :src="item.head_img" mode="">
+						<view style="width: 92rpx;height: 92rpx;background: #5D5D5D;opacity: 0.69;display: flex;align-items: center;justify-content: center;color: #FFFFFF;font-size: 28rpx;position: absolute;top: 24rpx;left: 24rpx;border-radius: 50%;">失效</view>
+					</view>
+					<view class="top-right">
+						<view class="shop-gift-buys-title" style="color: #AAAAAA;text-align: left;">{{$utils.cut_str(item.goodsname,16)}}</view>
+						<view class="shop-gift-buys-ltitle" style="color: #AAAAAA;text-align: left;">{{item.shopping_cart_goods_item}}</view>
+						<view style="font-size: 24rpx; color: #333333;text-align: left;">失效商品，已下架</view>
+					</view>
+				</view>
+				<view style="margin-top: 54rpx;display: flex;align-items: center;justify-content: center;">
+					<view @click="goDel('')" class="pop-center-view-bottom">移除</view>
+				</view>
+			</view>
+			
+			<view class="pop-center-view clearfix" style="height: 425rpx;" v-if="unShopList.length > 1">
+				<image @click="goDel('')" class="pop-center-view-close" src="https://zhijianlw.com/static/web/img/icon_2021_12_09_01.png" mode="widthFix"></image>
+				<view style="font-size: 28rpx; color: #333333;margin-top: 38rpx;">失效商品，已下架</view>
+				<view class="shop-gift-buys-top" style="margin-top: 38rpx;padding: 0rpx 44rpx;">
+					<view style="position: relative;margin-right: 10rpx;margin-left: 10rpx;" v-for="item in unShopList" :key="item.id">
+						<img class="img shop-gift-buys-img" style="margin-right: 0rpx;margin-left: 0rpx;" :src="item.head_img" mode="">
+						<view style="width: 92rpx;height: 92rpx;background: #5D5D5D;opacity: 0.69;display: flex;align-items: center;justify-content: center;color: #FFFFFF;font-size: 28rpx;position: absolute;top: 24rpx;left: 24rpx;border-radius: 50%;">失效</view>
+					</view>
+				</view>
+				<view style="font-size: 24rpx; color: #333333;margin-top: 18rpx;">……</view>
+				<view style="margin-top: 32rpx;display: flex;align-items: center;justify-content: center;">
+					<view @click="goDel('')" class="pop-center-view-bottom">一键移除</view>
+				</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -175,6 +231,7 @@
 			return {
 				price_zhe: 0,
 				goodsinfo: [],
+				undercarriage_list:[],
 				goodsid: "",
 				flag: true,
 				type: '',
@@ -189,7 +246,9 @@
 				setgiftssuccess: '2',
 				setwishessuccess: '2',
 				remark: '大吉大利，恭喜发财！',
-				remarkNumber: 0
+				remarkNumber: 0,
+				isShowPop: false,
+				unShopList:[]
 			}
 
 		},
@@ -212,8 +271,9 @@
 
 			this.$utils.post(action, data).then(res => {
 				console.log('商品', res)
-				if (res.rs.giftbag.length >= 1) {
-					this.goodsinfo = res.rs.giftbag
+				if (res.rs.giftbag.length >= 1 || res.rs.undercarriage_list >= 1) {
+					this.goodsinfo = res.rs.giftbag;
+					this.undercarriage_list = res.rs.undercarriage_list;
 					this.price_zhe=res.rs.price_zhe
 					let numberss = 0
 					for (let i in res.rs.giftbag) {
@@ -251,6 +311,45 @@
 			this.caltotalmoney()
 		},
 		methods: {
+			// 删除失效
+			goDel(id){
+				let memberid = uni.getStorageSync('id')
+				let that = this;
+				let action = "del_shopping_cart";
+				let controller = 'goods';
+				let data = JSON.stringify({
+					goodsid: id,
+					memberid: memberid,
+					buy_type: this.type
+				});
+				this.$utils.postNew(action,data,controller).then(ress=>{
+					if(ress.sta == 1){
+						this.isShowPop = false;
+						let memberid = uni.getStorageSync('id')
+						let data = '{"memberid":"' + memberid + '","buy_type":"' + this.type + '"}';
+						let action = 'get_giftbag_list';
+						this.$utils.post(action, data).then(res => {
+							console.log('商品', res)
+							if (res.rs.giftbag.length >= 1 || res.rs.undercarriage_list >= 1) {
+								that.goodsinfo = res.rs.giftbag;
+								that.undercarriage_list = res.rs.undercarriage_list;
+								that.price_zhe=res.rs.price_zhe
+								let numberss = 0
+								for (let i in res.rs.giftbag) {
+									numberss += Number(res.rs.giftbag[i].goodsnum)
+								}
+								that.numberss = numberss
+								that.com = true
+							} else {
+								that.com = false
+							}
+						});
+						//计算总价
+						this.caltotalmoney()
+						
+					} 
+				})
+			},
 			inputRemark(e){
 				this.remark = e.detail.value;
 				this.remarkNumber = e.detail.value.length;
@@ -306,7 +405,7 @@
 
 					this.$utils.post(action, data).then(res => {
 						console.log('更改价格', res)
-						if (res.rs.giftbag.length >= 1) {
+						if (res.rs.giftbag.length >= 1 || this.undercarriage_list >= 1) {
 							this.goodsinfo = res.rs.giftbag
 							this.com = true
 						} else {
@@ -472,17 +571,22 @@
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log(res)
-						if (res.rs.goodslist.length == 0) {
-						
-							uni.showToast({
-								icon: "none",
-								title: "当前礼袋无商品"
-							})
-						}
-						if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
-							uni.navigateTo({
-								url: '../shopping/packages?type=0&fenshu='+this.fenshu+'&wanfa=1'
-							})
+						if(res.sta == 1){
+							if (res.rs.goodslist.length == 0) {
+							
+								uni.showToast({
+									icon: "none",
+									title: "当前礼袋无商品"
+								})
+							}
+							if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
+								uni.navigateTo({
+									url: '../shopping/packages?type=0&fenshu='+this.fenshu+'&wanfa=1'
+								})
+							}
+						}else if(res.sta == 2){
+							this.isShowPop = true;
+							this.unShopList = res.rs.undercarriage_list;
 						}
 					})
 				} else if (this.show === '1') {
@@ -495,18 +599,23 @@
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log('商品信息11', res)
-						if (res.rs.goodslist.length == 0) {
-						
-							uni.showToast({
-								icon: "success",
-								title: "当前礼袋无商品"
-							})
-				        }
-						if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
-							this.$forceUpdate();
-							uni.navigateTo({
-								url: '../shopping/packages?type=0&fenshu=1&wanfa=4&remark='+this.remark
-							})
+						if(res.sta == 1){
+							if (res.rs.goodslist.length == 0) {
+							
+								uni.showToast({
+									icon: "success",
+									title: "当前礼袋无商品"
+								})
+							}
+							if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
+								this.$forceUpdate();
+								uni.navigateTo({
+									url: '../shopping/packages?type=0&fenshu=1&wanfa=4&remark='+this.remark
+								})
+							}
+						}else if(res.sta == 2){
+							this.isShowPop = true;
+							this.unShopList = res.rs.undercarriage_list;
 						}
 					})
 				} else {
@@ -518,17 +627,22 @@
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log(res)
-						if (res.rs.goodslist.length == 0) {
-						
-							uni.showToast({
-								icon: "success",
-								title: "当前礼袋无商品"
-							})
-						}
-						if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
-							uni.navigateTo({
-								url: '../shopping/must?type=0'
-							})
+						if(res.sta == 1){
+							if (res.rs.goodslist.length == 0) {
+							
+								uni.showToast({
+									icon: "success",
+									title: "当前礼袋无商品"
+								})
+							}
+							if (this.zhufu_type != null && this.chooses != null && res.rs.goodslist.length!=0) {
+								uni.navigateTo({
+									url: '../shopping/must?type=0'
+								})
+							}
+						}else if(res.sta == 2){
+							this.isShowPop = true;
+							this.unShopList = res.rs.undercarriage_list;
 						}
 					})
 				}
@@ -591,5 +705,51 @@
 		position: absolute;
 		right: 20rpx;
 		bottom: 20rpx;
+	}
+	
+	.delete-view{
+		width: 110rpx;
+		height: 48rpx;
+		border-radius: 24rpx;
+		border: 1px solid #ED2430;
+		font-size: 24rpx;
+		color: #DB3C3A;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.pop-center-view{
+		width: 567rpx;
+		height: 364rpx;
+		    background: #FFFFFF;
+		    border-radius: 3rpx;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    -webkit-transform: translateY(-50%) translateX(-50%);
+		    transform: translateY(-50%) translateX(-50%);
+		    /* padding: 55rpx; */
+		    text-align: center;
+	}
+	
+	.pop-center-view-close {
+	    cursor: pointer;
+	    position: absolute;
+	    top: 12rpx;
+	    right: 12rpx;
+	    width: 50rpx;
+		height: 50rpx;
+	}
+	
+	.pop-center-view-bottom{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 142rpx;
+		height: 48rpx;
+		border: 1px solid #ED2430;
+		font-size: 24rpx;
+		color: #DB3C3A;
 	}
 </style>

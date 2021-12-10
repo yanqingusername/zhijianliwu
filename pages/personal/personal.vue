@@ -59,7 +59,8 @@
 			<view class="personal-bottom" @click="$buttonClick(opening)" v-if="sign.level_name!='企业会员'">
 				<image class="personal-bottom-img" src="https://zhijianlw.com/static/web/img/vip_08_03.png" mode=""></image>
 			    <view class="personal-bottom-title">开通企业会员 预计省1263元/年</view>
-				<view class="personal-bottom-view">查看详情</view>	
+				<view class="personal-bottom-view" v-if="numberMemberStatus == 0">立即申请</view>	
+				<view class="personal-bottom-view" v-if="numberMemberStatus == 1">查看详情</view>	
 			</view>
 			<!-- 背景图 -->
 		</view>
@@ -140,7 +141,8 @@
 				commody: [],
 				pageIndex: 1,
 				pageSize: 10,
-				fixed: 0
+				fixed: 0,
+				numberMemberStatus: 0
 			} 
 		},
 		onShow:function(e){  
@@ -151,6 +153,9 @@
 				this.login();
 				// 收藏
 				this.collection();
+				
+				this.getMemberStatus();
+				
 				// 优惠券
 				this.coupon();
 				// 海报
@@ -175,6 +180,9 @@
 				  this.login();
 				  // 收藏
 				  this.collection();
+				  
+				  this.getMemberStatus();
+				  
 				  // 优惠券
 				  this.coupon();
 				  // 海报
@@ -302,6 +310,31 @@
 				
 			  
 		  },
+		  getMemberStatus(){
+			  let that = this;
+			  let action = "get_member_audit_status";
+			  let controller = 'member';
+			  let memberid = uni.getStorageSync('id')
+			  let data = JSON.stringify({
+			  	memberid: memberid
+			  });
+			  
+			  this.$utils.postNew(action,data,controller).then(res=>{
+			  	if(res.sta == 1){
+			  		if(res.rs.status == 1){
+			  			
+			  		} else if(res.rs.status == 2){
+			  			this.numberMemberStatus = 1;
+			  		} else if(res.rs.status == 3){
+			  			this.numberMemberStatus = 1;
+			  		} else if(res.rs.status == 4){
+			  			
+			  		} else {
+						this.numberMemberStatus = 0;
+					}
+			  	}
+			  })
+		  },
 		  // 收藏
 		  collection:function(e){
 			  let id = uni.getStorageSync('id')
@@ -397,7 +430,6 @@
 			colloection:function(e){
 				uni.navigateTo({
 					// url:'../Collection/Collection' // 礼物收藏
-					// url: '../index-coupon/ExchangeIndex' // 带有头部的兑换订单
 					url:"../index-coupon/ExchangeOrder" //新需求 兑换订单列表页
 				})
 			},
@@ -661,6 +693,8 @@
 					this.login();
 					// 收藏
 					this.collection();
+					
+					this.getMemberStatus();
 					// 优惠券
 					this.coupon();
 					// 海报

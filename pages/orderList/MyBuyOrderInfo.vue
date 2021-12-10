@@ -21,7 +21,7 @@
 				<!-- <view class="recharge-status-text" v-if="orderBuyInfo.orderinfo.status ==3">{{orderBuyInfo.orderinfo.order_status_info}}</view> -->
 				<view class="recharge-status-text" >{{orderBuyInfo.orderinfo.order_status_info}}</view>
 			</view>
-			<view class="recharge-status-label" v-if="orderBuyInfo.orderinfo.status ==5">需付款：¥{{orderBuyInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			<view class="recharge-status-label" v-if="orderBuyInfo.orderinfo.status ==5">需付款：¥{{orderBuyInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			
 		</view>
 		
