@@ -97,11 +97,6 @@
             "style" : {
 		      "navigationBarTitleText":"授权登录"
 			}
-        },{
-            "path" : "pages/signin/signintext",
-            "style" : {
-		      "navigationBarTitleText":"指间礼物"
-			}
         }
    //      ,{
    //          "path" : "pages/template/template", 
@@ -680,6 +675,16 @@
 					"path" : "AllCovers/AllCovers",
 					"style" : {
 						"navigationBarTitleText":"全部封面"
+					}
+				},{
+					"path" : "AllCovers/signintext",
+					"style" : {
+					  "navigationBarTitleText":"指间礼物"
+					}
+				},{
+					"path" : "AllCovers/signintextone",
+					"style" : {
+					  "navigationBarTitleText":"指间礼物"
 					}
 				},
 				{

@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;wEAAA,qBACA,sBACA,mD,mDACAA,EAAWC,a","file":"pages/signin/signintextone.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/signin/signintextone.vue'\ncreatePage(Page)"],"sourceRoot":""}

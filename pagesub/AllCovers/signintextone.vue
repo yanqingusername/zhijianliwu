@@ -1,0 +1,91 @@
+<template>
+	<view>
+		<view class="new-sign">
+			<view class="new-sign-title">指间礼物小程序隐私保护指引</view>
+			<text>本指引是指间礼物小程序开发者 "北京购实惠电子商务有限公司"（以下简称“开发者”）为处理你的个人信息而制定。</text>
+			<view style="margin-top: 10rpx;">1.开发者处理的信息</view>
+			<text>根据法律规定，开发者仅处理实现小程序功能所必要的信息。</text>
+			<text>为了提供订单、发货服务，开发者将在获取你的明示同意后，收集你的位置信息。</text>
+			<text>为了使用语音功能服务，开发者将在获取你的明示同意后，访问你的麦克风。</text>
+			<text>为了保存图片信息，开发者将在获取你的明示同意后，使用你的相册（仅写入）权限。</text>
+			<text>为了账户安全和信息服务，开发者将在获取你的明示同意后，收集你的手机号。</text>
+			<text>为了生成用户帐户，开发者将在获取你的明示同意后，收集你的微信昵称、头像。</text>
+			<text>为了上传图片，拍照，开发者将在获取你的明示同意后，访问你的摄像头。</text>
+			<text>开发者收集你的地址，用于提供购买服务。</text>
+			<text>开发者收集你的发票信息，用于提供发票服务。</text>
+			<text>开发者收集你选中的照片或视频信息，用于上传图片。</text>
+			<text>开发者收集你的邮箱，用于提供电子发票服务。</text>
+			<text>开发者收集你的操作日志，用于方便查询问题。</text>
+			<text>开发者收集你的订单信息，用于提供售后服务。</text>
+			
+			<view style="margin-top: 10rpx;">2.你的权益</view>
+			<text>关于收集你的位置信息、访问你的麦克风、使用你的相册（仅写入）权限，你可以通过以下路径：小程序主页右上角“…”—“设置”—点击特定信息—点击“不允许”，撤回对开发者的授权。</text>
+			<text>关于收集你的手机号，你可以通过以下路径：小程序主页右上角“...” — “设置” — “小程序已获取的信息” — 点击特定信息 — 点击“通知开发者删除”，开发者承诺收到通知后将删除信息</text>
+			<text>关于你的个人信息，你可以通过以下方式与开发者联系，行使查阅、复制、更正、删除等法定权利。微信号:zhijianliwu1</text>
+			
+			<view style="margin-top: 10rpx;">3.开发者对信息的存储</view>
+			<text>开发者承诺，除法律法规另有规定外，开发者对你的信息的保存期限应当为实现处理目的所必要的最短时间。</text>
+			
+			<view style="margin-top: 10rpx;">4.信息的使用规则</view>
+			<text>开发者将会在本指引所明示的用途内使用收集的信息</text>
+			<text>如开发者使用你的信息超出本指引目的或合理范围，开发者必须在变更使用目的或范围前，再次以弹窗方式告知并征得你的明示同意。</text>
+			
+			<view style="margin-top: 10rpx;">5.信息对外提供</view>
+			<text>开发者承诺，不会主动共享或转让你的信息至任何第三方，如存在确需共享或转让时，开发者应当直接征得或确认第三方征得你的单独同意。</text>
+			<text>开发者承诺，不会对外公开披露你的信息，如必须公开披露时，开发者应当向你告知公开披露的目的、披露信息的类型及可能涉及的信息，并征得你的单独同意。</text>
+			
+			<view style="margin-top: 10rpx;">6.你认为开发者未遵守上述约定，或有其他的投诉建议、或未成年人个人信息保护相关问题，可通过以下方式与开发者联系；或者向微信进行投诉。</view>
+			<text>微信号 : zhijianliwu1</text>
+			
+			<text style="text-align: right;">更新日期：2021-12-10</text>
+			<text style="text-align: right;">生效日期：2021-12-10</text>
+			
+		</view>
+	</view>
+</template>
+
+<script>
+	import sr from 'sr-sdk-wxapp';
+	export default {
+		data() {
+			return {
+				
+			}
+		}, 
+		
+		onLoad:function(e){
+			
+		},
+		
+		methods: {
+			
+			
+			
+		}
+	}
+</script>
+
+<style>
+@import '@/common/index.css';
+page{
+	background-color: #FFFFFF;
+}
+.new-sign{
+	display: flex;
+	    flex-direction: column;
+	    padding: 20rpx 40rpx 30rpx 30rpx;
+}
+
+.new-sign-title{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.new-sign text{
+	line-height: 40rpx;
+	margin-top: 10rpx;
+	color: #666666;
+	    font-size: 26rpx;
+}
+
+</style>

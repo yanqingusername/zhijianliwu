@@ -10,8 +10,9 @@
 		<view class="sign-view">
 			<checkbox color="#FF0022"class="flex" style="transform:scale(0.5)"
 			@click="selectClick" :checked="isChecked"></checkbox>
-			<text class="sign-text">未注册的微信号将自动注册指间礼物账号，且表示已经同意</text>
-			<text class="sign-text" style="color: #E02020;" @click="signintext">注册协议</text>
+			<text class="sign-text">您已阅读并同意</text>
+			<text class="sign-text" style="color: #E02020;" @click="signintext">用户协议</text>
+			<text class="sign-text" style="color: #E02020;margin-left: 10rpx;" @click="signintext1">隐私政策</text>
 		</view>
 	</view>
 </template>
@@ -70,7 +71,12 @@
 		methods: {
 			signintext(e){
 				uni.navigateTo({
-					url:'./signintext'
+					url:'/pagesub/AllCovers/signintext'
+				})
+			},
+			signintext1(e){
+				uni.navigateTo({
+					url:'/pagesub/AllCovers/signintextone'
 				})
 			},
 			selectClick(e){
