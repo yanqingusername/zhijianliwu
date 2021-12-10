@@ -21,7 +21,7 @@
 		<!-- <view class="index-home index-page" v-if="tabBarIndex==0"> -->
 		<view class="index-home index-page">
 			<!-- 模块宫格 -->
-			<own-grid :list="gridList"></own-grid>
+			<!-- <own-grid :list="gridList"></own-grid> -->
 			<view class="index-module-box" style="margin-top: 40rpx;">
 				<!-- 优惠券模块 -->
 				<own-index-coupon-module :coupon_left="coupon_left" :coupon_right="coupon_right"></own-index-coupon-module>
