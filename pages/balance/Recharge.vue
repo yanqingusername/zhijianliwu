@@ -3,11 +3,24 @@
 	    <!-- 选项卡 -->
 	    <view class="coupon-header">
 	    	<view class="coupon-header-content flex-between">
-	    		<view class="recharge-header-nav" data-index='0' @click="nav" :class="[checknum==0?'recharge-header-nav-active':'']">在线充值</view>
-	    		<view class="recharge-header-nav" data-index='1' @click="nav" :class="[checknum==1?'recharge-header-nav-active':'']">充值卡充值</view>
+	    		<view class="recharge-header-nav" data-index='0' @click="nav" :class="[checknum==0?'recharge-header-nav-active':'']">充值卡充值</view>
+	    		<view class="recharge-header-nav" data-index='1' @click="nav" :class="[checknum==1?'recharge-header-nav-active':'']">在线充值</view>
 	    	</view>
 	    </view>
 		<view v-if="checknum==0">
+			<!-- 兑换码 -->
+			<view class="new-recharge-exchange flex-center">
+				<input type="text" @input="input" v-model="inputprice" placeholder="请输入储值卡密码">
+			</view>
+			<!-- 说明 -->
+			<view class="new-recharge-explain">输入密码后点击立即充值，充值完成即余额到账</view>
+			<!-- 按钮 -->
+			<view >
+				<view class="balance-view" @click="$buttonClick(rechargebutton)">立即充值</view>
+			</view>
+		</view>
+		
+		<view v-if="checknum==1">
 			<view class="balance-page">
 				<view class="balance-content flex-between-wrap">
 					<view :class="[number==index?'new-balance-content-li-active':'new-balance-content-li']" v-for="(item,index) in balance" :key="index" :data-id="item.id" :data-index="index+1" @click="bala" :data-remoney="item.recharge_money" :data-gvmoney="item.give_money">
@@ -26,19 +39,6 @@
 			
 			<view >
 				<view class="balance-view" @click="$buttonClick(button)">去充值（需支付{{payMoney}}元）</view>
-			</view>
-		</view>
-		
-		<view v-if="checknum==1">
-			<!-- 兑换码 -->
-			<view class="new-recharge-exchange flex-center">
-				<input type="text" @input="input" v-model="inputprice" placeholder="请输入礼品卡兑换码">
-			</view>
-			<!-- 说明 -->
-			<view class="new-recharge-explain">输入礼品卡背面的兑换码后点击充值,兑换码不区分大小写</view>
-			<!-- 按钮 -->
-			<view >
-				<view class="balance-view" @click="$buttonClick(rechargebutton)">立即充值</view>
 			</view>
 		</view>
 	</view>

@@ -146,7 +146,7 @@
 		{
 		    "path" : "pages/balance/Recharge",
 		    "style" : {
-				"navigationBarTitleText":"充值卡充值"
+				"navigationBarTitleText":"充值"
 			}
 		},
 		{
