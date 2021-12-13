@@ -209,7 +209,7 @@
 			},
 			submitrefund(){
 				this.$refs['popupcenter'].close();
-				uni.navigateTo({
+				uni.reLaunch({
 					url:'../personal/personal'
 				})
 			},

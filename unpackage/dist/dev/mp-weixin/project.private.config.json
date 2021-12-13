@@ -71,6 +71,12 @@
           "pathName": "pages/Address/Address",
           "query": "addto=1",
           "scene": null
+        },
+        {
+          "name": "Apply",
+          "pathName": "pages/Apply/Apply",
+          "query": "",
+          "scene": null
         }
       ]
     }
