@@ -343,27 +343,27 @@
 			submit: function(e) {
 				let rthat = this;
 				// 调用订阅消息
-				uni.requestSubscribeMessage({
-					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE','hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
-					success(res) {
-						let action = "add_wx_subscribe_log";
-						let controller = 'subscribe';
-						let memberid = uni.getStorageSync('id')
-						let data = JSON.stringify({
-							memberid: memberid,
-							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE,hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
-						});
+				// uni.requestSubscribeMessage({
+				// 	tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE','hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
+				// 	success(res) {
+				// 		let action = "add_wx_subscribe_log";
+				// 		let controller = 'subscribe';
+				// 		let memberid = uni.getStorageSync('id')
+				// 		let data = JSON.stringify({
+				// 			memberid: memberid,
+				// 			template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE,hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
+				// 		});
 						
-						rthat.$utils.postNew(action,data,controller).then(res=>{
-							if(res.sta == 1){
+				// 		rthat.$utils.postNew(action,data,controller).then(res=>{
+				// 			if(res.sta == 1){
 								
-							}
-						})
-					},
-					fail(res) {
+				// 			}
+				// 		})
+				// 	},
+				// 	fail(res) {
 						
-					}
-				});
+				// 	}
+				// });
 				
 				let orderNumber = e.currentTarget.dataset.ordernumber;
 				// 接口地址
