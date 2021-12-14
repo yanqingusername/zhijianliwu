@@ -34,7 +34,7 @@
 		
 		<!-- 绑卡 -->
 		<view class="success-pop" style="z-index: 33;" v-if="showPop">
-			<view class="pop-center clearfix">
+			<view class="pop-center clearfix" style="top: 35%;">
 				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
 				<form @submit="submit">
 					<view class="card">
@@ -52,7 +52,7 @@
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" style="z-index: 33;" v-if="isPopSucc">
-			<view class="pop-center clearfix">
+			<view class="pop-center clearfix" style="top: 35%;">
 				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
 				<view class="p" style="margin-bottom:40rpx;margin-top:40rpx;">{{popTitle}}</view>
 				<view v-if="bindNumber" class="n" hover-class="none" @click="clickHandler">确定</view>

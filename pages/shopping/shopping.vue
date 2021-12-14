@@ -737,7 +737,7 @@
 		    background: #FFFFFF;
 		    border-radius: 3rpx;
 		    position: absolute;
-		    top: 50%;
+		    top: 35%;
 		    left: 50%;
 		    -webkit-transform: translateY(-50%) translateX(-50%);
 		    transform: translateY(-50%) translateX(-50%);

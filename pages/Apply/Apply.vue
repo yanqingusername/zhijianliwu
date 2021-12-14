@@ -25,7 +25,7 @@
 		
 		<!-- 提交成功 -->
 		<uni-popup ref="popupcenter" type="center" :animation="false" :maskClick="true" @change="change">
-			<view class="popup-center-view">
+			<view class="popup-center-view" style="margin-top: -35%;">
 				<image class="picker-center-view-img" src="https://zhijianlw.com/static/web/img/icon_adopt_apply_in.png"></image>
 				<view class="popup-center-view-text">您已成功提交申请，请等待审核，我们将于1-3个工作日内处理完成。</view>
 				<view class="popup-center-view-bottom" @click="$buttonClick(submitrefund)">

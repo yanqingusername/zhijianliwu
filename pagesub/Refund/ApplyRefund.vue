@@ -87,7 +87,7 @@
 		
 		<!-- 退款提交成功 -->
 		<uni-popup ref="popupcenter" type="center" :animation="false" :maskClick="true" @change="change">
-			<view class="popup-center-view">
+			<view class="popup-center-view" style="margin-top: -35%;">
 				<image class="picker-center-view-img" src="https://zhijianlw.com/static/web/img/icon_refund_success.png"></image>
 				<view class="popup-center-view-text">{{title}}已提交，请等待客服处理</view>
 				<view class="popup-center-view-bottom" @click="$buttonClick(submitrefund)">

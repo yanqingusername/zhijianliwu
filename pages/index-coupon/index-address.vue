@@ -62,7 +62,7 @@
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" v-if="showPop">
-			<view class="pop-center clearfix" style="padding: 52rpx;top: 45%;">
+			<view class="pop-center clearfix" style="padding: 52rpx;top: 35%;">
 				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
 				<view class="p" style="margin-bottom: 80rpx;margin-top: 80rpx;">恭喜您，成功兑换礼品！</view>
 				<!-- <navigator class="n" hover-class="none" url="./change">立即查看</navigator> -->

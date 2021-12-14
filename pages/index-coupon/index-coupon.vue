@@ -15,7 +15,7 @@
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" style="z-index: 33;" v-if="showPop">
-			<view class="pop-center clearfix">
+			<view class="pop-center clearfix" style="top: 35%;">
 				<image @click="close" class="close" src="https://zhijianlw.com/static/web/img/z-close.png" mode="widthFix"></image>
 				<view class="p">恭喜您，绑定成功！</view>
 				<view class="n" hover-class="none" @click="clickHandler">立即查看</view>

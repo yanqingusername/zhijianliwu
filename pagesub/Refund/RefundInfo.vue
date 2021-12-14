@@ -222,7 +222,7 @@
 		
 		<!-- 填写物流单号 -->
 		<uni-popup ref="popuplogistics" type="center" :animation="false" :maskClick="true" @change="change">
-			<view class="popup-order" :style="'height:'+boxHeight+'rpx'">
+			<view class="popup-order" :style="'margin-top: -35%;height:'+boxHeight+'rpx'">
 				<view class="popup-order-text">填写物流单号</view>
 				<view class="popup-order-content" style="position: relative;">
 					<view class="popup-order-title">快递公司：</view>
