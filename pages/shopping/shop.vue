@@ -272,7 +272,8 @@
 			   remark: '大吉大利，恭喜发财！',
 			   remarkNumber: 0,
 			   isShowPop: false,
-			   unShopList:[]
+			   unShopList:[],
+			   cart_goods_id: ''
 			}
 		
 		},
@@ -341,7 +342,8 @@
 					 }
 					this.goodsinfo = res.rs.giftbag
 					this.undercarriage_list = res.rs.undercarriage_list;
-					this.price_zhe=res.rs.price_zhe
+					this.price_zhe=res.rs.price_zhe;
+					this.cart_goods_id = res.rs.cart_goods_id;
 					let numberss = 0
 					for (let i in res.rs.giftbag) {
 						numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -395,7 +397,8 @@
 							 }
 							this.goodsinfo = res.rs.giftbag
 							this.undercarriage_list = res.rs.undercarriage_list;
-							this.price_zhe=res.rs.price_zhe
+							this.price_zhe=res.rs.price_zhe;
+							this.cart_goods_id = res.rs.cart_goods_id;
 							let numberss = 0
 							for (let i in res.rs.giftbag) {
 								numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -518,7 +521,8 @@
 		 			this.goodsinfo = res.rs.giftbag;
 					this.undercarriage_list = res.rs.undercarriage_list;
 					
-					this.price_zhe=res.rs.price_zhe
+					this.price_zhe=res.rs.price_zhe;
+					this.cart_goods_id = res.rs.cart_goods_id;
 					let numberss = 0
 					for (let i in res.rs.giftbag) {
 						numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -632,7 +636,7 @@
 						let type= this.type
 						let memberid = uni.getStorageSync('id')
 						this.memberid = memberid;
-						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'","cart_goods_id":"' + this.cart_goods_id +'"}';
 						var action = 'get_buy_shopping_cart';
 						this.$utils.post(action, data).then(res => {
 							console.log(res)
@@ -651,7 +655,7 @@
 						let type=this.type
 						let memberid = uni.getStorageSync('id')
 						this.memberid = memberid;
-						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'"}';
+						var data = '{"memberid":"'+memberid+'","buy_type":"'+type+'","cart_goods_id":"' + this.cart_goods_id +'"}';
 						var action = 'get_buy_shopping_cart';
 						this.$utils.post(action, data).then(res => {
 							console.log(res)

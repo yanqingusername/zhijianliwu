@@ -248,7 +248,8 @@
 				remark: '大吉大利，恭喜发财！',
 				remarkNumber: 0,
 				isShowPop: false,
-				unShopList:[]
+				unShopList:[],
+				cart_goods_id: '', //购买商品ID
 			}
 
 		},
@@ -274,7 +275,8 @@
 				if (res.rs.giftbag.length >= 1 || res.rs.undercarriage_list >= 1) {
 					this.goodsinfo = res.rs.giftbag;
 					this.undercarriage_list = res.rs.undercarriage_list;
-					this.price_zhe=res.rs.price_zhe
+					this.price_zhe=res.rs.price_zhe;
+					this.cart_goods_id = res.rs.cart_goods_id;
 					let numberss = 0
 					for (let i in res.rs.giftbag) {
 						numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -333,7 +335,8 @@
 							if (res.rs.giftbag.length >= 1 || res.rs.undercarriage_list >= 1) {
 								that.goodsinfo = res.rs.giftbag;
 								that.undercarriage_list = res.rs.undercarriage_list;
-								that.price_zhe=res.rs.price_zhe
+								that.price_zhe=res.rs.price_zhe;
+								that.cart_goods_id = res.rs.cart_goods_id;
 								let numberss = 0
 								for (let i in res.rs.giftbag) {
 									numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -409,7 +412,8 @@
 							this.goodsinfo = res.rs.giftbag
 							
 							this.undercarriage_list = res.rs.undercarriage_list;
-							this.price_zhe=res.rs.price_zhe
+							this.price_zhe=res.rs.price_zhe;
+							this.cart_goods_id = res.rs.cart_goods_id;
 							let numberss = 0
 							for (let i in res.rs.giftbag) {
 								numberss += Number(res.rs.giftbag[i].goodsnum)
@@ -575,7 +579,7 @@
 					this.type = type;
 					let memberid = uni.getStorageSync('id')
 					this.memberid = memberid;
-					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '"}';
+					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '","cart_goods_id":"' + this.cart_goods_id +'"}';
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log(res)
@@ -603,7 +607,7 @@
 					this.type = type;
 					let memberid = uni.getStorageSync('id')
 					this.memberid = memberid;
-					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '"}';
+					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '","cart_goods_id":"' + this.cart_goods_id +'"}';
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log('商品信息11', res)
@@ -631,7 +635,7 @@
 					this.type = type;
 					let memberid = uni.getStorageSync('id')
 					this.memberid = memberid;
-					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '"}';
+					var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '","cart_goods_id":"' + this.cart_goods_id +'"}';
 					var action = 'get_buy_shopping_cart';
 					this.$utils.post(action, data).then(res => {
 						console.log(res)
