@@ -55,7 +55,8 @@
 
 		<!-- 底部 -->
 		<view class="details-btm flex" :data-keynum="alt.keynum" @click="confirm_order" v-if="isShow==1">
-			<view class="balance-view">去兑换</view>
+			<view v-if="alt.status == 1" class="balance-view">去兑换</view>
+			<view v-else class="balance-view" style="background: #cccccc;color: #ffffff;">已售馨</view>
 		</view>
 		
 		<!-- 绑卡 -->

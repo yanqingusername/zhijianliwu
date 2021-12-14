@@ -244,8 +244,10 @@
 			</view>
 
 			<view style="text-align: right;width: 50%;flex: 1;">
-				<view class="details-join" open-type="buy" @click="list_speci">直接购买</view>
-				<view class="details-give" open-type="song" @click="goshop">立即赠送</view>
+				<view class="details-join" open-type="buy" @click="list_speci" v-if="alt.status == 1">直接购买</view>
+				<view class="details-give" open-type="song" @click="goshop" v-if="alt.status == 1">立即赠送</view>
+				
+				<view class="details-give" style="background-color: #cccccc;color: #ffffff;" v-if="alt.status != 1">暂时无货</view>
 			</view>
 		</view>
 		

@@ -13,7 +13,8 @@
 					<view style="padding: 16rpx 20rpx 26rpx">
 						<view class="t-title">{{item.goodsname}}</view>
 						<view class="l-title">{{item.goodstitle}}</view>
-						<button size="mini" class="sub" :data-keynum="item.keynum"   @click="goto">去兑换</button>
+						<button v-if="item.status == 1" size="mini" class="sub" :data-keynum="item.keynum"   @click="goto">去兑换</button>
+						<button v-else size="mini" class="sub" style="background: #cccccc;color: #ffffff;">已售馨</button>
 					</view>
 				</view>
 			</view>

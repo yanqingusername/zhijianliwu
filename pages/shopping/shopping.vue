@@ -36,17 +36,17 @@
 						</view>
 					</view>
 					<view class="shop-gift-buys-top" style="border-bottom: 1rpx solid #EDEDED;" v-for="item in undercarriage_list" :key="item.id">
-						<view style="position: relative;">
+						<view style="position: relative;" @click="goToDetails(item.goodsinfo.keynum)">
 							<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
 							<view style="width: 92rpx;height: 92rpx;background: #5D5D5D;opacity: 0.69;display: flex;align-items: center;justify-content: center;color: #FFFFFF;font-size: 28rpx;position: absolute;top: 24rpx;left: 24rpx;border-radius: 50%;">失效</view>
 						</view>
 						
 						<view class="top-right">
-							<view class="shop-gift-buys-title" style="color: #AAAAAA;">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
+							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)" style="color: #AAAAAA;">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="price-bottom flex-between">
 								<view class="shop-gift-buys-ltitle" style="color: #AAAAAA;">{{item.goods_spec_item}}</view>
 								<view class="flex-vertically">
-									<view class="delete-view" @click="goDel(item.goodsinfo.id)">移除</view>
+									<view class="delete-view" @click="goDel.stop(item.goodsinfo.id)">移除</view>
 								</view>
 							</view>
 							<view>
@@ -407,6 +407,14 @@
 						console.log('更改价格', res)
 						if (res.rs.giftbag.length >= 1 || this.undercarriage_list >= 1) {
 							this.goodsinfo = res.rs.giftbag
+							
+							this.undercarriage_list = res.rs.undercarriage_list;
+							this.price_zhe=res.rs.price_zhe
+							let numberss = 0
+							for (let i in res.rs.giftbag) {
+								numberss += Number(res.rs.giftbag[i].goodsnum)
+							}
+							this.numberss = numberss
 							this.com = true
 						} else {
 							this.com = false
