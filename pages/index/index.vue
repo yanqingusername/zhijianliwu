@@ -212,6 +212,9 @@
 				console.log("推荐商品：",res);
 				this.commodyBlockList = res.rs;
 			});
+			
+			this.pageIndex_Index = 1;
+			
 			// 首页推荐商品
 			var data = JSON.stringify({
 				member_level: uni.getStorageSync("level"),
@@ -222,6 +225,9 @@
 			this.$utils.post(action, data).then(res => {
 				console.log("首页推荐商品：",res);
 				this.indexCommodyList = res.rs;
+				if(res.rs.length > 0){
+					this.pageIndex_Index++;
+				}
 				uni.hideLoading();
 
 				// 腾讯有数
@@ -310,10 +316,14 @@
 				}, 500)
 				console.log("商品：",res);
 				if(tabBarIndex == 0){
-					this.pageIndex_Index++;
+					if(res.rs.length > 0){
+						this.pageIndex_Index++;
+					}
 					this.indexCommodyList = res.rs;
 				}else{
-					this.pageIndex++;
+					if(res.rs.goodslist.length > 0){
+						this.pageIndex++;
+					}
 					this.indexCommodyList = res.rs.goodslist;
 				}
 			});
@@ -334,10 +344,16 @@
 			this.$utils.post(action, data).then(res => {
 				// console.log("首页推荐商品：",res);
 				if(tabBarIndex == 0){
-					this.pageIndex_Index++;
+					if(res.rs.length > 0){
+						this.pageIndex_Index++;
+					}
+					
 					this.indexCommodyList = this.indexCommodyList.concat(res.rs);
 				}else{
-					this.pageIndex++;
+					if(res.rs.goodslist.length > 0){
+						this.pageIndex++;
+					}
+					
 					this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
 				}
 			});
@@ -409,10 +425,14 @@
 				this.$utils.post(action, data).then(res => {
 					console.log("商品：",res);
 					if(tabBarIndex == 0){
-						this.pageIndex_Index++;
+						if(res.rs.length > 0){
+							this.pageIndex_Index++;
+						}
 						this.indexCommodyList = res.rs;
 					}else{
-						this.pageIndex++;
+						if(res.rs.goodslist.length > 0){
+							this.pageIndex++;
+						}
 						this.indexCommodyList = res.rs.goodslist;
 					}
 				});
