@@ -8,7 +8,7 @@
 			<view v-for="(item, index) in goodslist" class="tea" :key="index">
 				<view>
 					<view class="tea-img" :data-keynum="item.keynum" @click="confirm_order">
-						<image class="img" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+						<image class="img" :src="$utils.imageUrl(item.head_img)"></image>
 					</view>
 					<view style="padding: 16rpx 20rpx 26rpx">
 						<view class="t-title">{{item.goodsname}}</view>
