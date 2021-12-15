@@ -323,6 +323,7 @@
 				this.$utils.postNew(action,data,controller).then(res=>{
 					if(res.sta == 1){
 						that.orderInfo = res.rs;
+						that.numberss = 1;
 					} 
 				})
 			} else {
