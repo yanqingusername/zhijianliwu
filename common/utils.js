@@ -774,7 +774,7 @@ function isSystemInfo(){
 }
 
 function URLencode(sStr){
-    return sStr.replace(/\+/g, '%2B');
+    return sStr.replace(/\+/g, '%2B').replace(/\#/g, '%23').replace(/\&/g, '%26');
 }
 
 
