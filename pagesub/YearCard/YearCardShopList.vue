@@ -6,11 +6,16 @@
 						<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 					</view>
 					<view class="new-order-item">
-						<view class="new-order-item-title">{{item.goodstitle}}</view>
-						<view class="new-order-item-sku">{{item.goodsname}}</view>
+						<view class="new-order-item-title">{{item.goodsname}}</view>
+						<view class="new-order-item-sku">{{item.goodstitle}}</view>
 						<view class="new-order-right">
-							<view class="new-order-item-sku"></view>
-							<view class="new-order-item-total" @click.stop="go_exchange" :data-keynum="item.keynum">立即兑换</view>
+							<view class="new-order-item-sku">
+								<view class="new-order-item-sku-time" v-if="item.effective_s_time || item.effective_s_time">兑换时间：</view>
+								<view class="new-order-item-sku-time" v-if="item.effective_e_time || item.effective_e_time">{{item.effective_s_time}}～{{item.effective_e_time}}</view>
+							</view>
+							<view v-if="item.effective_status == 1" class="new-order-item-total" @click.stop="go_exchange" :data-keynum="item.keynum" :data-cliid="item.client_card_type_goods_id">立即兑换</view>
+							<view v-if="item.effective_status == 2" class="new-order-item-total" style="opacity: 0.5;">未生效</view>
+							<view v-if="item.effective_status == 3" class="new-order-item-total" style="background: #CCCCCC;color: #FFFFFF;">已过期</view>
 						</view>
 					</view>
 			</view>
@@ -65,8 +70,9 @@
 			//去兑换
 			go_exchange: function(e) {
 				let keynum = e.currentTarget.dataset.keynum;
+				let cliid = e.currentTarget.dataset.cliid;
 				uni.navigateTo({
-					url: '/pages/index-coupon/index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder + '&isYear=1'+ '&ordernumber=' + this.ordernumber
+					url: '/pages/index-coupon/index-address?good_keynum=' + keynum + '&isOrder=' + this.isOrder + '&isYear=1'+ '&ordernumber=' + this.ordernumber + '&cliid=' + cliid
 				})
 			},
 		}
@@ -96,7 +102,8 @@
 		display: flex;
 		flex-direction: column;
 		width: 450rpx;
-		justify-content: center;
+		position: relative;
+		/* justify-content: center; */
 	}
 	.new-order-item-title{
 		font-size: 28rpx;
@@ -106,6 +113,7 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		margin-top: 24rpx;
 	}
 	.new-order-item-sku{
 		font-size: 24rpx;
@@ -113,10 +121,18 @@
 		line-height: 33rpx;
 		margin-top: 18rpx;
 	}
+	.new-order-item-sku-time{
+		font-size: 24rpx;
+		color: #666666;
+		margin-top: 10rpx;
+	}
 	.new-order-right{
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		position: absolute;
+		bottom: 10px;
+		width: 450rpx;
 	}
 	
 	.new-order-item-total{

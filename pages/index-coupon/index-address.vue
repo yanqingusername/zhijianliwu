@@ -85,7 +85,8 @@
 				showPop: false,
 				isOrder: 0,
 				isYear: 0,
-				ordernumber: ''
+				ordernumber: '',
+				cliid: ""
 			}
 		},
 		onLoad: function(e) {
@@ -98,6 +99,10 @@
 			}
 			if(e && e.ordernumber){
 				this.ordernumber =  e.ordernumber;
+			}
+			
+			if(e && e.cliid){
+				this.cliid =  e.cliid;
 			}
 
 			console.log(e);
@@ -167,8 +172,8 @@
 					goods_spec: this.goodsinfo['goods_spec'][0]['id'],
 					goods_item: this.goodsinfo['goods_spec'][0]['goods_spec_item'][0]['item'],
 					delivery_type: '快递',
-					remark: this.remark
-
+					remark: this.remark,
+					client_card_type_goods_id: this.cliid
 				});
 				console.log(data);
 
