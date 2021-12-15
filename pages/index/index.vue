@@ -32,7 +32,7 @@
 				<view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (38 + statusBarHeight)+'px' : ''" id="scrollId">
 					<scroll-view scroll-x="true" class="owm-index-tab-bar-box"  show-scrollbar="false" upper-threshold="20" >
 						<view class="owm-index-tab-bar">
-							<view class="owm-index-tab-bar-item-view" v-for="item, index in List" @click="change(item.id)">
+							<view class="owm-index-tab-bar-item-view" v-for="(item, index) in List" @click="change(item.id)" :key="index">
 								<view class="owm-index-tab-bar-view">
 									<view class="owm-index-tab-bar-item" :class="[tabBarIndex==item.id?'owm-index-tab-bar-item-active':'']">{{item.name}} </view>
 									<image class="search-type-img" v-if="tabBarIndex==item.id" src="../../static/icon_current_slices.png"></image>

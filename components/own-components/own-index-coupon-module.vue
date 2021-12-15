@@ -46,8 +46,8 @@
 		data() {
 			return {
 				sta: 0,
-				coupon_left: "",
-				coupon_right: ""
+				coupon_left1: "",
+				coupon_right1: ""
 			}
 		},
 		onLoad() {

@@ -53,6 +53,8 @@ let appkey = config.__APPKEY();
  */
 function post(action, data) {
 	// var data =  JSON.stringify(data);
+	data = URLencode(data);
+	
 	var timestamp = Date.parse(new Date());
 	var ACTION = action;
 	timestamp = timestamp / 1000;
@@ -769,6 +771,10 @@ function isSystemInfo(){
  		}
  	});
 	return isSystemInfo;
+}
+
+function URLencode(sStr){
+    return sStr.replace(/\+/g, '%2B');
 }
 
 
