@@ -35,12 +35,12 @@
 		</view>
 		
 		<!-- <view class="index-home index-page" v-if="tabBarIndex==0"> -->
-		<view class="index-home index-page">
+		<view class="index-home index-page" v-if="tabBarIndex==0">
 			<!-- 模块宫格 -->
 			<own-grid :list="gridList"></own-grid>
 			<view class="index-module-box" style="margin-top: 40rpx;">
 				<!-- 优惠券模块 -->
-				<own-index-coupon-module :coupon_left="coupon_left" :coupon_right="coupon_right"></own-index-coupon-module>
+				<own-index-coupon-module :coupon_left="adList" :coupon_right="coupon_right"></own-index-coupon-module>
 				
 			</view>
 			
@@ -84,7 +84,7 @@
 				
 				<view class="personal-product" v-if="indexCommodyList.length>0">
 					<view class="personal-line" style="margin-right: 16px;"></view>
-					<image src="../../static/op.png" class="personal-product-icon"></image>
+					<image src="https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png" class="personal-product-icon"></image>
 					<view class="personal-product-title">精选推荐</view>
 					<view class="personal-line" style="margin-left: 16px;"></view>
 				</view>
@@ -94,9 +94,9 @@
 		</view>
 		
 		
-		<!-- <view class="index index-page" v-else>
-			<own-product-list :commody="commody" :state="state"></own-product-list>
-		</view> -->
+		<view class="index index-page" v-else>
+			<own-product-list :commody="indexCommodyList" :state="state"></own-product-list>
+		</view>
 		
 		<!-- 提交成功 -->
 		<uni-popup ref="popupcenter" type="center" :animation="false" @change="changePop">
@@ -192,7 +192,8 @@
 				isSystemInfo: false,
 				opationnumber: 1,
 				allgiftList: [],
-				isShowScene: true
+				isShowScene: true,
+				adList: []
 			}
 		},
 		onLoad() {
@@ -221,6 +222,15 @@
 				this.coupon_right = res.rs.coupon_right;
 				this.logoUrl = res.rs.logo;	
 				uni.setStorageSync("coupon_background", res.rs.coupon_background);
+			});
+			// 得到广告的相应列表
+			let dataad = JSON.stringify({
+				"module":"index"
+			});
+			let actionad = 'get_ad_list';
+			let controllerad = "ad";
+			this.$utils.postNew(actionad, dataad,controllerad).then(res => {
+				this.adList = res.data;
 			});
 			// 导航
 			var data = JSON.stringify({});
@@ -374,70 +384,81 @@
 		},
 		onPullDownRefresh(){
 			let tabBarIndex = this.tabBarIndex;
-			// if(tabBarIndex == 0){
+			if(tabBarIndex == 0){
 				this.pageIndex_Index = 1;
 				var action = 'get_tuijian_goods';
-			// }else{
-			// 	this.pageIndex = 1;
-			// 	var action = 'get_gift_person_goods';
-			// }
-			var data = JSON.stringify({
+			}else{
+				this.pageIndex = 1;
+				var action = 'get_gift_person_goods';
+			}
+			var data = {
 				member_level: uni.getStorageSync("level"),
-				// gift_person_id: tabBarIndex,
 				pageSize: this.pageSize,
-				pageIndex: this.pageIndex_Index,
-				// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-				is_type:1,
-			});
+				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+			};
+			
+			if(tabBarIndex == 0){
+				data.is_type = 1
+			}else{
+				data.gift_person_id = tabBarIndex
+			}
+			
+			data =JSON.stringify(data);
 			
 			this.$utils.post(action, data).then(res => {
 				setTimeout(()=>{
 					uni.stopPullDownRefresh();
 				}, 500)
 				console.log("商品：",res);
-				// if(tabBarIndex == 0){
+				if(tabBarIndex == 0){
 					if(res.rs.length > 0){
 						this.pageIndex_Index++;
 					}
 					this.indexCommodyList = res.rs;
-				// }else{
-				// 	if(res.rs.goodslist.length > 0){
-				// 		this.pageIndex++;
-				// 	}
-				// 	this.indexCommodyList = res.rs.goodslist;
-				// }
+				}else{
+					if(res.rs.goodslist.length > 0){
+						this.pageIndex++;
+					}
+					this.indexCommodyList = res.rs.goodslist;
+				}
 			});
 		},
 		onReachBottom(){
 			let tabBarIndex = this.tabBarIndex;
-			// if(tabBarIndex == 0){
+			if(tabBarIndex == 0){
 				var action = 'get_tuijian_goods';
-			// }else{
-			// 	var action = 'get_gift_person_goods';
-			// }
-			var data = JSON.stringify({
+			}else{
+				var action = 'get_gift_person_goods';
+			}
+			var data = {
 				member_level: uni.getStorageSync("level"),
-				// gift_person_id: tabBarIndex,
 				pageSize: this.pageSize,
-				pageIndex: this.pageIndex_Index,
-				// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-				is_type:1,
-			});
+				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+			};
+			
+			if(tabBarIndex == 0){
+				data.is_type = 1
+			}else{
+				data.gift_person_id = tabBarIndex
+			}
+			
+			data =JSON.stringify(data);
+			
 			this.$utils.post(action, data).then(res => {
 				// console.log("首页推荐商品：",res);
-				// if(tabBarIndex == 0){
+				if(tabBarIndex == 0){
 					if(res.rs.length > 0){
 						this.pageIndex_Index++;
 					}
 					
 					this.indexCommodyList = this.indexCommodyList.concat(res.rs);
-				// }else{
-				// 	if(res.rs.goodslist.length > 0){
-				// 		this.pageIndex++;
-				// 	}
+				}else{
+					if(res.rs.goodslist.length > 0){
+						this.pageIndex++;
+					}
 					
-				// 	this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
-				// }
+					this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
+				}
 			});
 		},
 		methods: {
@@ -523,34 +544,38 @@
 				if(tabBarIndex == 0){
 					this.pageIndex_Index = 1;
 					var action = 'get_tuijian_goods';
-				// }else{
-				// 	this.pageIndex = 1;
-				// 	var action = 'get_gift_person_goods';
+				}else{
+					this.pageIndex = 1;
+					var action = 'get_gift_person_goods';
+				}
 				
-				var data = JSON.stringify({
+				var data = {
 					member_level: uni.getStorageSync("level"),
-					// gift_person_id: tabBarIndex,
 					pageSize: this.pageSize,
-					pageIndex: this.pageIndex_Index,
-					// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-					is_type:1,
-				});
+					pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+				};
+				if(tabBarIndex == 0){
+					data.is_type = 1
+				}else{
+					data.gift_person_id = tabBarIndex
+				}
+				
+				data =JSON.stringify(data)
 				
 				this.$utils.post(action, data).then(res => {
 					console.log("商品：",res);
-					// if(tabBarIndex == 0){
+					if(tabBarIndex == 0){
 						if(res.rs.length > 0){
 							this.pageIndex_Index++;
 						}
 						this.indexCommodyList = res.rs;
-					// }else{
-					// 	if(res.rs.goodslist.length > 0){
-					// 		this.pageIndex++;
-					// 	}
-					// 	this.indexCommodyList = res.rs.goodslist;
-					// }
+					}else{
+						if(res.rs.goodslist.length > 0){
+							this.pageIndex++;
+						}
+						this.indexCommodyList = res.rs.goodslist;
+					}
 				});
-				}
 				//腾讯有数
 				sr.track('element',
 				{

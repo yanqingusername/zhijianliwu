@@ -10,8 +10,8 @@
 						<view class="new-order-item-sku">{{item.goodstitle}}</view>
 						<view class="new-order-right">
 							<view class="new-order-item-sku">
-								<view class="new-order-item-sku-time" v-if="item.effective_s_time || item.effective_s_time">兑换时间：</view>
-								<view class="new-order-item-sku-time" v-if="item.effective_e_time || item.effective_e_time">{{item.effective_s_time}}～{{item.effective_e_time}}</view>
+								<!-- <view class="new-order-item-sku-time" v-if="item.effective_s_time || item.effective_s_time">兑换时间：</view> -->
+								<view class="new-order-item-sku-time" v-if="item.effective_e_time || item.effective_e_time">兑换时间：{{item.effective_s_time}}～{{item.effective_e_time}}</view>
 							</view>
 							<view v-if="item.effective_status == 1" class="new-order-item-total" @click.stop="go_exchange" :data-keynum="item.keynum" :data-cliid="item.client_card_type_goods_id">立即兑换</view>
 							<view v-if="item.effective_status == 2" class="new-order-item-total" style="opacity: 0.5;">未生效</view>
@@ -90,18 +90,18 @@
 	}
 	
 	.new-order-img{
-		width: 220rpx;
-		height: 220rpx;
+		width: 160rpx;
+		height: 160rpx;
 	}
 	.new-order-commodity-img{
-		width: 220rpx;
-		height: 220rpx;
+		width: 160rpx;
+		height: 160rpx;
 	}
 	.new-order-item{
 		margin-left: 20rpx;
 		display: flex;
 		flex-direction: column;
-		width: 450rpx;
+		width: 510rpx;
 		position: relative;
 		/* justify-content: center; */
 	}
@@ -109,20 +109,20 @@
 		font-size: 28rpx;
 		color: #333333;
 		line-height: 40rpx;
-		width: 450rpx;
+		width: 510rpx;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		margin-top: 24rpx;
+		margin-top: 12rpx;
 	}
 	.new-order-item-sku{
 		font-size: 24rpx;
 		color: #999999;
 		line-height: 33rpx;
-		margin-top: 18rpx;
+		margin-top: 12rpx;
 	}
 	.new-order-item-sku-time{
-		font-size: 24rpx;
+		font-size: 21rpx;
 		color: #666666;
 		margin-top: 10rpx;
 	}
@@ -131,19 +131,19 @@
 		align-items: center;
 		justify-content: space-between;
 		position: absolute;
-		bottom: 10px;
-		width: 450rpx;
+		bottom: 0px;
+		width: 510rpx;
 	}
 	
 	.new-order-item-total{
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 158rpx;
-		height: 56rpx;
+		width: 140rpx;
+		height: 50rpx;
 		background: #EC1815;
 		border-radius: 28rpx;
-		font-size: 24rpx;
+		font-size: 22rpx;
 		color: #FFFFFF;
 		margin-top: 18rpx;
 	}

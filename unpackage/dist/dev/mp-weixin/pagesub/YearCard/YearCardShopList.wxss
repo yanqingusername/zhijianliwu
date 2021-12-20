@@ -7,18 +7,18 @@ page{
 	padding: 30rpx 34rpx 0rpx 26rpx;
 }
 .new-order-img{
-	width: 220rpx;
-	height: 220rpx;
+	width: 160rpx;
+	height: 160rpx;
 }
 .new-order-commodity-img{
-	width: 220rpx;
-	height: 220rpx;
+	width: 160rpx;
+	height: 160rpx;
 }
 .new-order-item{
 	margin-left: 20rpx;
 	display: flex;
 	flex-direction: column;
-	width: 450rpx;
+	width: 510rpx;
 	position: relative;
 	/* justify-content: center; */
 }
@@ -26,20 +26,20 @@ page{
 	font-size: 28rpx;
 	color: #333333;
 	line-height: 40rpx;
-	width: 450rpx;
+	width: 510rpx;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-top: 24rpx;
+	margin-top: 12rpx;
 }
 .new-order-item-sku{
 	font-size: 24rpx;
 	color: #999999;
 	line-height: 33rpx;
-	margin-top: 18rpx;
+	margin-top: 12rpx;
 }
 .new-order-item-sku-time{
-	font-size: 24rpx;
+	font-size: 21rpx;
 	color: #666666;
 	margin-top: 10rpx;
 }
@@ -48,18 +48,18 @@ page{
 	align-items: center;
 	justify-content: space-between;
 	position: absolute;
-	bottom: 10px;
-	width: 450rpx;
+	bottom: 0px;
+	width: 510rpx;
 }
 .new-order-item-total{
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 158rpx;
-	height: 56rpx;
+	width: 140rpx;
+	height: 50rpx;
 	background: #EC1815;
 	border-radius: 28rpx;
-	font-size: 24rpx;
+	font-size: 22rpx;
 	color: #FFFFFF;
 	margin-top: 18rpx;
 }
