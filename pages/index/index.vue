@@ -12,7 +12,7 @@
 		<view class="z-tabar" style="margin-top: 70px;z-index: 30;position: fixed;width: 100%;">
 			<scroll-view scroll-x="true" class="owm-index-tab-bar-box" show-scrollbar="false" upper-threshold="20" >
 				<view class="owm-index-tab-bar">
-					<view class="owm-index-tab-bar-item-view" v-for="(item, index) in List" @click="change(item.id)" :key="index">
+					<view class="owm-index-tab-bar-item-view" v-for="(item, index) in List" @click="changeProduct(item.id,item.keynum,item.name)" :key="index">
 						<view class="owm-index-tab-bar-view">
 							<view class="owm-index-tab-bar-item" :class="[tabBarIndex==item.id?'owm-index-tab-bar-item-active':'']">{{item.name}} </view>
 						</view>
@@ -20,22 +20,25 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view :style="'padding-top:5px;background: #F2341E;height: 80px;border-radius: 0px 0px 15px 15px;margin-top: 95px;width: 100%;opacity:'+ opationnumber + ';'"></view>
 		
-		<view style="padding: 0 26rpx; margin-top: -75px;position: relative;display: flex;align-items: center;justify-content: center;">
-			<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
-				<swiper-item v-for="(item,index) in swiper" :key="index">
-					<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
-					@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
-				</swiper-item>
-			</swiper>
-			<view class="indicator-view" v-if="swiper.length>0">
-				<view :class="[swiperCurrentIndex == index ? 'indicator-view-item' : 'indicator-view-item-default']" v-for="(item,index) in swiper" :key="index"></view>
-			</view>
-		</view>
 		
 		<!-- <view class="index-home index-page" v-if="tabBarIndex==0"> -->
 		<view class="index-home index-page" v-if="tabBarIndex==0">
+			
+			<view :style="'padding-top:5px;background: #F2341E;height: 80px;border-radius: 0px 0px 15px 15px;margin-top: 95px;width: 100%;opacity:'+ opationnumber + ';'"></view>
+			
+			<view style="padding: 0 26rpx; margin-top: -75px;position: relative;display: flex;align-items: center;justify-content: center;">
+				<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
+					<swiper-item v-for="(item,index) in swiper" :key="index">
+						<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
+						@click="bannerJump(item.jump_action, item.jump_id)" mode="widthFix"></image>
+					</swiper-item>
+				</swiper>
+				<view class="indicator-view" v-if="swiper.length>0">
+					<view :class="[swiperCurrentIndex == index ? 'indicator-view-item' : 'indicator-view-item-default']" v-for="(item,index) in swiper" :key="index"></view>
+				</view>
+			</view>
+			
 			<!-- 模块宫格 -->
 			<own-grid :list="gridList"></own-grid>
 			<view class="index-module-box" style="margin-top: 40rpx;">
@@ -94,9 +97,41 @@
 		</view>
 		
 		
-		<view class="index index-page" v-else>
+		<view class="index index-page" v-else style="margin-top: 95px;position: relative;">
+			<view class="search-type" :animation="slide_up">
+				<view class="search-type-content flex-between" style="align-items: center;">
+					<view class="search-type-nav" data-index='0' @click="clickHandler" :data-conditionkey="recommendData.key">
+						<view class="search-type-title" :class="[indexCurrent == 0 ? 'search-type-title-active':'']">{{recommendData.name}}</view>
+						<image class="search-type-img" v-if="indexCurrent == 0" src="../../static/icon_current_slices.png"></image>
+						<view class="search-type-empty" v-else></view>
+					</view>
+					<view class="search-type-nav" data-index='1' @click="clickHandler" :data-conditionkey="salesData.key">
+						<view class="search-type-title" :class="[indexCurrent == 1 ? 'search-type-title-active':'']">{{salesData.name}}</view>
+						<image class="search-type-img" v-if="indexCurrent == 1" src="../../static/icon_current_slices.png"></image>
+						<view class="search-type-empty" v-else></view>
+					</view>
+					<view class="search-type-nav-price" style="flex-direction: row;" data-index='2' @click="clickPopUp" :data-conditionkey="priceData.key">
+						<view class="search-type-nav-ar" style="flex-direction: column;">
+							<view class="search-type-title" :class="[indexCurrent == 2 ? 'search-type-title-active':'']">{{priceData.name}}</view>
+							<image class="search-type-img" v-if="indexCurrent == 2" src="../../static/icon_current_slices.png"></image>
+							<view class="search-type-empty" v-else></view>
+						</view>
+						<image class="search-type-img-ar" src="../../static/drop_down_arrow.png"></image>
+					</view>
+				</view>
+			</view>
+			<view style="height: 80rpx;"></view>
 			<own-product-list :commody="indexCommodyList" :state="state"></own-product-list>
 		</view>
+		
+		<!-- 价格弹框	 -->
+		<uni-popup ref="popupSearch" type="top" :animation="false" :maskClick="true" @change="change">
+			<view class="popup-search">
+				<view class="popup-search-item" @click="bindPickerChange" v-for="(item, index) in rsdataList" :key="index" :data-pricekey="item.price_key">
+					<view class="popup-search-title">{{item.price_name}}</view>
+				</view>
+			</view>
+		</uni-popup>
 		
 		<!-- 提交成功 -->
 		<uni-popup ref="popupcenter" type="center" :animation="false" @change="changePop">
@@ -150,6 +185,7 @@
 	import indexJrtj from "@/components/own-image/index-jrtj.vue";
 	import sr from 'sr-sdk-wxapp';
 	// "own-swiper": ownSwiper,
+	let timer;
 	export default {
 		components:{
 			"own-index-header": ownIndexHeader,
@@ -167,7 +203,8 @@
 				List: [
 					{
 						id: 0,
-						name: "推荐"
+						name: "推荐",
+						keynum:""
 					}
 				],
 				gridList: [],
@@ -193,7 +230,21 @@
 				opationnumber: 1,
 				allgiftList: [],
 				isShowScene: true,
-				adList: []
+				adList: [],
+				rsdataList: [],
+				priceData: '',
+				salesData: '',
+				recommendData: '',
+				pagePlanSize: 10,
+				pagePlanIndex: 1,
+				postList: [],
+				indexCurrent: 0,
+				conditionkey: '1',
+				pricekey: '',
+				keynum1: "",
+				coupon_type: '',
+				Key: "",
+				slide_up:'',
 			}
 		},
 		onLoad() {
@@ -253,6 +304,18 @@
 				console.log("主题商品：",res);
 				this.gridList = res.rs;
 			});
+			
+			//搜索条件
+			let action1 = "serach_condition";
+			let controller1 = 'search';
+			let data1 = JSON.stringify({});
+			this.$utils.postNew(action1,data1,controller1).then(res=>{
+				this.rsdataList = res.rs.price.rs_data;
+				this.priceData = res.rs.price;
+				this.salesData = res.rs.sales;
+				this.recommendData = res.rs.recommend;
+			})
+			
 			// 推荐商品
 			// var data = JSON.stringify({
 			// 	a:0,
@@ -339,6 +402,13 @@
 			
 		},
 		onPageScroll(e){
+			let that = this;
+			clearTimeout(timer) // 每次滚动前 清除一次
+			that.fadeOut();
+			timer = setTimeout(function() { 
+				that.fadeIn();
+			}, 500);
+			
 			this.rect = e.scrollTop;
 			console.log(e.scrollTop)
 			
@@ -387,81 +457,140 @@
 			if(tabBarIndex == 0){
 				this.pageIndex_Index = 1;
 				var action = 'get_tuijian_goods';
+				var data = JSON.stringify({
+					member_level: uni.getStorageSync("level"),
+					pageSize: this.pageSize,
+					pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+					is_type: 1
+				});
+				this.$utils.post(action, data).then(res => {
+					setTimeout(()=>{
+						uni.stopPullDownRefresh();
+					}, 500)
+					console.log("商品：",res);
+						if(res.rs.length > 0){
+							this.pageIndex_Index++;
+						}
+						this.indexCommodyList = res.rs;
+				});
+				
 			}else{
 				this.pageIndex = 1;
-				var action = 'get_gift_person_goods';
-			}
-			var data = {
-				member_level: uni.getStorageSync("level"),
-				pageSize: this.pageSize,
-				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-			};
-			
-			if(tabBarIndex == 0){
-				data.is_type = 1
-			}else{
-				data.gift_person_id = tabBarIndex
-			}
-			
-			data =JSON.stringify(data);
-			
-			this.$utils.post(action, data).then(res => {
+				this.getProductList(1);
 				setTimeout(()=>{
 					uni.stopPullDownRefresh();
-				}, 500)
-				console.log("商品：",res);
-				if(tabBarIndex == 0){
-					if(res.rs.length > 0){
-						this.pageIndex_Index++;
-					}
-					this.indexCommodyList = res.rs;
-				}else{
-					if(res.rs.goodslist.length > 0){
-						this.pageIndex++;
-					}
-					this.indexCommodyList = res.rs.goodslist;
-				}
-			});
+				}, 500);
+			}
 		},
 		onReachBottom(){
 			let tabBarIndex = this.tabBarIndex;
 			if(tabBarIndex == 0){
 				var action = 'get_tuijian_goods';
+				var data = JSON.stringify({
+					member_level: uni.getStorageSync("level"),
+					pageSize: this.pageSize,
+					pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+					is_type: 1
+				});
+				this.$utils.post(action, data).then(res => {
+					// console.log("首页推荐商品：",res);
+						if(res.rs.length > 0){
+							this.pageIndex_Index++;
+						}
+						
+						this.indexCommodyList = this.indexCommodyList.concat(res.rs);
+				});
 			}else{
-				var action = 'get_gift_person_goods';
+				this.getProductList(2);
 			}
-			var data = {
-				member_level: uni.getStorageSync("level"),
-				pageSize: this.pageSize,
-				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-			};
-			
-			if(tabBarIndex == 0){
-				data.is_type = 1
-			}else{
-				data.gift_person_id = tabBarIndex
-			}
-			
-			data =JSON.stringify(data);
-			
-			this.$utils.post(action, data).then(res => {
-				// console.log("首页推荐商品：",res);
-				if(tabBarIndex == 0){
-					if(res.rs.length > 0){
-						this.pageIndex_Index++;
-					}
-					
-					this.indexCommodyList = this.indexCommodyList.concat(res.rs);
-				}else{
-					if(res.rs.goodslist.length > 0){
-						this.pageIndex++;
-					}
-					
-					this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
-				}
-			});
 		},
 		methods: {
+			//渐显
+			    fadeIn() {
+			      var animation = wx.createAnimation({
+			        duration: 400,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+			      animation.opacity(1).step();
+				  animation.translateY(0).step()
+			      this.slide_up = animation.export()
+			    },
+			    //渐隐消失
+			    fadeOut() {
+			      var animation = wx.createAnimation({
+			        duration: 400,
+			        timingType: 'ease'
+			      });
+			      this.animation = animation
+				  animation.translateY(-40).step()
+				  animation.opacity(0).step();
+			      this.slide_up = animation.export()
+			    },
+			goToScrollTop: function(){
+				uni.pageScrollTo({
+					scrollTop: 0, 
+					duration: 1000
+				})
+			},
+			clickHandler: function(e){
+				let index = e.currentTarget.dataset.index;
+				this.indexCurrent = index;
+				this.conditionkey = e.currentTarget.dataset.conditionkey;
+				this.pricekey = "";
+				this.getProductList(1);
+				this.$refs['popupSearch'].close();
+			},
+			clickPopUp: function(e){
+				this.conditionkey = e.currentTarget.dataset.conditionkey;
+				let index = e.currentTarget.dataset.index;
+				this.indexCurrent = index;
+				this.$refs['popupSearch'].open();
+			},
+			change(e) {
+			
+			},
+			bindPickerChange: function(e) {
+				this.pricekey = e.currentTarget.dataset.pricekey;
+				this.$refs['popupSearch'].close();
+				this.getProductList(1);
+			},
+			getProductList(typeNumber){
+				console.log(this.keynum1)
+				if(typeNumber == 1){
+					this.pageIndex = 1;
+				}
+				
+				let that = this;
+				let action = "search_list";
+				let controller = 'search';
+				let level = uni.getStorageSync("level");
+				let data = JSON.stringify({
+					condition_key:this.conditionkey,
+					price_key:this.pricekey,
+					keyword:this.Key,
+					member_level: level,
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
+					goodsclassify: this.keynum1,
+					coupon_type: this.coupon_type
+				});
+				this.$utils.postNew(action,data,controller).then(res=>{
+					
+					if(typeNumber == 1){
+						if(res.rs.length>0){
+							that.pageIndex++;
+						}
+						that.indexCommodyList = res.rs;
+						this.goToScrollTop();
+					} else {
+						if(res.rs.length>0){
+							that.pageIndex++;
+						}
+						that.indexCommodyList = that.indexCommodyList.concat(res.rs);
+					}
+				})
+			},
 			details:function(e){
 				// 腾讯有数
 				let dataitem = e.currentTarget.dataset.dataitem;
@@ -517,65 +646,38 @@
 					})
 				}
 			},
-			change: function(e){
+			changeProduct: function(e,keynum1,name){
+				console.log(e,keynum1,name)
 				this.tabBarIndex = e;
-				// if(e != 0){
-				// 	this.pageIndex = 1;
-				// 	var data = JSON.stringify({
-				// 		member_level: uni.getStorageSync("level"),
-				// 		gift_person_id: this.tabBarIndex,
-				// 		pageSize: this.pageSize,
-				// 		pageIndex: this.pageIndex
-				// 	});
-				// 	var action = 'get_gift_person_goods';
-					
-				// 	uni.pageScrollTo({
-				// 		scrollTop: 0,
-				// 		duration: 500,
-				// 	});
-				// 	this.$utils.post(action, data).then(res => {
-				// 		this.pageIndex++;
-				// 		console.log("切换Teb切换商品：",res);
-				// 		this.commody = res.rs.goodslist;
-				// 	});
-				// }
 				
 				let tabBarIndex = e;
 				if(tabBarIndex == 0){
 					this.pageIndex_Index = 1;
 					var action = 'get_tuijian_goods';
+					var data = JSON.stringify({
+						member_level: uni.getStorageSync("level"),
+						pageSize: this.pageSize,
+						pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+						is_type: 1
+					});
+					
+					this.$utils.post(action, data).then(res => {
+						console.log("商品：",res);
+						if(tabBarIndex == 0){
+							if(res.rs.length > 0){
+								this.pageIndex_Index++;
+							}
+							this.indexCommodyList = res.rs;
+						}
+					});
 				}else{
 					this.pageIndex = 1;
-					var action = 'get_gift_person_goods';
+					this.keynum1 = keynum1;
+					this.Key = name;
+					this.getProductList(1);
 				}
 				
-				var data = {
-					member_level: uni.getStorageSync("level"),
-					pageSize: this.pageSize,
-					pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
-				};
-				if(tabBarIndex == 0){
-					data.is_type = 1
-				}else{
-					data.gift_person_id = tabBarIndex
-				}
 				
-				data =JSON.stringify(data)
-				
-				this.$utils.post(action, data).then(res => {
-					console.log("商品：",res);
-					if(tabBarIndex == 0){
-						if(res.rs.length > 0){
-							this.pageIndex_Index++;
-						}
-						this.indexCommodyList = res.rs;
-					}else{
-						if(res.rs.goodslist.length > 0){
-							this.pageIndex++;
-						}
-						this.indexCommodyList = res.rs.goodslist;
-					}
-				});
 				//腾讯有数
 				sr.track('element',
 				{
@@ -786,7 +888,7 @@
 		/* line-height: 64rpx; */
 		/* height: 64rpx; */
 		/* width: 120rpx; */
-		font-size: 32rpx;
+		font-size: 30rpx;
 		color: #FFFFFF;
 		display: block;
 		width: 100%;
@@ -1177,4 +1279,88 @@
 			 line-height: 42rpx;
 			 
 		}
+		
+		.search-type {
+		    /* border-top: 2rpx solid #F4F5F7; */
+		    height: 80rpx;
+		    background-color: #FFF;
+		    /* padding-bottom: 10rpx; */
+		    padding-top: 10rpx;
+		    position: fixed;
+		    z-index: 18;
+		    width: 100%;
+		}
+		.search-type-content {
+		    width: 600rpx;
+		    margin: 0 auto;
+		    height: 80rpx;
+		    /* padding-top: 21rpx; */
+		}
+		
+		.search-type-nav-price {
+		    display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+		.search-type-nav {
+		    display: flex;
+		    align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+		.search-type-nav-ar{
+			display: flex;
+			align-items: center;
+			
+		}
+		.search-type-title{
+			font-size: 28rpx;
+			color: #333333;
+		}
+		.search-type-title-active{
+			font-weight: bold;
+		}
+		.search-type-img{
+			width: 31rpx;
+			height: 20rpx;
+		}
+		.search-type-img-ar{
+			width: 30rpx;
+			height: 30rpx;
+			margin-left: 5rpx;
+			margin-top: 6rpx;
+		}
+		.search-type-empty{
+			width: 31rpx;
+			height: 20rpx;
+		}
+		
+		.popup-search{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background: #FFFFFF;
+			/* border-radius: 10rpx 10rpx 3rpx 3rpx; */
+			width: 234rpx;
+			/* height: 450rpx; */
+			box-shadow: 0px 0px 8rpx 0px rgba(212, 212, 212, 0.5);
+			position: absolute;
+		    top: 390rpx;
+		    right: 0rpx;
+		}
+		
+		.popup-search-item{
+			display: flex;
+			align-items: center;
+			height: 64rpx;
+			width: 100%;
+			justify-content: center;
+		}
+		.popup-search-title{
+			font-size: 26rpx;
+			color: #333333;
+			line-height: 37rpx;
+		}
+		
 </style>

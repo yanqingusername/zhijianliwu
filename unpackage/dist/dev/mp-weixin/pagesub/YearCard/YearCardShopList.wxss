@@ -4,7 +4,7 @@ page{
 }
 .new-order-li{
 	display: flex;
-	padding: 30rpx 34rpx 0rpx 26rpx;
+	padding: 20rpx 34rpx 0rpx 26rpx;
 }
 .new-order-img{
 	width: 160rpx;

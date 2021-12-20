@@ -19,6 +19,7 @@
 						</view>
 					</view>
 			</view>
+			<view style="height: 1px;width: 100%;background: #F1F1F1;margin-top: 20rpx;"></view>
 		</view>
 		
 		<view style="height: 40rpx;"></view>
@@ -86,7 +87,7 @@
 	
 	.new-order-li{
 		display: flex;
-		padding: 30rpx 34rpx 0rpx 26rpx;
+		padding: 20rpx 34rpx 0rpx 26rpx;
 	}
 	
 	.new-order-img{
