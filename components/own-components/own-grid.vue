@@ -2,7 +2,7 @@
 	<scroll-view class="monthDescTab" scroll-x="true" scroll-with-animation>
 		<!-- <view class="own-grid-box" :style="'height:'+boxHeight+'rpx'"> -->
 		<!-- <view class="own-grid-box"> -->
-			<view class="own-grid-item" v-for="item, index in list" :key="index" @click="goToTheme" :data-id="item.id">
+			<view class="own-grid-item" v-for="item, index in list" :key="index" @click="goToTheme" :data-url="item.url">
 				<image :src="$utils.imageUrl(item.icon)" mode="" class="own-grid-item-image"></image>
 				<view class="own-grid-item-text">
 					{{item.name}}
@@ -22,13 +22,22 @@
 		},
 		methods: {
 			goToTheme: function(e) {
-				let id = e.currentTarget.dataset.id;
-				uni.navigateTo({
-					url: "../product-list/product-list?type=module&key=" + id
-				})
-				// uni.navigateTo({
-				// 	url: "/pagesub/CinemaTicket/CinemaTicketHome"
-				// })
+				let url = e.currentTarget.dataset.url;
+				if(url && url != null){
+					uni.navigateTo({
+						url: url
+					});
+				}
+				// id=10 为特殊值，指定为电影卡列表
+				// if(id == 10){
+				// 	uni.navigateTo({
+				// 		url: "/pagesub/CinemaTicket/CinemaTicketHome"
+				// 	});
+				// }else{
+				// 	uni.navigateTo({
+				// 		url: "../product-list/product-list?type=module&key=" + id
+				// 	});
+				// }
 			}
 		},
 		computed:{

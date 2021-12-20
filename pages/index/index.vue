@@ -1,12 +1,28 @@
 <template>
 	<view class="page" @scroll="getViewTop">
+		
+		<!-- <view style="position: fixed;background: #F2341E;height: 150px;border-radius: 0px 0px 35px 35px;margin-top: 61px;width: 100%;"></view> -->
+		
 		<!-- 顶部栏 -->
-		<own-index-header @change="change" :List="List" :index="tabBarIndex" :loginUrl="logoUrl"></own-index-header>
+		<own-index-header @change="change" :List="List" :index="tabBarIndex" :loginUrl="logoUrl" :isShowScene="isShowScene"></own-index-header>
 		<!-- 轮播图 -->
 		<!-- <own-swiper v-if="tabBarIndex==0" :swiper="swiper"></own-swiper> -->
 		<!-- <own-swiper :swiper="swiper"></own-swiper> -->
 		
-		<view style="padding: 0 26rpx; margin-top: -210rpx;position: relative;display: flex;align-items: center;justify-content: center;">
+		<view class="z-tabar" style="margin-top: 70px;z-index: 30;position: fixed;width: 100%;">
+			<scroll-view scroll-x="true" class="owm-index-tab-bar-box" show-scrollbar="false" upper-threshold="20" >
+				<view class="owm-index-tab-bar">
+					<view class="owm-index-tab-bar-item-view" v-for="(item, index) in List" @click="change(item.id)" :key="index">
+						<view class="owm-index-tab-bar-view">
+							<view class="owm-index-tab-bar-item" :class="[tabBarIndex==item.id?'owm-index-tab-bar-item-active':'']">{{item.name}} </view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view :style="'padding-top:5px;background: #F2341E;height: 80px;border-radius: 0px 0px 15px 15px;margin-top: 95px;width: 100%;opacity:'+ opationnumber + ';'"></view>
+		
+		<view style="padding: 0 26rpx; margin-top: -75px;position: relative;display: flex;align-items: center;justify-content: center;">
 			<swiper v-if="swiper.length>0" :autoplay="autoplay" :interval="interval" :duration="duration" circular class="own-swiper swiper-box" @change="changeswiper" :current="swiperCurrentIndex">
 				<swiper-item v-for="(item,index) in swiper" :key="index">
 					<image lazy-load="true" class="own-swiper-img" :src="$utils.imageUrl(item.banner)" 
@@ -21,15 +37,31 @@
 		<!-- <view class="index-home index-page" v-if="tabBarIndex==0"> -->
 		<view class="index-home index-page">
 			<!-- 模块宫格 -->
-			<!-- <own-grid :list="gridList"></own-grid> -->
+			<own-grid :list="gridList"></own-grid>
 			<view class="index-module-box" style="margin-top: 40rpx;">
 				<!-- 优惠券模块 -->
 				<own-index-coupon-module :coupon_left="coupon_left" :coupon_right="coupon_right"></own-index-coupon-module>
 				
 			</view>
 			
+			<view class="class-view" v-if="allgiftList.length > 0">
+					<view class="class-view-item" v-for="(item,index) in allgiftList" :key="index" :style="'height: ' + (item.goods_list.length > 3 ? '925':'550')+'rpx;background-image: url('+ item.background +');background-size:700rpx '+(item.goods_list.length > 3 ? '925':'550')+'rpx;'">
+						<view class="class-view-item-more" @click="toMore" :data-keynum="item.keynum" :data-name="item.name">更多></view>
+						<view class="class-view-item-list" :class="[item.goods_list.length > 2 ? 'class-view-item-list-active':'']">
+							<view class="class-view-item-good" :class="[item.goods_list.length > 2 ? '':'class-view-item-good-active']" v-for="(items,index) in item.goods_list" :key="index" @click="details" :data-keynum="items.keynum" :data-dataitem="items">
+								<image :src="items.head_img" mode=""class="class-view-img" ></image>
+								<view class="class-view-text">{{items.goodsname}}</view>
+								<view class="class-view-other">
+									<text class="class-view-price">￥</text><text style="font-size: 34rpx;color: #FB4133;">{{items.price}}</text>
+									<image class="class-view-qi" v-if="post.level_sign == 1" src="../../static/icon_corporate_members.png"></image>
+								</view>
+							</view>
+						</view>
+					</view>
+			</view>
+			
 			<!-- <view id="z-good-wrap"> -->
-				<view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (38 + statusBarHeight)+'px' : ''" id="scrollId">
+				<!-- <view class="z-tabar" :class="[nameTop <= rect ? 'is-fixed' : '']" :style="nameTop <= rect ? 'top:'+ (38 + statusBarHeight)+'px' : ''" id="scrollId">
 					<scroll-view scroll-x="true" class="owm-index-tab-bar-box"  show-scrollbar="false" upper-threshold="20" >
 						<view class="owm-index-tab-bar">
 							<view class="owm-index-tab-bar-item-view" v-for="(item, index) in List" @click="change(item.id)" :key="index">
@@ -41,7 +73,6 @@
 							</view>
 						</view>
 					</scroll-view>
-					<!-- <navigator url="" class="right-op"><text>分类</text><image src="../../static/op.png" mode="widthFix"></image></navigator> -->
 					<view class="right-op owm-index-tab-bar-view" @click="$buttonClick(changeClassifi)">
 						<view style="display: flex;align-items: center;">
 							<view class="owm-index-tab-bar-item owm-index-tab-bar-item-active">分类</view>
@@ -49,6 +80,13 @@
 						</view>
 						<view class="search-type-empty"></view>
 					</view>
+				</view> -->
+				
+				<view class="personal-product" v-if="indexCommodyList.length>0">
+					<view class="personal-line" style="margin-right: 16px;"></view>
+					<image src="../../static/op.png" class="personal-product-icon"></image>
+					<view class="personal-product-title">精选推荐</view>
+					<view class="personal-line" style="margin-left: 16px;"></view>
 				</view>
 				
 				<own-product-list :commody="indexCommodyList" :state="state"></own-product-list>
@@ -129,7 +167,7 @@
 				List: [
 					{
 						id: 0,
-						name: "全部"
+						name: "推荐"
 					}
 				],
 				gridList: [],
@@ -139,7 +177,7 @@
 				swiper:[],
 				commody: [],
 				state: 0,
-				pageSize: 50,// 分页
+				pageSize: 20,// 分页
 				pageIndex_Index: 1,
 				pageIndex: 1,
 				nameTop: 400,
@@ -151,7 +189,10 @@
 				autoplay: true,
 				interval: 2000,
 				duration: 500,
-				isSystemInfo: false
+				isSystemInfo: false,
+				opationnumber: 1,
+				allgiftList: [],
+				isShowScene: true
 			}
 		},
 		onLoad() {
@@ -203,15 +244,15 @@
 				this.gridList = res.rs;
 			});
 			// 推荐商品
-			var data = JSON.stringify({
-				a:0,
-				member_level: uni.getStorageSync("level"),
-			});
-			var action = 'get_tuijian_goods';
-			this.$utils.post(action, data).then(res => {
-				console.log("推荐商品：",res);
-				this.commodyBlockList = res.rs;
-			});
+			// var data = JSON.stringify({
+			// 	a:0,
+			// 	member_level: uni.getStorageSync("level"),
+			// });
+			// var action = 'get_tuijian_goods';
+			// this.$utils.post(action, data).then(res => {
+			// 	console.log("推荐商品：",res);
+			// 	this.commodyBlockList = res.rs;
+			// });
 			
 			this.pageIndex_Index = 1;
 			
@@ -219,9 +260,10 @@
 			var data = JSON.stringify({
 				member_level: uni.getStorageSync("level"),
 				pageSize: this.pageSize,
-				pageIndex: this.pageIndex_Index
+				pageIndex: this.pageIndex_Index,
+				is_type:1,
 			});
-			var action = 'get_index_tuijian_goods';
+			var action = 'get_tuijian_goods';
 			this.$utils.post(action, data).then(res => {
 				console.log("首页推荐商品：",res);
 				this.indexCommodyList = res.rs;
@@ -262,6 +304,16 @@
 					console.log(zthat.nameTop)
 				}
 			})
+			
+			let scene = wx.getLaunchOptionsSync();
+			if(scene==1089){
+				this.isShowScene = false
+			} else {
+				setTimeout(()=>{
+					this.isShowScene = false
+				},500);
+			}
+			
 		},
 		onShow() {
 			let memberid = uni.getStorageSync('id')
@@ -271,10 +323,36 @@
 				
 				this.getMemberRegCoupon();
 			}
+			
+			this.get_all_gift_person_goods();
+			
+			
 		},
 		onPageScroll(e){
 			this.rect = e.scrollTop;
 			console.log(e.scrollTop)
+			
+			if(e.scrollTop> 10){
+				this.opationnumber= 0.8
+			}else if(e.scrollTop> 15){
+				this.opationnumber= 0.7
+			}else if(e.scrollTop> 20){
+				this.opationnumber= 0.6
+			}else if(e.scrollTop> 25){
+				this.opationnumber= 0.5
+			}else if(e.scrollTop> 30){
+				this.opationnumber= 0.4
+			}else if(e.scrollTop> 35){
+				this.opationnumber= 0.3
+			}else if(e.scrollTop> 40){
+				this.opationnumber= 0.2
+			}else if(e.scrollTop> 45){
+				this.opationnumber= 0.1
+			}else if(e.scrollTop> 50){
+				this.opationnumber= 0
+			}else{
+				this.opationnumber= 1
+			}
 		},
 		onShareAppMessage: function(e) {
 
@@ -296,18 +374,20 @@
 		},
 		onPullDownRefresh(){
 			let tabBarIndex = this.tabBarIndex;
-			if(tabBarIndex == 0){
+			// if(tabBarIndex == 0){
 				this.pageIndex_Index = 1;
-				var action = 'get_index_tuijian_goods';
-			}else{
-				this.pageIndex = 1;
-				var action = 'get_gift_person_goods';
-			}
+				var action = 'get_tuijian_goods';
+			// }else{
+			// 	this.pageIndex = 1;
+			// 	var action = 'get_gift_person_goods';
+			// }
 			var data = JSON.stringify({
 				member_level: uni.getStorageSync("level"),
-				gift_person_id: tabBarIndex,
+				// gift_person_id: tabBarIndex,
 				pageSize: this.pageSize,
-				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex
+				pageIndex: this.pageIndex_Index,
+				// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+				is_type:1,
 			});
 			
 			this.$utils.post(action, data).then(res => {
@@ -315,50 +395,82 @@
 					uni.stopPullDownRefresh();
 				}, 500)
 				console.log("商品：",res);
-				if(tabBarIndex == 0){
+				// if(tabBarIndex == 0){
 					if(res.rs.length > 0){
 						this.pageIndex_Index++;
 					}
 					this.indexCommodyList = res.rs;
-				}else{
-					if(res.rs.goodslist.length > 0){
-						this.pageIndex++;
-					}
-					this.indexCommodyList = res.rs.goodslist;
-				}
+				// }else{
+				// 	if(res.rs.goodslist.length > 0){
+				// 		this.pageIndex++;
+				// 	}
+				// 	this.indexCommodyList = res.rs.goodslist;
+				// }
 			});
 		},
 		onReachBottom(){
 			let tabBarIndex = this.tabBarIndex;
-			if(tabBarIndex == 0){
-				var action = 'get_index_tuijian_goods';
-			}else{
-				var action = 'get_gift_person_goods';
-			}
+			// if(tabBarIndex == 0){
+				var action = 'get_tuijian_goods';
+			// }else{
+			// 	var action = 'get_gift_person_goods';
+			// }
 			var data = JSON.stringify({
 				member_level: uni.getStorageSync("level"),
-				gift_person_id: tabBarIndex,
+				// gift_person_id: tabBarIndex,
 				pageSize: this.pageSize,
-				pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex
+				pageIndex: this.pageIndex_Index,
+				// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+				is_type:1,
 			});
 			this.$utils.post(action, data).then(res => {
 				// console.log("首页推荐商品：",res);
-				if(tabBarIndex == 0){
+				// if(tabBarIndex == 0){
 					if(res.rs.length > 0){
 						this.pageIndex_Index++;
 					}
 					
 					this.indexCommodyList = this.indexCommodyList.concat(res.rs);
-				}else{
-					if(res.rs.goodslist.length > 0){
-						this.pageIndex++;
-					}
+				// }else{
+				// 	if(res.rs.goodslist.length > 0){
+				// 		this.pageIndex++;
+				// 	}
 					
-					this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
-				}
+				// 	this.indexCommodyList = this.indexCommodyList.concat(res.rs.goodslist);
+				// }
 			});
 		},
 		methods: {
+			details:function(e){
+				// 腾讯有数
+				let dataitem = e.currentTarget.dataset.dataitem;
+				sr.track('trigger_sku_component',
+					{
+					   "sku": {
+						 "sku_id": dataitem.sku, // 若商品无sku_id时，可传spu_id信息
+						 "sku_name": dataitem.goodsname // 若商品无sku_name时，可传spu_name信息
+					   },
+					   "spu": {
+							"spu_id": dataitem.sku, // 若商品无spu_id时，可传sku_id信息
+							"spu_name": dataitem.goodsname // 若商品无spu_name时，可传sku_name信息
+						},
+					   "primary_image_url": dataitem.head_img
+					})
+				  
+				let index = e.currentTarget.dataset.keynum;
+				uni.navigateTo({
+					url: '/pages/details/details?keynum=' + index,
+				})
+			},
+			toMore(e){
+				let keynum = e.currentTarget.dataset.keynum;
+				let name = e.currentTarget.dataset.name;
+				if(keynum && name){
+					uni.navigateTo({
+						url:'/pages/search/search?keynum='+ keynum +'&name='+name
+					});
+				}
+			},
 			changeswiper(e) {
 			    let {current, source} = e.detail
 			    if(source === 'autoplay' || source === 'touch') {
@@ -410,33 +522,35 @@
 				let tabBarIndex = e;
 				if(tabBarIndex == 0){
 					this.pageIndex_Index = 1;
-					var action = 'get_index_tuijian_goods';
-				}else{
-					this.pageIndex = 1;
-					var action = 'get_gift_person_goods';
-				}
+					var action = 'get_tuijian_goods';
+				// }else{
+				// 	this.pageIndex = 1;
+				// 	var action = 'get_gift_person_goods';
+				
 				var data = JSON.stringify({
 					member_level: uni.getStorageSync("level"),
-					gift_person_id: tabBarIndex,
+					// gift_person_id: tabBarIndex,
 					pageSize: this.pageSize,
-					pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex
+					pageIndex: this.pageIndex_Index,
+					// pageIndex: tabBarIndex==0?this.pageIndex_Index:this.pageIndex,
+					is_type:1,
 				});
 				
 				this.$utils.post(action, data).then(res => {
 					console.log("商品：",res);
-					if(tabBarIndex == 0){
+					// if(tabBarIndex == 0){
 						if(res.rs.length > 0){
 							this.pageIndex_Index++;
 						}
 						this.indexCommodyList = res.rs;
-					}else{
-						if(res.rs.goodslist.length > 0){
-							this.pageIndex++;
-						}
-						this.indexCommodyList = res.rs.goodslist;
-					}
+					// }else{
+					// 	if(res.rs.goodslist.length > 0){
+					// 		this.pageIndex++;
+					// 	}
+					// 	this.indexCommodyList = res.rs.goodslist;
+					// }
 				});
-
+				}
 				//腾讯有数
 				sr.track('element',
 				{
@@ -445,6 +559,7 @@
 				    "index": this.tabBarIndex,
 				    "name": "首页页面-tabBar1_"+ this.tabBarIndex
 				})
+				
 			},
 			getMemberAuditStatus(){
 				let that = this;
@@ -479,6 +594,19 @@
 			changeClassifi(){ //分类跳转
 				uni.navigateTo({
 					url:'../classification/classification'
+				})
+			},
+			get_all_gift_person_goods(){
+				let that = this;
+				let action = "get_all_gift_person_goods";
+				let data = JSON.stringify({
+					member_level: uni.getStorageSync("level"),
+				});
+				
+				this.$utils.post(action,data).then(res=>{
+					if(res.sta == 1){
+						this.allgiftList = res.rs;
+					}
 				})
 			},
 			getMemberRegCoupon(){
@@ -570,7 +698,8 @@
 		align-items: center;
 	}
 	.owm-index-tab-bar-box{
-		width: 80%;
+		/* width: 80%; */
+		width: 100%;
 		/* position: absolute; */
 		/* top: 1080rpx; */
 	}
@@ -632,20 +761,29 @@
 		/* line-height: 64rpx; */
 		/* height: 64rpx; */
 		/* width: 120rpx; */
-		font-size: 28rpx;
-		color: #777777;
+		font-size: 32rpx;
+		color: #FFFFFF;
+		display: block;
+		width: 100%;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid transparent;
 	}
 	
 	.owm-index-tab-bar-item-view:first-child{
 		margin-left: 0rpx;
 	}
-	/* .owm-index-tab-bar-item:last-child{
-		margin-right: 40rpx;
-	} */
+	
+	.owm-index-tab-bar-item-view:last-child .owm-index-tab-bar-item{
+		margin-right: 26rpx;
+	}
 	
 	.owm-index-tab-bar-item-active {
-		color: #333333;
-		font-weight: bold;
+		color: #FFFFFF;
+		font-weight: bold;   
+		display: block;
+	    width: 100%;
+	    padding-bottom: 4rpx;
+	    border-bottom: 4rpx solid #FFFFFF;
 	}
 	/* .owm-index-tab-bar-item-active:after{
 		position: absolute;
@@ -668,7 +806,7 @@
 	}
 	.index-module-box{
 		width: 100%;
-		margin-bottom: 40rpx;
+		margin-bottom: 20rpx;
 	}
 	.owm-index-search{
 		/* margin-top: 140rpx; */
@@ -895,4 +1033,123 @@
 			margin-right: 6rpx;
 		}
 		
+		/**
+		 * 礼盒
+		 */
+		.class-view{
+			width: 750rpx;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+		}
+		.class-view-item{
+			width: 700rpx;
+			height: 925rpx;
+			position: relative;
+			margin-top: 30rpx;
+			/* background-image: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/bc.png);
+			background-size: 700rpx 925rpx; */
+		}
+		
+		.class-view-item-more{
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			position: absolute;
+			top: 82rpx;
+			right: 20rpx;
+			width: 108rpx;
+			height: 40rpx;
+			background: #E9B979;
+			border-radius: 20rpx;
+			opacity: 0.7;
+			font-size: 24rpx;
+			color: #333333;
+			text-align: center;
+		}
+		.class-view-item-list{
+			display: flex;
+			flex-wrap: wrap;
+			
+			padding-bottom: 10rpx;
+			/* background: #F8F8F8; */
+			padding: 20rpx 20rpx;
+			margin-top: 140rpx;
+		}
+		.class-view-item-list-active{
+			justify-content: space-between;
+		}
+		.class-view-item-good{
+			width: 210rpx;
+			height: 363rpx;
+			background: #FFFFFF;
+			border-radius: 2rpx;
+			margin-bottom: 20rpx;
+			position: relative;
+			padding-bottom: 20rpx;
+		}
+		.class-view-item-good-active{
+			margin-right: 20rpx;
+		}
+		.class-view-img{
+			width: 210rpx;
+			height: 210rpx;
+		}
+		
+		.class-view-text {
+			margin: 16rpx 8rpx 0rpx 10rpx;
+			height: 76rpx;
+			font-size: 26rpx;
+			line-height: 37rpx;
+			color: #333333;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			align-items: center;
+			justify-content: center;
+			font-family: monospace;
+		}
+		.class-view-other{
+			margin: 6rpx 8rpx 10rpx 10rpx;
+		}
+		
+		.class-view-price{
+			font-size: 24rpx;
+			color: #FB4133;
+		}
+		.class-view-qi{
+			width: 38rpx;
+			height: 24rpx;
+			margin-left: 6rpx;
+		}
+		
+		.personal-product{
+			 width:694rpx;
+			 height:60rpx;
+			 margin:0 auto;
+			 margin-top: 40rpx;
+			 display: flex;
+			 align-items: center;
+			 justify-content: center;
+		}
+		
+		.personal-line{
+			 width: 47rpx;
+			 border: 1px solid #CCCCCC;
+		}
+		.personal-product-icon{
+			width: 42rpx;
+			height: 42rpx;
+			margin-right: 6rpx;
+		}
+		
+		.personal-product-title{
+			 font-size: 34rpx;
+			 font-weight: bold;
+			 color: #333333;
+			 line-height: 42rpx;
+			 
+		}
 </style>

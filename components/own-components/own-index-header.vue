@@ -5,11 +5,13 @@
 			<view class="owm-index-status-bar" :style="'height:'+ statusBarHeight+'px'"></view>
 			<!-- <image :src="$utils.osspath_url('/xcx-static/index/logo.png')" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()"></image> -->
 			<image src="https://zhijianlw.com/static/web/img/logo.png" mode="" mode="heightFix" class="owm-index-logo" @click="goTo()" lazy-load="true"></image>
+			
+			<view class="fixed-item" v-if="isShowScene">添加到我的小程序，下次不迷路</view>
 		</view>
 		
 		
 		<view class="bg">
-			<image :src="$utils.osspath_url('/xcx-static/index/bgs.png')" mode="widthFix" style="width: 100%;"></image>
+			<!-- <image :src="$utils.osspath_url('/xcx-static/index/bgs.png')" mode="widthFix" style="width: 100%;"></image> -->
 			<view class="owm-index-box">
 				<!-- <image :src="$utils.imageUrl(loginUrl)" mode="heightFix" class="owm-index-logo" @click="goTo()"></image> -->
 				<!-- <input type="text" placeholder="搜索想要的礼物" class="owm-index-search-box" confirm-type="search"/> -->
@@ -18,6 +20,7 @@
 					<!-- <input class="owm-index-search-input" disabled="true" type="text" value="" placeholder="搜索热门礼物" /> -->
 					<text class="owm-index-search-input">搜索热门礼物</text>
 				</view>
+				<view class="owm-index-class-title" @click="$buttonClick(changeClassifi)">分类</view>
 			</view>
 		</view>
 	</view>
@@ -38,6 +41,9 @@
 			loginUrl: {
 				default: ""
 			},
+			isShowScene:{
+				default: true
+			}
 		},
 		data() {
 			return {
@@ -61,7 +67,12 @@
 				uni.navigateTo({
 					url: '../../pages/search/search'
 				})
-			}
+			},
+			changeClassifi(){ //分类跳转
+				uni.navigateTo({
+					url:'../classification/classification'
+				})
+			},
 		},
 		computed: {
 			statusBarHeight: function() {
@@ -113,15 +124,19 @@
 	}
 	.bg{
 		/* margin-top: -60rpx; */
-		width: 100%;
-		position: relative;
 		/* height: 460rpx; */
-		box-sizing: border-box;
 		/* background: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/index/bgs.png) no-repeat center center/100% 100%; */
 		/* background: linear-gradient(133deg, #F32C14 0%, #EB1515 100%); */
 		/* background-repeat: no-repeat; */
 		/* margin-top: -60rpx; */
 		/* padding: 0 26rpx; */
+		
+		    width: 100%;
+		    position: fixed;
+		    box-sizing: border-box;
+		    height: 95px;
+		    background: #F2341E;
+		    z-index: 19;
 	}
 	.owm-index-header-box{
 		/* height: 95rpx; */
@@ -152,6 +167,7 @@
 		padding: 0 26rpx;
 		top: 46rpx;
 		left: 0;
+		display: flex;
 	}
 
 	.owm-index-logo {
@@ -213,5 +229,30 @@
 		color: #FF0137;
 		height: 60rpx;
 		border-bottom: 4rpx solid #FF0137;
+	}
+	
+	.owm-index-class-title{
+		text-align: right;
+		line-height: 32px;
+		height: 64rpx;
+		width: 80rpx;
+		color: #FFFFFF;
+		font-size: 28rpx;
+	}
+	.fixed-item{
+		    position: absolute;
+		        right: 38rpx;
+		        top: 100rpx;
+		        color: #FFFFFF;
+		        opacity: 0.65;
+		        display: flex;
+		        align-items: center;
+		        justify-content: center;
+		        background-image: url(https://zhijianlw.com/static/web/img/icon_2021_12_18_01.png);
+		        width: 366rpx;
+		        height: 61rpx;
+		        background-size: 366rpx 61rpx;
+		        font-size: 24rpx;
+		        padding-top: 14rpx;
 	}
 </style>

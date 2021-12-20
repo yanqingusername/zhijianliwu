@@ -26,7 +26,7 @@
 }
 .z-list{
 	display: inline-block;
-	width: 50%;
+	/* width: 50%; */
 	padding: 0 10rpx;
 	box-sizing: border-box;
 }
@@ -43,7 +43,7 @@
 	bottom: 0;
 }
 .ones{
-	width: 100%;
+	width: 300rpx;
 	height: 330rpx;
 }
 .right-item{
@@ -77,7 +77,7 @@
 	/* position: absolute; */
 	/* left: 70rpx; */
 	/* margin-top: 100rpx; */
-	color: #FF6464;
+	color: #999999;
 	font-size: 11px;
 	font-family: "苹方 中等";
 }
@@ -88,9 +88,10 @@
 	font-weight: bold;
 	font-size: 16px;
 	font-family: "苹方 粗体";
+	color: #333333;
 }
 .card{
-	color: #FF962C;
+	color: #999999;
 	font-size: 10px;
 	/* position: relative; */
 	/* top: 85rpx; */
@@ -111,7 +112,7 @@
 	/* top: 70rpx; */
 	/* left: -165rpx; */
 	font-size: 10px;
-	color: #6BAEFF;
+	color: #999999;
 	font-family: "苹方 中等";
 }
 .own-index-coupon-activity-left-img{

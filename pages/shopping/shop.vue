@@ -8,7 +8,7 @@
 			<button class="shop-header-btn" type="warn" @click="box_gift()">开始挑选礼物</button>
 		</view> -->
 		<view style="margin-top: -140rpx">
-			<view class="box" v-if="statutype == 'exchange' && is_exchange_type == 1">
+			<view class="box" v-if="statutype == 'exchange' && (is_exchange_type == 1 || is_exchange_type == 0)">
 				<view class="box-content">
 					<view class="shop-gift-buys-top">
 						<img class="img shop-gift-buys-img" :src="orderInfo.cardtype_img">
@@ -267,7 +267,7 @@
 			   statutype: '',
 			   ordernumber: '',
 			   orderInfo:'',
-			   is_exchange_type: 0,
+			   is_exchange_type: -1,
 			   numberss: 0,
 			   remark: '大吉大利，恭喜发财！',
 			   remarkNumber: 0,
@@ -311,7 +311,7 @@
 			this.setgiftssuccess = uni.getStorageSync('setgiftssuccess');
 			this.setwishessuccess = uni.getStorageSync('setwishessuccess');
 			
-			if(this.statutype == 'exchange' && this.is_exchange_type == 1){
+			if(this.statutype == 'exchange' && (this.is_exchange_type == 1 || this.is_exchange_type == 0)){
 				let that = this;
 				let action = "get_exchange_order_info";
 				let controller = 'order';
@@ -619,7 +619,7 @@
 				this.caltotalmoney()
 			},
 			packages:function(e){
-				if(this.statutype == 'exchange' && this.is_exchange_type == 1){
+				if(this.statutype == 'exchange' && (this.is_exchange_type == 1 || this.is_exchange_type == 0)){
 					uni.navigateTo({
 						url:'../index-coupon/ExchangePackages?ordernumber='+this.ordernumber
 					})

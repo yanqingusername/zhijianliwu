@@ -13,7 +13,8 @@
 			<view class="icon-card-select-4">{{title}}</view>
 		</view>
 		<button class="gift-btn" v-if="isShowCheck == 0" type="warn" @click="getgift">立即收礼</button>
-		<button class="gift-btn" v-else-if="isShowCheck == 2" type="warn" @click="toConversionDetails">查看领取详情</button>		
+		<button class="gift-btn" v-else-if="isShowCheck == 2" type="warn" @click="toConversionDetails">查看领取详情</button>
+		<button class="gift-btn" v-else-if="isShowCheck == 3" type="warn" @click="toConversionDetailsOther">已收礼</button>		
 		<button class="new-gift-btn" v-else>礼物已领完</button>
 		
 	</view>
@@ -57,6 +58,7 @@
 				second: 0,
 				timer:'',
 				totalDuration: '00:00:00',
+				numberNew:''
 			}
 		},
 		computed:{
@@ -134,17 +136,20 @@
 						this.display = '1';
 			
 						if (re.cardbag_number) {
+							//判断受礼人已领取
+							this.isShowCheck = 3;
 							this.number = re.cardbag_number;
 							this.cardbag_detail_id = re.cardbag_detail_id
 							this.display = '0';
-							uni.reLaunch({
-								url: '../redEnvelopes/redEnvelopes?cardbag_number=' + re
-									.cardbag_number + '&cardbag_detail_id=' + re
-									.cardbag_detail_id + '&cardbag=' + that.cardbag_number +
-									'&head_img=' + res.cardbag.present_memberid_headimg +
-									'&all_details_num=' + res.cardbag.all_details_num +
-									'&present_memberid_name=' + res.cardbag.present_memberid_name
-							})
+							this.numberNew = re.cardbag_number;
+							// uni.reLaunch({
+							// 	url: '../redEnvelopes/redEnvelopes?cardbag_number=' + re
+							// 		.cardbag_number + '&cardbag_detail_id=' + re
+							// 		.cardbag_detail_id + '&cardbag=' + that.cardbag_number +
+							// 		'&head_img=' + res.cardbag.present_memberid_headimg +
+							// 		'&all_details_num=' + res.cardbag.all_details_num +
+							// 		'&present_memberid_name=' + res.cardbag.present_memberid_name
+							// })
 						} else if (time < fixedtime) {
 			
 						} else {
@@ -220,6 +225,11 @@
 					url: '../index-coupon/ConversionDetails?cardbag=' + this.cardbag_number +
 						'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
 						this.cardbag_number,
+				})
+			},
+			toConversionDetailsOther(){
+				uni.reLaunch({
+					url: '../redEnvelopes/redEnvelopes?cardbag_number=' + this.numberNew
 				})
 			},
 			getgift: function(e) {

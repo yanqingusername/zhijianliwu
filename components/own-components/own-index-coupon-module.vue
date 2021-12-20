@@ -8,29 +8,29 @@
 			<view class="z-list">
 				<view class="own-index-coupon-image-box ones"   @click="recommend" style="overflow: hidden;">
 					<!-- @click="$buttonClick(coupon)" -->
-					<view class="z-top-infor">
-						<text class="baopin">爆品推荐</text>
-						<text class="l_title">热卖单品 送就送爆款</text>
+					<view class="z-top-infor" style="padding-top: 42rpx;">
+						<text class="baopin" style="margin-bottom: 22rpx;">电影专区</text>
+						<text class="l_title">热门电影，随心看</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/bg.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/bg.png" style="width: 100%;height: 100%;"></image>
 				</view>
 			</view>
 			<view class="z-list">
-				<view class="own-index-coupon-image-box right-item"  @click="$buttonClick(coupon)" style="overflow: hidden; margin-bottom: 20rpx;">
-					<view class="z-top-infor">
+				<view class="own-index-coupon-image-box right-item"  @click="$buttonClick(coupon)" style="overflow: hidden; margin-bottom: 20rpx;width: 375rpx;">
+					<view class="z-top-infor" style="padding-top: 40rpx;">
 						<text class="carddui">卡册兑换</text>
 						<text class="card">输入卡密 一键兑换</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/cardbg.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/cardbg.png" style="width: 100%;height: 100%;"></image>
 				</view>
-				<view class="own-index-coupon-image-box threes right-item"  @click="share" style="overflow: hidden;">
-					<view class="z-top-infor">
+				<view class="own-index-coupon-image-box threes right-item"  @click="share" style="overflow: hidden;width: 375rpx;">
+					<view class="z-top-infor" style="padding-top: 40rpx;">
 						<!-- <text class="member">开通企业会员</text> 
 						<text class="mine">自营商品折上折</text> -->
-						<text class="member">看电影</text> 
-						<text class="mine">特惠专享低至五折</text>
+						<text class="member">开通企业会员</text> 
+						<text class="mine">自营商品折上折</text>
 					</view>
-					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/mem.png" mode="widthFix" style="width: 100%;height: 100%;"></image>
+					<image lazy-load="true" class="own-index-coupon-activity-left-img" src="https://zhijianlw.com/static/web/img/mem.png" style="width: 100%;height: 100%;"></image>
 				</view>
 			</view>
 		</view>
@@ -140,7 +140,7 @@
 	}
 	.z-list{
 		display: inline-block;
-		width: 50%;
+		/* width: 50%; */
 		padding: 0 10rpx;
 		box-sizing: border-box;
 	}
@@ -158,7 +158,7 @@
 		bottom: 0;
 	}
 	.ones{
-		width: 100%;
+		width: 300rpx;
 		height: 330rpx;
 	}
 	.right-item{
@@ -193,7 +193,7 @@
 		/* position: absolute; */
 		/* left: 70rpx; */
 		/* margin-top: 100rpx; */
-		color: #FF6464;
+		color: #999999;
 		font-size: 11px;
 		font-family: "苹方 中等";
 	}
@@ -204,9 +204,10 @@
 		font-weight: bold;
 		font-size: 16px;
 		font-family: "苹方 粗体";
+		color: #333333;
 	}
 	.card{
-		color: #FF962C;
+		color: #999999;
 		font-size: 10px;
 		/* position: relative; */
 		/* top: 85rpx; */
@@ -228,7 +229,7 @@
 		/* top: 70rpx; */
 		/* left: -165rpx; */
 		font-size: 10px;
-		color: #6BAEFF;
+		color: #999999;
 		font-family: "苹方 中等";
 	}
 	.own-index-coupon-activity-left-img{

@@ -26,7 +26,8 @@
 		align-items: center;
 }
 .owm-index-tab-bar-box{
-		width: 80%;
+		/* width: 80%; */
+		width: 100%;
 		/* position: absolute; */
 		/* top: 1080rpx; */
 }
@@ -87,18 +88,26 @@
 		/* line-height: 64rpx; */
 		/* height: 64rpx; */
 		/* width: 120rpx; */
-		font-size: 28rpx;
-		color: #777777;
+		font-size: 32rpx;
+		color: #FFFFFF;
+		display: block;
+		width: 100%;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid transparent;
 }
 .owm-index-tab-bar-item-view:first-child{
 		margin-left: 0rpx;
 }
-	/* .owm-index-tab-bar-item:last-child{
-		margin-right: 40rpx;
-	} */
+.owm-index-tab-bar-item-view:last-child .owm-index-tab-bar-item{
+		margin-right: 26rpx;
+}
 .owm-index-tab-bar-item-active {
-		color: #333333;
-		font-weight: bold;
+		color: #FFFFFF;
+		font-weight: bold;   
+		display: block;
+	    width: 100%;
+	    padding-bottom: 4rpx;
+	    border-bottom: 4rpx solid #FFFFFF;
 }
 	/* .owm-index-tab-bar-item-active:after{
 		position: absolute;
@@ -119,7 +128,7 @@
 }
 .index-module-box{
 		width: 100%;
-		margin-bottom: 40rpx;
+		margin-bottom: 20rpx;
 }
 .owm-index-search{
 		/* margin-top: 140rpx; */
@@ -340,5 +349,116 @@ swiper-item{
 			opacity: 0.2;
 			margin-right: 6rpx;
 }
-		
+	/**
+		 * 礼盒
+		 */
+.class-view{
+			width: 750rpx;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+}
+.class-view-item{
+			width: 700rpx;
+			height: 925rpx;
+			position: relative;
+			margin-top: 30rpx;
+			/* background-image: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/bc.png);
+			background-size: 700rpx 925rpx; */
+}
+.class-view-item-more{
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			position: absolute;
+			top: 82rpx;
+			right: 20rpx;
+			width: 108rpx;
+			height: 40rpx;
+			background: #E9B979;
+			border-radius: 20rpx;
+			opacity: 0.7;
+			font-size: 24rpx;
+			color: #333333;
+			text-align: center;
+}
+.class-view-item-list{
+			display: flex;
+			flex-wrap: wrap;
+			
+			padding-bottom: 10rpx;
+			/* background: #F8F8F8; */
+			padding: 20rpx 20rpx;
+			margin-top: 140rpx;
+}
+.class-view-item-list-active{
+			justify-content: space-between;
+}
+.class-view-item-good{
+			width: 210rpx;
+			height: 363rpx;
+			background: #FFFFFF;
+			border-radius: 2rpx;
+			margin-bottom: 20rpx;
+			position: relative;
+			padding-bottom: 20rpx;
+}
+.class-view-item-good-active{
+			margin-right: 20rpx;
+}
+.class-view-img{
+			width: 210rpx;
+			height: 210rpx;
+}
+.class-view-text {
+			margin: 16rpx 8rpx 0rpx 10rpx;
+			height: 76rpx;
+			font-size: 26rpx;
+			line-height: 37rpx;
+			color: #333333;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			align-items: center;
+			justify-content: center;
+			font-family: monospace;
+}
+.class-view-other{
+			margin: 6rpx 8rpx 10rpx 10rpx;
+}
+.class-view-price{
+			font-size: 24rpx;
+			color: #FB4133;
+}
+.class-view-qi{
+			width: 38rpx;
+			height: 24rpx;
+			margin-left: 6rpx;
+}
+.personal-product{
+			 width:694rpx;
+			 height:60rpx;
+			 margin:0 auto;
+			 margin-top: 40rpx;
+			 display: flex;
+			 align-items: center;
+			 justify-content: center;
+}
+.personal-line{
+			 width: 47rpx;
+			 border: 1px solid #CCCCCC;
+}
+.personal-product-icon{
+			width: 42rpx;
+			height: 42rpx;
+			margin-right: 6rpx;
+}
+.personal-product-title{
+			 font-size: 34rpx;
+			 font-weight: bold;
+			 color: #333333;
+			 line-height: 42rpx;
+}
 
