@@ -481,6 +481,14 @@
 					uni.stopPullDownRefresh();
 				}, 500);
 			}
+			
+			// 主题商品
+			var data = JSON.stringify({a:""});
+			var action = 'get_plan_theme_list';
+			this.$utils.post(action, data).then(res => {
+				console.log("主题商品：",res);
+				this.gridList = res.rs;
+			});
 		},
 		onReachBottom(){
 			let tabBarIndex = this.tabBarIndex;
