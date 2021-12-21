@@ -67,10 +67,12 @@
 	color: #999;
 	font-weight: bold;
 	font-size: 24rpx;
+	height: 32rpx;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	margin-bottom: 22rpx;
+	line-height: 32rpx;
 }
 .card {
 	/* margin-top: 50rpx; */

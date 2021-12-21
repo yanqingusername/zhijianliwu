@@ -48,7 +48,7 @@
 			</view>
 			
 			<view class="class-view" v-if="allgiftList.length > 0">
-					<view class="class-view-item" v-for="(item,index) in allgiftList" :key="index" :style="'height: ' + (item.goods_list.length > 3 ? '925':'550')+'rpx;background-image: url('+ item.zq_background +');background-size:700rpx '+(item.goods_list.length > 3 ? '925':'550')+'rpx;'">
+					<view class="class-view-item" v-for="(item,index) in allgiftList" :key="index" :style="'height: ' + (item.goods_list.length > 3 ? '925':'550')+'rpx;background-image: url('+ item.zq_background +');background-size:700rpx 925rpx;'">
 						<view class="class-view-item-more" :style="'background: ' + item.color + ';'" @click="toMore" :data-keynum="item.keynum" :data-name="item.name">更多></view>
 						<view class="class-view-item-list" >
 							<view class="class-view-item-good" v-for="(items,index) in item.goods_list" :key="index" @click="details" :data-keynum="items.keynum" :data-dataitem="items">

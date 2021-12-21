@@ -139,8 +139,10 @@
 				
 				this.$utils.post(action, data).then(res => {
 					console.log('获取商品列表', res)
-					this.goodslist = res.rs.goodslist || [];
-					this.cardtype_img = res.rs.cardtype.cardtype_img;
+					if(res.sta == 1){
+						this.goodslist = res.rs.goodslist || [];
+						this.cardtype_img = res.rs.cardtype.cardtype_img;
+					}
 				})
 			},
 			goto(e) {
@@ -340,10 +342,12 @@
 		color: #999;
 		font-weight: bold;
 		font-size: 24rpx;
+		height: 32rpx;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		margin-bottom: 22rpx;
+		line-height: 32rpx;
 	}
 	
 	
