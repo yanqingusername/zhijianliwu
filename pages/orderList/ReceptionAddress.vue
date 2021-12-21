@@ -45,7 +45,11 @@
 			</view>
 		</view>
 		
-		<view class="reception-submit">
+		<view class="reception-submit" v-if="isShowAddress">
+			<view class="reception-address-submit" style="background: #EFA13C;opacity: 0.6;">该地区无货</view>
+		</view>
+		
+		<view class="reception-submit" v-else>
 			<view class="reception-address-submit" @click="generate">确认提交</view>
 		</view>
 	</view>
@@ -119,7 +123,8 @@
 				showa: '',
 				title_length: "",
 				// 开启地址权限
-				scope: ''
+				scope: '',
+				isShowAddress: false
 			}
 		},
 		onShow: function() {
@@ -379,7 +384,9 @@
 									}
 								}
 							})
-						} else {
+						} else if (res.sta == 2) {
+							this.isShowAddress = true;
+						}else {
 							wx.showToast({
 								title: res.msg
 							})

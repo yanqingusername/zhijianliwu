@@ -128,7 +128,10 @@
 		<view class="must-bottom heji">
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
 			<text class="must-bottom-price">{{new_price_zhe || '0.00'}}</text>
-			<view class="pay clearfix">
+			<view class="pay clearfix" v-if="isShowAddress">
+				<button class="shop-payment shop-payment-active " style="background: #EFA13C;opacity: 0.6;">该地区无货</button>
+			</view>
+			<view class="pay clearfix" v-else>
 				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
 			</view>
 		</view>
@@ -177,7 +180,8 @@
 				new_balance: '0.00',
 				new_balance_price: '',
 				new_freight: '',
-				price_zhe_money:'0.00'
+				price_zhe_money:'0.00',
+				isShowAddress: false
 			}
 		},
 		onLoad: function(e) {
@@ -437,264 +441,268 @@
 					let  ordernumber=res.ordernumber
 					console.log("付款");
 					console.log(res);
-					if (res.pay_status == 1) {
-
-						// 腾讯有数
-						let timestamp=new Date().getTime();
-						sr.track('custom_order', {
-						    "order": {
-						        "order_id": ordernumber,
-						        "order_time": timestamp,
-						        "order_status": "pay"
-						    },
-						    "sub_orders": [{
-						        "sub_order_id": ordernumber,
-						        "order_amt": parseFloat(that.new_price_yuanshi),
-						        "pay_amt": parseFloat(that.new_price_yuanshi)
-						    }],
-						})
+					if(res.sta == 1){
+						if (res.pay_status == 1) {
 						
-						// 调用订阅消息
-						uni.requestSubscribeMessage({
-							tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
-							success(res) {
-								let action = "add_wx_subscribe_log";
-								let controller = 'subscribe';
-								let memberid = uni.getStorageSync('id')
-								let data = JSON.stringify({
-									memberid: memberid,
-									template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
-								});
-								
-								rthat.$utils.postNew(action,data,controller).then(ress=>{
-									if(ress.sta == 1){
-									}
-								})
-							},
-							fail(res) {
-							}
-						});
-
-						uni.showToast({
-							title: "支付成功"
-						})
-						uni.redirectTo({
-							url: '../shopping/payment?ordernumber='+ordernumber
-						})
-						uni.setStorageSync('coupon', '');
-						uni.setStorageSync('coupon_keynum', '');
-						uni.setStorageSync('coupon_number', '');
-						uni.setStorageSync('coupon_money', '');
-					} else if (res.pay_status == 0) {
-						// 获取流水单号
-						let action = 'get_buy_order_pay_info';
-						let data = JSON.stringify({
-							ordernumber: res.ordernumber
-						});
-						this.$utils.post(action, data).then(res => {
-							console.log("获取流水号", res);
-							let serial_number = res.rs.serial_number;
-							// 获取ip
-							uni.request({
-								url: 'https://zhijianlw.com/api.php/index/getip',
-								success: (res) => {
-									console.log(res.data);
-									let action = 'add_paylog_to_wx';
+							// 腾讯有数
+							let timestamp=new Date().getTime();
+							sr.track('custom_order', {
+							    "order": {
+							        "order_id": ordernumber,
+							        "order_time": timestamp,
+							        "order_status": "pay"
+							    },
+							    "sub_orders": [{
+							        "sub_order_id": ordernumber,
+							        "order_amt": parseFloat(that.new_price_yuanshi),
+							        "pay_amt": parseFloat(that.new_price_yuanshi)
+							    }],
+							})
+							
+							// 调用订阅消息
+							uni.requestSubscribeMessage({
+								tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
+								success(res) {
+									let action = "add_wx_subscribe_log";
+									let controller = 'subscribe';
+									let memberid = uni.getStorageSync('id')
 									let data = JSON.stringify({
-										serial_number: serial_number,
-										ip: res.data.ip,
-										openid: this.openid,
-										type: 'buy_order',
+										memberid: memberid,
+										template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
 									});
-									this.$utils.post(action, data).then(res => {
-										console.log('获取参数', res)
-										// var serial_number = res.rs.serial_number;
-										let arr = [];
-
-										const date = {
-											// 合作方标识
-											appId: 'appId=wx9c53a99b078435f5',
-											timeStamp: 'timeStamp=' + this
-												.timeStamp,
-											nonceStr: 'nonceStr=' + this.nums,
-											package: 'package=prepay_id=' + res
-												.rs.prepay_id,
-											signType: 'signType=MD5',
+									
+									rthat.$utils.postNew(action,data,controller).then(ress=>{
+										if(ress.sta == 1){
 										}
-
-										console.log('拼接前', date)
-
-										for (let i in date) {
-											arr.push(date[i])
-										}
-
-										arr.sort();
-
-										let stringA = '';
-
-										// 拼接字符串
-										for (let i in arr) {
-											if (i == arr.length - 1) {
-												stringA += arr[i];
-											} else {
-												stringA += arr[i] + '&';
-											}
-										}
-										// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
-										let stringSignTemp = stringA +
-											'&key=45579fcdb646746f02d9e041d50975b4';
-
-										console.log('拼接后', stringSignTemp)
-										let sign = MD5.hexMD5(stringSignTemp);
-										console.log(sign)
-
-
-										uni.hideLoading();
-
-										uni.requestPayment({
-											timeStamp: String(this
-												.timeStamp),
-											nonceStr: this.nums,
-											package: 'prepay_id=' + res.rs
-												.prepay_id,
-											signType: 'MD5',
-											paySign: sign.toUpperCase(),
-											success(res) {
-												uni.hideLoading();
-												uni.request({
-													url: 'https://zhijianlw.com/api.php/index/set_agent_cardbag',
-													data: {
-														serial_number: that
-															.outTradeNo
-													},
-													header: {
-														'content-type': "application/x-www-form-urlencoded" //自定义请求头信息
-													},
-													method: 'GET',
-													// 成功回调
-													success: (
-														res) => {
-															// 腾讯有数
-															let timestamp=new Date().getTime();
-															sr.track('custom_order', {
-															    "order": {
-															        "order_id": ordernumber,
-															        "order_time": timestamp,
-															        "order_status": "pay"
-															    },
-															    "sub_orders": [{
-															        "sub_order_id": ordernumber,
-															        "order_amt": parseFloat(that.new_price_yuanshi),
-															        "pay_amt": parseFloat(that.new_price_yuanshi)
-															    }],
-															})
-															
-															// 调用订阅消息
-															uni.requestSubscribeMessage({
-																tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
-																success(res) {
-																	let action = "add_wx_subscribe_log";
-																	let controller = 'subscribe';
-																	let memberid = uni.getStorageSync('id')
-																	let data = JSON.stringify({
-																		memberid: memberid,
-																		template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
-																	});
-																	
-																	rthat.$utils.postNew(action,data,controller).then(ress=>{
-																		if(ress.sta == 1){
-																		}
-																	})
-																},
-																fail(res) {
-																}
-															});
-
-															console
-																.log(
-																	'微信成功回调',
-																	res
-																	)
-															uni.showToast({
-																title: '支付成功',
-																icon: 'none'
-															})
-															uni.setStorageSync(
-																'coupon',
-																''
-																);
-															uni.setStorageSync(
-																'coupon_keynum',
-																''
-																);
-															uni.setStorageSync(
-																'coupon_number',
-																''
-																);
-															uni.setStorageSync(
-																'coupon_money',
-																''
-																);
-															uni.redirectTo({
-																url: '../shopping/payment?ordernumber='+ordernumber
-															})
-														},
-												})
-											},
-											fail(res) {
-												// 腾讯有数
-												let timestamp=new Date().getTime();
-												sr.track('custom_order', {
-												    "order": {
-												        "order_id": ordernumber,
-												        "order_time": timestamp,
-												        "order_status": "cancel_pay"
-												    },
-												    "sub_orders": [{
-												        "sub_order_id": ordernumber,
-												        "order_amt": parseFloat(that.new_price_yuanshi),
-												        "pay_amt": parseFloat(that.new_price_yuanshi)
-												    }],
-												})
-												
-												// 调用订阅消息
-												uni.requestSubscribeMessage({
-													tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
-													success(res) {
-														let action = "add_wx_subscribe_log";
-														let controller = 'subscribe';
-														let memberid = uni.getStorageSync('id')
-														let data = JSON.stringify({
-															memberid: memberid,
-															template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
-														});
-														
-														rthat.$utils.postNew(action,data,controller).then(ress=>{
-															if(ress.sta == 1){
-															}
-														})
-													},
-													fail(res) {
-													}
-												});
-												
-												uni.hideLoading();
-												console.log(res)
-												uni.showToast({
-													title: '支付失败',
-													icon: 'none'
-												})
-												that.commodity = ''
-												uni.navigateTo({
-														url:'../orderList/orderList?nav=1'
-													})
-											},
-										})
 									})
+								},
+								fail(res) {
 								}
 							});
-						})
-					} else {
+						
+							uni.showToast({
+								title: "支付成功"
+							})
+							uni.redirectTo({
+								url: '../shopping/payment?ordernumber='+ordernumber
+							})
+							uni.setStorageSync('coupon', '');
+							uni.setStorageSync('coupon_keynum', '');
+							uni.setStorageSync('coupon_number', '');
+							uni.setStorageSync('coupon_money', '');
+						} else if (res.pay_status == 0) {
+							// 获取流水单号
+							let action = 'get_buy_order_pay_info';
+							let data = JSON.stringify({
+								ordernumber: res.ordernumber
+							});
+							this.$utils.post(action, data).then(res => {
+								console.log("获取流水号", res);
+								let serial_number = res.rs.serial_number;
+								// 获取ip
+								uni.request({
+									url: 'https://zhijianlw.com/api.php/index/getip',
+									success: (res) => {
+										console.log(res.data);
+										let action = 'add_paylog_to_wx';
+										let data = JSON.stringify({
+											serial_number: serial_number,
+											ip: res.data.ip,
+											openid: this.openid,
+											type: 'buy_order',
+										});
+										this.$utils.post(action, data).then(res => {
+											console.log('获取参数', res)
+											// var serial_number = res.rs.serial_number;
+											let arr = [];
+						
+											const date = {
+												// 合作方标识
+												appId: 'appId=wx9c53a99b078435f5',
+												timeStamp: 'timeStamp=' + this
+													.timeStamp,
+												nonceStr: 'nonceStr=' + this.nums,
+												package: 'package=prepay_id=' + res
+													.rs.prepay_id,
+												signType: 'signType=MD5',
+											}
+						
+											console.log('拼接前', date)
+						
+											for (let i in date) {
+												arr.push(date[i])
+											}
+						
+											arr.sort();
+						
+											let stringA = '';
+						
+											// 拼接字符串
+											for (let i in arr) {
+												if (i == arr.length - 1) {
+													stringA += arr[i];
+												} else {
+													stringA += arr[i] + '&';
+												}
+											}
+											// let stringSignTemp = stringA + '&key='  + '730ed24645b1a54e82a3d2bcff63db37';
+											let stringSignTemp = stringA +
+												'&key=45579fcdb646746f02d9e041d50975b4';
+						
+											console.log('拼接后', stringSignTemp)
+											let sign = MD5.hexMD5(stringSignTemp);
+											console.log(sign)
+						
+						
+											uni.hideLoading();
+						
+											uni.requestPayment({
+												timeStamp: String(this
+													.timeStamp),
+												nonceStr: this.nums,
+												package: 'prepay_id=' + res.rs
+													.prepay_id,
+												signType: 'MD5',
+												paySign: sign.toUpperCase(),
+												success(res) {
+													uni.hideLoading();
+													uni.request({
+														url: 'https://zhijianlw.com/api.php/index/set_agent_cardbag',
+														data: {
+															serial_number: that
+																.outTradeNo
+														},
+														header: {
+															'content-type': "application/x-www-form-urlencoded" //自定义请求头信息
+														},
+														method: 'GET',
+														// 成功回调
+														success: (
+															res) => {
+																// 腾讯有数
+																let timestamp=new Date().getTime();
+																sr.track('custom_order', {
+																    "order": {
+																        "order_id": ordernumber,
+																        "order_time": timestamp,
+																        "order_status": "pay"
+																    },
+																    "sub_orders": [{
+																        "sub_order_id": ordernumber,
+																        "order_amt": parseFloat(that.new_price_yuanshi),
+																        "pay_amt": parseFloat(that.new_price_yuanshi)
+																    }],
+																})
+																
+																// 调用订阅消息
+																uni.requestSubscribeMessage({
+																	tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
+																	success(res) {
+																		let action = "add_wx_subscribe_log";
+																		let controller = 'subscribe';
+																		let memberid = uni.getStorageSync('id')
+																		let data = JSON.stringify({
+																			memberid: memberid,
+																			template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+																		});
+																		
+																		rthat.$utils.postNew(action,data,controller).then(ress=>{
+																			if(ress.sta == 1){
+																			}
+																		})
+																	},
+																	fail(res) {
+																	}
+																});
+						
+																console
+																	.log(
+																		'微信成功回调',
+																		res
+																		)
+																uni.showToast({
+																	title: '支付成功',
+																	icon: 'none'
+																})
+																uni.setStorageSync(
+																	'coupon',
+																	''
+																	);
+																uni.setStorageSync(
+																	'coupon_keynum',
+																	''
+																	);
+																uni.setStorageSync(
+																	'coupon_number',
+																	''
+																	);
+																uni.setStorageSync(
+																	'coupon_money',
+																	''
+																	);
+																uni.redirectTo({
+																	url: '../shopping/payment?ordernumber='+ordernumber
+																})
+															},
+													})
+												},
+												fail(res) {
+													// 腾讯有数
+													let timestamp=new Date().getTime();
+													sr.track('custom_order', {
+													    "order": {
+													        "order_id": ordernumber,
+													        "order_time": timestamp,
+													        "order_status": "cancel_pay"
+													    },
+													    "sub_orders": [{
+													        "sub_order_id": ordernumber,
+													        "order_amt": parseFloat(that.new_price_yuanshi),
+													        "pay_amt": parseFloat(that.new_price_yuanshi)
+													    }],
+													})
+													
+													// 调用订阅消息
+													uni.requestSubscribeMessage({
+														tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
+														success(res) {
+															let action = "add_wx_subscribe_log";
+															let controller = 'subscribe';
+															let memberid = uni.getStorageSync('id')
+															let data = JSON.stringify({
+																memberid: memberid,
+																template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
+															});
+															
+															rthat.$utils.postNew(action,data,controller).then(ress=>{
+																if(ress.sta == 1){
+																}
+															})
+														},
+														fail(res) {
+														}
+													});
+													
+													uni.hideLoading();
+													console.log(res)
+													uni.showToast({
+														title: '支付失败',
+														icon: 'none'
+													})
+													that.commodity = ''
+													uni.navigateTo({
+															url:'../orderList/orderList?nav=1'
+														})
+												},
+											})
+										})
+									}
+								});
+							})
+						}
+					}else if(res.sta == 2){
+						this.isShowAddress = true;
+					}else {
 						// 腾讯有数
 						let timestamp=new Date().getTime();
 						sr.track('custom_order', {
@@ -711,25 +719,25 @@
 						})
 						
 						// 调用订阅消息
-						uni.requestSubscribeMessage({
-							tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
-							success(res) {
-								let action = "add_wx_subscribe_log";
-								let controller = 'subscribe';
-								let memberid = uni.getStorageSync('id')
-								let data = JSON.stringify({
-									memberid: memberid,
-									template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
-								});
+						// uni.requestSubscribeMessage({
+						// 	tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
+						// 	success(res) {
+						// 		let action = "add_wx_subscribe_log";
+						// 		let controller = 'subscribe';
+						// 		let memberid = uni.getStorageSync('id')
+						// 		let data = JSON.stringify({
+						// 			memberid: memberid,
+						// 			template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
+						// 		});
 								
-								rthat.$utils.postNew(action,data,controller).then(ress=>{
-									if(ress.sta == 1){
-									}
-								})
-							},
-							fail(res) {
-							}
-						});
+						// 		rthat.$utils.postNew(action,data,controller).then(ress=>{
+						// 			if(ress.sta == 1){
+						// 			}
+						// 		})
+						// 	},
+						// 	fail(res) {
+						// 	}
+						// });
 						
 						uni.showToast({
 							icon: "none",

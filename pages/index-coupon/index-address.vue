@@ -56,9 +56,10 @@
 				</view>
 			</view>
 		</view>
-		<button class="button" @click="sub">立即兑换</button>
 		
+		<button class="button" v-if="isShowAddress" style="background: #EFA13C;opacity: 0.6;">该地区无货</button>
 		
+		<button class="button" @click="sub" v-else>立即兑换</button>
 		
 		<!-- 绑定成功提示 -->
 		<view class="success-pop" v-if="showPop">
@@ -86,7 +87,8 @@
 				isOrder: 0,
 				isYear: 0,
 				ordernumber: '',
-				cliid: ""
+				cliid: "",
+				isShowAddress: false
 			}
 		},
 		onLoad: function(e) {
@@ -196,7 +198,9 @@
 						// 		}
 						// 	}
 						// });
-					} else {
+					} else if (res.sta == 2) {
+						this.isShowAddress = true;
+					}else {
 						uni.showToast({
 							title: res.msg,
 							icon: 'none'
