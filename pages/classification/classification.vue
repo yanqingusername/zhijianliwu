@@ -35,9 +35,9 @@
 			<view class="apply-success-text">当前搜索暂无数据～</view>
 		</view> -->
 		
-		<view class="post-scroll-top" @click="goToScrollTop">
+		<!-- <view class="post-scroll-top" @click="goToScrollTop">
 			<image class="post-scroll-top-img" src="https://zhijianlw.com/static/web/img/post-scroll-top-img.png" mode="widthFix"></image>
-		</view>
+		</view> -->
 	</view>
 </template>
 

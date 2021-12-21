@@ -489,6 +489,16 @@
 				console.log("主题商品：",res);
 				this.gridList = res.rs;
 			});
+			// 得到广告的相应列表
+			let dataad = JSON.stringify({
+				"module":"index"
+			});
+			let actionad = 'get_ad_list';
+			let controllerad = "ad";
+			this.$utils.postNew(actionad, dataad,controllerad).then(res => {
+				this.adList = res.data;
+			});
+			
 		},
 		onReachBottom(){
 			let tabBarIndex = this.tabBarIndex;
