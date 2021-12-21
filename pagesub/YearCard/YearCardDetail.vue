@@ -1,7 +1,7 @@
 <template>
 	<view class="ycd_view">
 		<view class="ycd_view_bg">
-			<view class="ycd_view_top">
+			<view class="ycd_view_top" @click="goToDetails(orderInfo.keynum)">
 				<view class="ycd_left">
 					<image class="ycd_left_img" :src="orderInfo.cardtype_img"></image>
 				</view>
@@ -68,6 +68,11 @@
 			})
 		},
 		methods: {
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "/pages/details/details?keynum="+ keynum
+				});
+			},
 			copy: function(e) {
 				let orderNumber = e.currentTarget.dataset.ordernumber;
 				uni.setClipboardData({

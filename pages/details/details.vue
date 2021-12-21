@@ -211,7 +211,7 @@
 		</view>
 		<view v-if="alt.is_currency_type == 1 && alt.client_card_goods_list.length == 0" style="height: 30rpx;"></view>
 
-		<view class="details-bottom-kong"></view>
+		<view class="new-details-bottom-kong"></view>
 
 		<!-- 底部 -->
 		<button class="details-btm flex" v-if="sta == 0" open-type="getUserInfo" @getuserinfo="bindGetUserInfo"
@@ -1987,5 +1987,10 @@
 		font-weight: 500;
 		color: #FFFFFF;
 		margin-top: 4rpx;
+	}
+	
+	.new-details-bottom-kong{
+		width: 100%;
+		height: 120rpx;
 	}
 </style>

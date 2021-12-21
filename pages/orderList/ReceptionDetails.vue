@@ -8,12 +8,12 @@
 					<view class="new-order-li-top-ordersn">送出的</view>
 				</view>
 				<view class="new-order-li-center" v-for="(item,index) in orderReceptionInfo.orderdetail" :key="index">
-					<view class="new-order-left">
+					<view class="new-order-left" @click="goToDetails(item.keynum)">
 						<view class="new-order-img">
 							<image lazy-load="true" class="new-order-commodity-img" :src="item.head_img" mode=""></image>
 						</view>
 					</view>
-					<view class="new-order-right">
+					<view class="new-order-right" @click="goToDetails(item.keynum)">
 						<view class="new-order-item-title">{{item.goodsname}}</view>
 						<view class="new-order-item">
 							<view class="new-order-item-sku">规格：{{item.goods_spec_item}}</view>
@@ -77,6 +77,11 @@
 			
 		},
 		methods: {
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "/pages/details/details?keynum="+ keynum
+				});
+			},
 			//转赠详情 我送出的
 			goConversionDetails: function(e) {
 				let ordernumber = e.currentTarget.dataset.ordernumber;

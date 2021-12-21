@@ -55,7 +55,7 @@
 			
 			<view class="order-purchase-view">
 				<view class="new-order-li">
-					<view class="new-order-li-center">
+					<view class="new-order-li-center" @click="goToDetails(orderInfo.keynum)">
 						<view class="new-order-left">
 							<view class="new-order-img">
 								<image lazy-load="true" class="new-order-commodity-img" :src="orderInfo.cardtype_img" mode=""></image>
@@ -75,7 +75,7 @@
 					</view>
 					<view v-if="orderInfo.card_type == 1 && orderInfo.detail_info.detail_son_info">
 						<view class="" style="padding: 15rpx 0rpx;font-size: 24rpx;color: #999999;width: 100%;">兑换商品</view>
-						<view class="new-order-li-center-item">
+						<view class="new-order-li-center-item" @click="goToDetails(orderInfo.detail_info.detail_son_info.keynum)">
 							<view class="new-order-left" style="width: 112rpx;margin-left: 6rpx;">
 								<view class="new-order-img" style="width: 112rpx;height: 112rpx;">
 									<image lazy-load="true" class="new-order-commodity-img" :src="orderInfo.detail_info.detail_son_info.head_img" mode="" style="width: 112rpx;height: 112rpx;"></image>
@@ -159,6 +159,11 @@
 			})
 		},
 		methods:{
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "/pages/details/details?keynum="+ keynum
+				});
+			},
 			backbutton(e){
 				uni.navigateBack({
 					delta: 1
