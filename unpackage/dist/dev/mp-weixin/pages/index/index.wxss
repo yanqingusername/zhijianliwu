@@ -388,7 +388,7 @@ swiper-item{
 			
 			padding-bottom: 10rpx;
 			/* background: #F8F8F8; */
-			padding: 20rpx 20rpx;
+			padding: 20rpx 0rpx 20rpx 20rpx;
 			margin-top: 140rpx;
 }
 .class-view-item-list-active{
@@ -402,6 +402,7 @@ swiper-item{
 			margin-bottom: 20rpx;
 			position: relative;
 			padding-bottom: 20rpx;
+			margin-right: 15rpx;
 }
 .class-view-item-good-active{
 			margin-right: 20rpx;
