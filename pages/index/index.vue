@@ -245,6 +245,7 @@
 				coupon_type: '',
 				Key: "",
 				slide_up:'',
+				isScroll: false
 			}
 		},
 		onLoad() {
@@ -403,11 +404,15 @@
 		},
 		onPageScroll(e){
 			let that = this;
-			clearTimeout(timer) // 每次滚动前 清除一次
-			that.fadeOut();
-			timer = setTimeout(function() { 
-				that.fadeIn();
-			}, 500);
+			if(this.isScroll){
+				this.isScroll = false;
+			}else{
+				clearTimeout(timer) // 每次滚动前 清除一次
+				that.fadeOut();
+				timer = setTimeout(function() { 
+					that.fadeIn();
+				}, 500);
+			}
 			
 			this.rect = e.scrollTop;
 			console.log(e.scrollTop)
@@ -667,6 +672,8 @@
 			changeProduct: function(e,keynum1,name){
 				console.log(e,keynum1,name)
 				this.tabBarIndex = e;
+				
+				this.isScroll = true;
 				
 				let tabBarIndex = e;
 				if(tabBarIndex == 0){
