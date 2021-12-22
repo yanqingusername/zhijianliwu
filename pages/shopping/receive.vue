@@ -458,135 +458,316 @@
 						this.cardbag_number,
 				})
 			},
+			dingyue: function (tmplId1, tmplId2){
+			    let that = this
+			    uni.getSetting({
+			      withSubscriptions: true,
+			      success(res) {
+			        if (res.subscriptionsSetting && res.subscriptionsSetting.mainSwitch) {
+			          if (res.subscriptionsSetting.itemSettings && res.subscriptionsSetting.itemSettings[tmplId1] && res.subscriptionsSetting.itemSettings[tmplId2]) {
+			            let item1 = res.subscriptionsSetting.itemSettings[tmplId1]
+						let item2 = res.subscriptionsSetting.itemSettings[tmplId2]
+			            if (item1 == "reject" && item2 == "reject") {
+			              that.dingyueComfirm(tmplId1, tmplId2)
+			            } else if (item1 == "accept" && item2 == "accept") {
+			              let action = "add_wx_subscribe_log";
+			              let controller = 'subscribe';
+			              let memberid = uni.getStorageSync('id')
+						  let tmplId = tmplId1+','+tmplId2
+			              let data = JSON.stringify({
+			              	memberid: memberid,
+			              	template_id: tmplId
+			              });
+			              
+			              that.$utils.postNew(action,data,controller).then(res=>{
+			              	if(res.sta == 1){
+			              		
+			              	}
+			              })
+						  that.getHpptFunc();
+			            } else if (item == "ban") {
+			              console.log('提示：您已经被后台封禁')
+						  that.getHpptFunc();
+			            } else {
+							that.dingyueComfirm(tmplId1, tmplId2)
+						}
+			          }else{
+			            that.dingyueComfirm(tmplId1,tmplId2)
+			          }
+			        } else {
+			          that.dingyueComfirm(tmplId1,tmplId2)
+			        }
+			      }
+			    })
+			  },
+			  dingyueComfirm: function (tmplId1,tmplId2){
+				let that = this;
+			    
+			          uni.requestSubscribeMessage({
+			            tmplIds: [tmplId1,tmplId2],
+			            success: (res) => {
+			              if (res[tmplId1] == 'accept' && res[tmplId2] == 'accept') {
+			                let action = "add_wx_subscribe_log";
+			                let controller = 'subscribe';
+			                let memberid = uni.getStorageSync('id')
+							let tmplId = tmplId1+','+tmplId2
+			                let data = JSON.stringify({
+			                	memberid: memberid,
+			                	template_id: tmplId
+			                });
+			                
+			                that.$utils.postNew(action,data,controller).then(res=>{
+			                	if(res.sta == 1){
+			                		
+			                	}
+			                })
+							that.getHpptFunc();
+			              } else {
+							that.getHpptFunc();
+			              }
+			            },
+			            fail(err) {
+							that.getHpptFunc();
+			              //失败
+			              console.error(err);
+			            }
+			          })
+			        
+			  },
+			  getHpptFunc(){
+				  let that = this;
+				  var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + this.idd + '"}';
+				  var action = 'receive_cardbag';
+				  // console.log(data)
+				  this.$utils.post(action, data).then(res => {
+				  	console.log('领取卡包', res)
+				  	if (res.sta == 1) {
+				  		
+				  		innerAudioContext1.play();
+				  		setTimeout(function(e) {
+				  			// console.log('停止')
+				  			innerAudioContext1.stop();
+				  		}, 1000)
+				  
+				  		// 存入本地缓存
+				  		uni.setStorageSync('new_cardbag_number', res)
+				  
+				  		// 定时开奖的话  未到开奖时间提示
+				  		if (this.type == 3) {
+				  			uni.hideLoading();
+				  			// 提示参与成功
+				  			uni.showToast({
+				  				title: '成功参与',
+				  				icon: 'none',
+				  				mask: true,
+				  			})
+				  			// 调用订阅消息
+				  // 			uni.requestSubscribeMessage({
+				  // 				tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
+				  // 				success(res) {
+				  // 					// console.log(res)
+				  
+				  // 					that.dingyue();
+				  
+				  // 				},
+				  // 				fail(res) {
+				  // 					// console.log('失败',res) 
+				  // 					wx.showToast({
+				  // 						title: res.errMsg,
+				  // 						icon: 'none',
+				  // 						mask: true,
+				  // 					})
+				  // 				}
+				  
+				  // 			})
+				  
+				  		}
+				  		// 即时开奖
+				  		else if (this.type == 4) {
+				  			innerAudioContext.src = that.auto;
+				  			innerAudioContext.play();
+				  
+				  			setTimeout(function(e) {
+				  				uni.navigateTo({
+				  					url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+				  						res.cardbag_number + '&cardbag_detail_id=' + res
+				  						.cardbag_detail_id + '&head_img=' + that.head_img +
+				  						'&all_details_num=' + that.all_details_num +
+				  						'&present_memberid_name=' + that.name +
+				  						'&old_cardbag_number=' + that.cardbag_number,
+				  				})
+				  				uni.hideLoading();
+				  			}, 500)
+				  
+				  
+				  			setTimeout(function(e) {
+				  				// console.log('停止')
+				  				innerAudioContext.stop();
+				  			}, 2200)
+				  		} else {
+				  			innerAudioContext.src = that.auto;
+				  			innerAudioContext.play();
+				  
+				  			setTimeout(function(e) {
+				  				uni.reLaunch({
+				  					url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+				  						res.cardbag_number + '&cardbag_detail_id=' + res
+				  						.cardbag_detail_id + '&head_img=' + that.head_img +
+				  						'&all_details_num=' + that.all_details_num +
+				  						'&present_memberid_name=' + that.name +
+				  						'&old_cardbag_number=' + that.cardbag_number,
+				  				})
+				  				uni.hideLoading();
+				  			}, 500)
+				  
+				  			setTimeout(function(e) {
+				  				// console.log('停止')
+				  				innerAudioContext.stop();
+				  			}, 2200)
+				  
+				  
+				  		}
+				  	} else {
+				  		uni.hideLoading()
+				  		// uni.showToast({
+				  		// 	title: res.msg,
+				  		// 	icon: 'none',
+				  		// })
+				  	}
+				  })
+			  },
 			open: function(e) {
 				let that = this;
 				if (this.sign == '200') {
 					// 调用订阅消息
-					uni.requestSubscribeMessage({
-						tmplIds: ['t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8','MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk'],
-						success(res) {
-							let action = "add_wx_subscribe_log";
-							let controller = 'subscribe';
-							let memberid = uni.getStorageSync('id')
-							let data = JSON.stringify({
-								memberid: memberid,
-								template_id:"t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8,MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk"
-							});
+					let tmplId1 = 't8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8'
+					let tmplId2 = 'MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk'
+					this.dingyue(tmplId1, tmplId2);
+					// uni.requestSubscribeMessage({
+					// 	tmplIds: ['t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8','MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk'],
+					// 	success(res) {
+					// 		let action = "add_wx_subscribe_log";
+					// 		let controller = 'subscribe';
+					// 		let memberid = uni.getStorageSync('id')
+					// 		let data = JSON.stringify({
+					// 			memberid: memberid,
+					// 			template_id:"t8n_2-QRJn5md7MI7eauHnj_hMvGRc3mC7lDy3ccQJ8,MnEl7igggF5odfal9HhcTKl99RsEK_CGwk0wpRDwPZk"
+					// 		});
 							
-							that.$utils.postNew(action,data,controller).then(res=>{
-								if(res.sta == 1){
+					// 		that.$utils.postNew(action,data,controller).then(res=>{
+					// 			if(res.sta == 1){
 									
-								}
-							})
-						},
-						fail(res) {
+					// 			}
+					// 		})
+					// 	},
+					// 	fail(res) {
 							
-						}
-					});
+					// 	}
+					// });
 					
 					// uni.showLoading({
 					// 	title: '正在领取'
 					// })
 					// 领取红包
-					var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + this.idd + '"}';
-					var action = 'receive_cardbag';
-					// console.log(data)
-					this.$utils.post(action, data).then(res => {
-						console.log('领取卡包', res)
-						if (res.sta == 1) {
+					// var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + this.idd + '"}';
+					// var action = 'receive_cardbag';
+					// // console.log(data)
+					// this.$utils.post(action, data).then(res => {
+					// 	console.log('领取卡包', res)
+					// 	if (res.sta == 1) {
 							
-							innerAudioContext1.play();
-							setTimeout(function(e) {
-								// console.log('停止')
-								innerAudioContext1.stop();
-							}, 1000)
+					// 		innerAudioContext1.play();
+					// 		setTimeout(function(e) {
+					// 			// console.log('停止')
+					// 			innerAudioContext1.stop();
+					// 		}, 1000)
 
-							// 存入本地缓存
-							uni.setStorageSync('new_cardbag_number', res)
+					// 		// 存入本地缓存
+					// 		uni.setStorageSync('new_cardbag_number', res)
 
-							// 定时开奖的话  未到开奖时间提示
-							if (this.type == 3) {
-								uni.hideLoading();
-								// 提示参与成功
-								uni.showToast({
-									title: '成功参与',
-									icon: 'none',
-									mask: true,
-								})
-								// 调用订阅消息
-								uni.requestSubscribeMessage({
-									tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
-									success(res) {
-										// console.log(res)
+					// 		// 定时开奖的话  未到开奖时间提示
+					// 		if (this.type == 3) {
+					// 			uni.hideLoading();
+					// 			// 提示参与成功
+					// 			uni.showToast({
+					// 				title: '成功参与',
+					// 				icon: 'none',
+					// 				mask: true,
+					// 			})
+					// 			// 调用订阅消息
+					// 			uni.requestSubscribeMessage({
+					// 				tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
+					// 				success(res) {
+					// 					// console.log(res)
 
-										that.dingyue();
+					// 					that.dingyue();
 
-									},
-									fail(res) {
-										// console.log('失败',res) 
-										wx.showToast({
-											title: res.errMsg,
-											icon: 'none',
-											mask: true,
-										})
-									}
+					// 				},
+					// 				fail(res) {
+					// 					// console.log('失败',res) 
+					// 					wx.showToast({
+					// 						title: res.errMsg,
+					// 						icon: 'none',
+					// 						mask: true,
+					// 					})
+					// 				}
 
-								})
+					// 			})
 
-							}
-							// 即时开奖
-							else if (this.type == 4) {
-								innerAudioContext.src = that.auto;
-								innerAudioContext.play();
+					// 		}
+					// 		// 即时开奖
+					// 		else if (this.type == 4) {
+					// 			innerAudioContext.src = that.auto;
+					// 			innerAudioContext.play();
 
-								setTimeout(function(e) {
-									uni.navigateTo({
-										url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
-											res.cardbag_number + '&cardbag_detail_id=' + res
-											.cardbag_detail_id + '&head_img=' + that.head_img +
-											'&all_details_num=' + that.all_details_num +
-											'&present_memberid_name=' + that.name +
-											'&old_cardbag_number=' + that.cardbag_number,
-									})
-									uni.hideLoading();
-								}, 500)
-
-
-								setTimeout(function(e) {
-									// console.log('停止')
-									innerAudioContext.stop();
-								}, 2200)
-							} else {
-								innerAudioContext.src = that.auto;
-								innerAudioContext.play();
-
-								setTimeout(function(e) {
-									uni.reLaunch({
-										url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
-											res.cardbag_number + '&cardbag_detail_id=' + res
-											.cardbag_detail_id + '&head_img=' + that.head_img +
-											'&all_details_num=' + that.all_details_num +
-											'&present_memberid_name=' + that.name +
-											'&old_cardbag_number=' + that.cardbag_number,
-									})
-									uni.hideLoading();
-								}, 500)
-
-								setTimeout(function(e) {
-									// console.log('停止')
-									innerAudioContext.stop();
-								}, 2200)
+					// 			setTimeout(function(e) {
+					// 				uni.navigateTo({
+					// 					url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+					// 						res.cardbag_number + '&cardbag_detail_id=' + res
+					// 						.cardbag_detail_id + '&head_img=' + that.head_img +
+					// 						'&all_details_num=' + that.all_details_num +
+					// 						'&present_memberid_name=' + that.name +
+					// 						'&old_cardbag_number=' + that.cardbag_number,
+					// 				})
+					// 				uni.hideLoading();
+					// 			}, 500)
 
 
-							}
-						} else {
-							uni.hideLoading()
-							// uni.showToast({
-							// 	title: res.msg,
-							// 	icon: 'none',
-							// })
-						}
-					})
+					// 			setTimeout(function(e) {
+					// 				// console.log('停止')
+					// 				innerAudioContext.stop();
+					// 			}, 2200)
+					// 		} else {
+					// 			innerAudioContext.src = that.auto;
+					// 			innerAudioContext.play();
+
+					// 			setTimeout(function(e) {
+					// 				uni.reLaunch({
+					// 					url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+					// 						res.cardbag_number + '&cardbag_detail_id=' + res
+					// 						.cardbag_detail_id + '&head_img=' + that.head_img +
+					// 						'&all_details_num=' + that.all_details_num +
+					// 						'&present_memberid_name=' + that.name +
+					// 						'&old_cardbag_number=' + that.cardbag_number,
+					// 				})
+					// 				uni.hideLoading();
+					// 			}, 500)
+
+					// 			setTimeout(function(e) {
+					// 				// console.log('停止')
+					// 				innerAudioContext.stop();
+					// 			}, 2200)
+
+
+					// 		}
+					// 	} else {
+					// 		uni.hideLoading()
+					// 		// uni.showToast({
+					// 		// 	title: res.msg,
+					// 		// 	icon: 'none',
+					// 		// })
+					// 	}
+					// })
 				} else {
 
 					uni.showToast({

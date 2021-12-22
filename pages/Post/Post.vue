@@ -2,7 +2,7 @@
 	<view class="flex-vertically" style="justify-content: center;">
 		<view style="position: relative;">
 			<view class="z-logo-top">
-				<!-- <view class="post-nav" :style="'height:'+statusBarHeight+'px'"></view> -->
+				<view class="post-nav" :style="'height:'+statusBarHeight+'px'"></view>
 				<view class="personal-header-interstall" >
 					<image @click="$buttonClick(backbutton)" class="icon-back-img" src="../../static/icon_post_back.png"></image>
 					<view class="personal-header-title"></view>
@@ -428,7 +428,7 @@
 		font-size: 0;
 		padding: 0;
 		position: fixed;
-	    top: 20px;
+	    top: 0;
 	    left: 0;
 	    width: 100%;
 	    z-index: 20;

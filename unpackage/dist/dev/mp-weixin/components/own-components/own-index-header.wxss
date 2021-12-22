@@ -134,9 +134,10 @@
 	text-align: right;
 	line-height: 32px;
 	height: 64rpx;
-	width: 80rpx;
+	width: 90rpx;
 	color: #FFFFFF;
-	font-size: 28rpx;
+	font-size: 32rpx;
+	font-weight: bold;
 }
 .fixed-item{
 	    position: absolute;

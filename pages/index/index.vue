@@ -452,7 +452,9 @@
 		
 			return {
 				// title:this.alt.goodsname,
-				title: '指间礼物',
+				title: '我发现了一个不错的送礼平台～',
+				imageUrl: "https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png",
+				path: '/pages/index/index',
 				// desc:'指间送礼',
 			}
 		
@@ -503,6 +505,23 @@
 			this.$utils.postNew(actionad, dataad,controllerad).then(res => {
 				this.adList = res.data;
 			});
+			
+			// 导航
+			var data1 = JSON.stringify({});
+			var action1 = 'get_gift_person_list';
+			this.$utils.post(action1, data1).then(res => {
+				let List = [
+					{
+						id: 0,
+						name: "推荐",
+						keynum:""
+					}
+				]
+				this.List = List.concat(res.rs);
+			});
+			
+			// 礼盒列表
+			this.get_all_gift_person_goods();
 			
 		},
 		onReachBottom(){
@@ -958,7 +977,7 @@
 	}
 	.index-module-box{
 		width: 100%;
-		margin-bottom: 20rpx;
+		margin-bottom: 0rpx;
 	}
 	.owm-index-search{
 		/* margin-top: 140rpx; */
@@ -1198,7 +1217,7 @@
 			width: 700rpx;
 			height: 925rpx;
 			position: relative;
-			margin-top: 30rpx;
+			margin-top: 20rpx;
 			/* background-image: url(https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/bc.png);
 			background-size: 700rpx 925rpx; */
 		}
@@ -1282,7 +1301,7 @@
 			 width:694rpx;
 			 height:60rpx;
 			 margin:0 auto;
-			 margin-top: 40rpx;
+			 margin-top: 20rpx;
 			 display: flex;
 			 align-items: center;
 			 justify-content: center;

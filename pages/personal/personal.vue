@@ -241,6 +241,26 @@
 				this.fixed = 0
 			}
 		},
+		onShareAppMessage: function(e) {
+		
+			// 腾讯有数
+			sr.track('page_share_app_message', {
+			  "from_type": "menu",
+			  "share_title": "指间礼物",
+			  "share_path": '/pages/personal/personal',
+			  "share_image_url": '',
+			  "share_to": "friends",
+			})
+		
+			return {
+				// title:this.alt.goodsname,
+				title: '我发现了一个不错的送礼平台～',
+				imageUrl: "https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png",
+				path: '/pages/index/index',
+				// desc:'指间送礼',
+			}
+		
+		},
 		methods: {
 			trackClick:function(e){
 				//腾讯有数
