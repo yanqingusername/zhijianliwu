@@ -26,7 +26,7 @@
 			</view>
 			<view class="z-payment-bottom-list">
 				<view class="z-list1" v-for="item in list1" :key="item.id">
-					<view>
+					<view @click="goToDetails(item.keynum)">
 						<view class="z-list1_img">
 							<image :src="$utils.imageUrl(item.head_img)" mode="" style="width:300rpx;height: 300rpx;"></image>
 						</view>
@@ -108,6 +108,11 @@
 			  
 		},
 		methods:{
+			goToDetails(keynum) {
+				uni.navigateTo({
+					url: "/pages/details/details?keynum="+ keynum
+				});
+			},
 			buy:function(e){
 					uni.reLaunch({
 					   url:'../index/index'

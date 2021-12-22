@@ -199,6 +199,10 @@
 						// 	}
 						// });
 					} else if (res.sta == 2) {
+						uni.showToast({
+							icon: "none",
+							title: res.msg
+						})
 						this.isShowAddress = true;
 					}else {
 						uni.showToast({

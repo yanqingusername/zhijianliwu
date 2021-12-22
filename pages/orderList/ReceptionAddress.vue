@@ -191,9 +191,14 @@
 						// 是Onshow 从地址列表页面选择地址用的
 						if (this.index) {
 							console.log('选择的地址')
-							this.addli = res.rs[this.index];
-							this.member_area_id = res.rs[this.index].id;
-							this.addsign = 2;
+							for(let i in res.rs){
+								let item = res.rs[i];
+								if(this.index == item.id){
+									this.addli = item;
+									this.member_area_id = item.id;
+									this.addsign = 2;
+								}
+							}
 						} else if (res.rs.length > 0) {
 							console.log('默认第一个地址')
 							this.addli = res.rs[0];
@@ -385,9 +390,14 @@
 								}
 							})
 						} else if (res.sta == 2) {
+							uni.showToast({
+								icon: "none",
+								title: res.msg
+							})
 							this.isShowAddress = true;
 						}else {
-							wx.showToast({
+							uni.showToast({
+								icon: "none",
 								title: res.msg
 							})
 						}
