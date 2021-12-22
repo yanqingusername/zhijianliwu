@@ -385,7 +385,7 @@
 			} else {
 				setTimeout(()=>{
 					this.isShowScene = false
-				},500);
+				},5000);
 			}
 			
 		},
