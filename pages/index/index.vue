@@ -245,7 +245,8 @@
 				coupon_type: '',
 				Key: "",
 				slide_up:'',
-				isScroll: false
+				isScroll: false,
+				shareInfo:''
 			}
 		},
 		onLoad() {
@@ -316,6 +317,13 @@
 				this.salesData = res.rs.sales;
 				this.recommendData = res.rs.recommend;
 			})
+			
+			// 分享链接
+			var datashare = JSON.stringify({type:"1"});
+			var actionshare = 'get_share_img';
+			this.$utils.post(actionshare, datashare).then(res => {
+				this.shareInfo = res.rs;
+			});
 			
 			// 推荐商品
 			// var data = JSON.stringify({
@@ -452,9 +460,9 @@
 		
 			return {
 				// title:this.alt.goodsname,
-				title: '我发现了一个不错的送礼平台～',
-				imageUrl: "https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png",
-				path: '/pages/index/index',
+				title: this.shareInfo.title || '我发现了一个不错的送礼平台～',
+				imageUrl: this.shareInfo.share_img || 'https://zhijianlw.com/static/web/img/share_img.png',
+				path: this.shareInfo.url || '/pages/index/index',
 				// desc:'指间送礼',
 			}
 		

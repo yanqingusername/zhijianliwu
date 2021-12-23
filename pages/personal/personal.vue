@@ -50,7 +50,7 @@
 						<view class="personal-center-right-type">优惠券</view>
 					</view>
 					<view class="personal-center-right-li" @click="$buttonClick(like)">
-						<view class="personal-center-right-price">2</view>
+						<view class="personal-center-right-price">{{sign.article_collection_count || '0'}}</view>
 						<view class="personal-center-right-type">喜欢</view>
 					</view>
 				</view>
@@ -142,7 +142,8 @@
 				pageIndex: 1,
 				pageSize: 10,
 				fixed: 0,
-				numberMemberStatus: 0
+				numberMemberStatus: 0,
+				shareInfo: ''
 			} 
 		},
 		onShow:function(e){  
@@ -215,6 +216,13 @@
 					this.pageIndex++;
 				}
 			})
+			
+			// 分享链接
+			var datashare = JSON.stringify({type:"4"});
+			var actionshare = 'get_share_img';
+			this.$utils.post(actionshare, datashare).then(res => {
+				this.shareInfo = res.rs;
+			});
 		}, 
 		// 下拉加载更多
 		onReachBottom (){
@@ -254,9 +262,9 @@
 		
 			return {
 				// title:this.alt.goodsname,
-				title: '我发现了一个不错的送礼平台～',
-				imageUrl: "https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png",
-				path: '/pages/index/index',
+				title: this.shareInfo.title || '我发现了一个不错的送礼平台～',
+				imageUrl: this.shareInfo.share_img || 'https://zhijianlw.com/static/web/img/share_img.png',
+				path: this.shareInfo.url || '/pages/index/index',
 				// desc:'指间送礼',
 			}
 		

@@ -62,9 +62,18 @@
 				pageIndex: 1,
 				postList: [],
 				statusBarHeight:'20',
+				shareInfo: ''
 			}
 		},
 		onLoad:function() {
+			
+			// 分享链接
+			var datashare = JSON.stringify({type:"3"});
+			var actionshare = 'get_share_img';
+			this.$utils.post(actionshare, datashare).then(res => {
+				this.shareInfo = res.rs;
+			});
+			
 			this.getProductList(1);
 			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 		},
@@ -96,9 +105,9 @@
 		
 			return {
 				// title:this.alt.goodsname,
-				title: '我发现了一个不错的送礼平台～',
-				imageUrl: "https://zhijianlw.com/static/web/img/icon_2021_12_20_01.png",
-				path: '/pages/index/index',
+				title: this.shareInfo.title || '我发现了一个不错的送礼平台～',
+				imageUrl: this.shareInfo.share_img || 'https://zhijianlw.com/static/web/img/share_img.png',
+				path: this.shareInfo.url || '/pages/index/index',
 				// desc:'指间送礼',
 			}
 		
