@@ -19,6 +19,14 @@
 					</view>
 				</view>
 			</scroll-view>
+				
+			<view class="tuijian-view" @click="changeProduct('0','','推荐')">
+				<view class="tuijian-view-1">
+					<view class="tuijian-view-2">
+						<view class="owm-index-tab-bar-item" :class="[tabBarIndex==0 ?'owm-index-tab-bar-item-active':'']">{{'推荐'}}</view>
+					</view>
+				</view>
+			</view>
 		</view>
 		
 		
@@ -153,6 +161,7 @@
 					<view class="coupon-content-title">{{regCouponInfo[0].money}}元</view>
 					<view class="coupon-content-text">{{regCouponInfo[0].type_info}} | 满{{regCouponInfo[0].full_money}}元可用</view>
 				</view>
+				<image @click.stop="closeClick" class="close" src="https://zhijianlw.com/static/web/img/icon_index_close_12_23.png" ></image>
 			</view>
 			
 			<view class="coupon-view-two" @click="$buttonClick(submitcoupon)" v-if="regCouponInfo.length > 1">
@@ -170,6 +179,7 @@
 						</view>
 					</scroll-view>
 				</view>
+				<image @click.stop="closeClick" class="close" src="https://zhijianlw.com/static/web/img/icon_index_close_12_23.png"></image>
 			</view>
 		</uni-popup>
 	</view>
@@ -200,13 +210,7 @@
 				logoUrl: "",
 				coupon_left: "",
 				coupon_right: "",
-				List: [
-					{
-						id: 0,
-						name: "推荐",
-						keynum:""
-					}
-				],
+				List: [],
 				gridList: [],
 				commodyBlockList: [],
 				indexCommodyList: [],
@@ -338,6 +342,8 @@
 			
 			this.pageIndex_Index = 1;
 			
+			this.get_all_gift_person_goods();
+			
 			// 首页推荐商品
 			var data = JSON.stringify({
 				member_level: uni.getStorageSync("level"),
@@ -405,9 +411,6 @@
 				
 				this.getMemberRegCoupon();
 			}
-			
-			this.get_all_gift_person_goods();
-			
 			
 		},
 		onPageScroll(e){
@@ -518,13 +521,7 @@
 			var data1 = JSON.stringify({});
 			var action1 = 'get_gift_person_list';
 			this.$utils.post(action1, data1).then(res => {
-				let List = [
-					{
-						id: 0,
-						name: "推荐",
-						keynum:""
-					}
-				]
+				let List = []
 				this.List = List.concat(res.rs);
 			});
 			
@@ -806,6 +803,9 @@
 					}
 				})
 			},
+			closeClick(){
+				this.$refs['couponcenter'].close();
+			},
 			submitcoupon(){
 				this.$refs['couponcenter'].close();
 				let that = this;
@@ -950,7 +950,7 @@
 	}
 	
 	.owm-index-tab-bar-item-view:first-child{
-		margin-left: 0rpx;
+		margin-left: 90rpx;
 	}
 	
 	.owm-index-tab-bar-item-view:last-child .owm-index-tab-bar-item{
@@ -1415,6 +1415,41 @@
 			font-size: 26rpx;
 			color: #333333;
 			line-height: 37rpx;
+		}
+		
+		.tuijian-view{
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			top: 0;
+			left: 26rpx;
+			background: #F2341E;
+		}
+		
+		.tuijian-view-1{
+			text-align: center;
+			    line-height: 40rpx;
+			    position: relative;
+			    display: flex;
+			    align-items: center;
+				width: 70rpx;
+				    margin-right: 10rpx;
+		}
+		
+		.tuijian-view-2{
+			    display: flex;
+			    flex-direction: column;
+		}
+		
+		.close{
+				/* position: absolute;
+				top: 20rpx;
+				right: 20rpx;
+				width: 40rpx; */
+				    position: absolute;
+				    bottom: -80rpx;
+				    width: 60rpx;
+					height: 60rpx;
 		}
 		
 </style>
