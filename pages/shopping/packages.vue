@@ -436,6 +436,15 @@
 								}],
 							})
 
+							uni.showToast({
+								title: "支付成功"
+							})
+							
+							uni.setStorageSync('coupon', '');
+							uni.setStorageSync('coupon_keynum', '');
+							uni.setStorageSync('coupon_number',  '');
+							uni.setStorageSync('coupon_money', '');
+
 							// 调用订阅消息
 				uni.requestSubscribeMessage({
 					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
@@ -456,19 +465,17 @@
 					},
 					fail(res) {
 						
+					},
+					complete(res){
+						setTimeout(()=>{
+							uni.redirectTo({
+								url:'../shopping/succes?cardbag_number='+rthat.cardbag_number
+							})
+						},200)
 					}
 				});
 
-							uni.showToast({
-								title: "支付成功"
-							})
-							uni.redirectTo({
-								url:'../shopping/succes?cardbag_number='+this.cardbag_number
-							})
-							uni.setStorageSync('coupon', '');
-							uni.setStorageSync('coupon_keynum', '');
-							uni.setStorageSync('coupon_number',  '');
-							uni.setStorageSync('coupon_money', '');
+							
 						}else if (res.pay_status == 0) {
 							// 获取流水单号
 							let action = 'get_cardbag_pay_info';
@@ -555,6 +562,10 @@
 																	"pay_amt": parseFloat(that.new_price_yuanshi)
 																}],
 															})
+															uni.showToast({
+																title: '支付成功',
+																icon: 'none'
+															})	
 
 															// 调用订阅消息
 				uni.requestSubscribeMessage({
@@ -576,16 +587,17 @@
 					},
 					fail(res) {
 						
+					},
+					complete(res){
+						setTimeout(()=>{
+							uni.redirectTo({
+								url:'../shopping/succes?cardbag_number='+cardbag_number 
+							})	
+						},200)
 					}
 				});
 
-												uni.showToast({
-													title: '支付成功',
-													icon: 'none'
-												})	
-												uni.redirectTo({
-													url:'../shopping/succes?cardbag_number='+cardbag_number 
-												})	
+												
 												return 	
 													
 													
@@ -653,6 +665,18 @@
 														}],
 													})
 
+													uni.hideLoading();
+													console.log(res)
+													uni.showToast({
+														title: '支付失败',
+														icon: 'none'
+													})
+													// uni.navigateTo({
+													// 	url:'../orderDetails/orderDetails?cardbag_number='+this.cardbag_number
+													// })
+													
+													that.commodity = ''
+
 													// 调用订阅消息
 				uni.requestSubscribeMessage({
 					tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
@@ -673,22 +697,17 @@
 					},
 					fail(res) {
 						
+					},
+					complete(res){
+						setTimeout(()=>{
+							uni.navigateTo({
+								url:'../orderList/orderList?nav=1'
+							})
+						},200)
 					}
 				});
 													
-													uni.hideLoading();
-													console.log(res)
-													uni.showToast({
-														title: '支付失败',
-														icon: 'none'
-													})
-													// uni.navigateTo({
-													// 	url:'../orderDetails/orderDetails?cardbag_number='+this.cardbag_number
-													// })
-													uni.navigateTo({
-														url:'../orderList/orderList?nav=1'
-													})
-													that.commodity = ''
+													
 												},
 											})
 										})

@@ -375,12 +375,15 @@
 								},
 								fail(res) {
 									
+								},
+								complete(res){
+									setTimeout(()=>{
+										uni.redirectTo({
+											url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
+										})
+									},200)
 								}
 							});
-
-							uni.redirectTo({
-								url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
-							})
 						} else if (res.rs.pay_status == 0) {
 							// 获取流水单号
 							let action = 'get_film_order_pay_info';
@@ -486,12 +489,15 @@
 														},
 														fail(res) {
 															
+														},
+														complete(res){
+															setTimeout(()=>{
+																uni.redirectTo({
+																	url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
+																})
+															},200)
 														}
 													});
-																			
-													uni.redirectTo({
-														url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
-													})
 												},
 												fail(res) {
 													// 腾讯有数
@@ -508,6 +514,16 @@
 													        "pay_amt": parseFloat(that.FilmPrice.price_zhe)
 													    }],
 													})
+
+													uni.hideLoading();
+													uni.showToast({
+														title: '支付失败',
+														icon: 'none'
+													})
+													that.commodity = ''
+													// uni.redirectTo({
+													// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+													// })
 
 													// 调用订阅消息
 													uni.requestSubscribeMessage({
@@ -529,21 +545,15 @@
 														},
 														fail(res) {
 															
+														},
+														complete(res){
+															setTimeout(()=>{
+																uni.redirectTo({
+																	url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
+																})
+															},200)
 														}
 													});
-													
-													uni.hideLoading();
-													uni.showToast({
-														title: '支付失败',
-														icon: 'none'
-													})
-													that.commodity = ''
-													// uni.redirectTo({
-													// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
-													// })
-													uni.redirectTo({
-														url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.quantity}&movieName=${that.film_order_info.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
-													})
 												},
 											})
 										})

@@ -458,6 +458,15 @@
 							        "pay_amt": parseFloat(that.new_price_yuanshi)
 							    }],
 							})
+
+							uni.showToast({
+								title: "支付成功"
+							})
+							
+							uni.setStorageSync('coupon', '');
+							uni.setStorageSync('coupon_keynum', '');
+							uni.setStorageSync('coupon_number', '');
+							uni.setStorageSync('coupon_money', '');
 							
 							// 调用订阅消息
 							uni.requestSubscribeMessage({
@@ -477,19 +486,17 @@
 									})
 								},
 								fail(res) {
+								},
+								complete(res){
+									setTimeout(()=>{
+										uni.redirectTo({
+											url: '../shopping/payment?ordernumber='+ordernumber
+										})
+									},200)
 								}
 							});
 						
-							uni.showToast({
-								title: "支付成功"
-							})
-							uni.redirectTo({
-								url: '../shopping/payment?ordernumber='+ordernumber
-							})
-							uni.setStorageSync('coupon', '');
-							uni.setStorageSync('coupon_keynum', '');
-							uni.setStorageSync('coupon_number', '');
-							uni.setStorageSync('coupon_money', '');
+							
 						} else if (res.pay_status == 0) {
 							// 获取流水单号
 							let action = 'get_buy_order_pay_info';
@@ -593,28 +600,7 @@
 																        "pay_amt": parseFloat(that.new_price_yuanshi)
 																    }],
 																})
-																
-																// 调用订阅消息
-																uni.requestSubscribeMessage({
-																	tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
-																	success(res) {
-																		let action = "add_wx_subscribe_log";
-																		let controller = 'subscribe';
-																		let memberid = uni.getStorageSync('id')
-																		let data = JSON.stringify({
-																			memberid: memberid,
-																			template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
-																		});
-																		
-																		rthat.$utils.postNew(action,data,controller).then(ress=>{
-																			if(ress.sta == 1){
-																			}
-																		})
-																	},
-																	fail(res) {
-																	}
-																});
-						
+
 																console
 																	.log(
 																		'微信成功回调',
@@ -640,9 +626,34 @@
 																	'coupon_money',
 																	''
 																	);
-																uni.redirectTo({
-																	url: '../shopping/payment?ordernumber='+ordernumber
-																})
+																
+																// 调用订阅消息
+																uni.requestSubscribeMessage({
+																	tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
+																	success(res) {
+																		let action = "add_wx_subscribe_log";
+																		let controller = 'subscribe';
+																		let memberid = uni.getStorageSync('id')
+																		let data = JSON.stringify({
+																			memberid: memberid,
+																			template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+																		});
+																		
+																		rthat.$utils.postNew(action,data,controller).then(ress=>{
+																			if(ress.sta == 1){
+																			}
+																		})
+																	},
+																	fail(res) {
+																	},
+																	complete(res){
+																		setTimeout(()=>{
+																			uni.redirectTo({
+																				url: '../shopping/payment?ordernumber='+ordernumber
+																			})
+																		},200)
+																	}
+																});
 															},
 													})
 												},
@@ -661,6 +672,14 @@
 													        "pay_amt": parseFloat(that.new_price_yuanshi)
 													    }],
 													})
+
+													uni.hideLoading();
+													console.log(res)
+													uni.showToast({
+														title: '支付失败',
+														icon: 'none'
+													})
+													that.commodity = ''
 													
 													// 调用订阅消息
 													uni.requestSubscribeMessage({
@@ -680,19 +699,15 @@
 															})
 														},
 														fail(res) {
+														},
+														complete(res){
+															setTimeout(()=>{
+																uni.navigateTo({
+																	url:'../orderList/orderList?nav=1'
+																})
+															},200)
 														}
 													});
-													
-													uni.hideLoading();
-													console.log(res)
-													uni.showToast({
-														title: '支付失败',
-														icon: 'none'
-													})
-													that.commodity = ''
-													uni.navigateTo({
-															url:'../orderList/orderList?nav=1'
-														})
 												},
 											})
 										})

@@ -255,95 +255,64 @@
 						},
 						fail(res) {
 							
-						}
-					});
+						},
+						complete(res){
+							// 领取红包
+							var data = '{"cardbag_number":"' + that.cardbag_number + '","memberid":"' + that.idd + '"}';
+							var action = 'receive_cardbag';
+							that.$utils.post(action, data).then(res => {
+								console.log('领取卡包', res)
+								if (res.sta == 1) {
+									
+									// 存入本地缓存
+									uni.setStorageSync('new_cardbag_number', res)
 					
-					// uni.showLoading({
-					// 	title: '正在领取'
-					// })
-					// 领取红包
-					var data = '{"cardbag_number":"' + this.cardbag_number + '","memberid":"' + this.idd + '"}';
-					var action = 'receive_cardbag';
-					// console.log(data)
-					this.$utils.post(action, data).then(res => {
-						console.log('领取卡包', res)
-						if (res.sta == 1) {
-							
-							// 存入本地缓存
-							uni.setStorageSync('new_cardbag_number', res)
-			
-							// 定时开奖的话  未到开奖时间提示
-							if (this.type == 3) {
-								uni.hideLoading();
-								// 提示参与成功
-								uni.showToast({
-									title: '成功参与',
-									icon: 'none',
-									mask: true,
-								})
-								// 调用订阅消息
-								uni.requestSubscribeMessage({
-									tmplIds: ['K7Go9Ex49p5hfB8qm3LhggEDJoZ1p2mKu2lyspAsqM0'],
-									success(res) {
-										// console.log(res)
-			
-										that.dingyue();
-			
-									},
-									fail(res) {
-										// console.log('失败',res) 
-										wx.showToast({
-											title: res.errMsg,
+									// 定时开奖的话  未到开奖时间提示
+									if (that.type == 3) {
+										uni.hideLoading();
+										// 提示参与成功
+										uni.showToast({
+											title: '成功参与',
 											icon: 'none',
 											mask: true,
 										})
 									}
-			
-								})
-			
-							}
-							// 即时开奖
-							else if (this.type == 4) {
-			
-								setTimeout(function(e) {
-									uni.navigateTo({
-										url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
-											res.cardbag_number + '&cardbag_detail_id=' + res
-											.cardbag_detail_id + '&head_img=' + that.head_img +
-											'&all_details_num=' + that.all_details_num +
-											'&present_memberid_name=' + that.name +
-											'&old_cardbag_number=' + that.cardbag_number,
-									})
-									uni.hideLoading();
-								}, 500)
-			
-			
-								
-							} else {
-			
-								setTimeout(function(e) {
-									uni.reLaunch({
-										url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
-											res.cardbag_number + '&cardbag_detail_id=' + res
-											.cardbag_detail_id + '&head_img=' + that.head_img +
-											'&all_details_num=' + that.all_details_num +
-											'&present_memberid_name=' + that.name +
-											'&old_cardbag_number=' + that.cardbag_number,
-									})
-									uni.hideLoading();
-								}, 500)
-			
-								
-			
-							}
-						} else {
-							uni.hideLoading()
-							// uni.showToast({
-							// 	title: res.msg,
-							// 	icon: 'none',
-							// })
+									// 即时开奖
+									else if (that.type == 4) {
+										setTimeout(function(e) {
+											uni.navigateTo({
+												url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+													res.cardbag_number + '&cardbag_detail_id=' + res
+													.cardbag_detail_id + '&head_img=' + that.head_img +
+													'&all_details_num=' + that.all_details_num +
+													'&present_memberid_name=' + that.name +
+													'&old_cardbag_number=' + that.cardbag_number,
+											})
+											uni.hideLoading();
+										}, 500)
+									} else {
+										setTimeout(function(e) {
+											uni.reLaunch({
+												url: '../redEnvelopes/redEnvelopes?cardbag_number=' +
+													res.cardbag_number + '&cardbag_detail_id=' + res
+													.cardbag_detail_id + '&head_img=' + that.head_img +
+													'&all_details_num=' + that.all_details_num +
+													'&present_memberid_name=' + that.name +
+													'&old_cardbag_number=' + that.cardbag_number,
+											})
+											uni.hideLoading();
+										}, 500)
+									}
+								} else {
+									uni.hideLoading()
+									// uni.showToast({
+									// 	title: res.msg,
+									// 	icon: 'none',
+									// })
+								}
+							})
 						}
-					})
+					});
 				} else {
 			
 					uni.showToast({

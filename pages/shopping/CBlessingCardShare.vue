@@ -262,41 +262,42 @@
 					},
 					fail(res) {
 						
-					}
-				});
-				
-				uni.saveImageToPhotosAlbum({
-					filePath: this.posterUrl,
-					success(res) {
-						// console.log(res)
-						uni.showToast({
-							title: "图片已保存",
-							icon: "none"
-						})
 					},
-					fail(err) {
-						if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
-							"saveImageToPhotosAlbum:fail auth deny" || err.errMsg === "saveImageToPhotosAlbum:fail authorize no response"
-						) {
-							uni.showModal({
-								title: '提示',
-								content: '需要您授权保存相册',
-								showCancel: false,
-								success: modalSuccess => {
-									uni.openSetting({
-										success(settingdata) {
-											if (settingdata.authSetting['scope.writePhotosAlbum']) {
-												// console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-											} else {
-												// console.log('获取权限失败，给出不给权限就无法正常使用的提示')
-											}
+					complete(res){
+						uni.saveImageToPhotosAlbum({
+							filePath: rthat.posterUrl,
+							success(res) {
+								// console.log(res)
+								uni.showToast({
+									title: "图片已保存",
+									icon: "none"
+								})
+							},
+							fail(err) {
+								if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
+									"saveImageToPhotosAlbum:fail auth deny" || err.errMsg === "saveImageToPhotosAlbum:fail authorize no response"
+								) {
+									uni.showModal({
+										title: '提示',
+										content: '需要您授权保存相册',
+										showCancel: false,
+										success: modalSuccess => {
+											uni.openSetting({
+												success(settingdata) {
+													if (settingdata.authSetting['scope.writePhotosAlbum']) {
+														// console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+													} else {
+														// console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+													}
+												}
+											})
 										}
 									})
 								}
-							})
-						}
+							}
+						})
 					}
-				})
+				});
 			}
 		}
 	}

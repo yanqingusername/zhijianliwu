@@ -659,14 +659,15 @@ async function wxPay(orderNumber, type) {
 					})
 				},
 				fail(res) {
+				},
+				complete(res){
+					setTimeout(()=>{
+						uni.navigateBack({
+							delta: 1
+						});
+					},500);
 				}
 			});
-			
-			setTimeout(()=>{
-				uni.navigateBack({
-					delta: 1
-				});
-			},500);
 		},
 		fail: function(res) {
 			console.log(res);
@@ -688,13 +689,14 @@ async function wxPay(orderNumber, type) {
 					})
 				},
 				fail(res) {
+				},
+				complete(res){
+					uni.showToast({
+						icon: "none",
+						title: "取消支付"
+					})
 				}
 			});
-			
-			uni.showToast({
-				icon: "none",
-				title: "取消支付"
-			})
 		},
 	});
 	/**

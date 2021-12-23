@@ -821,12 +821,13 @@
 					},
 					fail(res) {
 						
+					},
+					complete(res){
+						uni.navigateTo({
+							url:'../Coupon/Coupon'
+						})
 					}
 				});
-					
-				uni.navigateTo({
-					url:'../Coupon/Coupon'
-				})
 			}
 		},
 		computed:{

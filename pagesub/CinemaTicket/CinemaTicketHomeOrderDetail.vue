@@ -386,12 +386,16 @@
 												},
 												fail(res) {
 													
+												},
+												complete(res){
+													setTimeout(()=>{
+														uni.redirectTo({
+															url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
+														})
+													},200)
 												}
-											});
-																	
-											uni.redirectTo({
-												url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=2`
-											})
+											});				
+											
 										},
 										fail(res) {
 											// 腾讯有数
@@ -408,6 +412,13 @@
 											        "pay_amt": parseFloat(that.filmOrderInfo.paymoney)
 											    }],
 											})
+
+											uni.hideLoading();
+											uni.showToast({
+												title: '支付失败',
+												icon: 'none'
+											})
+											that.commodity = ''
 
 											// 调用订阅消息
 											uni.requestSubscribeMessage({
@@ -429,21 +440,21 @@
 												},
 												fail(res) {
 													
+												},
+												complete(res){
+													setTimeout(()=>{
+														uni.redirectTo({
+															url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
+														})
+													},200)
 												}
 											});
 											
-											uni.hideLoading();
-											uni.showToast({
-												title: '支付失败',
-												icon: 'none'
-											})
-											that.commodity = ''
+											
 											// uni.redirectTo({
 											// 	url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
 											// })
-											uni.redirectTo({
-												url: `/pagesub/CinemaTicket/CinemaTicketHomeSuccess?quantity=${that.filmOrderInfo.quantity}&movieName=${that.filmOrderInfo.movieName}&channelOrderNo=${channelOrderNo}&isnumber=1`
-											})
+											
 										},
 									})
 								})
