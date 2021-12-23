@@ -243,7 +243,7 @@
 	.fixed-item{
 		    position: absolute;
 		        right: 38rpx;
-		        bottom: -52rpx;
+		        bottom: -56rpx;
 		        color: #FFFFFF;
 		        opacity: 0.65;
 		        display: flex;

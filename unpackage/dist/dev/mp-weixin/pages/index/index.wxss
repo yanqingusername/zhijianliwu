@@ -96,7 +96,7 @@
 		border-bottom: 4rpx solid transparent;
 }
 .owm-index-tab-bar-item-view:first-child{
-		margin-left: 90rpx;
+		margin-left: 150rpx;
 }
 .owm-index-tab-bar-item-view:last-child .owm-index-tab-bar-item{
 		margin-right: 26rpx;
@@ -554,7 +554,7 @@ swiper-item{
 			    position: relative;
 			    display: flex;
 			    align-items: center;
-				width: 70rpx;
+				width: 130rpx;
 				    margin-right: 10rpx;
 }
 .tuijian-view-2{

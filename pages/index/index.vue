@@ -23,7 +23,7 @@
 			<view class="tuijian-view" @click="changeProduct('0','','推荐')">
 				<view class="tuijian-view-1">
 					<view class="tuijian-view-2">
-						<view class="owm-index-tab-bar-item" :class="[tabBarIndex==0 ?'owm-index-tab-bar-item-active':'']">{{'推荐'}}</view>
+						<view class="owm-index-tab-bar-item" :class="[tabBarIndex==0 ?'owm-index-tab-bar-item-active':'']">{{'首页推荐'}}</view>
 					</view>
 				</view>
 			</view>
@@ -950,7 +950,7 @@
 	}
 	
 	.owm-index-tab-bar-item-view:first-child{
-		margin-left: 90rpx;
+		margin-left: 150rpx;
 	}
 	
 	.owm-index-tab-bar-item-view:last-child .owm-index-tab-bar-item{
@@ -1432,7 +1432,7 @@
 			    position: relative;
 			    display: flex;
 			    align-items: center;
-				width: 70rpx;
+				width: 130rpx;
 				    margin-right: 10rpx;
 		}
 		
