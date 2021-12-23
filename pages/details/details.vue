@@ -14,8 +14,8 @@
 						<view class="flex" style="align-items: center;">
 							<view class="guige-name">{{alt.goodsname.substr(0,10)}}...</view>
 							<view class="guige-price-right">
-								<view class="details-hidden-price" style="font-weight: bold;" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
-								<view class="details-hidden-price" style="font-weight: bold;" v-else-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
+								<view class="details-hidden-price" style="font-weight: bold;" v-if="level_name=='企业会员'">¥{{alt.price_level3}}</view>
+								<view class="details-hidden-price" style="font-weight: bold;" v-else>¥{{alt.price_level0}}</view>
 								<view class="new_details-hidden-number"></view>
 							</view>
 						</view>
@@ -115,13 +115,12 @@
 			<!-- 价格 -->
 			<view class="details-alt-left">
 				<view class="details-alt-btm flex">
-					<view class="details-alt-btm-price" v-if="level_name=='普通会员'">¥{{alt.price_level0}}</view>
-					<view class="details-alt-btm-price" v-else-if="level_name=='企业会员'">
+					<view class="details-alt-btm-price" v-if="level_name=='企业会员'">
 						<text>¥{{alt.price_level3}}</text>
 						<image class="qi" src="../../static/qi.png" mode="widthFix"></image>
 						<text class="details-alt-btm-discount  details-alt-line" >¥{{alt.price}}</text>
 					</view>
-                   
+                    <view class="details-alt-btm-price" v-else>¥{{alt.price_level0}}</view>
 				</view>
 			</view>
 		</view>
