@@ -450,7 +450,8 @@
 					ordernumber: this.ordernumber,
 					memberid: memberid,
 					express_num: this.express_num,
-					express_name: this.isShowAll ? this.company_name : this.express_name
+					express_name: this.isShowAll ? this.company_name : this.express_name,
+					order_detail_id: this.detailid
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
 				    if(res.sta == 1){
@@ -463,7 +464,12 @@
 						this.express_name = ''
 						this.company_name = ''
 						this.express_num = ''
-				    }
+				    }else{
+						uni.showToast({
+							icon:'none',
+							title:res.msg
+						})
+					}
 				})
 				
 			},
