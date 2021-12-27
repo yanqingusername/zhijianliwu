@@ -24,11 +24,11 @@
 								<image class="cth-c-1-1-1"
 									src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image>
 							</view>
-							<view @click="clickRegions" class="cth-c-1-1" style="margin-left: 10rpx;">全城<image
+							<view @click="clickRegions" class="cth-c-1-1" style="margin-left: 10rpx;width: 110rpx;">全城<image
 									class="cth-c-1-1-1"
 									src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image>
 							</view>
-							<view @click="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;">筛选<image
+							<view @click="clickSelect" class="cth-c-1-1" style="margin-left: 10rpx;width: 110rpx;">筛选<image
 									class="cth-c-1-1-1"
 									src="https://zhijianlw.com/static/web/img/icon_aroow_down_10_19.png"></image>
 							</view>
@@ -720,7 +720,7 @@
 		font-size: 28rpx;
 		font-weight: bold;
 		color: #333333;
-		width: 110rpx;
+		/* width: 110rpx; */
 		height: 80rpx;
 		display: flex;
 		align-items: center;

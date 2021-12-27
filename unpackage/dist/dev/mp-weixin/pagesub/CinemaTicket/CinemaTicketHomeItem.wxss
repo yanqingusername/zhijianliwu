@@ -302,7 +302,7 @@ swiper-item {
 	font-size: 28rpx;
 	font-weight: bold;
 	color: #333333;
-	width: 110rpx;
+	/* width: 110rpx; */
 	height: 80rpx;
 	display: flex;
 	align-items: center;
