@@ -78,17 +78,23 @@
 			},
 			downNow: function(e){
 				let item = e.currentTarget.dataset.item;
-				let name = '全场'
-				if(item.type == "0"){
-					name = '全场'
-				} else if(item.type == "1"){
-					name = '单品'
-				} else {
-					name = '分类'
+				if(item && item.url){
+					uni.navigateTo({
+						url: item.url
+					});
+				}else{
+					let name = '全场'
+					if(item.type == "0"){
+						name = '全场'
+					} else if(item.type == "1"){
+						name = '单品'
+					} else {
+						name = '分类'
+					}
+					uni.navigateTo({
+						url: '../../pages/search/search?coupon_type='+item.coupon_type + "&name=" + name
+					});
 				}
-				uni.navigateTo({
-					url: '../../pages/search/search?coupon_type='+item.coupon_type + "&name=" + name
-				});
 				
 				//腾讯有数
 				sr.track('trigger_coupon', {

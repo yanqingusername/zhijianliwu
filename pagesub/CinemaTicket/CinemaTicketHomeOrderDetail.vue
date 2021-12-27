@@ -186,6 +186,12 @@
 			this.channelOrderNo = options.channelOrderNo;
 			this.getFilmOrderInfo();
 		},
+		onPullDownRefresh:function(){
+			this.getFilmOrderInfo();
+			setTimeout(()=>{
+				uni.stopPullDownRefresh();
+			}, 500);
+		},
 		methods: {
 			getFilmOrderInfo(){
 				let memberid = uni.getStorageSync('id');
