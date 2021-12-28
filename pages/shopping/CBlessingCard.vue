@@ -23,7 +23,7 @@
 							   <textarea class="text" maxlength="84" @input='txtcontent' :value="content" cursor="5"/>
 							 </view>
 							<!-- <image src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png" class="icon-card-title"></image> -->
-							<view class="icon-card-click" style="bottom: 15px;" @click.stop="clickHandler">换一换</view>
+							<view class="icon-card-click" style="bottom: 5px;" @click.stop="clickHandler">换一换</view>
 						</view>
 						<!-- <view class="new-icon-card-click" @click.stop="clickHandler">换一换</view> -->
 						
