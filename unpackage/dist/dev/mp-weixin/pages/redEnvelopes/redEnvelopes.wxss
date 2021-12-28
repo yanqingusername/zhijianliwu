@@ -62,6 +62,12 @@ page {
 		/* position: absolute;
 		top: 300rpx; */
 		margin-top: 20rpx;
+		padding: 0rpx 20rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 90%;
+		text-align: center;
 }
 .bag-gift {
 		/* width: 90%; */

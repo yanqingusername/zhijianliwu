@@ -384,6 +384,7 @@
 				guige: [],
 				checknum: '1',
 				swiperCurrentIndex: 1,
+				action_type: 'append_to_cart'
 			}
 		},
 		onLoad: function(e) {
@@ -417,15 +418,29 @@
 				sr.track('browse_sku_page',
 				  {
 				    "sku": {
-				      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
+				      "sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
 				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
 				    },
 					"spu": {
-						"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
+						"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
 						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
 					},
 				    "primary_image_url": this.goodsinfo.head_img
 				  })
+				  
+					sr.track('add_to_cart', {
+						"action_type": 'append_to_cart',
+						"sku": {
+							"sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
+							"sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+						  },
+						"spu": {
+							"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
+							"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+						},
+						"sku_num": 1,
+						"primary_image_url": this.goodsinfo.head_img
+				  	})
 
 				var data = JSON.stringify({
 					memberid: this.id,
@@ -558,16 +573,33 @@
 			}
 
 		},
+		onShow() {
+			if(this.goodsinfo && this.goodsinfo.id){
+				//新增腾讯有数
+				sr.track('browse_sku_page',
+				  {
+					"sku": {
+					  "sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
+					  "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+					},
+					"spu": {
+						"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
+						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+					},
+					"primary_image_url": this.goodsinfo.head_img
+				  })
+			}
+		},
 		onShareAppMessage: function(e) {
 			this.$refs.popup.close()
 			// 腾讯有数
-			sr.track('page_share_app_message', {
-			  "from_type": "menu",
-			  "share_title": "我发现了一份不错的礼物，快来看看吧！",
-			  "share_path": '/pages/details/details?keynum=' + this.keynum,
-			  "share_image_url": this.alt.head_img,
-			  "share_to": "friends",
-			})
+			// sr.track('page_share_app_message', {
+			//   "from_type": "menu",
+			//   "share_title": "我发现了一份不错的礼物，快来看看吧！",
+			//   "share_path": '/pages/details/details?keynum=' + this.keynum,
+			//   "share_image_url": this.alt.head_img,
+			//   "share_to": "friends",
+			// })
 
 			return {
 				imageUrl: this.alt.head_img,
@@ -617,19 +649,20 @@
 					return
 				}
 				
-				sr.track('add_to_cart', {
-				    "action_type": action_type,
-					"sku": {
-				      "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
-				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
-				    },
-					"spu": {
-						"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
-						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
-					},
-					"sku_num": numInt,
-					   	"primary_image_url": this.goodsinfo.head_img
-					})
+				this.action_type = action_type;
+				// sr.track('add_to_cart', {
+				//     "action_type": action_type,
+				// 	"sku": {
+				//       "sku_id": this.goodsinfo.id+"", // 若商品无sku_id时，可传spu_id信息
+				//       "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				//     },
+				// 	"spu": {
+				// 		"spu_id": this.goodsinfo.id+"", // 若商品无spu_id时，可传sku_id信息
+				// 		"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+				// 	},
+				// 	"sku_num": numInt,
+				// 	   	"primary_image_url": this.goodsinfo.head_img
+				// 	})
 					
 				// this.checknum = parseInt(num) + parseInt(type);
 				this.checknum = parseInt(numInt);
@@ -854,6 +887,20 @@
 			},
 			// 直接购买确定规格  
 			determine1: function(e) {
+				sr.track('add_to_cart', {
+				    "action_type": this.action_type,
+					"sku": {
+				      "sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
+				      "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				    },
+					"spu": {
+						"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
+						"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+					},
+					"sku_num": this.checknum,
+					   	"primary_image_url": this.goodsinfo.head_img
+					})
+					
 				let that = this;
 				//判断是否登录
 				var id = uni.getStorageSync('id')
@@ -915,6 +962,20 @@
 			},
 			//确认规格直接赠送
              determine2: function(e) {
+				 sr.track('add_to_cart', {
+				     "action_type": this.action_type,
+				 	"sku": {
+				       "sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
+				       "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				     },
+				 	"spu": {
+				 		"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
+				 		"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+				 	},
+				 	"sku_num": this.checknum,
+				 	   	"primary_image_url": this.goodsinfo.head_img
+				 	})
+					
 				let that = this;
 				//判断是否登录
 				var id = uni.getStorageSync('id')
@@ -980,6 +1041,20 @@
              },
 			 //确定规格礼篮
 			 determine3: function(e) {
+				 sr.track('add_to_cart', {
+				     "action_type": this.action_type,
+				 	"sku": {
+				       "sku_id": this.goodsinfo.sku+"", // 若商品无sku_id时，可传spu_id信息
+				       "sku_name": this.goodsinfo.goodsname // 若商品无sku_name时，可传spu_name信息
+				     },
+				 	"spu": {
+				 		"spu_id": this.goodsinfo.spu+"", // 若商品无spu_id时，可传sku_id信息
+				 		"spu_name": this.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
+				 	},
+				 	"sku_num": this.checknum,
+				 	   	"primary_image_url": this.goodsinfo.head_img
+				 	})
+					
 				let that = this;
 				//判断是否登录
 				var id = uni.getStorageSync('id')

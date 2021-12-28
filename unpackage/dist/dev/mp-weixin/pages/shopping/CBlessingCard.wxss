@@ -407,7 +407,7 @@ page{
 
 /*wxss*/
 .section{
-    height: 220rpx;
+    height: 200rpx;
     width: 100%;
     position: absolute;
     line-height: 50rpx;
@@ -417,7 +417,7 @@ page{
   /* text-decoration-line: underline; */
 }
 .text{
-	height: 220rpx;
+	height: 200rpx;
 	    -webkit-text-decoration-line: underline;
 	    text-decoration-line: underline;
 	    position: absolute;

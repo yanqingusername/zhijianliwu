@@ -13,7 +13,7 @@
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png"
 						mode=""></image>
 					<image class="bag-tea-img" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-					<text class="bag-tea-title">{{$utils.cut_str(item.goodsname,6)}}</text>
+					<text class="bag-tea-title">{{item.goodsname}}</text>
 				</view>
 			</view>
 			<scroll-view scroll-y="true" class="scroll-x" v-if="com==2">
@@ -351,6 +351,12 @@
 		/* position: absolute;
 		top: 300rpx; */
 		margin-top: 20rpx;
+		padding: 0rpx 20rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 90%;
+		text-align: center;
 	}
 
 	.bag-gift {

@@ -16,7 +16,7 @@
 						<view class="input-view">
 							<input @input='txt' :value="text" :focus="isFocus" @blur="isFocus = false" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
 						</view>
-						<view class="icon-card-title-view" style="height: 220rpx;">
+						<view class="icon-card-title-view" style="height: 200rpx;">
 							<!-- <input @input='txttitle' :value="txttitle" style="border-bottom: 1px solid #EEEEEE;height: 50rpx;" placeholder="某某集团股份有限公司 敬贺" type="text" placeholder-style="color:#575D65;font-size: 24rpx;"/>
 							<textarea class="icon-card-title" style="border-bottom: 1px solid #EEEEEE;height: 150rpx;" type="text"v-model="remark" placeholder="某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺某某集团股份有限公司 敬贺" ></textarea> -->
 							<view class="section" >
@@ -725,7 +725,7 @@
 	
 	/*wxss*/
 	.section{
-	    height: 220rpx;
+	    height: 200rpx;
 	    width: 100%;
 	    position: absolute;
 	    line-height: 50rpx;
@@ -735,7 +735,7 @@
 	  /* text-decoration-line: underline; */
 	}
 	.text{
-		height: 220rpx;
+		height: 200rpx;
 		    -webkit-text-decoration-line: underline;
 		    text-decoration-line: underline;
 		    position: absolute;

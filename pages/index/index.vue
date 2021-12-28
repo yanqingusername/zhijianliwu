@@ -453,13 +453,13 @@
 		onShareAppMessage: function(e) {
 
 			// 腾讯有数
-			sr.track('page_share_app_message', {
-			  "from_type": "menu",
-			  "share_title": "指间礼物",
-			  "share_path": '/pages/index/index',
-			  "share_image_url": '',
-			  "share_to": "friends",
-			})
+			// sr.track('page_share_app_message', {
+			//   "from_type": "menu",
+			//   "share_title": "指间礼物",
+			//   "share_path": '/pages/index/index',
+			//   "share_image_url": '',
+			//   "share_to": "friends",
+			// })
 		
 			return {
 				// title:this.alt.goodsname,
@@ -636,6 +636,27 @@
 						}
 						that.indexCommodyList = that.indexCommodyList.concat(res.rs);
 					}
+					
+					// 腾讯有数
+					if(res.rs && res.rs.length > 0){
+						for (var i = 0; i < res.rs.length; i++) {
+							let item = res.rs[i];
+							sr.track('expose_sku_component',
+								{
+								   "sku": {
+									 "sku_id": item.sku, // 若商品无sku_id时，可传spu_id信息
+									 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
+								   },
+								   "spu": {
+										"spu_id": item.spu, // 若商品无spu_id时，可传sku_id信息
+										"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
+									},
+								   "primary_image_url": item.head_img
+								})
+						}
+					}
+					
+					
 				})
 			},
 			details:function(e){
@@ -782,6 +803,28 @@
 				this.$utils.post(action,data).then(res=>{
 					if(res.sta == 1){
 						this.allgiftList = res.rs;
+						
+						// 腾讯有数
+						if(this.allgiftList.length > 0){
+							for (var i = 0; i < this.allgiftList.length; i++) {
+								let goods_list = this.allgiftList[i].goods_list;
+								for (var j = 0; j < goods_list.length; i++) {
+									let item = goods_list[i];
+									sr.track('expose_sku_component',
+										{
+										   "sku": {
+											 "sku_id": item.sku, // 若商品无sku_id时，可传spu_id信息
+											 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
+										   },
+										   "spu": {
+												"spu_id": item.spu, // 若商品无spu_id时，可传sku_id信息
+												"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
+											},
+										   "primary_image_url": item.head_img
+										})
+								}
+							}
+						}
 					}
 				})
 			},

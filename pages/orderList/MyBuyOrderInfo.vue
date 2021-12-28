@@ -301,6 +301,22 @@
 				let that = this;
 				let memberid = uni.getStorageSync('id')
 				let ordernumber = e.currentTarget.dataset.ordernumber;
+				
+				// 腾讯有数
+				let timestamp=new Date().getTime();
+				sr.track('custom_order', {
+				    "order": {
+				        "order_id": ordernumber,
+				        "order_time": timestamp,
+				        "order_status": "cancel_give_order"
+				    },
+				    "sub_orders": [{
+				        "sub_order_id": ordernumber,
+				        "order_amt": parseFloat(this.orderBuyInfo.orderinfo.price),
+				        "pay_amt": parseFloat(this.orderBuyInfo.orderinfo.price)
+				    }],
+				})
+				
 				let data = JSON.stringify({
 					memberid: memberid,
 					ordernumber: ordernumber
@@ -366,6 +382,22 @@
 				// });
 				
 				let orderNumber = e.currentTarget.dataset.ordernumber;
+				
+				// 腾讯有数
+				let timestamp=new Date().getTime();
+				sr.track('custom_order', {
+				    "order": {
+				        "order_id": orderNumber,
+				        "order_time": timestamp,
+				        "order_status": "pay"
+				    },
+				    "sub_orders": [{
+				        "sub_order_id": orderNumber,
+				        "order_amt": parseFloat(this.orderBuyInfo.orderinfo.price),
+				        "pay_amt": parseFloat(this.orderBuyInfo.orderinfo.price)
+				    }],
+				})
+				
 				// 接口地址
 				let action = 'get_buy_order_pay_info';
 				// 传入参数
