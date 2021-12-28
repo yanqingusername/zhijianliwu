@@ -230,39 +230,110 @@
 		},
 		onLoad:function(options){
 			let that = this;
-			this.cityCode = options.cityCode;
-			this.movieId = options.movieId
-			let data = JSON.stringify({
-				cityCode: this.cityCode,
-				movieId: this.movieId
-			}); 
-			let action = 'get_film_movie_dates_info';
-			let controller = 'films';
-			this.$utils.postNew(action, data, controller).then(res => {
-				console.log("轮播图：",res);
-				that.movieInfo = res.rs.movieInfo;
-				that.swiper.push(res.rs.movieInfo.picHd);
-				if(that.movieInfo.grade == '0'){
-					
-				}else{
-					let imgNumber = parseInt(that.movieInfo.grade/2);
-					that.imgList = [];
-					for(let i = 0; i < 5; i++){
-						if(i < imgNumber){
-							that.imgList.push({
-								imgurl:'https://zhijianlw.com/static/web/img/icon_star_10_20.png',
-							})
-						} else {
-							that.imgList.push({
-								imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
-							})
-						}
-					}
-				}
-			});
-			
+			this.movieId = options.movieId;
+			if(options && options.cityCode){
+				this.cityCode = options.cityCode;
+				this.getListData();
+			} else {
+				this.getArea();
+			}
 		},
 		methods: {
+			getArea(){
+				let that = this;
+				uni.getLocation({
+				    type: 'gcj02',
+				    success: function (res) {
+						that.getCityAddress(res.latitude, res.longitude);
+				    },
+					fail:function(res){
+						/* 若需要添加对话框, 就解除这段代码的注释 */
+					  uni.showModal({
+						title: '位置授权',
+						content: '获取您的地理位置用于获取当前城市影片列表，建议允许',
+						cancelText: "不允许",
+						confirmText: "允许",
+						success: res => {
+						  if (res.confirm) {
+							uni.openSetting({
+							  success: res => {
+								if (res['authSetting']['scope.userLocation'] == true) {
+								  that.getArea()
+								} else {
+								  uni.showToast({
+									title: '未能获得当前位置信息',
+									icon: "none"
+								  })
+								  uni.navigateBack({
+								  	delta:1
+								  });
+								}
+							  }
+							})
+						  } else if (res.cancel) {
+							uni.showToast({
+							  title: '未能获得当前位置信息',
+							  icon: "none"
+							})
+							uni.navigateBack({
+								delta:1
+							});
+						  }
+						}
+					  })
+					}
+				});
+			},
+			getCityAddress(latitude,longitude){
+				let that = this;
+				let action = 'get_city_info';
+				let controller = 'filmset';
+				let data = JSON.stringify({
+					latitude: latitude,
+					longitude: longitude
+				})
+				this.$utils.postNew(action, data, controller).then(res => {
+				    if(res.sta == 1){
+						let cityname = res.rs.address_component.city;
+						that.cityCode = res.rs.cityCode;
+						
+						uni.setStorageSync('cityname', cityname)
+						uni.setStorageSync('cityCode', that.cityCode)
+						that.getListData();
+				    }
+				})
+			},
+			getListData(){
+				let that = this;
+				let data = JSON.stringify({
+					cityCode: this.cityCode,
+					movieId: this.movieId
+				}); 
+				let action = 'get_film_movie_dates_info';
+				let controller = 'films';
+				this.$utils.postNew(action, data, controller).then(res => {
+					console.log("轮播图：",res);
+					that.movieInfo = res.rs.movieInfo;
+					that.swiper.push(res.rs.movieInfo.picHd);
+					if(that.movieInfo.grade == '0'){
+						
+					}else{
+						let imgNumber = parseInt(that.movieInfo.grade/2);
+						that.imgList = [];
+						for(let i = 0; i < 5; i++){
+							if(i < imgNumber){
+								that.imgList.push({
+									imgurl:'https://zhijianlw.com/static/web/img/icon_star_10_20.png',
+								})
+							} else {
+								that.imgList.push({
+									imgurl: 'https://zhijianlw.com/static/web/img/icon_star_default_10_20.png'
+								})
+							}
+						}
+					}
+				});
+			},
 			changeswiper(e) {
 			    let {current, source} = e.detail
 			    if(source === 'autoplay' || source === 'touch') {

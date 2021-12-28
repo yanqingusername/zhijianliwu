@@ -283,12 +283,7 @@
 				this.swiper = res.rs;
 			});
 			
-			uni.getLocation({
-			    type: 'gcj02',
-			    success: function (res) {
-					that.getCityAddress(res.latitude, res.longitude);
-			    }
-			});
+			this.getArea();
 			
 			this.getFilmmovielist(1);
 			
@@ -311,6 +306,51 @@
 			
 		},
 		methods: {
+			getArea(){
+				let that = this;
+				uni.getLocation({
+				    type: 'gcj02',
+				    success: function (res) {
+						that.getCityAddress(res.latitude, res.longitude);
+				    },
+					fail:function(res){
+						/* 若需要添加对话框, 就解除这段代码的注释 */
+					  uni.showModal({
+						title: '位置授权',
+						content: '获取您的地理位置用于获取当前城市影片列表，建议允许',
+						cancelText: "不允许",
+						confirmText: "允许",
+						success: res => {
+						  if (res.confirm) {
+							uni.openSetting({
+							  success: res => {
+								if (res['authSetting']['scope.userLocation'] == true) {
+								  that.getArea()
+								} else {
+								  uni.showToast({
+									title: '未能获得当前位置信息',
+									icon: "none"
+								  })
+								  uni.navigateBack({
+								  	delta:1
+								  });
+								}
+							  }
+							})
+						  } else if (res.cancel) {
+							uni.showToast({
+							  title: '未能获得当前位置信息',
+							  icon: "none"
+							})
+							uni.navigateBack({
+								delta:1
+							});
+						  }
+						}
+					  })
+					}
+				});
+			},
 			clickTabs(e){
 				this.tabNumber = e.currentTarget.dataset.tabnumber;
 				this.currTag = false;
