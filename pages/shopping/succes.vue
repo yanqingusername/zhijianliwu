@@ -47,6 +47,10 @@
 				<text class="zong" v-if="typestring == 1">{{cardbag.goods_count_num}}件*{{cardbag.all_details_num}}份</text>
 			</view>
 			
+			<view class="bot" v-if="com==1">
+				<text class="zong" v-if="typestring == 1">{{cardbag.goods_count_num}}件*{{cardbag.all_details_num}}份</text>
+			</view>
+			
 			<view class="z-font-hours" @click="test_tz">24小时内无人领取将自动退款</view>
 			
 			<view class="btn">

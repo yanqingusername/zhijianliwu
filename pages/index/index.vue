@@ -367,11 +367,11 @@
 						sr.track('expose_sku_component',
 							{
 							   "sku": {
-								 "sku_id": item.sku, // 若商品无sku_id时，可传spu_id信息
+								 "sku_id": item.sku+'', // 若商品无sku_id时，可传spu_id信息
 								 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
 							   },
 							   "spu": {
-									"spu_id": item.sku, // 若商品无spu_id时，可传sku_id信息
+									"spu_id": item.sku+'', // 若商品无spu_id时，可传sku_id信息
 									"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
 								},
 							   "primary_image_url": item.head_img
@@ -644,11 +644,11 @@
 							sr.track('expose_sku_component',
 								{
 								   "sku": {
-									 "sku_id": item.sku, // 若商品无sku_id时，可传spu_id信息
+									 "sku_id": item.sku+'', // 若商品无sku_id时，可传spu_id信息
 									 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
 								   },
 								   "spu": {
-										"spu_id": item.spu, // 若商品无spu_id时，可传sku_id信息
+										"spu_id": item.sku+'', // 若商品无spu_id时，可传sku_id信息
 										"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
 									},
 								   "primary_image_url": item.head_img
