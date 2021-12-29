@@ -177,7 +177,7 @@
 				});
 				this.isShowView = 2;
 				this.Key = Key;
-				this.historySearchList.push(Key);
+				this.historySearchList.unshift(Key);
 				this.historySearchList = [...new Set(this.historySearchList)];
 				uni.setStorageSync("historySearchList", this.historySearchList);
 				this.pricekey = "";
@@ -198,7 +198,7 @@
 				});
 				this.isShowView = 2;
 				this.Key = itemkey;
-				this.historySearchList.push(itemkey);
+				this.historySearchList.unshift(itemkey);
 				this.historySearchList = [...new Set(this.historySearchList)];
 				uni.setStorageSync("historySearchList", this.historySearchList);
 				this.pricekey = "";
@@ -308,6 +308,22 @@
 			},
 			onKeyInput(e){
 				this.Key = e.detail.value;
+				
+				let Key = this.Key.replace(/[ ]/g,"");
+				if(!Key){
+					uni.showToast({
+						icon:"none",
+						title: "请输入搜索内容"
+					})
+					return
+				}
+				this.Key = Key;
+				this.pricekey = "";
+				this.conditionkey = "1";
+				this.indexCurrent = 0;
+				this.keynum = "";
+				this.coupon_type = "";
+				this.getProductList(1);
 			}
 		},
 		computed:{
