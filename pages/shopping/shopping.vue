@@ -413,11 +413,11 @@
 				    "action_type": 'append_to_cart',
 					"sku": {
 				      "sku_id": e.sku+"", // 若商品无sku_id时，可传spu_id信息
-				      "sku_name": e.goodsname + e.goods_spec_item // 若商品无sku_name时，可传spu_name信息
+				      "sku_name": e.goodsinfo.goodsname + e.goods_spec_item // 若商品无sku_name时，可传spu_name信息
 				    },
 					"spu": {
 						"spu_id": e.spu+"", // 若商品无spu_id时，可传sku_id信息
-						"spu_name": e.goodsname // 若商品无spu_name时，可传sku_name信息
+						"spu_name": e.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
 					},
 					"sku_num": parseInt(this.goodsnum),
 					   	"primary_image_url": e.head_img
@@ -436,11 +436,11 @@
 				    "action_type": 'remove_from_cart',
 					"sku": {
 				      "sku_id": e.sku+"", // 若商品无sku_id时，可传spu_id信息
-				      "sku_name": e.goodsname + e.goods_spec_item // 若商品无sku_name时，可传spu_name信息
+				      "sku_name": e.goodsinfo.goodsname + e.goods_spec_item // 若商品无sku_name时，可传spu_name信息
 				    },
 					"spu": {
 						"spu_id": e.spu+"", // 若商品无spu_id时，可传sku_id信息
-						"spu_name": e.goodsname // 若商品无spu_name时，可传sku_name信息
+						"spu_name": e.goodsinfo.goodsname // 若商品无spu_name时，可传sku_name信息
 					},
 					"sku_num": 1,
 					   	"primary_image_url": e.head_img
