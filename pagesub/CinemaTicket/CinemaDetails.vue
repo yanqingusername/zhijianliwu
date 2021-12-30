@@ -130,7 +130,8 @@
 				let action = 'get_film_cinema_movies';
 				let controller = 'films';
 				let data = JSON.stringify({
-					cinemaId: that.cinemaid
+					cinemaId: that.cinemaid,
+					movieId: that.movieId,
 				})
 				this.$utils.postNew(action, data, controller).then(res => {
 					if (res.sta == 1) {
