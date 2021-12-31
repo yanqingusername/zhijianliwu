@@ -117,7 +117,7 @@
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
 			<text class="must-bottom-price">{{new_price_zhe || '0.00'}}</text>
 			<view class="pay clearfix">
-				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
+				<button class="shop-payment shop-payment-active " @click="$buttonClick(forsubmit)" v-if="com==false">立即付款</button>
 			</view>
 		</view>
 	</view>

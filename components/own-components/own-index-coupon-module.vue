@@ -69,9 +69,16 @@
 			},
 			recommend(e){
 				let url = e.url
-				if(url){
+				var sign = uni.getStorageSync('sign');
+				if (sign) {
+					if(url){
+						uni.navigateTo({
+							url:url
+						})
+					}
+				}else{
 					uni.navigateTo({
-						url:url
+						url: '/pages/signin/signin'
 					})
 				}
 				// uni.navigateTo({

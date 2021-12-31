@@ -132,7 +132,7 @@
 				<button class="shop-payment shop-payment-active " style="background: #EFA13C;opacity: 0.6;">该地区无货</button>
 			</view>
 			<view class="pay clearfix" v-else>
-				<button class="shop-payment shop-payment-active " @click="forsubmit" v-if="com==false">立即付款</button>
+				<button class="shop-payment shop-payment-active " @click="$buttonClick(forsubmit)" v-if="com==false">立即付款</button>
 			</view>
 		</view>
 	</view>

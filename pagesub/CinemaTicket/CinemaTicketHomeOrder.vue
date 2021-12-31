@@ -65,7 +65,7 @@
 		
 		<view style="height: 240rpx;width: 100%;"></view>
 		
-		<view class="ctho-bottom" @click="clickPay">
+		<view class="ctho-bottom" @click="$buttonClick(clickPay)">
 			<view class="ctho-bottom-price">¥<text style="font-size: 48rpx;">{{FilmPrice.show_price}}</text></view>
 			<view class="ctho-bottom-title">立即付款</view>
 		</view>
