@@ -6,13 +6,14 @@
 			<text class="packages-font-ltitle">记得提醒对方填写地址哦</text>
 		</view>
 		<view class="z-box">
-			<view class="jie" v-if="com==1">
-				<view class="gift1" v-if="com==1" v-for="(item, index) in gift" :key="index">
+			<view class="jie-new" v-if="com==1">
+				<view class="gift1-new" v-if="com==1" v-for="(item, index) in gift" :key="index">
 					<image class="flowers" src="https://slxcx.oss-cn-beijing.aliyuncs.com/xcx-static/payment/hdj.png" mode=""></image>
 					<image class="gift-img1" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-					<view class="gift-xq1">
+					<text class="bag-tea-title">{{item.goodsname}}</text>
+					<!-- <view class="gift-xq1">
 						<text class="gift-xq-title1">{{$utils.cut_str(item.goodsname,6)}}</text>
-					</view>
+					</view> -->
 				</view>
 			</view>
 			
@@ -421,6 +422,34 @@
 		height: 360rpx;
 		    	width: 360rpx;
 				border-radius: 10rpx;
+	}
+	
+	.jie-new{
+		display: flex;
+		    justify-content: center;
+		    flex-wrap: wrap;
+		    position: relative;
+	}
+	
+	.gift1-new{
+		    box-sizing: border-box;
+		    display: flex;
+		    width: 368rpx;
+		    height: 460rpx;
+		    border: 3rpx solid #CCB586;
+		    border-radius: 10rpx;
+		    align-items: center;
+		    flex-direction: column;
+	}
+	
+	.bag-tea-title {
+		margin-top: 20rpx;
+		padding: 0rpx 20rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 90%;
+		text-align: center;
 	}
 	
 	.gift-xq1 {
