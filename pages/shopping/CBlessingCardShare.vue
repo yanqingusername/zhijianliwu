@@ -27,7 +27,7 @@
 				text: '',
 				content: '',
 				title: '',
-				bg_icon:"https://zhijianlw.com/static/web/img/icon_card_share_2021_10_09_01.png"
+				bg_icon:"https://zhijianlw.com/static/web/img/icon_card_share_2021_12_31_01.png"
 			}
 		},
 		onLoad(e) {
@@ -185,10 +185,10 @@
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.QRcodeUrl,
-								x: 145,
-								y: 490,
-								w: 92,
-								h: 92,
+								x: 25,
+								y: 515,
+								w: 88,
+								h: 88,
 								radius: 12,
 								border_color: '#F7E8CB',
 								border_width: 6,
@@ -203,11 +203,25 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序二维码领取礼物",
-								x: 105,
-								y: 610,
-								font_color: "#B58D3D",
-								font_size: 14
+								text: "长按小程序二维码",
+								x: 125,
+								y: 557,
+								font_color: "#FFFCF3",
+								font_size: 18
+							}).catch(err_msg => {
+								uni.showToast({
+									title: err_msg,
+									icon: "none"
+								})
+							})
+							
+							// 画 长按扫码即可送礼
+							await this.$refs.rCanvas.drawText({
+								text: "领取礼物",
+								x: 125,
+								y: 580,
+								font_color: "#FFFCF3",
+								font_size: 18
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
