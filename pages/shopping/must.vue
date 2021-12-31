@@ -472,18 +472,20 @@
 							uni.requestSubscribeMessage({
 								tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
 								success(res) {
-									let action = "add_wx_subscribe_log";
-									let controller = 'subscribe';
-									let memberid = uni.getStorageSync('id')
-									let data = JSON.stringify({
-										memberid: memberid,
-										template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
-									});
-									
-									rthat.$utils.postNew(action,data,controller).then(ress=>{
-										if(ress.sta == 1){
-										}
-									})
+									if (res['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo'] == 'accept' && res['KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'] == 'accept') {
+										let action = "add_wx_subscribe_log";
+										let controller = 'subscribe';
+										let memberid = uni.getStorageSync('id')
+										let data = JSON.stringify({
+											memberid: memberid,
+											template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+										});
+										
+										rthat.$utils.postNew(action,data,controller).then(ress=>{
+											if(ress.sta == 1){
+											}
+										})
+									}
 								},
 								fail(res) {
 								},
@@ -631,18 +633,20 @@
 																uni.requestSubscribeMessage({
 																	tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'],
 																	success(res) {
-																		let action = "add_wx_subscribe_log";
-																		let controller = 'subscribe';
-																		let memberid = uni.getStorageSync('id')
-																		let data = JSON.stringify({
-																			memberid: memberid,
-																			template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
-																		});
-																		
-																		rthat.$utils.postNew(action,data,controller).then(ress=>{
-																			if(ress.sta == 1){
-																			}
-																		})
+																		if (res['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo'] == 'accept' && res['KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE'] == 'accept') {
+																			let action = "add_wx_subscribe_log";
+																			let controller = 'subscribe';
+																			let memberid = uni.getStorageSync('id')
+																			let data = JSON.stringify({
+																				memberid: memberid,
+																				template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,KJaeMwRJkgFsPDzIv0zc2JCUDWyMlaIu-z5WhCVR_GE"
+																			});
+																			
+																			rthat.$utils.postNew(action,data,controller).then(ress=>{
+																				if(ress.sta == 1){
+																				}
+																			})
+																		}
 																	},
 																	fail(res) {
 																	},
@@ -685,18 +689,20 @@
 													uni.requestSubscribeMessage({
 														tmplIds: ['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'],
 														success(res) {
-															let action = "add_wx_subscribe_log";
-															let controller = 'subscribe';
-															let memberid = uni.getStorageSync('id')
-															let data = JSON.stringify({
-																memberid: memberid,
-																template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
-															});
-															
-															rthat.$utils.postNew(action,data,controller).then(ress=>{
-																if(ress.sta == 1){
-																}
-															})
+															if (res['hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs'] == 'accept') {
+																let action = "add_wx_subscribe_log";
+																let controller = 'subscribe';
+																let memberid = uni.getStorageSync('id')
+																let data = JSON.stringify({
+																	memberid: memberid,
+																	template_id:"hc4lSJBWenqNrQ5hqaRLU4n2E-mRBTvxl42aW_25yRs"
+																});
+																
+																rthat.$utils.postNew(action,data,controller).then(ress=>{
+																	if(ress.sta == 1){
+																	}
+																})
+															}
 														},
 														fail(res) {
 														},

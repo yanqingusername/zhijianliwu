@@ -856,19 +856,21 @@
 				uni.requestSubscribeMessage({
 					tmplIds: ['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo','UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM'],
 					success(res) {
-						let action = "add_wx_subscribe_log";
-						let controller = 'subscribe';
-						let memberid = uni.getStorageSync('id')
-						let data = JSON.stringify({
-							memberid: memberid,
-							template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM"
-						});
-						
-						that.$utils.postNew(action,data,controller).then(res=>{
-							if(res.sta == 1){
-								
-							}
-						})
+						if (res['CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo'] == 'accept' && res['UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM'] == 'accept') {
+							let action = "add_wx_subscribe_log";
+							let controller = 'subscribe';
+							let memberid = uni.getStorageSync('id')
+							let data = JSON.stringify({
+								memberid: memberid,
+								template_id:"CMWMOxVzHq2eI_F-Hit5U3tvGCaENXCAUQwII4N2hYo,UtjUryAFGcusJYLvm-2Z0y_Op_ya2BmpS4JwGLmG9OM"
+							});
+							
+							that.$utils.postNew(action,data,controller).then(res=>{
+								if(res.sta == 1){
+									
+								}
+							})
+						}
 					},
 					fail(res) {
 						
