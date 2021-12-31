@@ -49,7 +49,7 @@
 						<view style="flex-direction: column;">
 							<view class="flex-between flex-vertically" style="width: 450rpx;">
 								<view>{{item1.member_name}}</view>
-								<view class="bag-gift-title-tea">{{$utils.cut_str(item1.goods_name,11)}}</view>
+								<view class="bag-gift-title-tea" v-if="cardbag.type != 1">{{$utils.cut_str(item1.goods_name,11)}}</view>
 							</view>
 							<view style="font-size: 22rpx;color: #999999;margin-top: 16rpx;">{{item1.exchange_time}}</view>
 						</view>
