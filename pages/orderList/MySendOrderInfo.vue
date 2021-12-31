@@ -152,7 +152,7 @@
 				<view class="reception-order-time">支付完成超过24小时，未成功领取的礼物系统将自动退款</view>
 			</view>
 		</view>
-		<view style="display: flex;align-items: center;justify-content: center;margin-top: 30rpx;">
+		<view style="display: flex;align-items: center;justify-content: center;margin-top: 30rpx;" v-if="orderSendInfo.orderinfo.status ==0 || orderSendInfo.orderinfo.status ==1 || orderSendInfo.orderinfo.status ==2 || orderSendInfo.orderinfo.status ==3">
 			<view class="reception-detail-view" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" @click="goConversionDetails">查看详情</view>
 		</view>
 		<view class="reception-empty"></view>
