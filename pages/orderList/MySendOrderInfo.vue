@@ -16,7 +16,7 @@
 				<view class="recharge-status-text" >{{orderSendInfo.orderinfo.order_status_info}}</view>
 			</view>
 			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==5">需付款：¥{{orderSendInfo.orderinfo.orderprice_discount}}   剩余<uni-countdown :showColon="false" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
-			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==2">剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
+			<view class="recharge-status-label" v-if="orderSendInfo.orderinfo.status ==2">剩余<uni-countdown :showColon="false" :show-day="false" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			
 		</view>
 		
