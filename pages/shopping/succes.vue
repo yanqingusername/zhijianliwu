@@ -450,6 +450,7 @@
 		white-space: nowrap;
 		width: 90%;
 		text-align: center;
+		line-height: 42rpx;
 	}
 	
 	.gift-xq1 {
