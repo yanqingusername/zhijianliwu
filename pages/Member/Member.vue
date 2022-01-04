@@ -76,7 +76,7 @@
 			}
 		},
 		onLoad: function(options) {
-			this.typestring = options.typestring || uni.getStorageSync("level_name")=='企业会员' ? 2 : 1;
+			this.typestring = options.typestring || (uni.getStorageSync("level_name")=='企业会员' ? 2 : 1);
 			if(this.typestring == 1){
 				uni.setNavigationBarTitle({
 					　　title: '会员详情'
