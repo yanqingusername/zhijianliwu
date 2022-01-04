@@ -35,7 +35,7 @@
 						<view id="seatHeightId" style="position: relative;display: flex;width: 100%;margin-top: 30rpx;">
 							<view v-for="(item, index) in seatList" :key="index" class='seatTap' @click.stop='clickSeat'
 								:data-index='index'
-								:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((areaLiftNumber[0] == 1 ? (item.rowNo-1):(item.rowNo-2)) * seatScaleHeight)+'px;'">
+								:style="'left:'+((item.columnNo-1)* seatScaleHeight)+'px;top:'+((areaLiftNumber[0].rowNo == 1 ? (item.rowNo-1):(item.rowNo-2)) * seatScaleHeight)+'px;'">
 								<image :src="item.nowIcon" class='normal' />
 								<!-- <view style="width:20rpx;height: 20rpx;border: 1px solid #007AFF;"></view> -->
 							</view>
@@ -49,7 +49,7 @@
 				</view>
 			</movable-view>
 			<view class="area-left" :style="'position: absolute;top:'+(nameTop)+'px;left: 10px;margin-top:0rpx;height:'+(seatScaleHeight * maxY * seatScaleLeft)+ 'px;'">
-				<view class="area-left-number" :style="'top:'+((areaLiftNumber[0] == 1 ? (item-1):(item-2)) * seatScaleHeight * seatScaleLeft)+'px;padding:'+ (2 * seatScaleLeft) +'px;'" v-for="(item, index) in areaLiftNumber" :key="index"><view :style="'width:'+(10*seatScaleLeft)+'px;height:'+(10*seatScaleLeft)+'px;font-size: 19rpx;font-weight: bold;color: #FFFFFF;display: flex;align-items: center;justify-content: center;'">{{item}}</view></view>
+				<view class="area-left-number" :style="'top:'+((areaLiftNumber[0].rowNo == 1 ? (item.rowNo-1):(item.rowNo-2)) * seatScaleHeight * seatScaleLeft)+'px;padding:'+ (2 * seatScaleLeft) +'px;'" v-for="(item, index) in areaLiftNumber" :key="index"><view :style="'width:'+(10*seatScaleLeft)+'px;height:'+(10*seatScaleLeft)+'px;font-size: 19rpx;font-weight: bold;color: #FFFFFF;display: flex;align-items: center;justify-content: center;'">{{item.seatNo}}</view></view>
 			</view>
 			
 			<view v-if="isShowBg" class="area-bg" style="position: absolute;top:0px;left: 0px;margin-top:0rpx;padding: 0rpx 20rpx 20rpx;">
@@ -57,7 +57,7 @@
 					<view style="position: relative;display: flex;width: 100%;">
 						<view v-for="(item, index) in seatList" :key="index" class='seatTap'
 							:data-index='index'
-							:style="'left:'+((item.columnNo-1)* 6)+'px;top:'+((areaLiftNumber[0] == 1 ? (item.rowNo-1):(item.rowNo-2)) * 6)+'px;font-size: 14rpx;'">
+							:style="'left:'+((item.columnNo-1)* 6)+'px;top:'+((areaLiftNumber[0].rowNo == 1 ? (item.rowNo-1):(item.rowNo-2)) * 6)+'px;font-size: 14rpx;'">
 							<image :src="item.nowIcon" class='normal' style="width: 4px;height: 4px;"/>
 						</view>
 					</view>
@@ -252,11 +252,23 @@
 							let areaListNumber = []
 							if(res.rs.seatsInfo && res.rs.seatsInfo.seats.length > 0){
 								res.rs.seatsInfo.seats.forEach(element => {
-									areaList.push(element.seatNo.split('排')[0])
-									areaListNumber.push(element.rowNo)
+									let obj = {
+										"seatNo": element.seatNo.split('排')[0],
+										"rowNo": element.rowNo
+									}
+									// areaList.push(element.seatNo.split('排')[0])
+									// areaListNumber.push(element.rowNo)
+									areaListNumber.push(obj)
 								})
 							}
-							that.areaLift = [...new Set(areaList)]
+							
+							let obj = {};
+							areaListNumber = areaListNumber.reduce(function(item, next) {
+							    obj[next.seatNo] ? '' : obj[next.seatNo] = true && item.push(next);
+							    return item;
+							}, []);
+							
+							// that.areaLift = [...new Set(areaList)]
 							that.areaLiftNumber = [...new Set(areaListNumber)]
 							
 							that.selectedSeat = [];
@@ -280,7 +292,7 @@
 							var query = wx.createSelectorQuery();
 							query.select('#seatHeightId').boundingClientRect();
 							query.exec(function(res){
-								let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
+								let nameTopA = (zthat.areaLiftNumber[0].rowNo-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 								if(res && res[0]){
 									if(number == 1){
 										zthat.nameTop = parseInt(res[0].top) - 50;
@@ -353,7 +365,7 @@
 							var query = wx.createSelectorQuery();
 							query.select('#seatHeightId').boundingClientRect();
 							query.exec(function(res){
-								let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
+								let nameTopA = (zthat.areaLiftNumber[0].rowNo-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 								if(res && res[0]){
 									zthat.nameTop = parseInt(res[0].top)-50;
 								}
@@ -380,7 +392,7 @@
 				var query = wx.createSelectorQuery();
 				query.select('#seatHeightId').boundingClientRect();
 				query.exec(function(res){
-					let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
+					let nameTopA = (zthat.areaLiftNumber[0].rowNo-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 					if(res && res[0]){
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
@@ -391,7 +403,7 @@
 				var query = wx.createSelectorQuery();
 				query.select('#seatHeightId').boundingClientRect();
 				query.exec(function(res){
-					let nameTopA = (zthat.areaLiftNumber[0]-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
+					let nameTopA = (zthat.areaLiftNumber[0].rowNo-1)*zthat.seatScaleHeight*zthat.seatScaleLeft;
 					if(res && res[0]){
 						zthat.nameTop = parseInt(res[0].top)-50;
 					}
