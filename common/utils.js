@@ -769,11 +769,17 @@ function isSystemInfo(){
 	let isSystemInfo = false;
 	uni.getSystemInfo({
 		success:  (res)=> {
- 			if(res.model.indexOf('iPhone X') != -1 || res.model.indexOf("iPhone XR") != -1  || res.model.indexOf("iPhone XS Max") != -1){
+			// 判断是否是苹果11及以上手机  top44是苹果样式不一
+			if (res.safeArea.top > 20 && res.model.indexOf("iPhone") > -1) {
 				isSystemInfo =  true;
-			}else{
+			} else{
  				isSystemInfo =  false;
  			}
+ 		// 	if(res.model.indexOf('iPhone X') != -1 || res.model.indexOf("iPhone XR") != -1  || res.model.indexOf("iPhone XS Max") != -1){
+			// 	isSystemInfo =  true;
+			// }else{
+ 		// 		isSystemInfo =  false;
+ 		// 	}
  		}
  	});
 	return isSystemInfo;

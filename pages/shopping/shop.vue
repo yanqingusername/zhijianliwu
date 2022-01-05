@@ -192,7 +192,7 @@
 					<view class="new-shop-gift-buy-bot">
 						<text class="shop-bot" @click="box1">直接送礼</text>
 						<text class="shop-bot" @click="box2">拼手气礼包</text>
-						<text @click="close" class="shop-bot close">取消</text>
+						<text @click="close" class="shop-bot close" :style="'border-bottom: 1px solid #FFFFFF;height:'+(isSystemInfo ? '96' : '82')+'rpx;'">取消</text>
 					</view>
 				</uni-popup>
 			 </view> 
@@ -273,11 +273,14 @@
 			   remarkNumber: 0,
 			   isShowPop: false,
 			   unShopList:[],
-			   cart_goods_id: ''
+			   cart_goods_id: '',
+			   isSystemInfo: false
 			}
 		
 		},
 		onLoad:function(e){
+			this.isSystemInfo = this.$utils.isSystemInfo();
+			
 				let type=e.type;
 				this.type=type;
 				

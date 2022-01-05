@@ -167,7 +167,7 @@
 						<text class="shop-bot" @click="box1">直接送礼</text>
 						<text class="shop-bot" @click="box2">拼手气礼包</text>
 						<text class="shop-bot" @click="box3">立即购买</text>
-						<text @click="close" class="shop-bot close">取消</text>
+						<text @click="close" class="shop-bot close" style="border-bottom: 1px solid #FFFFFF;">取消</text>
 					</view>
 				</uni-popup>
 			</view>
