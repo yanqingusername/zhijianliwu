@@ -92,6 +92,7 @@
 				
 				<view class="wishes-name zhufu">{{order_zhufu_msg}}</view>
 			</view>
+			<view class="new-detail-info" @click="toConversionDetails">看看大家的手气 ></view>
 		</view>
 	</view>
 	<view class="" v-else-if="isShowCheck == 2">
@@ -107,8 +108,28 @@
 					<image class="wishes-fu-head" :src="$utils.imageUrl(head_img)" mode=""></image>
 					<text class="wishes-fu-head-title">{{name}}</text>
 				</view>
+				<view class="wishes-name zhufu">{{order_zhufu_msg}}</view>
 			</view>
 			<view class="new-detail-info" @click="toConversionDetails">查看领取详情 ></view>
+		</view>
+	</view>
+	<!-- 收礼人已领取-->
+	<view class="" v-else-if="isShowCheck == 4">
+		<!-- 文字祝福 -->
+		<view style="position: relative;width: 80%;margin: 100rpx auto;">
+			<view class="">
+				<image class="wishes-fu"
+					src="https://zhijianlw.com/static/web/img/libao_09_01.png" mode="widthFix">
+				</image>
+			</view>
+			<view class="infor">
+				<view class="img-infor">
+					<image class="wishes-fu-head" :src="$utils.imageUrl(head_img)" mode=""></image>
+					<text class="wishes-fu-head-title">{{name}}</text>
+				</view>
+				<view class="wishes-name zhufu">{{order_zhufu_msg}}</view>
+			</view>
+			<view class="new-detail-info" @click="toredEnvelopes">查看领取详情 ></view>
 		</view>
 	</view>
 </template>
@@ -162,24 +183,12 @@
 				order_zhufu_msg: ''
 			}
 		},
-		onLoad: function(e) {	
-			
-			innerAudioContext1.src = 'https://zhijianlw.com/static/web/img/kai_li_bao.wav';
-			
-			this.url = config.URL;
+		onShow() {
 			let that = this;
 			let merberid = uni.getStorageSync('id')
-			this.sign = uni.getStorageSync('sign');
 			let send_talk_msg = uni.getStorageSync("send_talk_msg")
 			this.send_talk_msg = send_talk_msg
-			// 拿到传过来的礼包号
-			if (e.cardbag_number) {
-				this.cardbag_number = e.cardbag_number;
-			} else {
-				this.cardbag_number = e.scene;
-			}
-
-
+			
 			let data1 = JSON.stringify({
 				cardbag_number: this.cardbag_number,
 				cardbag_detail_id: "0",
@@ -228,21 +237,22 @@
 						}
 					} else if (re.sta == 0) {
 						this.display = '1';
-
+			
 						if (re.cardbag_number) {
 							this.number = re.cardbag_number;
 							this.cardbag_detail_id = re.cardbag_detail_id
 							this.display = '0';
-							uni.reLaunch({
-								url: '../redEnvelopes/redEnvelopes?cardbag_number=' + re
-									.cardbag_number + '&cardbag_detail_id=' + re
-									.cardbag_detail_id + '&cardbag=' + that.cardbag_number +
-									'&head_img=' + res.cardbag.present_memberid_headimg +
-									'&all_details_num=' + res.cardbag.all_details_num +
-									'&present_memberid_name=' + res.cardbag.present_memberid_name
-							})
+							this.isShowCheck = 4;
+							// uni.reLaunch({
+							// 	url: '../redEnvelopes/redEnvelopes?cardbag_number=' + re
+							// 		.cardbag_number + '&cardbag_detail_id=' + re
+							// 		.cardbag_detail_id + '&cardbag=' + that.cardbag_number +
+							// 		'&head_img=' + res.cardbag.present_memberid_headimg +
+							// 		'&all_details_num=' + res.cardbag.all_details_num +
+							// 		'&present_memberid_name=' + res.cardbag.present_memberid_name
+							// })
 						} else if (time < fixedtime) {
-
+			
 						} else {
 							this.isShowCheck = 1;
 							this.zhufu_msg = re.msg;
@@ -251,7 +261,7 @@
 							// 	icon: 'none'
 							// })
 						}
-
+			
 					} else if (re.sta == 101) {
 						this.isShowCheck = 2;
 						// this.zhufu_msg = re.msg;
@@ -263,9 +273,9 @@
 					} else {
 						this.display = '1';
 					}
-
+			
 				})
-
+			
 				// 模板信息
 				this.template = res.cardbag_theme;
 				// 判断当前礼包是否为定时开奖
@@ -278,8 +288,24 @@
 				// 是否领取
 				this.all_details_num = res.cardbag.all_details_num
 				this.id = res.cardbag.present_memberid;
-
+			
 			})
+		},
+		onLoad: function(e) {	
+			
+			innerAudioContext1.src = 'https://zhijianlw.com/static/web/img/kai_li_bao.wav';
+			this.url = config.URL;
+			this.sign = uni.getStorageSync('sign');
+			
+			// 拿到传过来的礼包号
+			if (e.cardbag_number) {
+				this.cardbag_number = e.cardbag_number;
+			} else {
+				this.cardbag_number = e.scene;
+			}
+
+			
+			
               
 			  // 音频用到的宽度
 			  uni.getSystemInfo({
@@ -451,12 +477,28 @@
             	this.movable_x = s;
                 this.stop=0
             }, 
-			toConversionDetails(){
+			toredEnvelopes(){
 				uni.reLaunch({
-					url: '../index-coupon/ConversionDetails?cardbag=' + this.cardbag_number +
-						'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
-						this.cardbag_number,
+					url: '../redEnvelopes/redEnvelopes?cardbag_number=' + this.number + '&cardbag_detail_id=' + this.cardbag_detail_id + '&cardbag=' + this.cardbag_number +
+						'&head_img=' + this.present_memberid_headimg +
+						'&all_details_num=' + this.all_details_num +
+						'&present_memberid_name=' + this.present_memberid_name
 				})
+			},
+			toConversionDetails(){
+				if(this.isShowCheck == 1){
+					uni.reLaunch({
+						url: '../index-coupon/ConversionDetails?cardbag=' + this.cardbag_number +
+							'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
+							this.cardbag_number + '&isShowCheck=1',
+					})
+				}else if(this.isShowCheck == 2){
+					uni.reLaunch({
+						url: '../index-coupon/ConversionDetails?cardbag=' + this.cardbag_number +
+							'&cardbag_detail_id=' + '0' + '&cardbag_number=' +
+							this.cardbag_number + '&isShowCheck=2',
+					})
+				}
 			},
 			dingyue: function (tmplId1, tmplId2){
 			    let that = this

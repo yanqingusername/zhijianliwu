@@ -40,7 +40,7 @@
 					<view class="bag-gift-title">
 						<text class="bag-gift-title-font">{{cardbag.receive_status_info_buttom}}</text>
 					</view>
-					<view style="display: flex;margin-right: 40rpx;" v-if="cardbag.receive_status == 0">
+					<view style="display: flex;margin-right: 40rpx;" v-if="cardbag.receive_status == 0 && isShowCheck==2">
 						<button class="new-gray-view" open-type="share">提醒好友领取</button>
 					</view>
 				</view>
@@ -69,7 +69,7 @@
 				<button class="gray-view" open-type="share">提醒好友领取</button>
 			</view> -->
 			
-			<view style="display: flex;">
+			<view style="display: flex;" v-if="isShowCheck==2">
 				<button type="warn" class="write" @click="resend">再送一份</button>
 			</view>
 
@@ -116,10 +116,13 @@
 				zhufu_mp3:'',
 				radio: true,
 				receive_info: '',
-				typestring: 1 //type: 1 直接送礼   type: 4 拼手气礼包
+				typestring: 1, //type: 1 直接送礼   type: 4 拼手气礼包
+				isShowCheck: 2
 			}
 		},
 		onLoad: function(e) {
+			let isShowCheck = e.isShowCheck || 2;
+			this.isShowCheck = isShowCheck;
 			let cardbag_number = e.cardbag_number
 			this.cardbag_number = cardbag_number
 			let memberid = uni.getStorageSync('id')
