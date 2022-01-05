@@ -292,7 +292,7 @@
 			})
 		},
 		onLoad: function(e) {	
-			
+			let that = this;
 			innerAudioContext1.src = 'https://zhijianlw.com/static/web/img/kai_li_bao.wav';
 			this.url = config.URL;
 			this.sign = uni.getStorageSync('sign');
