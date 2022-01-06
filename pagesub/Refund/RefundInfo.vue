@@ -34,6 +34,12 @@
 				<view class="refund-info-text margin-text" style="display: flex;align-items: center;">剩余<uni-countdown :showColon="false" :show-day="true" :day="countdown.day" :hour="countdown.hour" :minute="countdown.minute" :second="countdown.second" backgroundColor="#FB503D" color="#FFFFFF" splitorColor="#FFFFFF"></uni-countdown></view>
 			</view>
 			
+			<view class="recharge-status-top" v-if="typerefund == 2 && cancel_info.status == 3">
+				<image class="recharge-status-img" src="../../static/icon_unpaid_order.png"></image>
+				<view class="recharge-status-text">已拒绝</view>
+			</view>
+			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 3">换货申请审核不通过，如有疑问请联系客服</view>
+			
 			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 4">退回商品入库后，我们将为您寄出换货商品</view>
 			<view class="recharge-status-label" v-if="typerefund == 2 && cancel_info.status == 5">已为您寄出换货商品</view>
 			
