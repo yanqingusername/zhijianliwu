@@ -345,6 +345,12 @@ line-height: 34rpx;
 .gift-xq-title{
 	font-weight: bold;
 	font-size: 14px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 340rpx;
+	    text-align: center;
+	    line-height: 30rpx;
 }
 .gift-xq-num{
 	color: #666666;

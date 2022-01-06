@@ -21,7 +21,7 @@
 				<view class="gift2" v-for="(item, index) in gift" :key="index">
 					<view class='gift2-list'>
 						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-						<view class="gift-xq2">
+						<view class="gift-xq2" style="margin-bottom: 0rpx;">
 							<view class="gift-xq-title uni-ellipsis">{{item.goodsname}}</view>
 							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
 						</view>
@@ -33,7 +33,7 @@
 				<view class="gift2" v-if="index < 2" v-for="(item, index) in gift" :key="index">
 					<view class='gift2-list'>
 						<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-						<view class="gift-xq2">
+						<view class="gift-xq2" style="margin-bottom: 0rpx;">
 							<view class="gift-xq-title uni-ellipsis">{{item.goodsname}}</view>
 							<view class="gift-xq-num">共{{item.goodsnum}}件</view>
 						</view>

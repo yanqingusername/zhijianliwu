@@ -21,8 +21,8 @@
 					<view class="gift2" v-for="item in goodslist" :key="item.id">
 						<view class='gift2-list' >
 							<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode=""></image>
-							<view class="gift-xq2">
-								<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,9)}}</view>
+							<view class="gift-xq2" style="margin-bottom: 0rpx;">
+								<view class="gift-xq-title">{{item.goodsname}}</view>
 								<view class="gift-xq-num">共{{item.goodsnum}}件</view>
 							</view>
 						</view>
@@ -670,6 +670,12 @@ line-height: 34rpx;
 	.gift-xq-title{
 	font-weight: bold;
 	font-size: 14px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 340rpx;
+	    text-align: center;
+	    line-height: 30rpx;
 }
 .gift-xq-num{
 	color: #666666;
