@@ -21,7 +21,7 @@
 				<view class="many">
 					<view class="gift2" v-for="item in goodslist" :key="item.id">
 						<view class='gift2-list' >
-							<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode="widthFix"></image>
+							<image class="gift-img2" :src="$utils.imageUrl(item.head_img)" mode=""></image>
 							<view class="gift-xq2">
 								<view class="gift-xq-title">{{$utils.cut_str(item.goodsname,9)}}</view>
 								<view class="gift-xq-num">共{{item.goodsnum}}件</view>
@@ -885,6 +885,7 @@
 	}
 	.gift2-list .gift-img2{
 		width: 100rpx;
+		height: 100rpx;
 		border-radius: 10rpx;
 	}
 	.gift2-list .gift-xq2{

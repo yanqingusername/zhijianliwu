@@ -326,6 +326,7 @@ line-height: 34rpx;
 }
 .gift2-list .gift-img2{
 		width: 100rpx;
+		height: 100rpx;
 }
 .gift2-list .gift-xq2{
 		text-align: left;

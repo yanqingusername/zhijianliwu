@@ -300,6 +300,7 @@ button[type=default] {
 }
 .gift2-list .gift-img2{
 		width: 100rpx;
+		height: 100rpx;
 		border-radius: 10rpx;
 }
 .gift2-list .gift-xq2{
