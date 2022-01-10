@@ -76,7 +76,7 @@
 		<uni-popup ref="popupSearch" type="top" :animation="false" :maskClick="true" @change="change">
 			<view class="popup-search">
 				<view class="popup-search-item" @click="bindPickerChange" v-for="(item, index) in rsdataList" :key="index" :data-pricekey="item.price_key">
-					<view class="popup-search-title">{{item.price_name}}</view>
+					<view class="popup-search-title-default" :class="[pricekey==item.price_key?'popup-search-title':'']">{{item.price_name}}</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -554,10 +554,19 @@
 		width: 100%;
 		justify-content: center;
 	}
+	.popup-search-title-default{
+		font-size: 26rpx;
+		color: #333333;
+		line-height: 37rpx;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid #FFFFFF;
+	}
 	.popup-search-title{
 		font-size: 26rpx;
 		color: #333333;
 		line-height: 37rpx;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid #FF0137;
 	}
 	.search-result-view{
 		/* height: 50rpx; */

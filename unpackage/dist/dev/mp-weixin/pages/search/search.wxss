@@ -199,10 +199,19 @@ page{
 		width: 100%;
 		justify-content: center;
 }
+.popup-search-title-default{
+		font-size: 26rpx;
+		color: #333333;
+		line-height: 37rpx;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid #FFFFFF;
+}
 .popup-search-title{
 		font-size: 26rpx;
 		color: #333333;
 		line-height: 37rpx;
+		padding-bottom: 4rpx;
+		border-bottom: 4rpx solid #FF0137;
 }
 .search-result-view{
 		/* height: 50rpx; */
