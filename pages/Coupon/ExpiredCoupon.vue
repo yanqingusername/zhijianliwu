@@ -86,6 +86,7 @@
 	    margin-left: 36rpx;
 	    position: absolute;
 	    display: flex;
+		align-items: flex-end;
 	}
 	
 	.new-coupon-left{
