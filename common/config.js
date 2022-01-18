@@ -4,8 +4,8 @@ module.exports = {
 	// URL
 	URL: "https://zhijianlw.com/",
 	// ApiUrl 接口路径
-	// APIURL: "https://zhijianlw.com/api.php/test/index?", //正式环境
-	APIURL: "https://zhijianlw.com/api.php/index/index?", //正式体验环境
+	APIURL: "https://zhijianlw.com/api.php/test/index?", //正式环境
+	// APIURL: "https://zhijianlw.com/api.php/index/index?", //正式体验环境
 	// APIURL: "http://8.140.132.21/api.php/index/index?", //测试环境
 	// StaticUrl 静态资源地址
 	STATICURL: "",
@@ -20,11 +20,11 @@ module.exports = {
 	// 后台Relrase模式AppId
 	RELRASE_APPID: 'wx9c53a99b078435f5',
 	// 后台Relrase模式AppKey
-	RELRASE_APPKEY: 'eee30bd75af1dbdee76296108b27ba84',
+	// RELRASE_APPKEY: 'eee30bd75af1dbdee76296108b27ba84',
 	// 后台AppId方法
 	__APPID: function(){return this.DEBUG?this.DEBUG_APPID:this.RELRASE_APPID},
 	// 后台AppKey方法
-	__APPKEY: function(){return this.DEBUG?this.DEBUG_APPKEY:this.RELRASE_APPKEY},
+	// __APPKEY: function(){return this.DEBUG?this.DEBUG_APPKEY:this.RELRASE_APPKEY},
 	//阿里云oss静态资源路径
 	 OSS_URL: "https://slxcx.oss-cn-beijing.aliyuncs.com",
 };

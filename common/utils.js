@@ -41,7 +41,7 @@ import config from './config.js';
 console.log(config);
 let url = config.APIURL;
 let appid = config.__APPID();
-let appkey = config.__APPKEY();
+// let appkey = config.__APPKEY();
 
 /**
  * 网络请求
@@ -99,7 +99,7 @@ function post(action, data) {
 	}
 	// 拼接密钥
 
-	let stringSignTemp = stringA + '&appkey=' + config.__APPKEY();
+	let stringSignTemp = stringA // + '&appkey=' + config.__APPKEY();
 
 	// md5加密转大写
 	// console.log(stringSignTemp);
@@ -252,7 +252,7 @@ function postNew(action, data, controller) {
 	}
 	// 拼接密钥
 
-	let stringSignTemp = stringA + '&appkey=' + config.__APPKEY();
+	let stringSignTemp = stringA // + '&appkey=' + config.__APPKEY();
 
 	// md5加密转大写
 	// console.log(stringSignTemp);
