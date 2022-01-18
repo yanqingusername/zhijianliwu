@@ -78,7 +78,7 @@
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
 						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && item.is_all_refund == 0" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="1" >申请退款</view>
 						<view class="new-order-botton-gray_default" v-if="(item.status == 0 || item.status == 1) && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="1" >申请退款</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber" :data-payprice="item.pay_price">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_all_refund == 0" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
 						<view class="new-order-botton-gray_default" v-if="item.status == 3 && item.is_all_refund == 1" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="0" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
@@ -90,7 +90,7 @@
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
 						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="2" :data-goodsinfolist="item.goods_info_list" :data-isrefundprice="item.is_refund_price">申请退款</view>
 						<view class="new-order-botton" v-if="item.status == 0 || item.status == 1" @click.stop="PresentNow" :data-ordernumber="item.ordernumber">立即赠送</view>
-						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber">申请开票</view>
+						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber" :data-payprice="item.pay_price">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
 						
 						<view class="new-order-botton" v-if="item.status == 2 || item.status == 3 || item.status == 99 || item.status == 6" @click.stop="GiveitAgain" :data-ordernumber="item.ordernumber">再次赠送</view>
@@ -1360,9 +1360,18 @@
 			//申请开票
 			ApplyInvoice(e){
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
-				});
+				let payprice = e.currentTarget.dataset.payprice;
+				if(ordernumber && payprice && parseFloat(payprice) > 0){
+					uni.navigateTo({
+						url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
+					});
+				}else{
+					uni.showToast({
+					 	title:'订单实付款大于0才能开具发票！',
+					 	icon:"none",
+					 	mask:'true',
+					});
+				}
 			},
 			//发票详情
 			ApplyInfo(e){

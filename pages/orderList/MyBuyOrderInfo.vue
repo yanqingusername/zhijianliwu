@@ -80,7 +80,7 @@
 							<view class="new-order-botton" v-if="orderBuyInfo.orderinfo.status == 5" @click="submit" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">立即支付</view>
 							<view class="new-order-botton-gray" v-if="(orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1) && orderBuyInfo.orderinfo.is_all_refund == 0" @click="ApplyRefund" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
 							<view class="new-order-botton-gray_default" v-if="(orderBuyInfo.orderinfo.status ==0 || orderBuyInfo.orderinfo.status ==1) && orderBuyInfo.orderinfo.is_all_refund == 1" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" data-typerefund="1" :data-goodslength="orderBuyInfo.orderdetail.length" :data-detailid="orderBuyInfo.orderdetail[0].id">申请退款</view>
-							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">申请开票</view>
+							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-payprice="orderBuyInfo.orderinfo.pay_price">申请开票</view>
 							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_open_bill == 1" @click="ApplyInfo" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber">发票详情</view>
 							<view class="new-order-botton-gray" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_all_refund == 0" @click="RefundAfterSale" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
 							<view class="new-order-botton-gray_default" v-if="orderBuyInfo.orderinfo.status == 3 && orderBuyInfo.orderinfo.is_all_refund == 1" :data-ordernumber="orderBuyInfo.orderinfo.ordernumber" :data-goodslength="orderBuyInfo.orderinfo.orderdetail.length">退换/售后</view>
@@ -413,9 +413,18 @@
 			//申请开票
 			ApplyInvoice(e){
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
-				});
+				let payprice = e.currentTarget.dataset.payprice;
+				if(ordernumber && payprice && parseFloat(payprice) > 0){
+					uni.navigateTo({
+						url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
+					});
+				}else{
+					uni.showToast({
+					 	title:'订单实付款大于0才能开具发票！',
+					 	icon:"none",
+					 	mask:'true',
+					});
+				}
 			},
 			//发票详情
 			ApplyInfo(e){

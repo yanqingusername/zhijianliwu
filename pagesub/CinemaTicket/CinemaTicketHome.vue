@@ -839,6 +839,11 @@ page{
 			font-size: 24rpx;
 			color: #666666;
 			margin-top: 20rpx;
+			width: 360rpx;
+			display: -webkit-box;
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:2;
+			overflow: hidden;
 		}
 		.cth-b-bg-2-4{
 			font-size: 24rpx;

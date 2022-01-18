@@ -93,7 +93,7 @@
 					<view class="new-order-li-bottom" v-if="orderSendInfo.orderinfo.status ==3">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view">
-							<view class="new-order-botton-gray" v-if="orderSendInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">申请开票</view>
+							<view class="new-order-botton-gray" v-if="orderSendInfo.orderinfo.is_open_bill == 0" @click="ApplyInvoice" :data-ordernumber="orderSendInfo.orderinfo.ordernumber" :data-payprice="orderSendInfo.orderinfo.pay_price">申请开票</view>
 							<view class="new-order-botton-gray" v-if="orderSendInfo.orderinfo.is_open_bill == 1" @click="ApplyInfo" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">发票详情</view>
 							<view class="new-order-botton" @click="GiveitAgain" :data-ordernumber="orderSendInfo.orderinfo.ordernumber">再次赠送</view>
 						</view>
@@ -473,9 +473,18 @@
 			//申请开票
 			ApplyInvoice(e){
 				let ordernumber = e.currentTarget.dataset.ordernumber;
-				uni.navigateTo({
-					url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
-				});
+				let payprice = e.currentTarget.dataset.payprice;
+				if(ordernumber && payprice && parseFloat(payprice) > 0){
+					uni.navigateTo({
+						url: "../Apply/ApplyInvoice?ordernumber=" + ordernumber
+					});
+				}else{
+					uni.showToast({
+					 	title:'订单实付款大于0才能开具发票！',
+					 	icon:"none",
+					 	mask:'true',
+					});
+				}
 			},
 			//发票详情
 			ApplyInfo(e){
