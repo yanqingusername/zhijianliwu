@@ -146,6 +146,8 @@
 				that.scope = false
 				that.chooseadd()
 			}
+
+			this.isShowAddress = false;
 		},
 		onLoad: function(e) {
 			let that = this;

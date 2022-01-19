@@ -272,7 +272,7 @@
 				self.voicePath = res.tempFilePath;
 
 				uni.uploadFile({
-					url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+					url: 'https://zhijianlw.com/api.php/test/upload_file', //仅为示例，非真实的接口地址
 					filePath: res.tempFilePath,
 					name: 'file',
 					formData: {
@@ -725,7 +725,7 @@
 						})
 
 						uni.uploadFile({
-							url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+							url: 'https://zhijianlw.com/api.php/test/upload_file', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths,
 							name: 'file',
 							formData: {

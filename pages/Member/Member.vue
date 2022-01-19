@@ -242,7 +242,7 @@
 						this.outTradeNo = res.serial_number
 						// 通知地址
 						this.notifyUrl =
-							'http://zhijianlw.com/api.php/index/set_agent_level_up?serial_number=' + res
+							'http://zhijianlw.com/api.php/test/set_agent_level_up?serial_number=' + res
 							.serial_number
 
 						// this.xiaochengxu()	
@@ -324,7 +324,7 @@
 							// 微信支付成功回调
 							console.log(res)
 							uni.request({
-								url: 'https://zhijianlw.com/api.php/index/set_agent_level_up',
+								url: 'https://zhijianlw.com/api.php/test/set_agent_level_up',
 								data: {
 									serial_number: that.outTradeNo
 								},

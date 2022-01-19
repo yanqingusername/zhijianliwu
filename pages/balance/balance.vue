@@ -154,7 +154,7 @@
 					  // 充值流水号
 					  this.outTradeNo = res.serial_number
 					  // 通知地址
-					  this.notifyUrl  = config.URL+'api.php/index/set_agent_recharge?serial_number=' + res.serial_number
+					  this.notifyUrl  = config.URL+'api.php/test/set_agent_recharge?serial_number=' + res.serial_number
 					  this.ipp();
 					  // this.xiaochengxu()	
 					}else{
@@ -227,7 +227,7 @@
 			  	      uni.hideLoading();
 			  		  
 			  	      uni.request({
-			  	          url: config.URL+'api.php/index/set_agent_recharge', 
+			  	          url: config.URL+'api.php/test/set_agent_recharge', 
 			  	          data:{
 			  	      						  serial_number:that.outTradeNo
 			  	      					  },

@@ -133,6 +133,8 @@
 			this.$set(this.address, 'phone', uni.getStorageSync('member_area_linktel'));
 			this.$set(this.address, 'address', uni.getStorageSync('member_area_address'));
 
+			this.isShowAddress = false;
+
 		},
 		methods: {
 			close: function(){

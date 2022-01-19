@@ -319,7 +319,7 @@
 						const tempFilePaths = res.tempFilePaths;
 						
 						uni.uploadFile({
-							url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+							url: 'https://zhijianlw.com/api.php/test/upload_file', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'file',
 							formData: {
@@ -367,7 +367,7 @@
 						 this.imgArr.forEach(ele => {
 						        ele.forEach(item => {
 						            uni.uploadFile({
-						            	url: 'https://zhijianlw.com/api.php/index/upload_file', //仅为示例，非真实的接口地址
+						            	url: 'https://zhijianlw.com/api.php/test/upload_file', //仅为示例，非真实的接口地址
 						            	filePath: item,
 						            	name: 'file',
 						            	formData: {

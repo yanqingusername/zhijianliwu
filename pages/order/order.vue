@@ -925,7 +925,7 @@
 							mask: true
 						})
 						this.outTradeNo = res.rs.serial_number;
-						this.notifyUrl = 'https://zhijianlw.com/api.php/index/set_agent_cardbag?serial_number=' + res.rs.serial_number;
+						this.notifyUrl = 'https://zhijianlw.com/api.php/test/set_agent_cardbag?serial_number=' + res.rs.serial_number;
 						this.totalAmount = res.rs.paymoney;
 						// this.totalAmount = '0.01';
 						// this.erweima();	  
@@ -1007,7 +1007,7 @@
 							uni.hideLoading();
 
 							uni.request({
-								url: 'http://zhijianlw.com/api.php/index/set_agent_cardbag',
+								url: 'http://zhijianlw.com/api.php/test/set_agent_cardbag',
 								data: {
 									serial_number: that.outTradeNo
 								},
