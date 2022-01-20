@@ -398,6 +398,19 @@
 				    }],
 				})
 				
+				sr.track('custom_order', {
+				    "order": {
+				        "order_id": orderNumber,
+				        "order_time": timestamp,
+				        "order_status": "give_order"
+				    },
+				    "sub_orders": [{
+				        "sub_order_id": orderNumber,
+				        "order_amt": parseFloat(this.orderBuyInfo.orderinfo.price),
+				        "pay_amt": parseFloat(this.orderBuyInfo.orderinfo.price)
+				    }],
+				})
+				
 				// 接口地址
 				let action = 'get_buy_order_pay_info';
 				// 传入参数

@@ -276,6 +276,25 @@
 					console.log('4.推荐商品列表', res.rs)
 					this.commody = this.commody.concat(res.rs);
 					this.pageIndex++;
+					
+					// 腾讯有数
+					if(res.rs && res.rs.length > 0){
+						for (var i = 0; i < res.rs.length; i++) {
+							let item = res.rs[i];
+							sr.track('expose_sku_component',
+								{
+								   "sku": {
+									 "sku_id": item.sku+"", // 若商品无sku_id时，可传spu_id信息
+									 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
+								   },
+								   "spu": {
+										"spu_id": item.sku+"", // 若商品无spu_id时，可传sku_id信息
+										"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
+									},
+								   "primary_image_url": item.head_img
+								})
+						}
+					}
 				}
 			})
 		},
@@ -782,6 +801,25 @@
 						}, 500)
 						this.commody = res.rs;
 						this.pageIndex++;
+						
+						// 腾讯有数
+						if(res.rs && res.rs.length > 0){
+							for (var i = 0; i < res.rs.length; i++) {
+								let item = res.rs[i];
+								sr.track('expose_sku_component',
+									{
+									   "sku": {
+										 "sku_id": item.sku+"", // 若商品无sku_id时，可传spu_id信息
+										 "sku_name": item.goodsname // 若商品无sku_name时，可传spu_name信息
+									   },
+									   "spu": {
+											"spu_id": item.sku+"", // 若商品无spu_id时，可传sku_id信息
+											"spu_name": item.goodsname // 若商品无spu_name时，可传sku_name信息
+										},
+									   "primary_image_url": item.head_img
+									})
+							}
+						}
 					}
 				})
 			},

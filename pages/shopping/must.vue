@@ -441,6 +441,22 @@
 				this.$utils.post(action, data).then(res => {
 					
 					let  ordernumber=res.ordernumber
+					
+					// 腾讯有数
+					let timestamp=new Date().getTime();
+					sr.track('custom_order', {
+					    "order": {
+					        "order_id": ordernumber,
+					        "order_time": timestamp,
+					        "order_status": "give_order"
+					    },
+					    "sub_orders": [{
+					        "sub_order_id": ordernumber,
+					        "order_amt": parseFloat(that.new_price_yuanshi),
+					        "pay_amt": parseFloat(that.new_price_yuanshi)
+					    }],
+					})
+					
 					console.log("付款");
 					console.log(res);
 					if(res.sta == 1){
