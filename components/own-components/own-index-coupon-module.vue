@@ -36,6 +36,7 @@
 </template>
 
 <script>
+	import uma from 'umtrack-wx';
 	export default {
 		props:[
 			"coupon_left",
@@ -59,6 +60,11 @@
 			coupon: function(e) {
 				let url = this.coupon_left[1].url;
 				if(url){
+					uma.trackEvent('Um_Event_Exchange', {
+						Um_Key_ItemName: "首页卡册兑换",
+						Um_Key_ItemUrl: url
+					});
+					
 					uni.navigateTo({
 						url:url
 					})
@@ -68,6 +74,11 @@
 				// })
 			},
 			recommend(e){
+				uma.trackEvent('Um_Event_CinemaTicket', {
+					Um_Key_ItemName: "首页电影票",
+					Um_Key_ItemUrl: e.url
+				});
+				
 				let url = e.url
 				var sign = uni.getStorageSync('sign');
 				if (sign) {
@@ -116,6 +127,11 @@
 				
 				let url = this.coupon_left[2].url;
 				if(url){
+					uma.trackEvent('Um_Event_OpenMember', {
+						Um_Key_ItemName: "首页开通企业会员",
+						Um_Key_ItemUrl: url
+					});
+					
 					uni.navigateTo({
 						url:url
 					})

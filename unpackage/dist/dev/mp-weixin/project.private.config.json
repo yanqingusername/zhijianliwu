@@ -77,6 +77,12 @@
           "pathName": "pages/Apply/Apply",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "_ttn=61e9062ee014255fcbf9a444",
+          "scene": null
         }
       ]
     }

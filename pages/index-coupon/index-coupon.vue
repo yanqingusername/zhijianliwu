@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import uma from 'umtrack-wx';
 	export default {
 		data() {
 			return {
@@ -58,6 +59,9 @@
 			},
 			submit: function(e) {
                console.log(e)
+				uma.trackEvent('Um_Event_BindGiftCard', {
+					Um_Key_ItemName: "礼品卡/册兑换"
+				});
 
 				var mid = uni.getStorageSync('id');
 				if (mid == '') {

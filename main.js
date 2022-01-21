@@ -5,6 +5,7 @@ import Address from './components/simple-address/simple-address.vue'
 import { buttonClick } from './common/btn'
 import utils from './common/utils' 
 import sr from 'sr-sdk-wxapp'
+import umtrack from 'umtrack-wx';
 
 Vue.prototype.$buttonClick = buttonClick;
 Vue.prototype.$utils = utils;
@@ -14,6 +15,18 @@ Vue.component('Navgation',Navgation);
 Vue.component('Address',Address);
 
 App.mpType = 'app'
+
+umtrack.init({
+	      appKey: '61e8f376e014255fcbf95a31', //由友盟分配的APP_KEY
+	      // 使用Openid进行统计，此项为false时将使用友盟+uuid进行用户统计。
+	      // 使用Openid来统计微信小程序的用户，会使统计的指标更为准确，对系统准确性要求高的应用推荐使用Openid。
+	      useOpenid: true,
+	      // 使用openid进行统计时，是否授权友盟自动获取Openid，
+	      // 如若需要，请到友盟后台"设置管理-应用信息"(https://mp.umeng.com/setting/appset)中设置appId及secret
+	      autoGetOpenid: true,
+	      debug: true, //是否打开调试模式
+	      uploadUserInfo: true // 自动上传用户信息，设为false取消上传，默认为false
+})
 
 sr.init({
     /**
@@ -58,6 +71,7 @@ sr.init({
   
 const app = new Vue({
    ...App,
-  sr
+  sr,
+  umtrack
 })
 app.$mount()

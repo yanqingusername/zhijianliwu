@@ -122,6 +122,7 @@
 	import ownProductList from "@/components/own-components/own-product-list.vue";
 	import btn  from "@/common/btn.js";
 	import sr from 'sr-sdk-wxapp';
+	import uma from 'umtrack-wx';
 	export default {
 		components:{
 			"own-product-list": ownProductList
@@ -512,6 +513,10 @@
 			},
 			// 礼物收藏
 			colloection:function(e){
+				uma.trackEvent('Um_Event_ExchangeOrder', {
+					Um_Key_ItemName: "兑换订单列表页"
+				});
+				
 				uni.navigateTo({
 					// url:'../Collection/Collection' // 礼物收藏
 					url:"../index-coupon/ExchangeOrder" //新需求 兑换订单列表页
@@ -520,6 +525,11 @@
 		    // 立即开通  会员中心
 			opening:function(e){
 				if(this.sta == '200'){
+					
+					uma.trackEvent('Um_Event_OpenMember', {
+						Um_Key_ItemName: "我的开通企业会员"
+					});
+					
 					let that = this;
 					let action = "get_member_audit_status";
 					let controller = 'member';
@@ -561,6 +571,10 @@
 			},
 			openingMember:function(e){
 				if(this.sta == '200'){
+					uma.trackEvent('Um_Event_OpenMember', {
+						Um_Key_ItemName: "开通企业会员成功页面"
+					});
+					
 					uni.navigateTo({
 						url:'../Member/Member?typestring=2'  //开通企业会员成功页面
 						// url: '../Apply/Apply'  //企业会员申请
@@ -575,6 +589,10 @@
 			// 余额
 			balance:function(e){
 				if(this.sta == '200'){
+					uma.trackEvent('Um_Event_Balance', {
+						Um_Key_ItemName: "我的余额"
+					});
+					
 					uni.navigateTo({
 						url:'../balance/balance'
 					})
@@ -587,6 +605,10 @@
 			// 余额充值
 			balanceRecharge:function(e){
 				if(this.sta == '200'){
+					uma.trackEvent('Um_Event_Recharge', {
+						Um_Key_ItemName: "余额充值"
+					});
+					
 					uni.navigateTo({
 						url:'../balance/Recharge'
 					})
@@ -611,6 +633,10 @@
 			// 我的优惠券
 			count:function(e){ 
 				if(this.sta == '200'){
+					uma.trackEvent('Um_Event_MyCoupon', {
+						Um_Key_ItemName: "我的优惠券"
+					});
+					
 					uni.navigateTo({
 						url:'../Coupon/Coupon'
 					})
@@ -623,6 +649,10 @@
 			// 兑换中心
 			exchange:function(e){
 				if(this.sta == '200'){
+					uma.trackEvent('Um_Event_BindGiftCard', {
+						Um_Key_ItemName: "礼品卡/册兑换"
+					});
+					
 					uni.navigateTo({
 						url:'../index-coupon/index-coupon'
 					})

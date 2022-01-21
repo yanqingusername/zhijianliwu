@@ -27,6 +27,7 @@
 </template>
 
 <script>
+	import uma from 'umtrack-wx';
 	export default {
 		props: {
 			List: {
@@ -64,11 +65,20 @@
 			},
 			goTo: function(){},
 			goToSearch: function(){
+				uma.trackEvent('Um_Event_Search', {
+					Um_Key_ItemName: "首页搜索"
+				});
+				
 				uni.navigateTo({
 					url: '../../pages/search/search'
 				})
 			},
 			changeClassifi(){ //分类跳转
+				
+				uma.trackEvent('Um_Event_Classifi', {
+					Um_Key_ItemName: "首页分类"
+				});
+				
 				uni.navigateTo({
 					url:'../classification/classification'
 				})

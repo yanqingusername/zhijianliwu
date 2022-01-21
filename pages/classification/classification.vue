@@ -13,7 +13,7 @@
 				<scroll-view scroll-y="true" class="classifi-left" :style="{height:height + 'px'}" style="scrollbars:none;"
 				 show-scrollbar=true>
 					<view class="classifi-left-li" :key="index" :class="[leftIndex==index?'classifi-left-li-active':'']" @click="bind" :data-keynum="item.keynum"
-					 :data-index="index" v-for="(item,index) in leftList">{{item.name}}</view>
+					 :data-index="index" v-for="(item,index) in leftList" :data-item="item">{{item.name}}</view>
 				</scroll-view>
 				<view class="classifi-right">
 					<view class="classifi-list">
@@ -43,6 +43,7 @@
 
 <script>
 	import config from '../../common/config.js';
+	import uma from 'umtrack-wx';
 	export default {
 		data() {
 			return {
@@ -100,6 +101,13 @@
 			},
 			goToPost: function(keynum,name){
 				console.log(keynum,name)
+				
+				uma.trackEvent('Um_Event_ClassifiIcon', {
+					Um_Key_ItemTtile: "分类Icon",
+					Um_Key_ItemName: name,
+					Um_Key_ItemId: keynum
+				});
+				
 				uni.navigateTo({
 					url: '../../pages/search/search?keynum='+keynum + "&name=" + name
 				});
@@ -111,6 +119,13 @@
 				})
 			},
 			bind: function(e) {
+				let item = e.currentTarget.dataset.item;
+				uma.trackEvent('Um_Event_ClassifiCation', {
+					Um_Key_ItemTtile: "分类场景",
+					Um_Key_ItemName: item.name,
+					Um_Key_ItemId: item.keynum
+				});
+				
 				let index = e.currentTarget.dataset.index;
 				let parentId = e.currentTarget.dataset.keynum;
 				this.leftIndex = index;

@@ -281,6 +281,7 @@
 	import '@/components/feng-parse/parse.css';
 	import config from '../../common/config.js';
 	import sr from 'sr-sdk-wxapp';
+	import uma from 'umtrack-wx';
 	export default {
 		components: {
 			uParse,
@@ -622,6 +623,10 @@
 				})
 			},
 			trackClick:function(e){
+				uma.trackEvent('Um_Event_kefu', {
+					Um_Key_ItemName: "客服"
+				});
+				
 				//腾讯有数
 				sr.track('start_consult', {
 				  "action_type": "consult_online",
@@ -888,6 +893,13 @@
 			// 直接购买确定规格  
 			determine1: function(e) {
 				let itemname = this.guige.join(""); 
+				
+				uma.trackEvent('Um_Event_ShopBuy', {
+					Um_Key_ItemTtile: "直接购买",
+					Um_Key_ItemName: this.goodsinfo.goodsname,
+					Um_Key_ItemId: this.goodsinfo.sku
+				});
+				
 				sr.track('add_to_cart', {
 				    "action_type": 'append_to_cart',
 					"sku": {
@@ -964,6 +976,13 @@
 			//确认规格直接赠送
              determine2: function(e) {
 				 let itemname = this.guige.join(""); 
+				 
+				 uma.trackEvent('Um_Event_ShopZengSong', {
+				 	Um_Key_ItemTtile: "直接赠送",
+				 	Um_Key_ItemName: this.goodsinfo.goodsname,
+				 	Um_Key_ItemId: this.goodsinfo.sku
+				 });
+				 
 				 sr.track('add_to_cart', {
 				     "action_type": 'append_to_cart',
 				 	"sku": {
@@ -1044,6 +1063,13 @@
 			 //确定规格礼篮
 			 determine3: function(e) {
 				 let itemname = this.guige.join(""); 
+				 
+				 uma.trackEvent('Um_Event_lilan', {
+					Um_Key_ItemTtile: "加入礼篮",
+					Um_Key_ItemName: this.goodsinfo.goodsname,
+					Um_Key_ItemId: this.goodsinfo.sku
+				 });
+				 
 				 sr.track('add_to_cart', {
 				     "action_type": 'append_to_cart',
 				 	"sku": {
@@ -1126,6 +1152,10 @@
 				//判断是否登录
 				var id = uni.getStorageSync('id')
 				if(id){
+					uma.trackEvent('Um_Event_ToLiLan', {
+						Um_Key_ItemName: "进入礼篮"
+					});
+					
 					uni.reLaunch({
 						url:'../shopping/shopping?type=0'
 					})
@@ -1392,6 +1422,10 @@
 				//判断是否登录
 				var id = uni.getStorageSync('id')
 				if(id){
+					uma.trackEvent('Um_Event_firend', {
+						Um_Key_ItemName: "求礼物"
+					});
+					
 					this.$refs.popup.open()
 				}else{
 					uni.showToast({
@@ -1415,6 +1449,11 @@
 			},
 			confirm_order:function (e){
 				let keynum = e.currentTarget.dataset.keynum;
+				
+				uma.trackEvent('Um_Event_ExchangeDetails', {
+					Um_Key_ItemName: "兑换商品详情"
+				});
+				
 				uni.navigateTo({
 					url: '../index-coupon/ExchangeDetails?keynum=' + keynum + '&isShow=2'
 				})

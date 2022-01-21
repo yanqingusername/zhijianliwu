@@ -2,7 +2,7 @@
 	<scroll-view class="monthDescTab" scroll-x="true" scroll-with-animation>
 		<!-- <view class="own-grid-box" :style="'height:'+boxHeight+'rpx'"> -->
 		<!-- <view class="own-grid-box"> -->
-			<view class="own-grid-item" v-for="item, index in list" :key="index" @click="goToTheme" :data-url="item.url">
+			<view class="own-grid-item" v-for="item, index in list" :key="index" @click="goToTheme" :data-url="item.url" :data-item="item">
 				<image :src="$utils.imageUrl(item.icon)" mode="" class="own-grid-item-image"></image>
 				<view class="own-grid-item-text">
 					{{item.name}}
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+	import uma from 'umtrack-wx';
 	export default {
 		props: ["list"],
 		data() {
@@ -23,6 +24,13 @@
 		methods: {
 			goToTheme: function(e) {
 				let url = e.currentTarget.dataset.url;
+				let item = e.currentTarget.dataset.item;
+				
+				uma.trackEvent('Um_Event_ToTheme', {
+					Um_Key_ItemName: item.name,
+					Um_Key_ItemId: item.id
+				});
+				
 				if(url && url != null){
 					uni.navigateTo({
 						url: url

@@ -194,6 +194,7 @@
 	import ownGrid from "@/components/own-components/own-grid.vue";
 	import indexJrtj from "@/components/own-image/index-jrtj.vue";
 	import sr from 'sr-sdk-wxapp';
+	import uma from 'umtrack-wx';
 	// "own-swiper": ownSwiper,
 	let timer;
 	export default {
@@ -681,6 +682,12 @@
 			details:function(e){
 				// 腾讯有数
 				let dataitem = e.currentTarget.dataset.dataitem;
+				
+				uma.trackEvent('Um_Event_ShoppingDetail', {
+					Um_Key_ItemName: dataitem.goodsname,
+					Um_Key_ItemID: dataitem.sku
+				});
+				
 				sr.track('trigger_sku_component',
 					{
 					   "sku": {
@@ -702,6 +709,12 @@
 			toMore(e){
 				let keynum = e.currentTarget.dataset.keynum;
 				let name = e.currentTarget.dataset.name;
+
+				uma.trackEvent('Um_Event_More', {
+					Um_Key_ItemName: name,
+					Um_Key_ItemKeynum: keynum
+				});
+
 				if(keynum && name){
 					uni.navigateTo({
 						url:'/pages/search/search?keynum='+ keynum +'&name='+name
@@ -716,6 +729,12 @@
 			    }
 			  },
 			bannerJump:function(action, id){
+				
+				uma.trackEvent('Um_Event_BannerJump', {
+					Um_Key_ItemAction: action,
+					Um_Key_ItemId: id
+				});
+				
 				console.log(action, id);
 				if(action=="gifts_article"){
 					uni.navigateTo({
@@ -734,6 +753,13 @@
 				}
 			},
 			changeProduct: function(e,keynum1,name){
+				
+				uma.trackEvent('Um_Event_Change', {
+					Um_Key_ItemTitle: "首页分类管理",
+					Um_Key_ItemUrl: e,
+					Um_Key_ItemName: name
+				});
+				
 				console.log(e,keynum1,name)
 				this.tabBarIndex = e;
 				

@@ -14,9 +14,9 @@
 			<view class="box" v-else>
 				<view class="box-content">
 					<view class="shop-gift-buys-top" style="border-bottom: 1rpx solid #EDEDED;" v-for="item in goodsinfo" :key="item.id">
-						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
+						<img class="img shop-gift-buys-img" @click="goToDetails(item.goodsinfo.keynum, item)" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
 						<view class="top-right">
-							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
+							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum, item)">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="shop-gift-buys-ltitle">{{item.goods_spec_item}}</view>
 							<view class="price-bottom flex-between">
 								<view>
@@ -36,13 +36,13 @@
 						</view>
 					</view>
 					<view class="shop-gift-buys-top" style="border-bottom: 1rpx solid #EDEDED;" v-for="item in undercarriage_list" :key="item.id">
-						<view style="position: relative;" @click="goToDetails(item.goodsinfo.keynum)">
+						<view style="position: relative;" @click="goToDetails(item.goodsinfo.keynum, item)">
 							<img class="img shop-gift-buys-img" :src="$utils.imageUrl(item.goodsinfo.head_img)" mode="">
 							<view style="width: 92rpx;height: 92rpx;background: #5D5D5D;opacity: 0.69;display: flex;align-items: center;justify-content: center;color: #FFFFFF;font-size: 28rpx;position: absolute;top: 24rpx;left: 24rpx;border-radius: 50%;">失效</view>
 						</view>
 						
 						<view class="top-right">
-							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum)" style="color: #AAAAAA;">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
+							<view class="shop-gift-buys-title" @click="goToDetails(item.goodsinfo.keynum, item)" style="color: #AAAAAA;">{{$utils.cut_str(item.goodsinfo.goodsname,16)}}</view>
 							<view class="price-bottom flex-between">
 								<view class="shop-gift-buys-ltitle" style="color: #AAAAAA;">{{item.goods_spec_item}}</view>
 								<view class="flex-vertically">
@@ -226,6 +226,7 @@
 
 <script>
 	import sr from 'sr-sdk-wxapp';
+	import uma from 'umtrack-wx';
 	export default {
 		data() {
 
@@ -394,7 +395,12 @@
 					url: "./shoppingList"
 				});
 			},
-			goToDetails(keynum) {
+			goToDetails(keynum, item) {
+				uma.trackEvent('Um_Event_ShoppingDetail', {
+					Um_Key_ItemName: item.goodsinfo.goodsname,
+					Um_Key_ItemID: item.goodsinfo.sku
+				});
+				
 				uni.navigateTo({
 					url: "../details/details?keynum="+ keynum
 				});
@@ -531,6 +537,10 @@
 				// uni.reLaunch({
 				// 	url:'../index/index' //跳转首页
 				// })
+				uma.trackEvent('Um_Event_addlilan', {
+					Um_Key_ItemName: "继续加入礼篮"
+				});
+				
 				uni.navigateTo({
 					url: "./shoppingList"
 				});
@@ -539,6 +549,10 @@
 				this.$refs.popup.open()
 			},
 			toggle: function(e) {
+				uma.trackEvent('Um_Event_SongLiDialog', {
+					Um_Key_ItemName: "送礼方式弹框"
+				});
+				
 				this.$refs.popup.open()
 			},
 			close: function(e) {
@@ -568,6 +582,10 @@
 				// 		url: '../shopping/gifts?type=0'
 				// 	})
 				// })
+				uma.trackEvent('Um_Event_CBlessingCard', {
+					Um_Key_ItemName: "定制祝福卡"
+				});
+				
 				uni.navigateTo({
 					url: '../shopping/CBlessingCard'
 				})
@@ -631,6 +649,13 @@
 						return
 					}
 					
+					uma.trackEvent('Um_Event_ShopZengSong', {
+						Um_Key_ItemName: "直接赠送"
+					});
+					uma.trackEvent('Um_Event_ShopZengSongSub', {
+						Um_Key_ItemName: "直接赠送确认订单"
+					});
+					
 					//批量送礼
 					let type = uni.getStorageSync('type')
 					this.type = type;
@@ -660,6 +685,13 @@
 						}
 					})
 				} else if (this.show === '1') {
+					uma.trackEvent('Um_Event_ShopPingShouQi', {
+						Um_Key_ItemName: "拼手气礼包"
+					});
+					uma.trackEvent('Um_Event_ShopPingShouQiSub', {
+						Um_Key_ItemName: "拼手气确认订单"
+					});
+					
 					//拼手气礼包
 					let type = uni.getStorageSync('type')
 					this.type = type;
@@ -689,6 +721,13 @@
 						}
 					})
 				} else {
+					uma.trackEvent('Um_Event_ShopBuy', {
+						Um_Key_ItemName: "直接购买"
+					});
+					uma.trackEvent('Um_Event_ShopBuySub', {
+						Um_Key_ItemName: "直接购买确认订单"
+					});
+					
 					let type = uni.getStorageSync('type')
 					this.type = type;
 					let memberid = uni.getStorageSync('id')

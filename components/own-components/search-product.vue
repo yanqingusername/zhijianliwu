@@ -33,6 +33,7 @@
 
 <script>
 	import sr from 'sr-sdk-wxapp';
+	import uma from 'umtrack-wx';
 	export default {
 		props:{
 			postList: {
@@ -56,6 +57,12 @@
 			details:function(e){
 				// 腾讯有数
 				let dataitem = e.currentTarget.dataset.dataitem;
+				
+				uma.trackEvent('Um_Event_ShoppingDetail', {
+					Um_Key_ItemName: dataitem.goodsname,
+					Um_Key_ItemID: dataitem.sku
+				});
+				
 				sr.track('trigger_sku_component',
 					{
 					   "sku": {
