@@ -48,6 +48,7 @@
 	import MD5  from "../../common/md5.js";
 	import drawQrcode from "../../common/weapp.qrcode.min.js";
 	import config from '../../common/config.js';
+	import uma from 'umtrack-wx';
 	export default {
 		data() {
 			return {
@@ -144,6 +145,9 @@
 			  button:function(e){
 				  // 充值金额
 				  
+				  uma.trackEvent('Um_Event_Recharge', {
+				  	Um_Key_ItemName: "余额充值"
+				  });
 				  
 				var id = uni.getStorageSync('id');
 				// 支付方式
@@ -534,6 +538,11 @@
 			 		})
 			 		return false;
 			 	}
+				
+				uma.trackEvent('Um_Event_ExchangeRecharge', {
+					Um_Key_ItemName: "兑换充值"
+				});
+				
 				let controller = 'order';
 			 	let action = 'bind_client_card';
 				let data = JSON.stringify({

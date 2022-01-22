@@ -83,6 +83,7 @@
 </template>
 
 <script>
+	import uma from 'umtrack-wx';
 	export default {
 		components: {},
 		data() {
@@ -144,6 +145,10 @@
 			},
 			//转赠
 			goTransfer: function(e) {
+				uma.trackEvent('Um_Event_ExchangeTransfer', {
+					Um_Key_ItemName: "兑换订单转赠"
+				});
+				
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
 					url: `../shopping/shop?type=1&statutype=exchange&ordernumber=${ordernumber}&is_exchange_type=1`
@@ -155,10 +160,18 @@
 				let is_nianka = e.currentTarget.dataset.isnianka;
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				if(is_nianka == 1){
+					uma.trackEvent('Um_Event_ExchangeYearCard', {
+						Um_Key_ItemName: "年卡兑换"
+					});
+					
 					uni.navigateTo({
 						url: '/pagesub/YearCard/YearCardShopList?cardid=' + cardid + '&ordernumber='+ ordernumber
 					})
 				}else{
+					uma.trackEvent('Um_Event_ExchangeCard', {
+						Um_Key_ItemName: "普通兑换"
+					});
+					
 					uni.redirectTo({
 						url: './redemption_center?cardid=' + cardid + '&ordernumber='+ ordernumber
 					})
@@ -166,6 +179,10 @@
 			},
 			//去充值
 			goRecharge: function(e) {
+				uma.trackEvent('Um_Event_ExchangeRecharge', {
+					Um_Key_ItemName: "兑换充值"
+				});
+				
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let memberid = uni.getStorageSync('id')
 				let controller = 'order';
@@ -192,6 +209,10 @@
 			},
 			// 换货/售后
 			refundHandler: function(e){
+				uma.trackEvent('Um_Event_ExchangeRefund', {
+					Um_Key_ItemName: "兑换换货/售后"
+				});
+				
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.redirectTo({
 					url: `../../pagesub/Refund/RefundAfterSale?ordernumber=${ordernumber}` //退换/售后
@@ -202,16 +223,28 @@
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				let is_nianka = e.currentTarget.dataset.isnianka;
 				if(is_nianka == 1){
+					uma.trackEvent('Um_Event_YearCardDetail', {
+						Um_Key_ItemName: "年卡兑换订单详情"
+					});
+					
 					uni.navigateTo({
 						url: '/pagesub/YearCard/YearCardDetail?ordernumber='+ ordernumber
 					})
 				}else{
+					uma.trackEvent('Um_Event_ExchangeOrderInfo', {
+						Um_Key_ItemName: "兑换订单详情"
+					});
+					
 					uni.navigateTo({
 						url: './ExchangeOrderInfo?ordernumber=' + ordernumber
 					})
 				}
 			},
 			clickHandler: function(e){
+				uma.trackEvent('Um_Event_ExchangeYearCardOrderList', {
+					Um_Key_ItemName: "年卡兑换记录"
+				});
+				
 				let ordernumber = e.currentTarget.dataset.ordernumber;
 				uni.navigateTo({
 					url: '/pagesub/YearCard/YearCardOrderList?ordernumber='+ordernumber

@@ -53,6 +53,7 @@
 
 <script>
 	import config from '../../common/config.js';
+	import uma from 'umtrack-wx';
 	export default{
 		data(){
 			return{
@@ -84,6 +85,10 @@
 		methods:{
 			//立即付款
 			forsubmit: function(e){
+				uma.trackEvent('Um_Event_ExchangePackages', {
+					Um_Key_ItemName: "兑换转赠立即付款"
+				});
+				
 				let memberid = uni.getStorageSync('id');
 				var that = this;
 				let data = JSON.stringify({
