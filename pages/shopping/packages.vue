@@ -491,7 +491,7 @@
 								let serial_number = res.rs.serial_number;
 								// 获取ip
 								uni.request({
-									url: 'https://zhijianlw.com/api.php/test/getip',
+									url: 'https://zhijianlw.com/api.php/index/getip',
 									success: (res) => {
 										console.log(res.data);
 										let action = 'add_paylog_to_wx';
@@ -610,7 +610,7 @@
 													
 													uni.hideLoading();
 													uni.request({
-														url: 'https://zhijianlw.com/api.php/test/set_agent_cardbag',
+														url: 'https://zhijianlw.com/api.php/index/set_agent_cardbag',
 														data: {
 															serial_number: that.outTradeNo
 														},

@@ -706,7 +706,7 @@
 							uni.hideLoading();
 
 							uni.request({
-								url: 'http://zhijianlw.com/api.php/test/set_agent_cardbag',
+								url: 'http://zhijianlw.com/api.php/index/set_agent_cardbag',
 								data: {
 									serial_number: that.outTradeNo
 								},

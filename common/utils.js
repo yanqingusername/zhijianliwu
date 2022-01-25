@@ -34,7 +34,7 @@ import config from './config.js';
 // var appid = 'wx9c53a99b078435f5';
 // var appkey = 'eee30bd75af1dbdee76296108b27ba84';
 // 地址前缀
-// let url = 'https://zhijianlw.com/api.php/test/index?'
+// let url = 'https://zhijianlw.com/api.php/index/index?'
 // 测试
 // var appid = 'wl9d8a121ce5816666';
 // var appkey = '698d51a19d8a121ce581499d7b7066666';
@@ -710,7 +710,7 @@ async function wxPay(orderNumber, type) {
 	 */
 	async function getIp() {
 		let [error, res] = await uni.request({
-			url: 'https://zhijianlw.com/api.php/test/getip'
+			url: 'https://zhijianlw.com/api.php/index/getip'
 		});
 		if (error) {
 			return false;

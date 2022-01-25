@@ -398,7 +398,7 @@
 								let openid = uni.getStorageSync('openid');
 								// 获取ip
 								uni.request({
-									url: 'https://zhijianlw.com/api.php/test/getip',
+									url: 'https://zhijianlw.com/api.php/index/getip',
 									success: (res) => {
 										console.log(res.data);
 										let action = 'add_paylog_to_wx';
