@@ -116,16 +116,16 @@
 			var memberid = uni.getStorageSync('id')
 			this.memberid = memberid;
 			this.good_keynum = good_keynum;
-			var action = 'get_goods_detail';
-			var data = JSON.stringify({
-				keynum: good_keynum,
-				memberid: memberid,
-			});
+			// var action = 'get_goods_detail';
+			// var data = JSON.stringify({
+			// 	keynum: good_keynum,
+			// 	memberid: memberid,
+			// });
 
-			this.$utils.post(action, data).then(res => {
-				console.log('获取商品详细信息', res)
-				this.goodsinfo = res.rs.goodsinfo;
-			})
+			// this.$utils.post(action, data).then(res => {
+			// 	console.log('获取商品详细信息', res)
+			// 	this.goodsinfo = res.rs.goodsinfo;
+			// })
 		},
 		onShow: function(e) {
 			this.$set(this.address, 'id', uni.getStorageSync('member_area_id'));
@@ -133,10 +133,46 @@
 			this.$set(this.address, 'phone', uni.getStorageSync('member_area_linktel'));
 			this.$set(this.address, 'address', uni.getStorageSync('member_area_address'));
 
-			this.isShowAddress = false;
-
+			// this.isShowAddress = false;
+			
+			var memberid = uni.getStorageSync('id')
+			this.memberid = memberid;
+			var action = 'get_goods_detail';
+			var data = JSON.stringify({
+				keynum: this.good_keynum,
+				memberid: memberid,
+			});
+			
+			this.$utils.post(action, data).then(res => {
+				console.log('获取商品详细信息', res)
+				this.goodsinfo = res.rs.goodsinfo;
+				
+				let keynum =res.rs.goodsinfo.keynum || '';
+				this.getcheckgoodsarea(keynum);
+			})
 		},
 		methods: {
+			getcheckgoodsarea(keynum){
+				let memberid = uni.getStorageSync('id');
+				let action = "check_goods_area";
+				let data = JSON.stringify({
+					memberid: memberid,
+					member_area_id: this.address.id || '',
+					keynum: keynum
+				});
+				let controller = "goods";
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						this.isShowAddress = false;
+					} else {
+						this.isShowAddress = true;
+						uni.showToast({
+							icon: "none",
+							title: res.msg
+						})
+					}
+				})
+			},
 			close: function(){
 				this.showInput = true;
 				this.showPop = false;

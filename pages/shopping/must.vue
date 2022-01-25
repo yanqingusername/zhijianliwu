@@ -218,26 +218,26 @@
 			//商品展示
 			let type = e.type
 			this.buy_type=type
-			let memberid = uni.getStorageSync('id')
-			this.memberid = memberid;
-			var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '"}';
+			// let memberid = uni.getStorageSync('id')
+			// this.memberid = memberid;
+			// var data = '{"memberid":"' + memberid + '","buy_type":"' + type + '"}';
 
-			var action = 'get_buy_shopping_cart';
-			this.$utils.post(action, data).then(res => {
-				console.log('商品信息', res)
-				let icon = "success"
-				if (res.sta != 1) {
-					icon = "none";
-					uni.showToast({
-						icon: icon,
-						title: res.msg,
-						duration: 2000
-					});
-					return
-				}
-				this.list = res.rs.goodslist
-				this.sum = res.rs.price_zhe
-			})
+			// var action = 'get_buy_shopping_cart';
+			// this.$utils.post(action, data).then(res => {
+			// 	console.log('商品信息', res)
+			// 	let icon = "success"
+			// 	if (res.sta != 1) {
+			// 		icon = "none";
+			// 		uni.showToast({
+			// 			icon: icon,
+			// 			title: res.msg,
+			// 			duration: 2000
+			// 		});
+			// 		return
+			// 	}
+			// 	this.list = res.rs.goodslist
+			// 	this.sum = res.rs.price_zhe
+			// })
 			// var action = 'get_coupon_number_list';
 			// this.$utils.post(action, data).then(res => {
 			// 	console.log('优惠券', res)
@@ -274,12 +274,65 @@
 			this.coupon_money = uni.getStorageSync('coupon_money');
 			this.coupon_number = uni.getStorageSync('coupon_number');
 			
-			this.isShowAddress = false;
+			// this.isShowAddress = false;
+			
+			let memberid = uni.getStorageSync('id')
+			this.memberid = memberid;
+			var data = '{"memberid":"' + memberid + '","buy_type":"' + this.buy_type + '"}';
+			var action = 'get_buy_shopping_cart';
+			this.$utils.post(action, data).then(res => {
+				console.log('商品信息', res)
+				let icon = "success"
+				if (res.sta != 1) {
+					icon = "none";
+					uni.showToast({
+						icon: icon,
+						title: res.msg,
+						duration: 2000
+					});
+					return
+				}
+				this.list = res.rs.goodslist
+				this.sum = res.rs.price_zhe
+				
+				let keynumarr=[];
+				if(res.rs.goodslist.length> 0){
+					for (var i = 0; i < res.rs.goodslist.length; i++) {
+						let item = res.rs.goodslist[i];
+						keynumarr.push(item.keynum)
+					}
+					if(keynumarr.length > 0){
+						let keynum = keynumarr.join(',');
+						this.getcheckgoodsarea(keynum);
+					}
+				}
+			})
 			
 			//计算总计金额
 			this.caltotalmoney(1)
 		},
 		methods: {
+			getcheckgoodsarea(keynum){
+				let memberid = uni.getStorageSync('id')
+				let action = "check_goods_area";
+				let data = JSON.stringify({
+					memberid: memberid,
+					member_area_id:this.address.id || '',
+					keynum: keynum
+				});
+				let controller = "goods";
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						this.isShowAddress = false;
+					} else {
+						this.isShowAddress = true;
+						uni.showToast({
+							icon: "none",
+							title: res.msg
+						})
+					}
+				})
+			},
 			choiceAddress: function() {
 				uni.navigateTo({
 					url: '../Add/Add?cardbag_number=5',

@@ -124,7 +124,8 @@
 				title_length: "",
 				// 开启地址权限
 				scope: '',
-				isShowAddress: false
+				isShowAddress: false,
+				keynumarr: [],
 			}
 		},
 		onShow: function() {
@@ -139,7 +140,7 @@
 				// })
 				let member_area_id = uni.getStorageSync('member_area_id')
 				this.index = member_area_id;
-				this.addlist();
+				this.addlist(2);
 			}
 
 			if (this.scope == true) {
@@ -147,7 +148,7 @@
 				that.chooseadd()
 			}
 
-			this.isShowAddress = false;
+			// this.isShowAddress = false;
 		},
 		onLoad: function(e) {
 			let that = this;
@@ -162,7 +163,7 @@
 			
 			
 			// 1.获取地址列表
-			this.addlist();
+			this.addlist(1);
 			// 2.子订单列表
 			this.orderlist();
 			
@@ -180,8 +181,30 @@
 			
 		},
 		methods: {
+			getcheckgoodsarea(){
+				let memberid = uni.getStorageSync('id');
+				let keynum = this.keynumarr.length > 0 ? this.keynumarr.join(',') : '';
+				let action = "check_goods_area";
+				let data = JSON.stringify({
+					memberid: memberid,
+					member_area_id: this.member_area_id || '',
+					keynum: keynum
+				});
+				let controller = "goods";
+				this.$utils.postNew(action, data, controller).then(res => {
+					if (res.sta == 1) {
+						this.isShowAddress = false;
+					} else {
+						this.isShowAddress = true;
+						uni.showToast({
+							icon: "none",
+							title: res.msg
+						})
+					}
+				})
+			},
 			// 1.获取地址列表
-			addlist: function(e) {
+			addlist(typeNumber) {
 				var that = this;
 				var data = '{"memberid":"' + this.id + '"}';
 				var action = 'get_member_area';
@@ -236,7 +259,10 @@
 			// 			})
 			
 					}
-			
+					
+					if(typeNumber == 2){
+						this.getcheckgoodsarea()
+					}
 				})
 			},
 			
@@ -472,20 +498,20 @@
 								}
 								for (let j in res.rs) {
 									if (cityName == res.rs[j].name) {
-										this.cityName = res.rs[j].id;
+										that.cityName = res.rs[j].id;
 										console.log(res.rs[j].name)
 										var data = '{"level":"3","parentid":"' + res.rs[j].id + '"}';
 										var action = 'get_area';
-										this.$utils.post(action, data).then(res => {
+										that.$utils.post(action, data).then(res => {
 											console.log('县', res)
 											if (res.rs.length == 0) {
 												that.addresss = true;
 											}
 											for (let z in res.rs) {
 												if (countyName == res.rs[z].name) {
-													this.countyName = res.rs[z].id;
+													that.countyName = res.rs[z].id;
 													console.log(res.rs[z].name)
-													this.adds()
+													that.adds()
 												} else {
 													that.addresss = true;
 												}
@@ -535,6 +561,7 @@
 							this.member_area_id = res.rs[0].id;
 							this.addsign = 2;
 			
+							this.getcheckgoodsarea()
 						})
 			
 					} else {
@@ -606,7 +633,18 @@
 					this.goods_spec = new Array(res.rs[0].goodsinfo.length);
 					// 规格名称   比如颜色  规格  之类的
 					this.item = new Array(res.rs[0].goodsinfo.length);
-			
+					
+					
+					if(this.purchase.length> 0){
+						for (var i = 0; i < this.purchase.length; i++) {
+							let item = this.purchase[i];
+							this.keynumarr.push(item.keynum)
+						}
+					}
+					
+					setTimeout(()=>{
+						this.getcheckgoodsarea();
+					},200)
 			
 				})
 			},
