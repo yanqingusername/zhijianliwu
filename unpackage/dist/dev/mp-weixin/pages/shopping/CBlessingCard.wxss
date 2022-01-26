@@ -318,8 +318,8 @@ page{
 	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
-	height: 750rpx;
-	width: 442rpx;
+	height: 736rpx;
+	width: 460rpx;
 	text-align: center;
 	border-radius: 6rpx;
 }
@@ -329,7 +329,7 @@ page{
 	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
-	height: 834rpx;
+	height: 784rpx;
     width: 490rpx;
 	text-align: center;
 	border-radius: 6rpx;
@@ -337,12 +337,12 @@ page{
 .swiper-tall {
 	display: flex;
 	align-items: center;
-	height: 850rpx;
+	height: 800rpx;
 }
 .icon-card-select-1{
 	position: absolute;
-	    top: 230rpx;
-	    left: 60rpx;
+	    top: 270rpx;
+	    left: 90rpx;
 	    width: 50rpx;
 	    height: 50rpx;
 		/* border-radius: 50%; */

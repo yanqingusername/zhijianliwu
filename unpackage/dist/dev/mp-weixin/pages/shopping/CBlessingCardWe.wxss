@@ -12,19 +12,19 @@ page{
 }
 .icon-card-select-0{
 	width: 750rpx;
-	height: 1275rpx;
+	height: 1200rpx;
 }
 .icon-card-select-1{
 	position: absolute;
-	    top: 340rpx;
-	    left: 84rpx;
+	        top: 390rpx;
+	        left: 120rpx;
 	    width: 76rpx;
 	    height: 76rpx;
 }
 .icon-card-select-2{
 	position: absolute;
-	    top: 450rpx;
-	        left: 84rpx;
+	    top: 500rpx;
+	    left: 120rpx;
 	    width: 400rpx;
 	    font-size: 24rpx;
 	    color: #575D65;
@@ -33,15 +33,15 @@ page{
 }
 .icon-card-select-3{
 	    position: absolute;
-	    top: 490rpx;
-	    left: 84rpx;
-	    width: 590rpx;
+	    top: 540rpx;
+		left: 120rpx;
+		width: 508rpx;
 	    height: 224rpx;
 }
 .icon-card-select-4{
 	position: absolute;
-	    top: 736rpx;
-	    right: 76rpx;
+	        top: 772rpx;
+	        right: 125rpx;
 	    width: 353rrpx;
 	    height: 30rpx;
 	    font-size: 24rpx;

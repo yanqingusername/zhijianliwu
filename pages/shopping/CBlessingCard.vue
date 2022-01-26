@@ -44,7 +44,7 @@
 								:src="$utils.imageUrl(item.background)">
 							</image>
 							<image v-if="swiperCurrentIndex == index" class="icon-card-select-1" :src="IMG_DATA" mode="heightFix"></image>
-							<view style="position: absolute;top: 300rpx;width: 195px;height: 100px;left: 60rpx;box-sizing: border-box;">
+							<view style="position: absolute;top: 340rpx;width: 160px;height: 100px;left: 90rpx;box-sizing: border-box;">
 								<view v-if="swiperCurrentIndex == index" class="icon-card-select-2">{{text}}</view>
 								<!-- <image v-if="swiperCurrentIndex == index" class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
 								<view v-if="swiperCurrentIndex == index" class="icon-card-select-3">
@@ -634,8 +634,8 @@
 		justify-content: center;
 		margin-left: auto;
 		margin-right: auto;
-		height: 750rpx;
-		width: 442rpx;
+		height: 736rpx;
+		width: 460rpx;
 		text-align: center;
 		border-radius: 6rpx;
 	}
@@ -645,7 +645,7 @@
 		justify-content: center;
 		margin-left: auto;
 		margin-right: auto;
-		height: 834rpx;
+		height: 784rpx;
 	    width: 490rpx;
 		text-align: center;
 		border-radius: 6rpx;
@@ -654,13 +654,13 @@
 	.swiper-tall {
 		display: flex;
 		align-items: center;
-		height: 850rpx;
+		height: 800rpx;
 	}
 	
 	.icon-card-select-1{
 		position: absolute;
-		    top: 230rpx;
-		    left: 60rpx;
+		    top: 270rpx;
+		    left: 90rpx;
 		    width: 50rpx;
 		    height: 50rpx;
 			/* border-radius: 50%; */

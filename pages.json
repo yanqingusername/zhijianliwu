@@ -466,13 +466,13 @@
 			// 	"navigationBarTitleText":"详情"
 			// }
    //      }
-        ,{
-            "path" : "pages/theme/theme",
-            "style" : {
-				"navigationBarTitleText":"主题商品"
-			}
-        },
-		{
+        // ,{
+        //     "path" : "pages/theme/theme",
+        //     "style" : {
+		// 		"navigationBarTitleText":"主题商品"
+		// 	}
+        // }
+		,{
 		    "path" : "pages/shopping/shop",
 		    "style" : {
 				"navigationBarTitleText":"",

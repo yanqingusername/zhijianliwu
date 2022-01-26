@@ -27,7 +27,7 @@
 				text: '',
 				content: '',
 				title: '',
-				bg_icon:"https://zhijianlw.com/static/web/img/icon_card_share_2021_12_31_01.png"
+				bg_icon:"https://zhijianlw.com/static/web/img/icon_card_share_2022_01_25_01.png"
 			}
 		},
 		onLoad(e) {
@@ -81,7 +81,7 @@
 							await this.$refs.rCanvas.init({
 								canvas_id: "rCanvas",
 								canvas_width: 375,
-								canvas_height: 638,
+								canvas_height: 600,
 								hidden: true,
 								showType: 1
 							})
@@ -91,7 +91,7 @@
 								x: 0,
 								y: 0,
 								w: 375,
-								h: 638
+								h: 600
 							}).catch(err_msg => {
 								uni.showToast({
 									title: err_msg,
@@ -101,8 +101,8 @@
 							// 画头像
 							await this.$refs.rCanvas.drawImage({
 								url: this.flowUrl,
-								x: 42,
-								y: 170,
+								x: 67,
+								y: 200,
 								w: this.coverWidth,
 								h: 38
 							}).catch(err_msg => {
@@ -114,8 +114,8 @@
 							// 画名字
 							await this.$refs.rCanvas.drawText({
 								text: this.text,
-								x: 42,
-								y: 230,
+								x: 67,
+								y: 260,
 								font_color: "#575D65",
 								font_size: 12,
 								max_width: 200,
@@ -138,11 +138,11 @@
 							// 画名字
 							await this.$refs.rCanvas.drawText({
 								text: '   '+this.content,
-								x: 42,
-								y: 254,
+								x: 67,
+								y: 284,
 								font_color: "#575D65",
 								font_size: 12,
-								max_width: 295,
+								max_width: 240,
 								line_clamp: 4,
 								line_height: 26,
 								is_line_break: true
@@ -156,11 +156,11 @@
 							// 画名字
 							await this.$refs.rCanvas.drawText({
 								text: this.title,
-								x: 335,
-								y: 370,
+								x: 310,
+								y: 400,
 								font_color: "#575D65",
 								font_size: 12,
-								max_width: 295,
+								max_width: 240,
 								text_align: 'right'
 							}).catch(err_msg => {
 								uni.showToast({
@@ -185,13 +185,13 @@
 							// 画小程序二维码
 							await this.$refs.rCanvas.drawImage({
 								url: this.QRcodeUrl,
-								x: 25,
-								y: 515,
-								w: 88,
-								h: 88,
+								x: 145,
+								y: 457,
+								w: 85,
+								h: 85,
 								radius: 12,
 								border_color: '#F7E8CB',
-								border_width: 6,
+								border_width: 4,
 								is_radius: true
 							}).catch(err_msg => {
 								uni.showToast({
@@ -203,9 +203,9 @@
 							
 							// 画 长按扫码即可送礼
 							await this.$refs.rCanvas.drawText({
-								text: "长按小程序二维码",
-								x: 125,
-								y: 557,
+								text: "长按小程序二维码领取礼物",
+								x: 80,
+								y: 570,
 								font_color: "#FFFCF3",
 								font_size: 18
 							}).catch(err_msg => {
@@ -216,18 +216,18 @@
 							})
 							
 							// 画 长按扫码即可送礼
-							await this.$refs.rCanvas.drawText({
-								text: "领取礼物",
-								x: 125,
-								y: 580,
-								font_color: "#FFFCF3",
-								font_size: 18
-							}).catch(err_msg => {
-								uni.showToast({
-									title: err_msg,
-									icon: "none"
-								})
-							})
+							// await this.$refs.rCanvas.drawText({
+							// 	text: "领取礼物",
+							// 	x: 125,
+							// 	y: 580,
+							// 	font_color: "#FFFCF3",
+							// 	font_size: 18
+							// }).catch(err_msg => {
+							// 	uni.showToast({
+							// 		title: err_msg,
+							// 		icon: "none"
+							// 	})
+							// })
 							
 							// 画 长按扫码即可送礼
 							// await this.$refs.rCanvas.drawText({
@@ -331,7 +331,7 @@
 	}
 	.share-bag {
 		width: 750rpx;
-		height: 1275rpx;
+		height: 1200rpx;
 		display: flex;
 		justify-content: center;
 		margin: auto;
@@ -340,7 +340,7 @@
 		display: block;
 		margin: 0rpx auto;
 		width: 375px;
-		height: 638px;
+		height: 600px;
 		/* border-radius: 16rpx;
 		margin-top: -19rpx; */
 	}

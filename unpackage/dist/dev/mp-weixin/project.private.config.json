@@ -83,6 +83,18 @@
           "pathName": "pages/index/index",
           "query": "_ttn=61e9062ee014255fcbf9a444",
           "scene": null
+        },
+        {
+          "name": "pages/shopping/CBlessingCardShare",
+          "pathName": "pages/shopping/CBlessingCardShare",
+          "query": "cardbag_number=21220125664151",
+          "scene": null
+        },
+        {
+          "name": "pages/shopping/CBlessingCardWe",
+          "pathName": "pages/shopping/CBlessingCardWe",
+          "query": "scene=21220125664151",
+          "scene": null
         }
       ]
     }

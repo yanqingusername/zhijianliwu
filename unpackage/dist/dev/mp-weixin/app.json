@@ -67,7 +67,6 @@
     "pages/shopping/text",
     "pages/shopping/text1",
     "pages/shopping/text2",
-    "pages/theme/theme",
     "pages/shopping/shop",
     "pages/settlement/settlement",
     "pages/shopList/shopList",
@@ -170,6 +169,5 @@
   "usingComponents": {
     "navgation": "/wxcomponents/navgation/navgation",
     "address": "/components/simple-address/simple-address"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

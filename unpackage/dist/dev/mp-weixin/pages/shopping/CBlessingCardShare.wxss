@@ -10,7 +10,7 @@ page{
 }
 .share-bag {
 	width: 750rpx;
-	height: 1275rpx;
+	height: 1200rpx;
 	display: flex;
 	justify-content: center;
 	margin: auto;
@@ -19,7 +19,7 @@ page{
 	display: block;
 	margin: 0rpx auto;
 	width: 375px;
-	height: 638px;
+	height: 600px;
 	/* border-radius: 16rpx;
 	margin-top: -19rpx; */
 }
