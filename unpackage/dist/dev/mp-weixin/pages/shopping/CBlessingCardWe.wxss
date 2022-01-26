@@ -69,6 +69,20 @@ page{
 	    font-size: 30rpx;
 	    border-radius: 50rpx;
 }
+.new-new-gift-btn{
+	width: 526rpx;
+	height: 90rpx;
+	background: linear-gradient(180deg, #FDE5CB 0%, #FAC79C 100%);
+	border-radius: 48rpx;
+	position: absolute;
+    bottom: 170rpx;
+    left: 112rpx;
+	font-size: 33rpx;
+	color: #000000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 
 /*wxss*/

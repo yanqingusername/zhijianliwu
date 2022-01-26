@@ -11,11 +11,15 @@
 				 </view>
 			</view>
 			<view class="icon-card-select-4">{{title}}</view>
+			<view class="new-new-gift-btn" v-if="isShowCheck == 0" @click="getgift">立即收礼</view>
+			<view class="new-new-gift-btn" v-else-if="isShowCheck == 2" @click="toConversionDetails">查看领取详情</view>
+			<view class="new-new-gift-btn" v-else-if="isShowCheck == 3" @click="toConversionDetailsOther">已收礼</view>		
+			<view class="new-new-gift-btn" v-else>礼物已领完</view>
 		</view>
-		<button class="gift-btn" v-if="isShowCheck == 0" type="warn" @click="getgift">立即收礼</button>
+		<!-- <button class="gift-btn" v-if="isShowCheck == 0" type="warn" @click="getgift">立即收礼</button>
 		<button class="gift-btn" v-else-if="isShowCheck == 2" type="warn" @click="toConversionDetails">查看领取详情</button>
 		<button class="gift-btn" v-else-if="isShowCheck == 3" type="warn" @click="toConversionDetailsOther">已收礼</button>		
-		<button class="new-gift-btn" v-else>礼物已领完</button>
+		<button class="new-gift-btn" v-else>礼物已领完</button> -->
 		
 	</view>
 </template>
@@ -412,6 +416,21 @@
 		    margin-bottom: 30rpx;
 		    font-size: 30rpx;
 		    border-radius: 50rpx;
+	}
+	
+	.new-new-gift-btn{
+		width: 526rpx;
+		height: 90rpx;
+		background: linear-gradient(180deg, #FDE5CB 0%, #FAC79C 100%);
+		border-radius: 48rpx;
+		position: absolute;
+	    bottom: 170rpx;
+	    left: 112rpx;
+		font-size: 33rpx;
+		color: #000000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	
 	/*wxss*/
