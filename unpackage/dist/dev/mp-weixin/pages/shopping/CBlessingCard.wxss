@@ -341,8 +341,8 @@ page{
 }
 .icon-card-select-1{
 	position: absolute;
-	    top: 270rpx;
-	    left: 90rpx;
+	    top: 265rpx;
+	    left: 100rpx;
 	    width: 50rpx;
 	    height: 50rpx;
 		/* border-radius: 50%; */
@@ -351,7 +351,7 @@ page{
 	   position: absolute;
 	       /* top: 300rpx;
 	       left: 60rpx; */
-	       width: 390rpx;
+	       width: 320rpx;
 	       font-size: 14rpx;
 	       /* color: #575D65; */
 	       height: 35rpx;
@@ -361,15 +361,15 @@ page{
 	/* position: absolute;
 	    top: 324rpx;
 	    left: 60rpx; */
-	        width: 395rpx;
-	        height: 146rpx;
-	        margin-top: 30rpx;
+	        width: 325rpx;
+	        height: 154rpx;
+	        margin-top: 20rpx;
 }
 .icon-card-select-4{
 	position: absolute;
 	    /* top: 476rpx; */
 	    right: 0rpx;
-	    width: 395rrpx;
+	    width: 325rrpx;
 	    height: 30rpx;
 	    font-size: 14rpx;
 	    /* color: #575D65; */

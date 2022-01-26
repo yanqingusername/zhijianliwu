@@ -44,12 +44,12 @@
 								:src="$utils.imageUrl(item.background)">
 							</image>
 							<image v-if="swiperCurrentIndex == index" class="icon-card-select-1" :src="IMG_DATA" mode="heightFix"></image>
-							<view style="position: absolute;top: 340rpx;width: 160px;height: 100px;left: 90rpx;box-sizing: border-box;">
+							<view style="position: absolute;top: 335rpx;height: 100px;left: 100rpx;box-sizing: border-box;">
 								<view v-if="swiperCurrentIndex == index" class="icon-card-select-2">{{text}}</view>
 								<!-- <image v-if="swiperCurrentIndex == index" class="icon-card-select-3" src="https://zhijianlw.com/static/web/img/icon-card-edit-title-09-27.png"></image> -->
 								<view v-if="swiperCurrentIndex == index" class="icon-card-select-3">
-									<view class="section1" style="height: 146rpx;">
-									   <textarea class="text1" disabled="true" maxlength="84" :value="content" style="height: 146rpx;"/>
+									<view class="section1" style="height: 154rpx;">
+									   <textarea class="text1" disabled="true" maxlength="84" :value="content" style="height: 154rpx;"/>
 									 </view>
 								</view>
 								<view v-if="swiperCurrentIndex == index" class="icon-card-select-4">{{title}}</view>
@@ -659,8 +659,8 @@
 	
 	.icon-card-select-1{
 		position: absolute;
-		    top: 270rpx;
-		    left: 90rpx;
+		    top: 265rpx;
+		    left: 100rpx;
 		    width: 50rpx;
 		    height: 50rpx;
 			/* border-radius: 50%; */
@@ -669,7 +669,7 @@
 		   position: absolute;
 		       /* top: 300rpx;
 		       left: 60rpx; */
-		       width: 390rpx;
+		       width: 320rpx;
 		       font-size: 14rpx;
 		       /* color: #575D65; */
 		       height: 35rpx;
@@ -679,15 +679,15 @@
 		/* position: absolute;
 		    top: 324rpx;
 		    left: 60rpx; */
-		        width: 395rpx;
-		        height: 146rpx;
-		        margin-top: 30rpx;
+		        width: 325rpx;
+		        height: 154rpx;
+		        margin-top: 20rpx;
 	}
 	.icon-card-select-4{
 		position: absolute;
 		    /* top: 476rpx; */
 		    right: 0rpx;
-		    width: 395rrpx;
+		    width: 325rrpx;
 		    height: 30rpx;
 		    font-size: 14rpx;
 		    /* color: #575D65; */
