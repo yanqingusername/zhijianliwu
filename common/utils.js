@@ -122,7 +122,7 @@ function post(action, data) {
 			method: 'POST',
 			// 成功回调
 			success: (res) => {
-				// console.log(res)
+				console.log(res)
 				if (res.data.sta == 1) {
 					resolve(res.data);
 				} else {
@@ -130,6 +130,7 @@ function post(action, data) {
 				}
 			},
 			complete: (res, err) => {
+				console.log(res,err)
 				// DEBUG = 1 的话开启 调试打印
 				// 蓝色(#66F)为正常答应
 				// 红色(#F66)为错误请求
@@ -537,10 +538,14 @@ function osspath_url(path){
  * 小程序字符串截取函数，超过指定字符截取制定，增加。。。，未超过直接返回不增加。。。
  */
 function  cut_str(str,length=10){
-	if(str.length<=10){
-		return str
-	}else {
-		return   str.substr(0,length)+"..."
+	if(str){
+		if(str.length<=10){
+			return str
+		}else {
+			return   str.substr(0,length)+"..."
+		}
+	}else{
+		return ""
 	}
 }
 

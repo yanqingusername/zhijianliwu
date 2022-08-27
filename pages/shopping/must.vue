@@ -128,10 +128,13 @@
 		<view class="must-bottom heji">
 			<text style="color: #EB1615; font-size: 30rpx;">￥</text>
 			<text class="must-bottom-price">{{new_price_zhe || '0.00'}}</text>
-			<view class="pay clearfix" v-if="isShowAddress">
+			<!-- <view class="pay clearfix" v-if="isShowAddress">
 				<button class="shop-payment shop-payment-active " style="background: #EFA13C;opacity: 0.6;">该地区无货</button>
 			</view>
 			<view class="pay clearfix" v-else>
+				<button class="shop-payment shop-payment-active " @click="$buttonClick(forsubmit)" v-if="com==false">立即付款</button>
+			</view> -->
+			<view class="pay clearfix">
 				<button class="shop-payment shop-payment-active " @click="$buttonClick(forsubmit)" v-if="com==false">立即付款</button>
 			</view>
 		</view>

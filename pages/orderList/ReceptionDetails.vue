@@ -25,7 +25,7 @@
 				<view class="new-order-li-bottom" v-if="orderReceptionInfo.orderinfo.is_new_cardbag !=1 ">
 					<view class="new-order-nickname"></view>
 					<view class="new-order-botton-view">
-						<view class="new-order-botton-gray" @click="goTransfer" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber" :data-isexchangetype="orderReceptionInfo.orderinfo.is_exchange_type">转赠</view>
+						<!-- <view class="new-order-botton-gray" @click="goTransfer" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber" :data-isexchangetype="orderReceptionInfo.orderinfo.is_exchange_type">转赠</view> -->
 						<view class="new-order-botton" @click="ReceptionAddress" :data-ordernumber="orderReceptionInfo.orderinfo.ordernumber">填写收货地址</view>
 					</view>
 				</view>

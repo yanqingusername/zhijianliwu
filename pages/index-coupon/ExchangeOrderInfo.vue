@@ -96,15 +96,15 @@
 					<view class="new-order-li-bottom">
 						<view class="new-order-nickname"></view>
 						<view class="new-order-botton-view" v-if="orderInfo.card_type == 0">
-							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
+							<!-- <view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view> -->
 							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="goRecharge" :data-ordernumber="orderInfo.ordernumber">去充值</view>
 							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 4" @click.stop="goConversionDetails" :data-ordernumber="orderInfo.ordernumber">转赠详情</view>
 							<!-- <view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
 						</view>
 						<view class="new-order-botton-view" v-if="orderInfo.card_type == 1">
-							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view>
+							<!-- <view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="orderInfo.ordernumber">转赠</view> -->
 							<view class="new-order-botton" v-if="orderInfo.order_status_type == 0" @click.stop="go_exchange" :data-cardid="orderInfo.cardid" :data-ordernumber="orderInfo.ordernumber">去兑换</view>
-							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view>
+							<!-- <view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 1 || orderInfo.order_status_type == 2 || orderInfo.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
 							<view class="new-order-botton-gray" v-if="orderInfo.order_status_type == 4" @click.stop="goConversionDetails" :data-ordernumber="orderInfo.ordernumber">转赠详情</view>
 						</view>
 					</view>

@@ -64,7 +64,7 @@
 						</scroll-view>
 					</view>
 					<view class="new-order-right">
-						<view class="new-order-item-money">¥<text style="font-size: 34rpx;">{{item.orderprice_discount}}</text></view>
+						<view class="new-order-item-money" v-if="nav==1 || nav==2">¥<text style="font-size: 34rpx;">{{item.orderprice_discount}}</text></view>
 						<view class="new-order-item-total">共{{item.goods_count}}件</view>
 					</view>
 				</view>
@@ -88,7 +88,7 @@
 					<view class="new-order-botton-view" v-if="nav==2">
 						<view class="new-order-botton-gray" v-if="item.status == 5" @click.stop="cancel" :data-ordernumber="item.ordernumber">取消订单</view>
 						<view class="new-order-botton" v-if="item.status == 5" @click.stop="submit" :data-ordernumber="item.ordernumber">立即支付</view>
-						<view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="2" :data-goodsinfolist="item.goods_info_list" :data-isrefundprice="item.is_refund_price">申请退款</view>
+						<!-- <view class="new-order-botton-gray" v-if="item.status == 0 || item.status == 1" @click.stop="ApplyRefund" :data-ordernumber="item.ordernumber" data-typerefund="1" :data-goodslength="item.goods_info_list.length" :data-detailid="item.goods_info_list[0].id" data-nav="2" :data-goodsinfolist="item.goods_info_list" :data-isrefundprice="item.is_refund_price">申请退款</view> -->
 						<view class="new-order-botton" v-if="item.status == 0 || item.status == 1" @click.stop="PresentNow" :data-ordernumber="item.ordernumber">立即赠送</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 0" @click.stop="ApplyInvoice" :data-ordernumber="item.ordernumber" :data-payprice="item.pay_price">申请开票</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3 && item.is_open_bill == 1" @click.stop="ApplyInfo" :data-ordernumber="item.ordernumber">发票详情</view>
@@ -97,11 +97,14 @@
 					</view>
 					
 					<view class="new-order-botton-view" v-if="nav==3">
-						<view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3) && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber" :data-isexchangetype="item.is_exchange_type">转赠</view>
+						<!-- <view class="new-order-botton-gray" v-if="(item.status == 0 || item.status == 1) && (item.card_type == 1 || item.card_type == 2 || item.card_type == 3) && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber" :data-isexchangetype="item.is_exchange_type">转赠</view> -->
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 1" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 2" @click.stop="ReceptionAddress" :data-ordernumber="item.ordernumber">填写收货地址</view>
 						<view class="new-order-botton" v-if="(item.status == 0 || item.status == 1) && item.card_type == 3" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">充值</view>
 						<view class="new-order-botton-gray" v-if="item.status == 3" @click.stop="RefundAfterSale" :data-ordernumber="item.ordernumber" :data-goodslength="item.goods_info_list.length" data-isreception="1" :data-isexchangegoods="item.is_exchange_goods" :data-detailid="item.goods_info_list[0].id">退换/售后</view>
+						
+						<view class="new-order-botton-gray" v-if="item.status == 2" @click.stop="receptiondetails" :data-ordernumber="item.ordernumber" :data-status="item.status" :data-cardtype="item.card_type" :data-isnianka="item.is_nianka">查看详情</view>
+						
 					</view>
 				</view>
 			</view>

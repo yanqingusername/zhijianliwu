@@ -50,19 +50,19 @@
 				<view class="new-order-li-bottom" v-if="item.order_status_type != 4">
 					<view class="new-order-nickname"></view>
 					<view class="new-order-botton-view" v-if="item.card_type == 0">
-						<view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+						<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view> -->
 						<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="goRecharge" :data-ordernumber="item.ordernumber">去充值</view>
 						<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3" @click.stop="$buttonClick(refundHandler)">换货/售后</view> -->
 					</view>
 					<view class="new-order-botton-view" v-if="item.card_type == 1">
 						<view class="new-order-botton-view" v-if="item.is_nianka==0">
-							<view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+							<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view> -->
 							<view class="new-order-botton" v-if="item.order_status_type == 0" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
-							<view class="new-order-botton-gray" v-if="(item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3) && item.is_nianka==0" @click.stop="refundHandler" :data-ordernumber="item.ordernumber">换货/售后</view>
+							<!-- <view class="new-order-botton-gray" v-if="(item.order_status_type == 1 || item.order_status_type == 2 || item.order_status_type == 3) && item.is_nianka==0" @click.stop="refundHandler" :data-ordernumber="item.ordernumber">换货/售后</view> -->
 						</view>
 						<view class="new-order-botton-view" v-else>
 							<view class="new-order-botton-gray" v-if="item.is_exchange == 1" @click.stop="clickHandler" :data-ordernumber="item.ordernumber" >兑换记录</view>
-							<view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view>
+							<!-- <view class="new-order-botton-gray" v-if="item.order_status_type == 0 && item.is_exchange==0" @click.stop="goTransfer" :data-ordernumber="item.ordernumber">转赠</view> -->
 							<view class="new-order-botton" v-if="item.order_status_type == 0 && item.is_cardbag_logo == 0" @click.stop="go_exchange" :data-cardid="item.cardid" :data-isnianka="item.is_nianka" :data-ordernumber="item.ordernumber">去兑换</view>
 						</view>
 					</view>
