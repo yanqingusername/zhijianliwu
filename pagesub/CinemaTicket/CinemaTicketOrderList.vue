@@ -3,7 +3,10 @@
 		<view class="personal-header" ><!-- :style="'height:' + (isSystemInfo ? '120' : '90') + 'px;" -->
 			<view class="my-nav" :style="'height:'+nav+'px'"></view>
 			<view class="personal-header-interstall" >
-				<view style="display: flex;position: absolute;align-items: center;left: 20rpx;" @click="$buttonClick(clickOrderHome)">
+				<view style="display: flex;position: absolute;align-items: center;left: 20rpx;" @click="$buttonClick(clickBack)">
+					<image class="search-type-img-ar" src="../../static/drop_down_arrow.png"></image>
+				</view>
+				<view style="display: flex;position: absolute;align-items: center;left: 100rpx;" @click="$buttonClick(clickOrderHome)">
 					<image class="icon-back-img" src="https://zhijianlw.com/static/web/img/icon_cime_back_2021_10_21.png"></image>
 					<view class="personal-header-lable">首页</view>
 				</view>
@@ -114,6 +117,11 @@
 			this.getFilmOrderList(1);
 		},
 		methods: {
+			clickBack(){
+				uni.navigateBack({
+					delta: 1
+				});
+			},
 			clickOrderHome(){
 				uni.redirectTo({
 					url: `/pagesub/CinemaTicket/CinemaTicketHome`
@@ -504,4 +512,10 @@ page{
 						display: flex;
 						align-items: center;
 					}
+					
+					.search-type-img-ar{
+							width: 50rpx;
+							height: 50rpx;
+							transform: rotate(90deg);
+						}
 </style>

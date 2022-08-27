@@ -102,9 +102,13 @@
 					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_07.png"  mode=""></image></view>
 					<view class="personal-item-li-text">我的客服</view>
 				</button>
-				<view class="personal-item-li" @click="share">
+				<!-- <view class="personal-item-li" @click="share">
 					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_08.png"  mode=""></image></view>
 					<view class="personal-item-li-text">分享推荐</view>
+				</view> -->
+				<view class="personal-item-li" @click="clickMyOrder">
+					<view class="personal-item-li-img"><image class="item-li-img" src="https://zhijianlw.com/static/web/img/icon_personal_0827_01.png"  mode=""></image></view>
+					<view class="personal-item-li-text">电影订单</view>
 				</view>
 			</view>
 		</view>
@@ -676,6 +680,11 @@
 				}
 				    
 	
+			},
+			clickMyOrder(){
+				uni.navigateTo({
+					url: '/pagesub/CinemaTicket/CinemaTicketOrderList'
+				})
 			},
 			giftList: function(e){
 				if(this.sta == '200'){

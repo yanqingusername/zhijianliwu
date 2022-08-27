@@ -261,4 +261,10 @@ page{
 						display: flex;
 						align-items: center;
 }
+.search-type-img-ar{
+							width: 50rpx;
+							height: 50rpx;
+							-webkit-transform: rotate(90deg);
+							        transform: rotate(90deg);
+}
 
