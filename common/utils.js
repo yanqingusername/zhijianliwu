@@ -209,6 +209,8 @@ function post(action, data) {
  */
 function postNew(action, data, controller) {
 	// var data =  JSON.stringify(data);
+	data = URLencode(data);
+	
 	var timestamp = Date.parse(new Date());
 	var ACTION = action;
 	timestamp = timestamp / 1000;

@@ -324,7 +324,6 @@
 				var action = 'set_movie_order_submit';
 				let controller = 'films';
 				this.$utils.postNew(action, data, controller).then(res => {
-					console.log('---->:',res.rs)
 					if(res.sta == 1){
 						
 						// if(res.rs.errCode == 0){
